@@ -549,201 +549,25 @@ export const SubHeaderCategory_DATA = [
       },
     ],
   },
-  // DESIGNER: [
-  //   {
-  //     image:
-  // "https://img01.ztat.net/banner/9597e79ebe77433ca39ba53b259573a7/2cd7014f7fd240279a732bb7bd692015.jpg?imwidth=693",
-  //   },
-
-  //   {
-  //     title: "Kategorie",
-  //     types: [
-  //       "Všechny kategorie",
-  //       "Šaty",
-  //       "Sukně",
-  //       "Kalhoty",
-  //       "Džíny",
-  //       "Trička a topy",
-  //       "Halenky a tuniky",
-  //       "Saka",
-  //       "Lehké bundy",
-  //       "Spodní prádlo",
-  //       "Ponožky a punčochy",
-  //     ],
-  //   },
-  //   {
-  //     title: "Značky",
-  //     types: [
-  //       "Všechny značky",
-  //       "Even&Odd",
-  //       "Anna Field",
-  //       "GAP",
-  //       "PULL&BEAR",
-  //       "Vero Moda",
-  //       "Stradivarius",
-  //       "Monki",
-  //       "ONLY",
-  //       "adidas",
-  //       "Levi's®",
-  //     ],
-  //   },
-  //   {
-  //     title: "Nepřehlédněte:",
-  //     types: [
-  //       "Streetwear & Sneakers Corner",
-  //       "Unisex móda",
-  //       "Ve vaší velikosti",
-  //       "Udržitelná móda",
-  //       "Těhotenská móda",
-  //       "Denimové trendy",
-  //     ],
-  //   },
-  // ],
-  // ZNAČKY: [
-  //   {
-  //     image:
-  // "https://img01.ztat.net/article/spp-media-p1/f287e3b4257e4197bb2163478325f2db/5ec42f959fdc48c79b9f69aafea2a145.jpg?imwidth=762",
-  //   },
-  //   {
-  //     title: "Kategorie",
-  //     types: [
-  //       "Všechny kategorie",
-  //       "Šaty",
-  //       "Sukně",
-  //       "Kalhoty",
-  //       "Džíny",
-  //       "Trička a topy",
-  //       "Halenky a tuniky",
-  //       "Saka",
-  //       "Lehké bundy",
-  //       "Spodní prádlo",
-  //       "Ponožky a punčochy",
-  //     ],
-  //   },
-  //   {
-  //     title: "Značky",
-  //     types: [
-  //       "Všechny značky",
-  //       "Even&Odd",
-  //       "Anna Field",
-  //       "GAP",
-  //       "PULL&BEAR",
-  //       "Vero Moda",
-  //       "Stradivarius",
-  //       "Monki",
-  //       "ONLY",
-  //       "adidas",
-  //       "Levi's®",
-  //     ],
-  //   },
-  //   {
-  //     title: "Nepřehlédněte:",
-  //     types: [
-  //       "Streetwear & Sneakers Corner",
-  //       "Unisex móda",
-  //       "Ve vaší velikosti",
-  //       "Udržitelná móda",
-  //       "Těhotenská móda",
-  //       "Denimové trendy",
-  //     ],
-  //   },
-  // ],
-  // VÝPRODEJ: [
-  //   {
-  //     image:
-  // "https://img01.ztat.net/article/spp-media-p1/ff39b9d310754586b27e4a5daca2c677/cb4e586e5b984d03a093a68c31c0046f.jpg?imwidth=762&filter=packshot",
-  //   },
-  //   {
-  //     title: "Kategorie",
-  //     types: [
-  //       "Všechny kategorie",
-  //       "Šaty",
-  //       "Sukně",
-  //       "Kalhoty",
-  //       "Džíny",
-  //       "Trička a topy",
-  //       "Halenky a tuniky",
-  //       "Saka",
-  //       "Lehké bundy",
-  //       "Spodní prádlo",
-  //       "Ponožky a punčochy",
-  //     ],
-  //   },
-  //   {
-  //     title: "Značky",
-  //     types: [
-  //       "Všechny značky",
-  //       "Even&Odd",
-  //       "Anna Field",
-  //       "GAP",
-  //       "PULL&BEAR",
-  //       "Vero Moda",
-  //       "Stradivarius",
-  //       "Monki",
-  //       "ONLY",
-  //       "adidas",
-  //       "Levi's®",
-  //     ],
-  //   },
-  //   {
-  //     title: "Nepřehlédněte:",
-  //     types: [
-  //       "Streetwear & Sneakers Corner",
-  //       "Unisex móda",
-  //       "Ve vaší velikosti",
-  //       "Udržitelná móda",
-  //       "Těhotenská móda",
-  //       "Denimové trendy",
-  //     ],
-  //   },
-  // ],
-  // PRE_OWNED: [
-  //   {
-  //     image:
-  //       "https://img01.ztat.net/banner/f992895d5c7d49a1ad5dd0850fb7f7a9/6372f728eb1b4f1c8a1f1e671a9aed4f.jpg?imwidth=693",
-  //   },
-  //   {
-  //     title: "Kategorie",
-  //     types: [
-  //       "Všechny kategorie",
-  //       "Šaty",
-  //       "Sukně",
-  //       "Kalhoty",
-  //       "Džíny",
-  //       "Trička a topy",
-  //       "Halenky a tuniky",
-  //       "Saka",
-  //       "Lehké bundy",
-  //       "Spodní prádlo",
-  //       "Ponožky a punčochy",
-  //     ],
-  //   },
-  //   {
-  //     title: "Značky",
-  //     types: [
-  //       "Všechny značky",
-  //       "Even&Odd",
-  //       "Anna Field",
-  //       "GAP",
-  //       "PULL&BEAR",
-  //       "Vero Moda",
-  //       "Stradivarius",
-  //       "Monki",
-  //       "ONLY",
-  //       "adidas",
-  //       "Levi's®",
-  //     ],
-  //   },
-  //   {
-  //     title: "Nepřehlédněte:",
-  //     types: [
-  //       "Streetwear & Sneakers Corner",
-  //       "Unisex móda",
-  //       "Ve vaší velikosti",
-  //       "Udržitelná móda",
-  //       "Těhotenská móda",
-  //       "Denimové trendy",
-  //     ],
-  //   },
-  // ],
 ];
+
+export const FOOTER_DATA_1 = {
+  title: "Poukazy a slevy",
+  data: [
+    "Koupit dárkové karty",
+    "Jak uplatním dárkovou kartu?",
+    "Informace o dárkových kartách",
+    "Firemní dárkové karty",
+  ],
+};
+
+export const FOOTER_DATA_2 = {
+  title: "O Zalandu",
+  data: ["Naše korporátní strana", "Kariéra", "Pro média", "Pro investory"],
+};
+
+export const FOOTER_DATA_3 = {
+  title: "Naše výhody",
+  data: ["Doprava zdarma*", "Vrácení zboží do 100 dnů", "Bezplatné vrácení zboží"],
+};
+export const FOOTER_DATA_4 = { title: "Naše služby", data: ["Zalando Marketing Services", "Objevte víc"] };
