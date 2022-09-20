@@ -1,0 +1,28 @@
+.header_search_transition {
+  /* position: absolute; */
+  transition: 0.4s linear;
+  width: 578px;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #1a1a1a;
+}
+.header_search_dropdown {
+  position: absolute;
+  top: 100%;
+  left: -1px;
+  /* height: 239px; */
+  width: 578px;
+  background-color: #ffff;
+  border: 1px solid #1a1a1a;
+  transition-delay: 2s;
+}
+.sub_dropdown {
+  padding: 0 12px;
+  border-bottom: 1px solid #1a1a1a;
+  font-size: 14px;
+  transition-delay: 2s;
+}
+.dropdown_list {
+  /* height: 72px; */
+  /* border: 1px solid #1a1a1a; */
+}

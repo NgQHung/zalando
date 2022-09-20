@@ -4,7 +4,7 @@ import "./navtools.css";
 const User = () => {
   return (
     <Fragment>
-      <div className="absolute h-[300px] w-[331px] bg-white top-full right-[-1px] border border-black ">
+      <div className="absolute h-[300px] w-[331px] bg-white top-full right-[-1px] border border-black z-50 ">
         <ul className=" pt-[2px] relative">
           <div className="mx-[26px]">
             <li className="user_list">
