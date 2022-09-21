@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import { FOOTER_DATA_1, FOOTER_DATA_2, FOOTER_DATA_3, FOOTER_DATA_4 } from "../../../../../utils/data";
-import Container from "../../container";
+import { FOOTER_DATA_1, FOOTER_DATA_2, FOOTER_DATA_3, FOOTER_DATA_4 } from "../../../../../../utils/data";
+import Container from "../../../container";
 import "./FooterInfo.css";
 
 const FooterInfo = () => {

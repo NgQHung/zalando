@@ -2,7 +2,7 @@ import { faFaceAngry } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
-import Container from "../../container";
+import Container from "../../../container";
 import "./FooterAbout.css";
 
 const FooterAbout = () => {

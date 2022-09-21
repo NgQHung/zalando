@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 // import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import "./subHeader_category.css";
-import { SubHeaderCategory_DATA } from "../../../../../utils/data";
+import { SubHeaderCategory_DATA } from "../../../../../../utils/data";
 
 // import { Link } from "react-router-dom";
 

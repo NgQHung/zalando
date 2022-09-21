@@ -1,9 +1,7 @@
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Fragment } from "react";
-// import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { HeaderCategory_DATA } from "../../../../../utils/data";
+import { HeaderCategory_DATA } from "../../../../../../utils/data";
 import HeaderInput from "../header-input";
 import SubHeaderCategory from "../subHeader-category";
 import "./header_category.css";

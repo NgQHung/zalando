@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
-import { DATA_IMAGES } from "../../utils/data-img";
-import Content from "../components/layouts/container";
-import "./Main.css";
+import { DATA_IMAGES } from "../../../utils/data-img";
+import Content from "../../components/layouts/container";
+import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 // import {}
 
-const Main = () => {
+export const Home = () => {
   // const [zenyDataImages, setZenyDataImage] = useState([])
   const zenyDataImages_1 = DATA_IMAGES.filter((item) => item.title === "Zeny_1");
   const zenyDataImages_2 = DATA_IMAGES.filter((item) => item.title === "Zeny_2");
@@ -229,4 +229,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+// export default Home;

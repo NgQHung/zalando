@@ -6,6 +6,7 @@ import "./Header.css";
 import HeaderCategory from "./header-category";
 import SubHeaderCategory from "./subHeader-category";
 import ShoppingBasket from "./header-navtools/ShoppingBasket";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   // const [active, setActive] = React.useState(false);
@@ -40,18 +41,22 @@ const Header = () => {
               >
                 Ženy
               </li>
-              <li
-                onClick={() => activeHandler("muzi")}
-                className={"header_gender " + (gender === "muzi" ? "active_gender" : "")}
-              >
-                Muži
-              </li>
-              <li
-                onClick={() => activeHandler("deti")}
-                className={"header_gender " + (gender === "deti" ? "active_gender" : "")}
-              >
-                Děti
-              </li>
+              <Link to="/muzi">
+                <li
+                  onClick={() => activeHandler("muzi")}
+                  className={"header_gender " + (gender === "muzi" ? "active_gender" : "")}
+                >
+                  Muži
+                </li>
+              </Link>
+              <Link to="/deti">
+                <li
+                  onClick={() => activeHandler("deti")}
+                  className={"header_gender " + (gender === "deti" ? "active_gender" : "")}
+                >
+                  Děti
+                </li>
+              </Link>
             </ul>
             <div className="w-auto h-full cursor-pointer">
               <span className="">
