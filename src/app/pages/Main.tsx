@@ -1,5 +1,5 @@
 import React from "react";
-import Content from "../components/layouts/content";
+import Content from "../components/layouts/container";
 
 const Main = () => {
   return (

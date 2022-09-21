@@ -1,0 +1,9 @@
+.footer_about_item {
+  display: inline;
+  border-left: 1px solid #ffff;
+  padding: 0 12px;
+  max-height: 20px;
+}
+/* .footer_about_item_ {
+  border-left: 1px solid #ffff;
+} */
