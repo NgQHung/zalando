@@ -7,7 +7,7 @@ interface IProps {
 
 const Container: React.FC<IProps> = ({ children, bg_color }) => {
   return (
-    <div className={" w-full " + bg_color}>
+    <div className={" w-full relative " + bg_color}>
       <div className="max-w-[1216px] flex justify-between items-center mx-[152px]">{children}</div>
     </div>
   );

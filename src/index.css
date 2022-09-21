@@ -10,3 +10,13 @@ html {
 .navtools_basket {
   /* display: hidden; */
 }
+.scrollbar_hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar_hidden::-webkit-scrollbar {
+  display: none;
+}
+.text_tiempos {
+  font-family: Tiempos, Times New Roman, serif;
+}

@@ -29,7 +29,7 @@ const FooterInfo = () => {
             <li className="footer_info_item">Kdy budu mít peníze zpět?</li>
             <li className="footer_info_item">Mohu zboží vyměnit?</li>
           </ul>
-          <ul className="flex footer_info_list">
+          <ul className="flex footer_info_list space-x-[8px]">
             <li>
               <img
                 className="w-[48px] h-[32px]"
@@ -60,7 +60,7 @@ const FooterInfo = () => {
             </li>
           </ul>
 
-          <ul className="flex footer_info_list">
+          <ul className="flex footer_info_list space-x-[8px]">
             <li>
               <img
                 className="w-[48px] h-[32px]"
