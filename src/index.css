@@ -10,6 +10,11 @@ html {
 .navtools_basket {
   /* display: hidden; */
 }
+
+* {
+  box-sizing: border-box;
+}
+
 .scrollbar_hidden {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -19,4 +24,24 @@ html {
 }
 .text_tiempos {
   font-family: Tiempos, Times New Roman, serif;
+}
+.affect_text {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+.affect_text:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  height: 1px;
+  width: 100%;
+  background-color: currentColor;
+  display: none;
+  transition: all 1s linear;
+}
+.affect_text:hover::after {
+  display: block;
 }

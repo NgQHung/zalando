@@ -1,5 +1,5 @@
-import { faFaceAngry } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faFaceAngry } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
 import Container from "../../../container";
@@ -12,19 +12,30 @@ const FooterAbout = () => {
         {/* <div className="flex"> */}
         <ul className="flex footer_about_list space-x w-1/2 flex-wrap text-[14px] h-[64px]">
           <li className="footer_about_item_ pr-[12px]">
-            <Link to="">Právní informace</Link>
+            <Link to="">
+              <span className="affect_text">Právní informace</span>
+            </Link>
           </li>
           <li className="footer_about_item">
-            <Link to="">Obchodni podminky</Link>
+            <Link to="">
+              <span className="affect_text">Obchodni podminky</span>
+            </Link>
           </li>
           <li className="footer_about_item">
-            <Link to="">Zásady ochrany soukromí</Link>
+            <Link to="">
+              {" "}
+              <span className="affect_text">Zásady ochrany soukromí</span>
+            </Link>
           </li>
           <li className="footer_about_item">
-            <Link to="">Tech blog</Link>
+            <Link to="">
+              <span className="affect_text">Tech blog</span>
+            </Link>
           </li>
           <li className="footer_about_item">
-            <Link to="">Nastavení dat</Link>
+            <Link to="">
+              <span className="affect_text">Nastavení dat</span>
+            </Link>
           </li>
         </ul>
         <div className="w-1/2 grid grid-cols-2 px-[16px]">

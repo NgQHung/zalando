@@ -7,9 +7,12 @@
   height: 488px;
 }
 
-.navbar_list:hover .sub_header_category_container {
+/* .navbar_list:hover  */
+.sub_header_category_container {
   transition: 1.5s ease-in-out;
   visibility: visible;
+  height: 100%;
+  z-index: 99;
   opacity: 1;
 }
 .header_search {

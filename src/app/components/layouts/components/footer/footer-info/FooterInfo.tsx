@@ -18,16 +18,30 @@ const FooterInfo = () => {
 
           <ul className="footer_info_list">
             <p className="font-[700]">Všechny dotazy</p>
-            <li className="footer_info_item">Sledovat objednávku</li>
-            <li className="footer_info_item">Podmínky dopravy</li>
-            <li className="footer_info_item">Jaké způsoby platby nabízíte?</li>
-            <li className="footer_info_item">Přihlašte se k odběru newsletteru</li>
+            <li className="footer_info_item ">
+              <span className="affect_text">Sledovat objednávku</span>
+            </li>
+            <li className="footer_info_item ">
+              <span className="affect_text">Podmínky dopravy</span>
+            </li>
+            <li className="footer_info_item ">
+              <span className="affect_text">Jaké způsoby platby nabízíte?</span>
+            </li>
+            <li className="footer_info_item ">
+              <span className="affect_text">Přihlašte se k odběru newsletteru</span>
+            </li>
           </ul>
 
           <ul className="footer_info_list mt-[18.4px] ">
-            <li className="footer_info_item">Vrácení objednávky</li>
-            <li className="footer_info_item">Kdy budu mít peníze zpět?</li>
-            <li className="footer_info_item">Mohu zboží vyměnit?</li>
+            <li className="footer_info_item ">
+              <span className="affect_text">Vrácení objednávky</span>
+            </li>
+            <li className="footer_info_item ">
+              <span className="affect_text">Kdy budu mít peníze zpět?</span>
+            </li>
+            <li className="footer_info_item ">
+              <span className="affect_text">Mohu zboží vyměnit?</span>
+            </li>
           </ul>
           <ul className="flex footer_info_list space-x-[8px]">
             <li>
@@ -92,22 +106,30 @@ const FooterInfo = () => {
           </ul>
           <ul className="footer_info_list">
             {FOOTER_DATA_1.data.map((item) => (
-              <li className="footer_info_item">{item}</li>
+              <li className="footer_info_item">
+                <span className="affect_text">{item}</span>
+              </li>
             ))}
           </ul>
           <ul className="footer_info_list">
             {FOOTER_DATA_2.data.map((item) => (
-              <li className="footer_info_item">{item}</li>
+              <li className="footer_info_item">
+                <span className="affect_text">{item}</span>
+              </li>
             ))}
           </ul>
           <ul className="footer_info_list">
             {FOOTER_DATA_3.data.map((item) => (
-              <li className="footer_info_item">{item}</li>
+              <li className="footer_info_item">
+                <span className="affect_text">{item}</span>
+              </li>
             ))}
           </ul>
           <ul className="footer_info_list">
             {FOOTER_DATA_4.data.map((item) => (
-              <li className="footer_info_item">{item}</li>
+              <li className="footer_info_item">
+                <span className="affect_text">{item}</span>
+              </li>
             ))}
           </ul>
         </div>

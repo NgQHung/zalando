@@ -1,4 +1,6 @@
 import React, { Fragment } from "react";
+import Banner from "../components/banner";
+import Favorite from "../components/favorite_brand_category";
 import Footer from "../components/footer";
 import Header from "../components/header";
 
@@ -11,6 +13,8 @@ const DefaultLayout: React.FC<IProps> = ({ children }) => {
     <Fragment>
       <Header />
       {children}
+      <Favorite />
+      <Banner />
       <Footer />
     </Fragment>
   );
