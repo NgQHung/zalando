@@ -31,11 +31,11 @@ export const Home = () => {
       {/* <Content bg_color="bg-[#34d27b]"> */}
       <div className="scrollbar_hidden relative h-[584px] w-full overflow-x-auto bg-[#34d27b] mb-[64px]">
         <div className="absolute pt-[36px] pb-[24px] text-[14px] ">
-          {zenyDataImages_1.map((item) => (
-            <div className="">
+          {zenyDataImages_1.map((item, idx) => (
+            <div key={idx} className="">
               <ul className="flex ">
-                {item.image.map((image) => (
-                  <li className="relative product_item h-[415px] w-[296px] px-[8px]">
+                {item.image.map((image, index) => (
+                  <li key={index} className="relative product_item h-[415px] w-[296px] px-[8px]">
                     <div className="absolute bg-[#ffff] top-2 right-2 ">
                       <FontAwesomeIcon icon={faHeart} className="fa-thin p-[8px] text-[24px]" />
                     </div>
@@ -44,8 +44,8 @@ export const Home = () => {
                 ))}
               </ul>
               <div className="flex ml-[152px] pt-[8px]">
-                {item.info.map((item) => (
-                  <div className="w-[296px] px-[8px] leading-[20px]">
+                {item.info.map((item, idx) => (
+                  <div key={idx} className="w-[296px] px-[8px] leading-[20px]">
                     <div className="pb-[8px]">
                       <h3>{item.brand}</h3>
                       <h3>{item.name}</h3>
@@ -84,11 +84,11 @@ export const Home = () => {
       </Content>
       <div className="scrollbar_hidden relative h-[584px] w-full overflow-x-auto bg-[#e3e707] mb-[64px]">
         <div className="absolute pt-[36px] pb-[24px] text-[14px] ">
-          {zenyDataImages_2.map((item) => (
-            <div className="">
+          {zenyDataImages_2.map((item, idx) => (
+            <div key={idx} className="">
               <ul className="flex ">
-                {item.image.map((image) => (
-                  <li className="relative product_item h-[415px] w-[296px] px-[8px]">
+                {item.image.map((image, index) => (
+                  <li key={index} className="relative product_item h-[415px] w-[296px] px-[8px]">
                     <div className="absolute bg-[#ffff] top-2 right-2 ">
                       <FontAwesomeIcon icon={faHeart} className="fa-thin p-[8px] text-[24px]" />
                     </div>
@@ -97,8 +97,8 @@ export const Home = () => {
                 ))}
               </ul>
               <div className="flex ml-[152px] pt-[8px]">
-                {item.info.map((item) => (
-                  <div className="w-[296px] px-[8px] leading-[20px]">
+                {item.info.map((item, idx) => (
+                  <div key={idx} className="w-[296px] px-[8px] leading-[20px]">
                     <div className="pb-[8px]">
                       <h3>{item.brand}</h3>
                       <h3>{item.name}</h3>

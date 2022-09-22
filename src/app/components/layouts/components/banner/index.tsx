@@ -24,35 +24,42 @@ const Banner = () => {
                 type="text"
                 placeholder="Hunghunghung273@gmail.com"
               />
-              <h3>Upravte své preference</h3>
-              <h3>Co vás zajímá nejvíce?</h3>
-              <div>
-                <input
-                  type="checkbox"
-                  className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer "
-                />
-                <label className="pl-[10px]" htmlFor="damy">
-                  Dámská móda
-                </label>
+              <div className="flex w-full">
+                <div className="w-1/2">
+                  <h3 className="font-[700] leading-6">Upravte své preference</h3>
+                  <h3 className="text_tiempos ">Co vás zajímá nejvíce?</h3>
+                </div>
+                <ul className="flex flex-col w-1/2 ">
+                  <li className="flex items-center mb-4">
+                    <input
+                      type="checkbox"
+                      className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer "
+                    />
+                    <label className="pl-[10px]" htmlFor="damy">
+                      Dámská móda
+                    </label>
+                  </li>
+                  <li className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer"
+                    />
+                    <label className="pl-[10px]" htmlFor="pani">
+                      Pánská móda
+                    </label>
+                  </li>
+                </ul>
               </div>
-              <div>
-                <input
-                  type="checkbox"
-                  className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer"
-                />
-                <label className="pl-[10px]" htmlFor="pani">
-                  Pánská móda
-                </label>
-              </div>
+
               {/* <div> */}
-              <div className={"banner_obsah " + (isClick ? "isClicked" : "")}>
+              <div className={"banner_obsah mt-4 " + (isClick ? "isClicked" : "")}>
                 <button onClick={() => setIsClicked((prev) => !prev)} className={"banner_obsah_title "}>
                   Obsah
                 </button>
                 <div className={"banner_list_wrapper pt-4 pb-9 px-6"}>
                   <ul className={"banner_list flex flex-wrap " + (!isClick ? "banner_list_hidden" : "")}>
-                    {DATA_BANNER.map((item) => (
-                      <li className="basis-1/2 items-start ">
+                    {DATA_BANNER.map((item, idx) => (
+                      <li key={idx} className="basis-1/2 items-start ">
                         <input
                           type="checkbox"
                           className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer "
@@ -60,13 +67,12 @@ const Banner = () => {
                         <span className="pl-[10px]">{item}</span>
                       </li>
                     ))}
+                    <div className="text-right mt-4 px-4 text-[#6230E0] text-[14px]">
+                      <a href="" className="affect_text">
+                        Zobrazit víc (pro více informací se musíte přihlásit)
+                      </a>
+                    </div>
                   </ul>
-
-                  <div className="text-right mt-4 px-4 text-[#6230E0] text-[14px]">
-                    <a href="" className="affect_text">
-                      Zobrazit víc (pro více informací se musíte přihlásit)
-                    </a>
-                  </div>
                 </div>
               </div>
               <div className="bg-[#1a1a1a] p-3 mt-[25px] text-[#ffff] text-center font-[700] ">

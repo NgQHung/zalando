@@ -9,6 +9,11 @@ export const DetiPage = () => {
   const viewData_1 = data.deti.view[0];
   const viewData_2 = data.deti.view[1];
   const productData_1 = data.deti.product;
+
+  // React.useEffect(() => {
+  //   console.log(window.scrollY);
+  // }, [window.scrollY]);
+
   return (
     <Fragment>
       <Container bg_color="bg-[#229967] ">
@@ -25,8 +30,8 @@ export const DetiPage = () => {
       </Container>
       <div className="scrollbar_hidden relative h-[584px] w-full overflow-x-auto bg-[#34d27b] mb-[64px]">
         <div className="absolute pt-[36px] pb-[24px] text-[14px] flex ">
-          {productData_1.map((item) => (
-            <div className="muzi_product_item cursor-pointer">
+          {productData_1.map((item, idx) => (
+            <div key={idx} className="muzi_product_item cursor-pointer">
               <ul className="flex ">
                 <li className="relative h-[415px] w-[296px] px-[8px]">
                   <p className="absolute bg-[#ffff] top-2 right-2 ">
@@ -70,8 +75,8 @@ export const DetiPage = () => {
       </Container>
       <div className="scrollbar_hidden relative h-[584px] w-full overflow-x-auto bg-[#101010] mb-[64px] ">
         <div className="absolute pt-[36px] pb-[24px] text-[14px] flex ">
-          {productData_1.map((item) => (
-            <div className="muzi_product_item cursor-pointer">
+          {productData_1.map((item, idx) => (
+            <div key={idx} className="muzi_product_item cursor-pointer">
               <ul className="flex ">
                 <li className="relative h-[415px] w-[296px] px-[8px]">
                   <p className="absolute bg-[#ffff] top-2 right-2 ">

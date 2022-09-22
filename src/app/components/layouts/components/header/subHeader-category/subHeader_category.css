@@ -1,5 +1,6 @@
 .sub_header_category_container {
-  /* visibility: hidden;
+  visibility: hidden;
   opacity: 0;
-  transition: visibility 0s, opacity 0s linear; */
+  transition: visibility 0s, opacity 0s linear;
+  /* z-index: 1; */
 }

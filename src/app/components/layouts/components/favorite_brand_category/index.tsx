@@ -16,8 +16,10 @@ const Favorite = () => {
               {category_data.title}
             </h2>
             <ul className="flex flex-wrap max-w-full ">
-              {category_data.types.map((category) => (
-                <li className="mb-[12px] max-w-1/4 basis-1/4 px-[8px] text-[14px] ">{category}</li>
+              {category_data.types.map((category, idx) => (
+                <li key={idx} className="mb-[12px] max-w-1/4 basis-1/4 px-[8px] text-[14px] ">
+                  {category}
+                </li>
               ))}
             </ul>
           </div>
@@ -26,8 +28,10 @@ const Favorite = () => {
               {brand_data.title}
             </h2>
             <ul className="flex flex-wrap max-w-full ">
-              {brand_data.types.map((brand) => (
-                <li className="mb-[12px] max-w-1/4 basis-1/4 px-[8px] text-[14px] ">{brand}</li>
+              {brand_data.types.map((brand, idx) => (
+                <li key={idx} className="mb-[12px] max-w-1/4 basis-1/4 px-[8px] text-[14px] ">
+                  {brand}
+                </li>
               ))}
             </ul>
           </div>

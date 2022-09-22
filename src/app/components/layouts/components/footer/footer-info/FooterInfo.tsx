@@ -105,29 +105,29 @@ const FooterInfo = () => {
             </li>
           </ul>
           <ul className="footer_info_list">
-            {FOOTER_DATA_1.data.map((item) => (
-              <li className="footer_info_item">
+            {FOOTER_DATA_1.data.map((item, idx) => (
+              <li key={idx} className="footer_info_item">
                 <span className="affect_text">{item}</span>
               </li>
             ))}
           </ul>
           <ul className="footer_info_list">
-            {FOOTER_DATA_2.data.map((item) => (
-              <li className="footer_info_item">
+            {FOOTER_DATA_2.data.map((item, idx) => (
+              <li key={idx} className="footer_info_item">
                 <span className="affect_text">{item}</span>
               </li>
             ))}
           </ul>
           <ul className="footer_info_list">
-            {FOOTER_DATA_3.data.map((item) => (
-              <li className="footer_info_item">
+            {FOOTER_DATA_3.data.map((item, idx) => (
+              <li key={idx} className="footer_info_item">
                 <span className="affect_text">{item}</span>
               </li>
             ))}
           </ul>
           <ul className="footer_info_list">
-            {FOOTER_DATA_4.data.map((item) => (
-              <li className="footer_info_item">
+            {FOOTER_DATA_4.data.map((item, idx) => (
+              <li key={idx} className="footer_info_item">
                 <span className="affect_text">{item}</span>
               </li>
             ))}
