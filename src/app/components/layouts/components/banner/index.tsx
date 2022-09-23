@@ -9,11 +9,11 @@ const Banner = () => {
   return (
     // <div className="my-[64px]">
     <Container bg_color="bg-[#efeff0]" margin="my-16">
-      <div className="flex w-full pt-6 ">
+      <div className="flex w-full pt-6 transition-transform ">
         <div className="w-1/2 flex flex-col">
           <h3 className="text-[24px] font-[600]">Co takhle sleva 10 % na váš příští nákup?</h3>
           <h3 className="text-[24px] text_tiempos ">Dostávejte novinky od Zalando.cz e-mailem</h3>
-          <p className="text-[16px] text_tiempos ">Přihlaste se, abyste měli přehled o nejnovějších nabídkách.</p>
+          <p className="text-[16px] text_tiempos mt-4">Přihlaste se, abyste měli přehled o nejnovějších nabídkách.</p>
         </div>
         <div className="w-1/2">
           <div className="bg-[#ffff] py-6 px-16 w-full ">

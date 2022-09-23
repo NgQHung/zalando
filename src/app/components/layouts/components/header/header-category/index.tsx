@@ -9,32 +9,43 @@ import "./header_category.css";
 
 const HeaderCategory = () => {
   const [category, setCategory] = React.useState("");
+  const [isHover, setIsHover] = React.useState(false);
 
   const onMouseHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // console.log(e.currentTarget.name);
     setCategory(e.currentTarget.name);
-    // setCategory(() => if())
+    if (e.currentTarget.name) {
+      setIsHover(true);
+    } else {
+      setIsHover(false);
+    }
   };
-  // const leaveMouseHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   console.log(e.currentTarget.name);
-  // };
+
+  const mouseOverHandler = () => {
+    setIsHover(true);
+  };
+
+  React.useEffect(() => {
+    // onMouseHandler();
+    // if (category) {
+    //   setIsHover(true);
+    // } else {
+    //   setIsHover(false);
+    // }
+  });
+  console.log(isHover);
+
   return (
     <Fragment>
       <div className="w-[900px]">
-        <ul className="flex justify-between items-center text-[0.875rem] ">
+        <ul className="flex justify-between items-center text-[0.875rem] w-full ">
           {HeaderCategory_DATA.map((item, idx) => {
             return (
               <div key={idx}>
                 <li className="navbar_list py-[10px] pr-[8px] font-[400]">
-                  <button
-                    name={item}
-                    className="navbar_item"
-                    onMouseEnter={onMouseHandler}
-                    // onMouseLeave={leaveMouseHandler}
-                  >
+                  <button name={item} className="navbar_item" onMouseEnter={onMouseHandler}>
                     {item}
                   </button>
-                  <div className="sub_header_category absolute w-screen top-full left-0 bg-gray-200 ">
+                  <div className="sub_header_category absolute w-full top-full left-0  ">
                     <SubHeaderCategory category={category} />
                   </div>
                 </li>

@@ -10,9 +10,11 @@ const Footer = () => {
     <Fragment>
       {/* <Container bg_color="">
         <div className="flex flex-col"> */}
-      <FooterInfo />
-      <FooterAbout />
-      <ScrollUp />
+      <div className="transition-all">
+        <FooterInfo />
+        <FooterAbout />
+        <ScrollUp />
+      </div>
       {/* </div>
       </Container> */}
     </Fragment>

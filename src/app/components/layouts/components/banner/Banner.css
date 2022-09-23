@@ -16,9 +16,7 @@
   /* display: none; */
 }
 .banner_list {
-  /* transition: all 2s ease-in-out; */
   transition: opacity 1s linear, margin-top 0.2s step-start, z-index 1s step-start;
-  /* display: block; */
   position: relative;
 }
 .banner_list_hidden {

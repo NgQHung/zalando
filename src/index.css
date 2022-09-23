@@ -45,3 +45,19 @@ html {
 .affect_text:hover::after {
   display: block;
 }
+
+.row_full {
+  position: relative;
+  height: 584px;
+  width: 100vw;
+  margin-left: calc(-50vw + 50% - 8.5px);
+  overflow-x: auto;
+  /* background-color: #34d27b; */
+}
+.row_full {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.row_full::-webkit-scrollbar {
+  display: none;
+}
