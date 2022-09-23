@@ -35,12 +35,14 @@ const Header = () => {
         <div className="w-full h-[96px] bg-[#ffffff] text-[14px] ">
           <div className=" h-[60px] flex justify-between items-center">
             <ul className="space-x-[8px] text-[16px] font-[700] flex  ">
-              <li
-                onClick={() => activeHandler("zeny")}
-                className={"header_gender " + (gender === "zeny" ? "active_gender" : "")}
-              >
-                Ženy
-              </li>
+              <Link to="/damy-domovska-stranka">
+                <li
+                  onClick={() => activeHandler("zeny")}
+                  className={"header_gender " + (gender === "zeny" ? "active_gender" : "")}
+                >
+                  Ženy
+                </li>
+              </Link>
               <Link to="/muzi">
                 <li
                   onClick={() => activeHandler("muzi")}
@@ -95,7 +97,7 @@ const Header = () => {
               </div>
             </div>
           </div>
-          <div className="h-[36px] flex items-center justify-between text-[16px] ">
+          <div className="h-[36px] flex items-center justify-between text-[16px] relative ">
             <HeaderCategory />
           </div>
         </div>

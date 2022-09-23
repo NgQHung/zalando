@@ -9,30 +9,10 @@ import "./header_category.css";
 
 const HeaderCategory = () => {
   const [category, setCategory] = React.useState("");
-  const [isHover, setIsHover] = React.useState(false);
 
   const onMouseHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     setCategory(e.currentTarget.name);
-    if (e.currentTarget.name) {
-      setIsHover(true);
-    } else {
-      setIsHover(false);
-    }
   };
-
-  const mouseOverHandler = () => {
-    setIsHover(true);
-  };
-
-  React.useEffect(() => {
-    // onMouseHandler();
-    // if (category) {
-    //   setIsHover(true);
-    // } else {
-    //   setIsHover(false);
-    // }
-  });
-  console.log(isHover);
 
   return (
     <Fragment>

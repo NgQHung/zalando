@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
+
 export const routeConfig = {
+  // main: "/",
   home: "/",
-  zeny: "/zeny",
+  damy: "/damy-domovska-stranka",
   muzi: "/muzi",
   deti: "/deti",
   // following: "/following",

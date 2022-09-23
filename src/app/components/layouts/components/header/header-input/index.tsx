@@ -23,7 +23,8 @@ const HeaderInput = () => {
   }, []);
 
   return (
-    <div className={"absolute top-1/2 translate-y-[-47%] right-0"}>
+    <Fragment>
+      {/* <div className=""> */}
       <div
         ref={refInput}
         className={
@@ -31,21 +32,9 @@ const HeaderInput = () => {
           (isTouched ? "header_search_transition" : "")
         }
       >
-        {isTouched && (
-          <div className="header_search_dropdown">
-            <div className="sub_dropdown ">
-              <div className="h-[45px] flex justify-between py-[12px]">
-                <p className="font-[700]">Předchozí hledání</p>
-                <p className="text-[#6238e0] font-[700]">Vymazat</p>
-              </div>
-              <ul>
-                <li className="dropdown_list"></li>
-                <li className="dropdown_list"></li>
-                <li className="dropdown_list"></li>
-              </ul>
-            </div>
-          </div>
-        )}
+        {/* {isTouched && ( */}
+
+        {/* )} */}
         <div className="w-[50px] text-center ">
           <span className="text-[18px] ">
             <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -65,8 +54,23 @@ const HeaderInput = () => {
           </div>
         )}
       </div>
+      {/* { */}
+      <div className={"  " + (isTouched ? "header_search_dropdown" : "header_search_dropdown_hidden")}>
+        <div className=" sub_dropdown ">
+          <div className="h-[45px] flex justify-between py-[12px]">
+            <p className="font-[700]">Předchozí hledání</p>
+            <p className="text-[#6238e0] font-[700]">Vymazat</p>
+          </div>
+          <ul>
+            <li className="dropdown_list"></li>
+            <li className="dropdown_list"></li>
+            <li className="dropdown_list"></li>
+          </ul>
+        </div>
+      </div>
+      {/* } */}
       {/* </div> */}
-    </div>
+    </Fragment>
   );
 };
 

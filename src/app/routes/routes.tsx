@@ -8,6 +8,7 @@ import { PublicRoutes } from "./types";
 const publicRoutes: PublicRoutes[] = [
   {
     path: routeConfig.home,
+    redirect: routeConfig.damy,
     component: Home,
   },
   {
@@ -17,6 +18,10 @@ const publicRoutes: PublicRoutes[] = [
   {
     path: routeConfig.deti,
     component: DetiPage,
+  },
+  {
+    path: routeConfig.damy,
+    component: Home,
   },
 ];
 

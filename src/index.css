@@ -61,3 +61,6 @@ html {
 .row_full::-webkit-scrollbar {
   display: none;
 }
+.border_bottom {
+  border-bottom: 1px solid #1a1a1a;
+}

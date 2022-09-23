@@ -29,10 +29,11 @@
 
 .header_search {
   position: relative;
-  transition: 1s linear;
+  bottom: 0;
+  right: 0;
 }
 .sub_header_category {
-  z-index: -5;
+  /* z-index: -5; */
   visibility: hidden;
   opacity: 0;
   transition: opacity 1s ease-in, visibility 1s ease-in;
@@ -45,7 +46,7 @@
   /* z-index: 99; */
   /* margin-top: 0; */
   /* transform: translateY(-500px); */
-  z-index: 10;
+  z-index: 5;
   opacity: 1;
 
   visibility: visible;
