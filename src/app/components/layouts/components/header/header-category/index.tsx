@@ -16,6 +16,7 @@ const HeaderCategory = () => {
 
   return (
     <Fragment>
+      {/* <div className="absolute"> */}
       <div className="w-[900px]">
         <ul className="flex justify-between items-center text-[0.875rem] w-full ">
           {HeaderCategory_DATA.map((item, idx) => {
@@ -37,6 +38,7 @@ const HeaderCategory = () => {
       <div className="header_search ">
         <HeaderInput />
       </div>
+      {/* </div> */}
     </Fragment>
   );
 };

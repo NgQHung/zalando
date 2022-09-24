@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import "./navtools.css";
 
 const User = () => {
@@ -29,7 +30,9 @@ const User = () => {
         </ul> */}
         <div className=" pt-[2px] relative ">
           <div className=" text-[#ffff] text-center pt-4 pb-[13px] px-[10px] border_bottom">
-            <p className="p-[12px] bg-[#1a1a1a] mb-[14px]">Přihlásit se</p>
+            <Link to="/login">
+              <p className="p-[12px] cursor-pointer bg-[#1a1a1a] mb-[14px]">Přihlásit se</p>
+            </Link>
             <p className="text-[14px] text-[#1a1a1a] ml-[16px] whitespace-normal text-left">
               <span className="text-[#6328e0] font-[700] affect_text mb-1 ">Zaregistrujte se hned teď</span> - trvá to
               jen minutu.

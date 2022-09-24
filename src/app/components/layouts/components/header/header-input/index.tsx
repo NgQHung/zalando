@@ -24,52 +24,52 @@ const HeaderInput = () => {
 
   return (
     <Fragment>
-      {/* <div className=""> */}
-      <div
-        ref={refInput}
-        className={
-          " flex items-center w-[288px] h-[35px] text-[#1a1a1a] tracking-[0.5px]  bg-[#efeff0] " +
-          (isTouched ? "header_search_transition" : "")
-        }
-      >
-        {/* {isTouched && ( */}
+      <div className="">
+        <div
+          ref={refInput}
+          className={
+            " flex items-center w-[288px] h-[35px] text-[#1a1a1a] tracking-[0.5px]  bg-[#efeff0] " +
+            (isTouched ? "header_search_transition" : "")
+          }
+        >
+          {/* {isTouched && ( */}
 
-        {/* )} */}
-        <div className="w-[50px] text-center ">
-          <span className="text-[18px] ">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </span>
-        </div>
-        <div className={" h-full" + (isTouched ? " w-full" : " w-[238px]")}>
-          <input
-            onClick={onClickHandler}
-            className="bg-transparent h-full w-full py-[6px] outline-none text-[14px] "
-            type="text"
-            placeholder="Hledat"
-          />
-        </div>
-        {isTouched && (
-          <div onClick={() => setIsTouched(false)} className="absolute right-0 px-[4px] cursor-pointer ">
-            <FontAwesomeIcon icon={faXmark} />
+          {/* )} */}
+          <div className="w-[50px] text-center ">
+            <span className="text-[18px] ">
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </span>
           </div>
-        )}
-      </div>
-      {/* { */}
-      <div className={"  " + (isTouched ? "header_search_dropdown" : "header_search_dropdown_hidden")}>
-        <div className=" sub_dropdown ">
-          <div className="h-[45px] flex justify-between py-[12px]">
-            <p className="font-[700]">Předchozí hledání</p>
-            <p className="text-[#6238e0] font-[700]">Vymazat</p>
+          <div className={" h-full" + (isTouched ? " w-full" : " w-[238px]")}>
+            <input
+              onClick={onClickHandler}
+              className="bg-transparent h-full w-full py-[6px] outline-none text-[14px] "
+              type="text"
+              placeholder="Hledat"
+            />
           </div>
-          <ul>
-            <li className="dropdown_list"></li>
-            <li className="dropdown_list"></li>
-            <li className="dropdown_list"></li>
-          </ul>
+          {isTouched && (
+            <div onClick={() => setIsTouched(false)} className="absolute right-0 px-[4px] cursor-pointer ">
+              <FontAwesomeIcon icon={faXmark} />
+            </div>
+          )}
         </div>
+        {/* { */}
+        {/* <div className={"  " + (isTouched ? "header_search_dropdown" : "header_search_dropdown_hidden")}>
+          <div className="sub_dropdown ">
+            <div className="h-[45px] flex justify-between py-[12px]">
+              <p className="font-[700]">Předchozí hledání</p>
+              <p className="text-[#6238e0] font-[700]">Vymazat</p>
+            </div>
+            <ul>
+              <li className="dropdown_list"></li>
+              <li className="dropdown_list"></li>
+              <li className="dropdown_list"></li>
+            </ul>
+          </div>
+        </div> */}
+        {/* } */}
       </div>
-      {/* } */}
-      {/* </div> */}
     </Fragment>
   );
 };

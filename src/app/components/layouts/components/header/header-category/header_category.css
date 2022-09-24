@@ -28,9 +28,9 @@
 }
 
 .header_search {
-  position: relative;
+  /* position: relative;
   bottom: 0;
-  right: 0;
+  right: 0; */
 }
 .sub_header_category {
   /* z-index: -5; */

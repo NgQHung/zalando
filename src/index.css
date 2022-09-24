@@ -27,7 +27,7 @@ html {
 }
 .affect_text {
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
   cursor: pointer;
 }
 .affect_text:after {
@@ -35,7 +35,7 @@ html {
   position: absolute;
   top: 100%;
   left: 0;
-  margin-top: 4px;
+  /* margin-top: 4px; */
   height: 1px;
   width: 100%;
   background-color: currentColor;
@@ -63,4 +63,22 @@ html {
 }
 .border_bottom {
   border-bottom: 1px solid #1a1a1a;
+}
+
+/* .form_onHover:hover {
+  border: 2px solid #1a1a1a;
+} */
+.email_form {
+  /* outline: 1px solid #1a1a1a; */
+}
+.form_onHover {
+  border: 1px solid #1a1a1a;
+  position: relative;
+  /* border: 1px solid transparent; */
+  /* position: relative; */
+}
+
+.form_onHover:hover {
+  outline: 2px solid #1a1a1a;
+  outline-offset: -2px;
 }

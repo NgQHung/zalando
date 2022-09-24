@@ -6,6 +6,10 @@ export const routeConfig = {
   damy: "/damy-domovska-stranka",
   muzi: "/muzi",
   deti: "/deti",
+  login: "/login",
+  signup: "/signup",
+  product: "/:slug",
+
   // following: "/following",
   // profile: "/@:username",
   // upload: "/upload",

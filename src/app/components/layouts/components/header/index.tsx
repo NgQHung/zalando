@@ -97,7 +97,7 @@ const Header = () => {
               </div>
             </div>
           </div>
-          <div className="h-[36px] flex items-center justify-between text-[16px] relative ">
+          <div className="h-[36px] flex items-center justify-between text-[16px]   ">
             <HeaderCategory />
           </div>
         </div>

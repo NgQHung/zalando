@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import DefaultLayout from "./app/components/layouts/DefaultLayout";
 import { publicRoutes } from "./app/routes";
@@ -10,6 +10,13 @@ function App() {
     <div className="App">
       <Routes>
         {publicRoutes.map((route, idx) => {
+          let Layout: any = DefaultLayout;
+          if (route.layout) {
+            Layout = route.layout;
+          } else if (route.layout === null) {
+            Layout = Fragment;
+          }
+
           const PageComponent = route.component;
 
           const pathHome = "/damy-domovska-stranka/";
@@ -21,9 +28,9 @@ function App() {
                 route.redirect ? (
                   <Navigate to={pathHome} />
                 ) : (
-                  <DefaultLayout>
+                  <Layout>
                     <PageComponent />
-                  </DefaultLayout>
+                  </Layout>
                 )
               }
               path={route.path}
