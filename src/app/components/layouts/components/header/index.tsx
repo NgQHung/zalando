@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   return (
-    <div className="header w-full relative">
+    <div className="header w-full relative border-b border-[#d0d1d3]">
       <div className="mx-[152px] max-w-[1216px]">
         <div className="absolute top-0 left-0 h-[32px] w-full -z-10 bg-[#efeff0]" />
         <div className=" h-[32px] ">

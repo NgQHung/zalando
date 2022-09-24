@@ -5,6 +5,16 @@ import { DATA_IMAGES } from "../../../utils/data-img";
 import Container from "../../components/layouts/container";
 import { data } from "../../../utils/data_muzi&deti";
 import "./Muzi.css";
+import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../hooks";
+import { productActions } from "../../../stores/product-slice";
+
+interface Idata {
+  image: string;
+  brand: string;
+  name: string;
+  price: number;
+}
 
 export const MuziPage = () => {
   // const zenyDataImages_1 = DATA_IMAGES.filter((item) => item.title === "Zeny_1");
@@ -12,6 +22,13 @@ export const MuziPage = () => {
   const viewData_1 = data.muzi.view[0];
   const viewData_2 = data.muzi.view[1];
   const productData_1 = data.muzi.product;
+  const dispatch = useAppDispatch();
+
+  const clickedProduct = (data: Idata) => {
+    const { name, price, brand } = data;
+    dispatch(productActions.selectedProductHandler({ name: name, price: price, brand: brand }));
+  };
+
   return (
     <Fragment>
       <Container bg_color="bg-[#229967]" margin="mb-16">
@@ -31,26 +48,28 @@ export const MuziPage = () => {
               {productData_1.map((item, idx) => (
                 <div key={idx} className="muzi_product_item cursor-pointer">
                   <ul className="flex ">
-                    <li className="relative h-[415px] w-[296px] px-[8px]">
-                      <p className="absolute bg-[#ffff] top-2 right-2 ">
-                        <FontAwesomeIcon icon={faHeart} className="fa-thin p-[8px] text-[24px]" />
-                      </p>
-                      <img className="h-full w-full object-cover " src={item.image} alt="product" />
-                      <div className=" leading-[20px]">
-                        <div className="pb-[8px]">
-                          <h3>{item.brand}</h3>
-                          <h3>{item.name}</h3>
-                        </div>
-                        <div className="flex flex-col leading-[1.25rem] text-[700]">
-                          <span>{item.price}</span>
-                          <div className="text-[12px] leading-[16px]">
-                            {/* <span>Původně:</span>
+                    <Link to={`/${item.name}`}>
+                      <li onClick={() => clickedProduct(item)} className="relative h-[415px] w-[296px] px-[8px]">
+                        <p className="absolute bg-[#ffff] top-2 right-2 ">
+                          <FontAwesomeIcon icon={faHeart} className="fa-thin p-[8px] text-[24px]" />
+                        </p>
+                        <img className="h-full w-full object-cover " src={item.image} alt="product" />
+                        <div className=" leading-[20px] pt-2">
+                          <div className="pb-[8px]">
+                            <h3>{item.brand}</h3>
+                            <h3>{item.name}</h3>
+                          </div>
+                          <div className="flex flex-col leading-[1.25rem] text-[700]">
+                            <span>{item.price}</span>
+                            <div className="text-[12px] leading-[16px]">
+                              {/* <span>Původně:</span>
                               <span>{item.originalPrice}</span>
                               <span>20%</span> */}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </li>
+                      </li>
+                    </Link>
                   </ul>
                 </div>
               ))}
@@ -79,26 +98,28 @@ export const MuziPage = () => {
               {productData_1.map((item, idx) => (
                 <div key={idx} className="muzi_product_item cursor-pointer">
                   <ul className="flex ">
-                    <li className="relative h-[415px] w-[296px] px-[8px]">
-                      <p className="absolute bg-[#ffff] top-2 right-2 ">
-                        <FontAwesomeIcon icon={faHeart} className="fa-thin p-[8px] text-[24px]" />
-                      </p>
-                      <img className="h-full w-full object-cover" src={item.image} alt="product" />
-                      <div className=" leading-[20px]">
-                        <div className="pb-[8px]">
-                          <h3>{item.brand}</h3>
-                          <h3>{item.name}</h3>
-                        </div>
-                        <div className="flex flex-col leading-[1.25rem] text-[700]">
-                          <span>{item.price}</span>
-                          <div className="text-[12px] leading-[16px]">
-                            {/* <span>Původně:</span>
-                              <span>{item.originalPrice}</span>
-                              <span>20%</span> */}
+                    <Link to={`/${item.name}`}>
+                      <li className="relative h-[415px] w-[296px] px-[8px]">
+                        <p className="absolute bg-[#ffff] top-2 right-2 ">
+                          <FontAwesomeIcon icon={faHeart} className="fa-thin p-[8px] text-[24px]" />
+                        </p>
+                        <img className="h-full w-full object-cover" src={item.image} alt="product" />
+                        <div className=" leading-[20px]  pt-2">
+                          <div className="pb-[8px]">
+                            <h3>{item.brand}</h3>
+                            <h3>{item.name}</h3>
+                          </div>
+                          <div className="flex flex-col leading-[1.25rem] text-[700]">
+                            <span>{item.price}</span>
+                            <div className="text-[12px] leading-[16px]">
+                              {/* <span>Původně:</span>
+                                <span>{item.originalPrice}</span>
+                                <span>20%</span> */}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </li>
+                      </li>
+                    </Link>
                   </ul>
                 </div>
               ))}

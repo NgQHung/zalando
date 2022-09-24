@@ -41,7 +41,7 @@ const publicRoutes: PublicRoutes[] = [
   {
     path: routeConfig.product,
     component: Product,
-    layout: FormLayout,
+    // layout: FormLayout,
   },
 ];
 

@@ -4,6 +4,7 @@ import Content from "../../components/layouts/container";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 // import {}
 
 export const Home = () => {
@@ -34,17 +35,19 @@ export const Home = () => {
                 <div key={idx} className="">
                   <ul className="flex ">
                     {item.image.map((image, index) => (
-                      <li key={index} className="relative product_item h-[415px] w-[296px] px-[8px]">
+                      // <Link to='/'>
+                      <li key={index} className="relative product_item h-[415px] w-[296px] px-[8px] cursor-pointer">
                         <div className="absolute bg-[#ffff] top-2 right-2 ">
                           <FontAwesomeIcon icon={faHeart} className="fa-thin p-[8px] text-[24px]" />
                         </div>
                         <img className="h-full w-full object-cover" src={image} alt="product" />
                       </li>
+                      // </Link>
                     ))}
                   </ul>
                   <div className="flex ml-[152px] pt-[8px]">
                     {item.info.map((item, idx) => (
-                      <div key={idx} className="w-[296px] px-[8px] leading-[20px]">
+                      <div key={idx} className="w-[296px] px-[8px] leading-[20px] cursor-pointer">
                         <div className="pb-[8px]">
                           <h3>{item.brand}</h3>
                           <h3>{item.name}</h3>
