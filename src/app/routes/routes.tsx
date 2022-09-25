@@ -8,7 +8,7 @@ import { Login } from "../pages/login/Login";
 import { Signup } from "../pages/signup/Signup";
 import { NoFooterHeaderLayout } from "../components/layouts/NoFooter&HeaderLayout";
 import FormLayout from "../components/layouts/FormLayout";
-import Product from "../components/clothes/Product";
+import Product from "../pages/clothes/Product";
 
 const publicRoutes: PublicRoutes[] = [
   {

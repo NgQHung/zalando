@@ -65,17 +65,9 @@ html {
   border-bottom: 1px solid #1a1a1a;
 }
 
-/* .form_onHover:hover {
-  border: 2px solid #1a1a1a;
-} */
-.email_form {
-  /* outline: 1px solid #1a1a1a; */
-}
 .form_onHover {
   border: 1px solid #1a1a1a;
   position: relative;
-  /* border: 1px solid transparent; */
-  /* position: relative; */
 }
 
 .form_onHover:hover {
@@ -89,4 +81,10 @@ html {
 }
 .scrollbar_hide::-webkit-scrollbar {
   display: none;
+}
+
+.row-full {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50% - 8.5px);
 }

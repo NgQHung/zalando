@@ -17,8 +17,6 @@ interface Idata {
 }
 
 export const MuziPage = () => {
-  // const zenyDataImages_1 = DATA_IMAGES.filter((item) => item.title === "Zeny_1");
-  // const zenyDataImages_2 = DATA_IMAGES.filter((item) => item.title === "Zeny_2");
   const viewData_1 = data.muzi.view[0];
   const viewData_2 = data.muzi.view[1];
   const productData_1 = data.muzi.product;

@@ -3,13 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 const ScrollUp = () => {
-  const [y, setY] = React.useState<number>();
   const [isScrollUp, setIsScrollUp] = React.useState<boolean>(false);
-  // const isScrollUp = window.scrollY >= 129;
-  // console.log(y);
 
   const scrollHandler = () => {
-    // setY(window.scrollY);
     if (window.scrollY >= 129) {
       setIsScrollUp(true);
     } else {
@@ -20,7 +16,6 @@ const ScrollUp = () => {
     scrollHandler();
     window.addEventListener("scroll", scrollHandler);
   });
-  // console.log(y);
 
   return (
     <div className="w-full h-[60px] bg-[#ffff] text-right">

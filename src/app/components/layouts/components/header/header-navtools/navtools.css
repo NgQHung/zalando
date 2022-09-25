@@ -55,24 +55,17 @@
   width: 0px;
   background-color: #1a1a1a;
   /* animation from left to white (option1) */
-  /* transition: width 1s linear; */
-
-  /* opacity: 0;
-  transform-origin: 0 100%;
-  transform: scaleX(0); */
+  transition: width 1s linear;
 }
 
 .effect_bg:hover::after {
   opacity: 1;
-  /* width: 100%;  */
-  transform: scaleX(1);
-
-  /* color: #ffff; */
+  width: 100%;
 }
 
 /* animation from left to white (option2) */
 
-.effect_bg {
+/* .effect_bg {
   background: linear-gradient(to left, white 50%, #1a1a1a 50%);
   background-size: 200% 100%;
   background-position: right bottom;
@@ -81,4 +74,4 @@
 }
 .effect_bg:hover {
   background-position: left bottom;
-}
+} */
