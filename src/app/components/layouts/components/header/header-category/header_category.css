@@ -10,7 +10,6 @@
   -ms-transition: height, 0.5s linear;
   -o-transition: height, 0.5s linear;
   transition: height, 0.5s ease-out;
-  /* transition: height, 1s ease-out; */
 }
 
 .navbar_list:hover .sub_header_category_hidden.sub_header_category {
@@ -27,9 +26,4 @@
   width: 100%;
   top: 100%;
   left: 0;
-  /* visibility: visible; */
-  /* opacity: 1; */
-  /* transition: opacity 1s linear, margin-top 0.2s step-start, z-index 1s step-start; */
-  /* display: block; */
-  /* position: relative; */
 }

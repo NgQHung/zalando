@@ -9,6 +9,7 @@ import { Signup } from "../pages/signup/Signup";
 import { NoFooterHeaderLayout } from "../components/layouts/NoFooter&HeaderLayout";
 import FormLayout from "../components/layouts/FormLayout";
 import Product from "../pages/clothes/Product";
+import SearchMobile from "../pages/mobile/search";
 
 const publicRoutes: PublicRoutes[] = [
   {
@@ -42,6 +43,11 @@ const publicRoutes: PublicRoutes[] = [
     path: routeConfig.product,
     component: Product,
     // layout: FormLayout,
+  },
+  {
+    path: routeConfig.searchMobile,
+    component: SearchMobile,
+    layout: NoFooterHeaderLayout,
   },
 ];
 

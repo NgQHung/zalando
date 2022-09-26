@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <div className="header w-full relative border-b border-[#d0d1d3]">
-      <div className=" mx-auto my-0 lg:max-w-[1216px] lg:min-w-[943px]">
+      <div className="mx-auto my-0 lg:max-w-[1216px] lg:min-w-[943px] min-h-[96px]">
         <div
           className={
             "absolute top-0 left-0 h-[32px] w-full -z-10 transition-colors duration-[1.5s]  " +
@@ -33,7 +33,7 @@ const Header = () => {
             <span className="">Vrácení zboží do 100 dní</span>
           </div>
         </div>
-        <div className=" px-2 bg-[#ffffff] text-[14px] ">
+        <div className=" lg:px-2 bg-[#ffffff] text-[14px] ">
           <div className=" h-[60px] flex justify-between items-center">
             {/* gender select start */}
             <ul className="hidden space-x-[8px] text-[16px] font-[700] lg:flex  ">
@@ -63,7 +63,7 @@ const Header = () => {
               </Link>
             </ul>
             {/* gender select end */}
-
+            {/* logo start */}
             <div className="w-auto h-full cursor-pointer">
               <span className="">
                 <img
@@ -73,6 +73,8 @@ const Header = () => {
                 />
               </span>
             </div>
+            {/* logo end */}
+            {/* navtools start */}
             <div className="relative flex text-[24px] space-x-[3px] ">
               <div className="navtools flex justify-center items-center">
                 <span className="navtools_icons">
@@ -100,10 +102,13 @@ const Header = () => {
                 </div>
               </div>
             </div>
+            {/* navtools end */}
           </div>
-          <div className="h-[36px] ">
+          {/* search start */}
+          <div className=" ">
             <HeaderCategory />
           </div>
+          {/* search end */}
         </div>
       </div>
     </div>

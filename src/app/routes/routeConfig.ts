@@ -9,6 +9,7 @@ export const routeConfig = {
   login: "/login",
   signup: "/signup",
   product: "/:slug",
+  searchMobile: "/search",
 
   // following: "/following",
   // profile: "/@:username",

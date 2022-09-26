@@ -22,7 +22,6 @@ export const Login = () => {
       }
     });
   }, []);
-  // console.log(isClick);
 
   return (
     <Fragment>

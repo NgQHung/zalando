@@ -9,7 +9,7 @@ interface IProps {
 const Container: React.FC<IProps> = ({ children, bg_color, margin }) => {
   return (
     <div className={`w-full relative transition-all ${bg_color} ${margin}`}>
-      <div className="max-w-[1216px] flex justify-between items-center mx-[152px]">{children}</div>
+      <div className="lg:max-w-[1216px] flex justify-between items-center mx-auto my-0">{children}</div>
     </div>
   );
 };

@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface InitialState {
   bg_color: boolean;
+  // hideAllElement: boolean;
 }
 
 const initialState: InitialState = {
   bg_color: false,
+  // hideAllElement: false,
 };
 
 const UISLice = createSlice({
@@ -15,6 +17,9 @@ const UISLice = createSlice({
     headerChangeBgOnHoverHandler(state, action) {
       state.bg_color = action.payload;
     },
+    // searchMobileHandler(state, action) {
+    //   state.hideAllElement = action.payload;
+    // },
   },
 });
 

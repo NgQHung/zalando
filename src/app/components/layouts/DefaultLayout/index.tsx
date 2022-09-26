@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+// import { useAppSelector } from "../../../hooks";
 import Banner from "../components/banner";
 import Favorite from "../components/favorite_brand_category";
 import Footer from "../components/footer";
@@ -9,6 +10,7 @@ interface IProps {
 }
 
 const DefaultLayout: React.FC<IProps> = ({ children }) => {
+  // const hideAllElement = useAppSelector(state => state.UISlice.hideAllElement)
   return (
     <Fragment>
       <Header />

@@ -1,50 +1,15 @@
-.banner_obsah {
-}
-
-.banner_obsah_title {
-  width: 100%;
-  /* border-bottom: 1px solid #1a1a1a; */
-  border-top: 1px solid #1a1a1a;
-  padding: 16px 24px;
-  position: relative;
-}
-.banner_obsah_title:hover {
-  background-color: #efeff0;
-}
-.banner_list_wrapper {
-  position: relative;
-  /* display: none; */
-}
-.banner_list {
-  transition: opacity 1s linear, margin-top 0.2s step-start, z-index 1s step-start;
-  position: relative;
-}
-.banner_list_hidden {
-  /* display: none; */
-  /* visibility: hidden; */
+.banner_dropdown_hidden {
   opacity: 0;
-  margin-top: -300px;
-  z-index: -5;
-  transition-timing-function: linear, step-end, step-end;
-}
-.banner_list_wrapper::after {
-  content: "";
-  top: 0;
-  position: absolute;
+  position: relative;
+  max-height: 0;
   width: 100%;
-  height: 1px;
-  left: 0;
-  background-color: #1a1a1a;
-  transition: all 0.2s linear;
+  overflow: hidden;
+  transition: height, 0.5s linear;
 }
-.isClicked .banner_list_wrapper::after {
-  top: 100%;
+.banner_dropdown_hidden.banner_dropdown {
+  opacity: 1;
+  position: relative;
+  width: 100%;
+  max-height: 400px;
+  transition: height, 0.5s linear;
 }
-/* .isClicked .banner_item {
-  display: block; */
-/* margin: 0 auto; */
-/* z-index: 1; */
-/* visibility: visible; */
-
-/* opacity: 1; */
-/* } */
