@@ -131,19 +131,17 @@ const Product = () => {
               </p>
             </div>
             <div className="mt-9">
+              {/* select your size start */}
               <div className="  mb-2 relative ">
                 <button
-                  className={
-                    "flex justify-between cursor-pointer w-full p-3 border-x border-t border-[#1a1a1a] " +
-                    (nameDropdown === "selectSize" && !dropdown ? "border-b" : "")
-                  }
+                  className={"flex justify-between cursor-pointer w-full p-3 border border-[#1a1a1a]  "}
                   onClick={() => dropdownHandler("selectSize")}
                 >
                   <span className="">Zvolte svou velikost</span>
                   {nameDropdown === "selectSize" && dropdown ? (
-                    <FontAwesomeIcon icon={faChevronDown} />
-                  ) : (
                     <FontAwesomeIcon icon={faChevronUp} />
+                  ) : (
+                    <FontAwesomeIcon icon={faChevronDown} />
                   )}
                 </button>
 
@@ -179,8 +177,8 @@ const Product = () => {
                   </div>
                 </div>
               </div>
-              {/* <div className="f"> */}
-              {/* <div className="p-3 bg-[#1a1a1a] text-[#ffff] text-center "> */}
+              {/* select your size end */}
+
               <div className="flex items-center">
                 <button className="p-3 bg-[#1a1a1a] text-[#ffff] w-full hover:opacity-70">
                   <span>Přidat do nákupního košíku</span>
@@ -216,6 +214,7 @@ const Product = () => {
                 <FontAwesomeIcon className="h-5 w-5 cursor-pointer" icon={faCircleInfo} />
               </div>
             </div>
+            {/* infor start */}
             <div className="mt-12 font-[700]">
               <div className={" border-y border-[#66676e] relative"}>
                 <button
@@ -336,6 +335,9 @@ const Product = () => {
                 </button>
               </div>
             </div>
+            {/* infor end */}
+
+            {/* stars start */}
             <div className="mt-12">
               <p>Hodnocení</p>
               <div className="flex justify-between items-center">
@@ -371,11 +373,12 @@ const Product = () => {
                 </li>
               </ul>
             </div>
+            {/* stars end */}
           </div>
         </div>
       </div>
 
-      {/* sliding products */}
+      {/* sliding products start */}
       <div className="mt-9 pt-[36px] pb-[24px] text-[14px] row-full ">
         <ul className=" flex relative overflow-x-auto scrollbar_hide ">
           {productData_1.map((item, idx) => (
@@ -414,6 +417,7 @@ const Product = () => {
           className="p-2 text-[24px] absolute cursor-pointer bg-[#ffff] right-0 top-1/2 translate-y-[-50%]"
         />
       </div>
+      {/* sliding products end */}
     </div>
   );
 };

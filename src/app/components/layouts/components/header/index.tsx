@@ -4,37 +4,39 @@ import { faUser, faHeart, faBasketShopping } from "@fortawesome/free-solid-svg-i
 import User from "./header-navtools/User";
 import "./Header.css";
 import HeaderCategory from "./header-category";
-import SubHeaderCategory from "./subHeader-category";
 import ShoppingBasket from "./header-navtools/ShoppingBasket";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../../../hooks";
 
 const Header = () => {
-  // const [active, setActive] = React.useState(false);
   const [gender, setGender] = React.useState("zeny");
 
   const activeHandler = (type: string) => {
-    // if(type === gender) {
-    //   setActive((prevState) => !prevState);
-    // }
     setGender(type);
   };
 
+  const bgColorChangeOnHoverCate = useAppSelector((state) => state.UISlice.bg_color);
+
   return (
     <div className="header w-full relative border-b border-[#d0d1d3]">
-      <div className="mx-[152px] max-w-[1216px]">
-        <div className="absolute top-0 left-0 h-[32px] w-full -z-10 bg-[#efeff0]" />
-        <div className=" h-[32px] ">
+      <div className=" mx-auto my-0 lg:max-w-[1216px] lg:min-w-[943px]">
+        <div
+          className={
+            "absolute top-0 left-0 h-[32px] w-full -z-10 transition-colors duration-[1.5s]  " +
+            (bgColorChangeOnHoverCate ? "bg-[#cac9c9]" : "bg-[#efeff0]")
+          }
+        />
+        <div className=" hidden lg:block h-[32px] ">
           <div className=" text-[12px]  text-[#666666] flex justify-between items-center h-full font-[700] ">
-            {/* <div className=""> */}
             <span className="">Nápověda a kontakt</span>
             <span className="">DOPRAVA A VRÁCENÍ ZDARMA*</span>
             <span className="">Vrácení zboží do 100 dní</span>
-            {/* </div> */}
           </div>
         </div>
-        <div className="w-full h-[96px] bg-[#ffffff] text-[14px] ">
+        <div className=" px-2 bg-[#ffffff] text-[14px] ">
           <div className=" h-[60px] flex justify-between items-center">
-            <ul className="space-x-[8px] text-[16px] font-[700] flex  ">
+            {/* gender select start */}
+            <ul className="hidden space-x-[8px] text-[16px] font-[700] lg:flex  ">
               <Link to="/damy-domovska-stranka">
                 <li
                   onClick={() => activeHandler("zeny")}
@@ -60,6 +62,8 @@ const Header = () => {
                 </li>
               </Link>
             </ul>
+            {/* gender select end */}
+
             <div className="w-auto h-full cursor-pointer">
               <span className="">
                 <img
@@ -97,7 +101,7 @@ const Header = () => {
               </div>
             </div>
           </div>
-          <div className="h-[36px] flex items-center justify-between text-[16px]   ">
+          <div className="h-[36px] ">
             <HeaderCategory />
           </div>
         </div>

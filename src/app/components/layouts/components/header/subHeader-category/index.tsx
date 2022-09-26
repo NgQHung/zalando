@@ -31,7 +31,6 @@ const SubHeaderCategory: React.FC<IProps> = ({ category }) => {
   return (
     <Fragment>
       <Container bg_color="">
-        {/* <div className=""> */}
         {dataCategory?.map((item, index) => (
           <div key={index} className="w-full flex py-[22px]">
             {item.type.map((type, idx) => {
@@ -61,7 +60,6 @@ const SubHeaderCategory: React.FC<IProps> = ({ category }) => {
             </div>
           </div>
         ))}
-        {/* </div> */}
       </Container>
     </Fragment>
   );

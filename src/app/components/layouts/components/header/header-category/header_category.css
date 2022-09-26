@@ -1,55 +1,33 @@
-/* .sub_header_category {
-  position: relative;
-} */
-.navbar_list {
-  /* position: relative; */
-}
-
-.navbar_list::after {
-  content: "";
-  background-color: #fefefe;
-  height: 0;
+.sub_header_category_hidden {
+  position: absolute;
+  opacity: 0;
+  max-height: 0;
+  width: 100%;
   top: 100%;
   left: 0;
-  width: 100%;
-  position: absolute;
-  transition: all 0.35s linear;
-  z-index: 1;
-  /* height: 0; */
-  /* transition: 0.5s ease-in-out;
-  z-index: -5; */
-}
-/* .sub_header_category {
-  position: relative;
-} */
-
-.navbar_list:hover::after {
-  height: 488px;
+  -webkit-transition: height, 0.5s linear;
+  -moz-transition: height, 0.5s linear;
+  -ms-transition: height, 0.5s linear;
+  -o-transition: height, 0.5s linear;
+  transition: height, 0.5s ease-out;
+  /* transition: height, 1s ease-out; */
 }
 
-.header_search {
-  /* position: relative;
-  bottom: 0;
-  right: 0; */
-}
-.sub_header_category {
-  /* z-index: -5; */
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 1s ease-in, visibility 1s ease-in;
-}
-
-.navbar_list:hover .sub_header_category {
-  /* transition: 1.5s ease-in-out; */
-  /* visibility: visible; */
-  /* height: 100%; */
-  /* z-index: 99; */
-  /* margin-top: 0; */
-  /* transform: translateY(-500px); */
-  z-index: 5;
+.navbar_list:hover .sub_header_category_hidden.sub_header_category {
+  -webkit-transition: height, 0.5s linear;
+  -moz-transition: height, 0.5s linear;
+  -ms-transition: height, 0.5s linear;
+  -o-transition: height, 0.5s linear;
+  transition: height, 0.5s ease-out;
+  background-color: #ffff;
+  max-height: 488px;
   opacity: 1;
-
-  visibility: visible;
+  z-index: 5;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  /* visibility: visible; */
   /* opacity: 1; */
   /* transition: opacity 1s linear, margin-top 0.2s step-start, z-index 1s step-start; */
   /* display: block; */

@@ -1,10 +1,12 @@
 import { configureStore, applyMiddleware } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import productSlice from "./product-slice";
+import UISlice from "./UI-slice";
 
 export const store = configureStore({
   reducer: {
     productSlice: productSlice,
+    UISlice: UISlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

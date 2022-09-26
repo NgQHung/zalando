@@ -38,7 +38,9 @@
 
 .size_dropdown_hidden.size_dropdown {
   position: absolute;
-  border: 1px solid #1a1a1a;
+  border-left: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+  border-right: 1px solid #1a1a1a;
   -webkit-transition: height, 0.5s linear;
   -moz-transition: height, 0.5s linear;
   -ms-transition: height, 0.5s linear;
@@ -53,8 +55,4 @@
   background-color: #ffff;
   max-height: 300px;
   opacity: 1;
-}
-
-.size_dropdown li {
-  border-bottom: 2px solid #e9e9ed;
 }
