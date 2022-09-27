@@ -1,11 +1,49 @@
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faChevronUp, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Fragment } from "react";
 import { FOOTER_DATA_1, FOOTER_DATA_2, FOOTER_DATA_3, FOOTER_DATA_4 } from "../../../../../../utils/data";
 import Container from "../../../container";
 import "./FooterInfo.css";
 
+interface IType {
+  contact: string;
+  discount: string;
+  about: string;
+  logist: string;
+  payment: string;
+  cons: string;
+  service: string;
+}
+
 const FooterInfo = () => {
+  const [type, setType] = React.useState<Record<string, any>>({
+    contact: "",
+    discount: "",
+    about: "",
+    logist: "",
+    payment: "",
+    cons: "",
+    service: "",
+  });
+  const [dropdown, setDropdown] = React.useState(false);
+
+  const onClickMobileHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const { name } = e.currentTarget;
+    if (type[name] === name) {
+      setType((prev) => ({ ...prev, [name]: "" }));
+    } else {
+      setType((prev) => ({ ...prev, [name]: name }));
+    }
+  };
+
+  const contactCondition = type.contact === "contact";
+  const discountCondition = type.discount === "discount";
+  const aboutCondition = type.about === "about";
+  const logistCondition = type.logist === "logist";
+  const paymentCondition = type.payment === "payment";
+  const consCondition = type.cons === "cons";
+  const serviceCondition = type.service === "service";
+
   return (
     <Fragment>
       <Container bg_color="bg-[#6328e0]">
@@ -63,7 +101,6 @@ const FooterInfo = () => {
               </div>
             </div>
             {/* second end */}
-
             {/* third start */}
             <div className="flex md:basis-1/3 md:max-w-1/3 lg:basis-1/4 lg:max-w-1/4 px-2 pb-[36px]">
               <div className="basis-1/2 max-w-1/2 grow">
@@ -198,17 +235,200 @@ const FooterInfo = () => {
       {/* mobile start */}
       <div className="md:hidden w-full ">
         <div className="flex flex-col px-[6px]  ">
-          <button className="py-4 flex w-full bg-[#efeff0]">
-            <FontAwesomeIcon icon={faChevronDown} className="h-6 object-cover ml-6 " />
-            <span className="pl-4 grow text-left text-[16px] leading-6  ">Nápověda a kontakt</span>
-            <FontAwesomeIcon icon={faChevronDown} className="ml-auto h-6 object-cover " />
-          </button>
-          <button className="py-4 flex w-full bg-[#efeff0]">
+          {/* first start */}
+          <div>
+            <button name="contact" onClick={onClickMobileHandler} className="py-4 flex w-full bg-[#efeff0]">
+              <FontAwesomeIcon icon={faCircleQuestion} className="h-6 object-cover ml-6 " />
+              <span className="pl-4 grow text-left text-[16px] leading-6 ">Nápověda a kontakt</span>
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className={"normal_state ml-auto h-6 object-cover mr-6 " + (contactCondition ? "rotate_state" : "")}
+              />
+            </button>
+            <ul
+              className={
+                "footerInfo_dropdown_hidden bg-[#efeff0] px-6 text-[14px] " +
+                (contactCondition ? "footerInfo_dropdown" : "")
+              }
+            >
+              <p className="pl-[6px] font-[700] mb-3">Všechny dotazy</p>
+              <li className="mb-3 pl-[6px]">
+                <span className="affect_text">Sledovat objednávku</span>
+              </li>
+              <li className="mb-3 pl-[6px]">
+                <span className="affect_text">Podmínky dopravy</span>
+              </li>
+              <li className="mb-3 pl-[6px]">
+                <span className="affect_text">Jaké způsoby platby nabízíte?</span>
+              </li>
+              <li className="mb-3 pl-[6px]">
+                <span className="affect_text">Přihlašte se k odběru newsletteru</span>
+              </li>
+              <li className="mb-3 pl-[6px]">
+                <span className="affect_text">Vrácení objednávky</span>
+              </li>
+              <li className="mb-3 pl-[6px]">
+                <span className="affect_text">Kdy budu mít peníze zpět?</span>
+              </li>
+              <li className="mb-3 pl-[6px]">
+                <span className="affect_text">Mohu zboží vyměnit?</span>
+              </li>
+            </ul>
+          </div>
+          {/* first end */}
+          {/* second start */}
+          <div>
+            <button name="discount" onClick={onClickMobileHandler} className="py-4 flex w-full bg-[#efeff0]">
+              <FontAwesomeIcon icon={faCircleQuestion} className="h-6 object-cover ml-6 " />
+              <span className="pl-4 grow text-left text-[16px] leading-6 ">Poukazy a slevy</span>
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className={"normal_state ml-auto h-6 object-cover mr-6 " + (discountCondition ? "rotate_state" : "")}
+              />
+            </button>
+            <ul
+              className={
+                "footerInfo_dropdown_hidden bg-[#efeff0] px-6 text-[14px] " +
+                (discountCondition ? "footerInfo_dropdown" : "")
+              }
+            >
+              {FOOTER_DATA_1.data.map((item, idx) => (
+                <li key={idx} className="mb-3 pl-[6px]">
+                  <span className="affect_text">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* second end */}
+          {/* third start */}
+          <div>
+            <button name="about" onClick={onClickMobileHandler} className="py-4 flex w-full bg-[#efeff0]">
+              <FontAwesomeIcon icon={faCircleQuestion} className="h-6 object-cover ml-6 " />
+              <span className="pl-4 grow text-left text-[16px] leading-6 ">O Zalandu</span>
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className={"normal_state ml-auto h-6 object-cover mr-6 " + (aboutCondition ? "rotate_state" : "")}
+              />
+            </button>
+            <ul
+              className={
+                "footerInfo_dropdown_hidden bg-[#efeff0] px-6 text-[14px] " +
+                (aboutCondition ? "footerInfo_dropdown" : "")
+              }
+            >
+              {FOOTER_DATA_2.data.map((item, idx) => (
+                <li key={idx} className="mb-3 pl-[6px]">
+                  <span className="affect_text">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* third end */}
+          {/* forth start */}
+          <div>
+            <button name="logist" onClick={onClickMobileHandler} className="py-4 flex w-full bg-[#efeff0]">
+              <FontAwesomeIcon icon={faCircleQuestion} className="h-6 object-cover ml-6 " />
+              <span className="pl-4 grow text-left text-[16px] leading-6 ">Logističtí partneři</span>
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className={"normal_state ml-auto h-6 object-cover mr-6 " + (logistCondition ? "rotate_state" : "")}
+              />
+            </button>
+            <ul
+              className={
+                "footerInfo_dropdown_hidden bg-[#efeff0] px-6 text-[14px] " +
+                (logistCondition ? "footerInfo_dropdown" : "")
+              }
+            >
+              {FOOTER_DATA_2.data.map((item, idx) => (
+                <li key={idx} className="mb-3 pl-[6px]">
+                  <span className="affect_text">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* forth end */}
+
+          {/* fifth start */}
+          <div>
+            <button name="payment" onClick={onClickMobileHandler} className="py-4 flex w-full bg-[#efeff0]">
+              <FontAwesomeIcon icon={faCircleQuestion} className="h-6 object-cover ml-6 " />
+              <span className="pl-4 grow text-left text-[16px] leading-6 ">Způsoby platby</span>
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className={"normal_state ml-auto h-6 object-cover mr-6 " + (paymentCondition ? "rotate_state" : "")}
+              />
+            </button>
+            <ul
+              className={
+                "footerInfo_dropdown_hidden bg-[#efeff0] px-6 text-[14px] " +
+                (paymentCondition ? "footerInfo_dropdown" : "")
+              }
+            >
+              {FOOTER_DATA_2.data.map((item, idx) => (
+                <li key={idx} className="mb-3 pl-[6px]">
+                  <span className="affect_text">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* fifth end */}
+
+          {/* sixth start */}
+          <div>
+            <button name="cons" onClick={onClickMobileHandler} className="py-4 flex w-full bg-[#efeff0]">
+              <FontAwesomeIcon icon={faCircleQuestion} className="h-6 object-cover ml-6 " />
+              <span className="pl-4 grow text-left text-[16px] leading-6 ">Naše výhody</span>
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className={"normal_state ml-auto h-6 object-cover mr-6 " + (consCondition ? "rotate_state" : "")}
+              />
+            </button>
+            <ul
+              className={
+                "footerInfo_dropdown_hidden bg-[#efeff0] px-6 text-[14px] " +
+                (consCondition ? "footerInfo_dropdown" : "")
+              }
+            >
+              {FOOTER_DATA_3.data.map((item, idx) => (
+                <li key={idx} className="mb-3 pl-[6px]">
+                  <span className="affect_text">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* sixth end */}
+          {/* seventh start */}
+          <div>
+            <button name="service" onClick={onClickMobileHandler} className="py-4 flex w-full bg-[#efeff0]">
+              <FontAwesomeIcon icon={faCircleQuestion} className="h-6 object-cover ml-6 " />
+              <span className="pl-4 grow text-left text-[16px] leading-6 ">Naše služby</span>
+              <FontAwesomeIcon
+                icon={faChevronDown}
+                className={"normal_state ml-auto h-6 object-cover mr-6 " + (serviceCondition ? "rotate_state" : "")}
+              />
+            </button>
+            <ul
+              className={
+                "footerInfo_dropdown_hidden bg-[#efeff0] px-6 text-[14px] " +
+                (serviceCondition ? "footerInfo_dropdown" : "")
+              }
+            >
+              {FOOTER_DATA_2.data.map((item, idx) => (
+                <li key={idx} className="mb-3 pl-[6px]">
+                  <span className="affect_text">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* seventh end */}
+
+          {/* <button name="discount" onClick={onClickMobileHandler} className="py-4 flex w-full bg-[#efeff0]">
             <FontAwesomeIcon icon={faChevronDown} className="h-6 object-cover ml-6 " />
             <span className="pl-4 grow text-left text-[16px] leading-6  ">Poukazy a slevy</span>
             <FontAwesomeIcon icon={faChevronDown} className="ml-auto h-6 object-cover " />
-          </button>
-          <button className="py-4 flex w-full bg-[#efeff0]">
+          </button> */}
+          {/* <button className="py-4 flex w-full bg-[#efeff0]">
             <FontAwesomeIcon icon={faChevronDown} className="h-6 object-cover ml-6 " />
             <span className="pl-4 grow text-left text-[16px] leading-6  ">O Zalandu</span>
             <FontAwesomeIcon icon={faChevronDown} className="ml-auto h-6 object-cover " />
@@ -232,7 +452,7 @@ const FooterInfo = () => {
             <FontAwesomeIcon icon={faChevronDown} className="h-6 object-cover ml-6 " />
             <span className="pl-4 grow text-left text-[16px] leading-6  ">Naše služby</span>
             <FontAwesomeIcon icon={faChevronDown} className="ml-auto h-6 object-cover " />
-          </button>
+          </button> */}
         </div>
       </div>
       {/* mobile end */}
