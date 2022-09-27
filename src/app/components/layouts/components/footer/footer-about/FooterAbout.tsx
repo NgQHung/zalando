@@ -11,27 +11,27 @@ const FooterAbout = () => {
       <div className="mx-[18px] md:mx-8">
         <div className="flex flex-wrap px-[18px] lg:px-[8px] pt-[24px] pb-[36px] text-[#ffff] w-full ">
           <ul className="flex space-x lg:basis-1/2 lg:max-w-1/2 flex-wrap text-[14px] mb-6">
-            <li className="footer_about_item_ mb-3 leading-[20px] pr-[12px]">
+            <li className="mb-3 leading-[20px] pr-[12px]">
               <Link to="">
                 <span className="affect_text">Právní informace</span>
               </Link>
             </li>
-            <li className="footer_about_item">
+            <li className="border-l border-[#ffff] px-3 max-h-[40px] sm:max-h-[20px] mb-3">
               <Link to="">
                 <span className="affect_text">Obchodni podminky</span>
               </Link>
             </li>
-            <li className="footer_about_item">
+            <li className="border-l border-[#ffff] px-3 max-h-[40px] sm:max-h-[20px] mb-3">
               <Link to="">
                 <span className="affect_text">Zásady ochrany soukromí</span>
               </Link>
             </li>
-            <li className="footer_about_item">
+            <li className="border-l border-[#ffff] px-3 max-h-[40px] sm:max-h-[20px] mb-3">
               <Link to="">
                 <span className="affect_text">Tech blog</span>
               </Link>
             </li>
-            <li className="footer_about_item">
+            <li className="border-l border-[#ffff] px-3 max-h-[40px] sm:max-h-[20px] mb-3">
               <Link to="">
                 <span className="affect_text">Nastavení dat</span>
               </Link>

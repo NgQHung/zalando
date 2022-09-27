@@ -9,48 +9,48 @@ import SubHeaderCategory from "../subHeader-category";
 import "./header_category.css";
 
 const HeaderCategory = () => {
-  const [category, setCategory] = React.useState("");
+  const [category, setCategory] = React.useState<any>("");
   const dispatch = useAppDispatch();
 
-  const onMouseHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setCategory(e.currentTarget.name);
+  const onMouseHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const target = e.currentTarget;
+    setCategory(target.getAttribute("datatype"));
     dispatch(UIActions.headerChangeBgOnHoverHandler(true));
   };
-  const onMouseLeaveHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onMouseLeaveHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setCategory("");
     dispatch(UIActions.headerChangeBgOnHoverHandler(false));
   };
 
   return (
     <Fragment>
-      <div className=" lg:mx-auto my-0 lg:max-w-[1216px] lg:flex items-center justify-between text-[16px] ">
-        <ul className=" hidden max-w-[900px] lg:flex justify-between items-center text-[0.875rem] w-full ">
+      <div className=" mx-auto my-0 lg:max-w-[1216px] lg:flex items-end text-[16px] relative ">
+        <div className=" hidden min-w-[925px] lg:flex justify-between text-[0.875rem] cursor-pointer ">
           {HeaderCategory_DATA.map((item, idx) => {
             return (
-              <div key={idx}>
-                <li className="navbar_list">
-                  <button
-                    name={item}
-                    className=" first:pl-0 pt-[10px]  px-[8px] font-[400]"
-                    onMouseEnter={onMouseHandler}
-                    onMouseLeave={onMouseLeaveHandler}
-                  >
-                    <span className="affect_text">{item}</span>
-                  </button>
-                  <div
-                    className={
-                      "sub_header_category_hidden absolute w-full top-full left-0  " +
-                      (category ? "sub_header_category" : "")
-                    }
-                  >
-                    <SubHeaderCategory category={category} />
-                  </div>
-                </li>
+              <div
+                key={idx}
+                datatype={item}
+                onMouseEnter={onMouseHandler}
+                className="navbar_list pt-[10px] pb-[6px] px-[8px] font-[400]"
+                onMouseLeave={onMouseLeaveHandler}
+              >
+                <button className=" first:pl-0 ">
+                  <span className="affect_text">{item}</span>
+                </button>
+                <div
+                  className={
+                    "sub_header_category_hidden absolute w-full top-full left-0 border-t border-[#efeff0] " +
+                    (category ? "sub_header_category" : "")
+                  }
+                >
+                  <SubHeaderCategory category={category} />
+                </div>
               </div>
             );
           })}
-        </ul>
-        <div className="header_search ">
+        </div>
+        <div className="grow ">
           <HeaderInput />
         </div>
       </div>

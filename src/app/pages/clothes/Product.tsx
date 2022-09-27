@@ -50,8 +50,6 @@ const Product = () => {
   const dropdownHandler = (name: string) => {
     setDropDown((prev) => !prev);
     setNameDropdown(name);
-    console.log(nameDropdown);
-    console.log(dropdown);
   };
 
   const clickedProduct = (data: Idata) => {
@@ -96,8 +94,9 @@ const Product = () => {
             >
               {ProductData.product_1.map((item, idx) => (
                 <ul key={idx}>
-                  {item.img.map((image) => (
+                  {item.img.map((image, inx) => (
                     <li
+                      key={inx}
                       onMouseEnter={() => typeImageHandler(image)}
                       className="mb-4 hover:outline hover:outline-offset-[-3px] hover:outline-[3px] cursor-pointer"
                     >

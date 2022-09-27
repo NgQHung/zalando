@@ -10,9 +10,6 @@ export const DetiPage = () => {
   const viewData_2 = data.deti.view[1];
   const productData_1 = data.deti.product;
 
-  // React.useEffect(() => {
-  //   console.log(window.scrollY);
-  // }, [window.scrollY]);
 
   return (
     <Fragment>

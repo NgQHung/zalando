@@ -33,23 +33,6 @@
   display: block;
 }
 
-/* .navbar_item {
-  position: relative;
-} */
-.navbar_list {
-  cursor: pointer;
-}
-/* .navbar_list:hover .navbar_item::after {
-  content: "";
-  position: absolute;
-  background-color: black;
-  height: 1px;
-  width: 100%;
-  margin-top: 1px;
-  top: 100%;
-  left: 0;
-  transition: background-color 0.15s ease-in-out;
-} */
 .header_gender {
   padding: 8px 6px;
   /* color: #ffff; */

@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <div className="header w-full relative border-b border-[#d0d1d3]">
-      <div className="mx-auto my-0 lg:max-w-[1216px] lg:min-w-[943px] min-h-[96px]">
+      <div className="mx-6 xl:mx-auto xl:my-0 lg:max-w-[1216px] lg:min-w-[943px] min-h-[96px]">
         <div
           className={
             "absolute top-0 left-0 h-[32px] w-full -z-10 transition-colors duration-[1.5s]  " +
@@ -34,7 +34,7 @@ const Header = () => {
           </div>
         </div>
         <div className=" lg:px-2 bg-[#ffffff] text-[14px] ">
-          <div className=" h-[60px] flex justify-between items-center">
+          <div className=" h-[60px] flex justify-between items-center ">
             {/* gender select start */}
             <ul className="hidden space-x-[8px] text-[16px] font-[700] lg:flex  ">
               <Link to="/damy-domovska-stranka">

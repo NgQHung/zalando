@@ -6,14 +6,14 @@ import { Link } from "react-router-dom";
 
 const HeaderInput = () => {
   const [isTouched, setIsTouched] = React.useState(false);
-  const [searchMobileClick, setSearchMobileClick] = React.useState(false);
+  // const [searchMobileClick, setSearchMobileClick] = React.useState(false);
 
   const onClickHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>, type?: string) => {
-    if (e.currentTarget.name === "searchMobile") {
-      setSearchMobileClick(true);
-    } else {
-      setSearchMobileClick(false);
-    }
+    // if (e.currentTarget.name === "searchMobile") {
+    //   setSearchMobileClick(true);
+    // } else {
+    //   setSearchMobileClick(false);
+    // }
     if (e.currentTarget.name === "searchScreen") {
       setIsTouched(true);
     } else {
@@ -28,7 +28,7 @@ const HeaderInput = () => {
     document.addEventListener("mousedown", (e: any) => {
       if (!refInput.current.contains(e.target)) {
         setIsTouched(false);
-        setSearchMobileClick(false);
+        // setSearchMobileClick(false);
       }
     });
   }, []);
@@ -39,7 +39,7 @@ const HeaderInput = () => {
       <div
         ref={refInput}
         className={
-          "hidden lg:flex items-center w-[288px] h-[35px] text-[#1a1a1a] tracking-[0.5px]  bg-[#efeff0] " +
+          "hidden header_search lg:flex items-center h-[35px] text-[#1a1a1a] tracking-[0.5px] grow  bg-[#efeff0] " +
           (isTouched ? "header_search_transition" : "")
         }
       >
@@ -48,15 +48,13 @@ const HeaderInput = () => {
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </span>
         </div>
-        <div className={" h-full" + (isTouched ? " w-full" : " w-[238px]")}>
-          <input
-            onClick={onClickHandler}
-            name="searchScreen"
-            className="bg-transparent h-full w-full py-[6px] outline-none text-[14px] "
-            type="text"
-            placeholder="Hledat"
-          />
-        </div>
+        <input
+          onClick={onClickHandler}
+          name="searchScreen"
+          className="bg-transparent grow h-full w-full py-[6px] outline-none text-[14px] "
+          type="text"
+          placeholder="Hledat"
+        />
         {isTouched && (
           <div onClick={() => setIsTouched(false)} className="absolute right-0 px-[4px] cursor-pointer ">
             <FontAwesomeIcon icon={faXmark} />
@@ -65,14 +63,11 @@ const HeaderInput = () => {
       </div>
       {/* search for screen end */}
       {/* search for mobile start */}
-      <div className=" lg:hidden  ">
-        <div className="flex items-center">
-          <div className="border border-[#d0d1d3]">
-            <FontAwesomeIcon icon={faBars} className="h-6 p-[10px]" />
-          </div>
-
+      <div className=" lg:hidden border-t border-b border-[#d0d1d3] ">
+        <div className="flex items-center ">
+          <FontAwesomeIcon icon={faBars} className="w-6 h-full p-[10px] border-r border-[#d0d1d3] " />
           <Link to="/search" className="w-full">
-            <div className="border flex items-stretch justify-between grow border-[#d0d1d3] w-full   ">
+            <div className=" flex items-stretch justify-between grow  w-full   ">
               <input
                 name="searchMobile"
                 type="text"
