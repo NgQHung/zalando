@@ -2,10 +2,8 @@ import React, { Fragment } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import DefaultLayout from "./app/components/layouts/DefaultLayout";
 import { publicRoutes } from "./app/routes";
-// import Main from "./app/pages/Main";
 
 function App() {
-  // const navigate = useNavigate()
   return (
     <div className="App">
       <Routes>

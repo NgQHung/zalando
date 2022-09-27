@@ -4,13 +4,35 @@ import Content from "../../components/layouts/container";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import axios from "axios";
 // import {}
 
+interface IData {
+  category: {
+    id: number;
+    name: string;
+    image: string;
+  };
+  description: string;
+  id: number;
+  images: string[];
+  price: number;
+  title: string;
+}
+
 export const Home = () => {
-  // const [zenyDataImages, setZenyDataImage] = useState([])
   const zenyDataImages_1 = DATA_IMAGES.filter((item) => item.title === "Zeny_1");
   const zenyDataImages_2 = DATA_IMAGES.filter((item) => item.title === "Zeny_2");
+  const [data, setData] = React.useState<string[]>([]);
+
+  const fetchData = async () => {
+    const data = await axios.get(" https://api.escuelajs.co/api/v1/products");
+    setData(data.data.slice(0, 20));
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Fragment>
@@ -30,22 +52,16 @@ export const Home = () => {
             </div>
           </div>
           <div className="row_full bg-[#34d27b] mb-[64px]">
-            <div className="absolute pt-[36px] pb-[24px] text-[14px] ">
-              {zenyDataImages_1.map((item, idx) => (
-                <div key={idx} className="">
-                  <ul className="flex ">
-                    {item.image.map((image, index) => (
-                      // <Link to='/'>
-                      <li key={index} className="relative product_item h-[415px] w-[296px] px-[8px] cursor-pointer">
-                        <div className="absolute bg-[#ffff] top-2 right-2 ">
-                          <FontAwesomeIcon icon={faHeart} className="fa-thin p-[8px] text-[24px]" />
-                        </div>
-                        <img className="h-full w-full object-cover" src={image} alt="product" />
-                      </li>
-                      // </Link>
-                    ))}
-                  </ul>
-                  <div className="flex ml-[152px] pt-[8px]">
+            <div className="absolute flex pt-[36px] pb-[24px] text-[14px] ">
+              {data.map((item: any) => (
+                <div key={item.id}>
+                  <div className="relative product_item h-[415px] w-[296px] px-[8px] cursor-pointer">
+                    <div className="absolute bg-[#ffff] top-2 right-2 ">
+                      <FontAwesomeIcon icon={faHeart} className="fa-thin p-[8px] text-[24px]" />
+                    </div>
+                    <img className="h-full w-full object-cover" src={item.category.image} alt="product" />
+                  </div>
+                  {/* <div className="flex ml-[152px] pt-[8px]">
                     {item.info.map((item, idx) => (
                       <div key={idx} className="w-[296px] px-[8px] leading-[20px] cursor-pointer">
                         <div className="pb-[8px]">
@@ -62,7 +78,7 @@ export const Home = () => {
                         </div>
                       </div>
                     ))}
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>
