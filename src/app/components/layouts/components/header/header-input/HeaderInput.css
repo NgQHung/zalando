@@ -12,7 +12,7 @@
 
 .header_search {
   --max_width: 288px;
-  position: absolute;
+  position: relative;
   right: 0;
   /* left: calc(100% - var(--max_width)); */
   bottom: 0;

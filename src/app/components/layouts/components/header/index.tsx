@@ -18,25 +18,26 @@ const Header = () => {
   const bgColorChangeOnHoverCate = useAppSelector((state) => state.UISlice.bg_color);
 
   return (
-    <div className="header w-full relative border-b border-[#d0d1d3]">
-      <div className="mx-6 xl:mx-auto xl:my-0 lg:max-w-[1216px] lg:min-w-[943px] min-h-[96px]">
-        <div
-          className={
-            "absolute top-0 left-0 h-[32px] w-full -z-10 transition-colors duration-[1.5s]  " +
-            (bgColorChangeOnHoverCate ? "bg-[#cac9c9]" : "bg-[#efeff0]")
-          }
-        />
-        <div className=" hidden lg:block h-[32px] ">
-          <div className=" text-[12px]  text-[#666666] flex justify-between items-center h-full font-[700] ">
-            <span className="">Nápověda a kontakt</span>
-            <span className="">DOPRAVA A VRÁCENÍ ZDARMA*</span>
-            <span className="">Vrácení zboží do 100 dní</span>
+    <div className="relative border-b border-[#d0d1d3]">
+      <div className=" min-h-[96px]">
+        <div className=" hidden lg:block ">
+          <div
+            className={
+              " text-[12px] text-[#666666]   font-[700] transition-colors duration-[1.5s] " +
+              (bgColorChangeOnHoverCate ? "bg-[#cac9c9]" : "bg-[#efeff0]")
+            }
+          >
+            <div className="flex justify-between h-[32px]  items-center mx-6 xl:mx-auto xl:my-0 lg:max-w-[1216px] lg:min-w-[943px]">
+              <span className="">Nápověda a kontakt</span>
+              <span className="">DOPRAVA A VRÁCENÍ ZDARMA*</span>
+              <span className="">Vrácení zboží do 100 dní</span>
+            </div>
           </div>
         </div>
-        <div className=" lg:px-2 bg-[#ffffff] text-[14px] ">
-          <div className=" h-[60px] flex justify-between items-center ">
+        <div className=" lg:px-2 bg-[#ffffff] text-[14px] lg:mx-6 xl:mx-auto xl:my-0 lg:max-w-[1216px] lg:min-w-[943px] ">
+          <div className="pt-[8px] h-[60px] flex items-center w-full ">
             {/* gender select start */}
-            <ul className="hidden space-x-[8px] text-[16px] font-[700] lg:flex  ">
+            <ul className="hidden space-x-[8px] basis-1/3 max-w-1/3 text-[16px] font-[700] lg:flex  ">
               <Link to="/damy-domovska-stranka">
                 <li
                   onClick={() => activeHandler("zeny")}
@@ -64,36 +65,30 @@ const Header = () => {
             </ul>
             {/* gender select end */}
             {/* logo start */}
-            <div className="w-auto h-full cursor-pointer">
-              <span className="">
-                <img
-                  className="h-full w-auto inline "
-                  src="https://www.recenzer.cz/wp-content/uploads/2020/10/zalando.png"
-                  alt="logo"
-                />
-              </span>
+            <div className="basis-1/2 max-w-1/2 pl-[17px] lg:flex lg:justify-center lg:basis-1/3 lg:max-w-1/3  ">
+              <img
+                className="w-[120px] object-cover  "
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Zalando_logo.svg/2560px-Zalando_logo.svg.png"
+                alt="logo"
+              />
             </div>
             {/* logo end */}
             {/* navtools start */}
-            <div className="relative flex text-[24px] space-x-[3px] ">
+            <div className="relative basis-1/2 max-w-1/2 lg:basis-1/3 lg:max-w-1/3 flex text-[24px] space-x-[3px] justify-end ">
               <div className="navtools flex justify-center items-center">
-                <span className="navtools_icons">
-                  <FontAwesomeIcon icon={faUser} />
-                </span>
+                <FontAwesomeIcon icon={faUser} className="h-5 w-5 object-cover" />
                 <div className="navtools_user">
                   <User />
                 </div>
               </div>
               <div className=" relative flex justify-center items-center p-[10px] cursor-pointer ">
-                <FontAwesomeIcon icon={faHeart} />
+                <FontAwesomeIcon icon={faHeart} className="h-5 w-5 object-cover" />
                 <div className="absolute top-[5px] right-[3px] bg-[#ff6800] h-[16px] w-[16px] rounded-[50px] flex justify-center items-center ">
                   <span className="text-white leading-[1rem] text-[0.75rem]">4</span>
                 </div>
               </div>
               <div className="relative navtools flex justify-center items-center ">
-                <span className="navtools_icons">
-                  <FontAwesomeIcon icon={faBasketShopping} />
-                </span>
+                <FontAwesomeIcon icon={faBasketShopping} className="h-5 w-5 object-cover" />
                 <div className="absolute top-[5px] right-[3px] bg-[#ff6800] h-[16px] w-[16px] rounded-[50px] flex justify-center items-center ">
                   <span className="text-white leading-[1rem] text-[0.75rem]">4</span>
                 </div>

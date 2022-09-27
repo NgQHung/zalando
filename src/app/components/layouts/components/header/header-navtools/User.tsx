@@ -6,28 +6,6 @@ const User = () => {
   return (
     <Fragment>
       <div className="absolute w-[296px] bg-white top-full right-[-1px] border border-black z-50 ">
-        {/* <ul className=" pt-[2px] relative">
-          <div className="mx-[26px]">
-            <li className="user_list">
-              <span className="user_item">Váš přehled</span>
-            </li>
-            <li className="user_list">
-              <span className="user_item">Objednávky</span>
-            </li>
-            <li className="user_list">
-              <span className="user_item">Vrátit zboží</span>
-            </li>
-            <li className="user_list">
-              <span className="user_item">Vaše velikosti</span>
-            </li>
-            <li className="user_list">
-              <span className="user_item">Nápověda a kontakt</span>
-            </li>
-          </div>
-          <li className="user_list_last ">
-            <span className="user_item">Nejste Hung? Odhlásit se</span>
-          </li>
-        </ul> */}
         <div className=" pt-[2px] relative ">
           <div className=" text-[#ffff] text-center pt-4 pb-[13px] px-[10px] border_bottom">
             <Link to="/login">

@@ -1,5 +1,3 @@
-import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Fragment } from "react";
 import { UIActions } from "../../../../../../stores/UI-slice";
 import { HeaderCategory_DATA } from "../../../../../../utils/data";
@@ -24,7 +22,7 @@ const HeaderCategory = () => {
 
   return (
     <Fragment>
-      <div className=" mx-auto my-0 lg:max-w-[1216px] lg:flex items-end text-[16px] relative ">
+      <div className=" max-w-full lg:max-w-[1216px] lg:flex items-end text-[16px] relative min-h-[35px] ">
         <div className=" hidden min-w-[925px] lg:flex justify-between text-[0.875rem] cursor-pointer ">
           {HeaderCategory_DATA.map((item, idx) => {
             return (
@@ -50,7 +48,7 @@ const HeaderCategory = () => {
             );
           })}
         </div>
-        <div className="grow ">
+        <div className=" grow ">
           <HeaderInput />
         </div>
       </div>

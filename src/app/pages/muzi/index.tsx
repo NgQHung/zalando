@@ -32,13 +32,17 @@ export const MuziPage = () => {
       <Container bg_color="bg-[#229967]" margin="mb-16">
         <section className="flex flex-col w-full h-full">
           <div className="pt-[24px] flex justify-between w-full ">
-            <div className="mt-[36px] px-[8px]">
+            <div className="mt-[36px] px-[8px] basis-1/2 max-w-1/2  lg:basis-[41.666%] lg:max-w-[41.666%]">
               <p className="text-[32px] font-[700] leading-[2.25rem]">{viewData_1.title}</p>
               <p className="text_tiempos text-[32px] font-[400] leading-[2.25rem]">{viewData_1.sub_title}</p>
               <p className="text-[16px] pt-[24px] leading-[1.5rem] font-[700] affect_text">Zobrazit víc</p>
             </div>
-            <div>
-              <img src={viewData_1.image} alt="img" />
+            <div className=" basis-1/2 max-w-1/2 self-end lg:basis-[58.333%] lg:max-w-[58.333%]">
+              <div className="relative overflow-hidden h-0 pt-[96.28%]">
+                <div className="absolute left-0 top-0 w-full h-full ">
+                  <img src={viewData_1.image} alt="img" className="relative w-full text-center h-auto max-w-full" />
+                </div>
+              </div>
             </div>
           </div>
           <div className="row_full bg-[#34d27b] ">

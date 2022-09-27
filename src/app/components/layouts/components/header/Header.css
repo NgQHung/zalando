@@ -10,7 +10,7 @@
   border: 1px solid #1a1a1a;
 }
 
-.navtools:hover .navtools_icons::after {
+.navtools:hover::after {
   content: "";
   position: absolute;
   background-color: #ffff;

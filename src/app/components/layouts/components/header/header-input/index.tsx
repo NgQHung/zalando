@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import "./HeaderInput.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong, faBars, faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const HeaderInput = () => {
@@ -63,7 +63,7 @@ const HeaderInput = () => {
       </div>
       {/* search for screen end */}
       {/* search for mobile start */}
-      <div className=" lg:hidden border-t border-b border-[#d0d1d3] ">
+      <div className=" lg:hidden w-full border-t border-b border-[#d0d1d3] ">
         <div className="flex items-center ">
           <FontAwesomeIcon icon={faBars} className="w-6 h-full p-[10px] border-r border-[#d0d1d3] " />
           <Link to="/search" className="w-full">
