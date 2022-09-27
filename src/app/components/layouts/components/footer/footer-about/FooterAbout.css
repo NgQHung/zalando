@@ -2,8 +2,6 @@
   display: inline;
   border-left: 1px solid #ffff;
   padding: 0 12px;
-  max-height: 20px;
+  margin-bottom: 12px;
+  max-height: 40px;
 }
-/* .footer_about_item_ {
-  border-left: 1px solid #ffff;
-} */
