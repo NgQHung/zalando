@@ -15,6 +15,8 @@ import {
   faTruck,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAppDispatch } from "../../../hooks";
+import { actionActions } from "../../../../stores/action-slice";
 
 interface Iprops {
   selectedProduct: ProductDetail;
@@ -23,10 +25,32 @@ interface Iprops {
 const Product_info = ({ selectedProduct }: Iprops) => {
   const [dropdown, setDropDown] = React.useState(false);
   const [nameDropdown, setNameDropdown] = React.useState("");
+  const [sizeProduct, setSizeProduct] = React.useState("");
+  const dispatch = useAppDispatch();
 
   const dropdownHandler = (name: string) => {
     setDropDown((prev) => !prev);
     setNameDropdown(name);
+  };
+
+  const sizeProductHandler = (size: string) => {
+    setSizeProduct(size);
+    setDropDown(false);
+  };
+
+  const addShoppingCartHandler = () => {
+    dispatch(
+      actionActions.addShoppingCartHandler({
+        id: selectedProduct.id,
+        brand: selectedProduct.brand.name,
+        name: selectedProduct.name,
+        imageUrl: selectedProduct.media.images[0].url,
+        currentPrice: selectedProduct.price.current.value,
+        previousPrice: selectedProduct.price.previous?.value,
+        amount: 1,
+        size: sizeProduct,
+      })
+    );
   };
 
   return (
@@ -48,7 +72,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
                 className={"flex justify-between cursor-pointer w-full p-3 border border-[#1a1a1a]  "}
                 onClick={() => dropdownHandler("selectSize")}
               >
-                <span className="">Zvolte svou velikost</span>
+                <span className="">{sizeProduct ? sizeProduct : "Zvolte svou velikost"} </span>
                 {nameDropdown === "selectSize" && dropdown ? (
                   <FontAwesomeIcon icon={faChevronUp} />
                 ) : (
@@ -60,26 +84,29 @@ const Product_info = ({ selectedProduct }: Iprops) => {
                 className={"size_dropdown_hidden " + (nameDropdown === "selectSize" && dropdown ? "size_dropdown" : "")}
               >
                 <div className="hover:bg-[#e9e9ed] transition-all">
-                  <div className="py-4 pr-3 ml-6 text-[16px] cursor-pointer border-b-[2px] border-[#e9e9ed] font-[700]">
+                  <div
+                    onClick={() => sizeProductHandler("S")}
+                    className="py-4 pr-3 ml-6 text-[16px] cursor-pointer border-b-[2px] border-[#e9e9ed] font-[700]"
+                  >
                     S
                   </div>
                 </div>
-                <div className="hover:bg-[#e9e9ed] transition-all">
+                <div onClick={() => sizeProductHandler("M")} className="hover:bg-[#e9e9ed] transition-all">
                   <div className="py-4 pr-3 ml-6 text-[16px] cursor-pointer border-b-[2px] border-[#e9e9ed] font-[700]">
                     M
                   </div>
                 </div>
-                <div className="hover:bg-[#e9e9ed] transition-all">
+                <div onClick={() => sizeProductHandler("L")} className="hover:bg-[#e9e9ed] transition-all">
                   <div className="py-4 pr-3 ml-6 text-[16px] cursor-pointer border-b-[2px] border-[#e9e9ed] font-[700]">
                     L
                   </div>
                 </div>
-                <div className="hover:bg-[#e9e9ed] transition-all">
+                <div onClick={() => sizeProductHandler("XL")} className="hover:bg-[#e9e9ed] transition-all">
                   <div className="py-4 pr-3 ml-6 text-[16px] cursor-pointer border-b-[2px] border-[#e9e9ed] font-[700]">
                     XL
                   </div>
                 </div>
-                <div className="hover:bg-[#e9e9ed] transition-all">
+                <div onClick={() => sizeProductHandler("XXL")} className="hover:bg-[#e9e9ed] transition-all">
                   <div className="py-4 pr-3 ml-6 text-[16px] cursor-pointer border-b-[2px] border-[#e9e9ed] font-[700]">
                     XXL
                   </div>
@@ -89,7 +116,10 @@ const Product_info = ({ selectedProduct }: Iprops) => {
             {/* select your size end */}
 
             <div className="flex items-center">
-              <button className="p-3 bg-[#1a1a1a] text-[#ffff] w-full hover:opacity-70">
+              <button
+                onClick={addShoppingCartHandler}
+                className="p-3 bg-[#1a1a1a] text-[#ffff] w-full hover:opacity-70"
+              >
                 <span>Přidat do nákupního košíku</span>
               </button>
               <button>
