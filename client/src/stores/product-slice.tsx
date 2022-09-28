@@ -5,7 +5,8 @@ import { createSlice } from "@reduxjs/toolkit";
 // }
 
 const initialState: any = {
-  clickedProduct: [],
+  clickedProduct: {},
+  selectedId: null,
 };
 
 const productSlice = createSlice({
@@ -14,6 +15,9 @@ const productSlice = createSlice({
   reducers: {
     selectedProductHandler(state, action) {
       state.clickedProduct = action.payload;
+    },
+    selectedIdHandler(state, action) {
+      state.selectedId = action.payload;
     },
   },
 });

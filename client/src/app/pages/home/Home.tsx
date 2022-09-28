@@ -1,38 +1,21 @@
 import React, { Fragment } from "react";
-import { DATA_IMAGES } from "../../../utils/data-img";
 import Content from "../../components/layouts/container";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-// import {}
-
-interface IData {
-  category: {
-    id: number;
-    name: string;
-    image: string;
-  };
-  description: string;
-  id: number;
-  images: string[];
-  price: number;
-  title: string;
-}
+import { Products } from "../../../interfaces/Products";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { productActions } from "../../../stores/product-slice";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
-  const zenyDataImages_1 = DATA_IMAGES.filter((item) => item.title === "Zeny_1");
-  const zenyDataImages_2 = DATA_IMAGES.filter((item) => item.title === "Zeny_2");
-  const [data, setData] = React.useState<string[]>([]);
+  const dispatch = useAppDispatch();
+  const productToShowHome_1: Products[] = useAppSelector((state) => state.homeSlice.productToShowHome_1);
+  const productToShowHome_2: Products[] = useAppSelector((state) => state.homeSlice.productToShowHome_2);
 
-  const fetchData = async () => {
-    const data = await axios.get(" https://api.escuelajs.co/api/v1/products");
-    setData(data.data.slice(0, 20));
+  const selectedProductHandler = (id: number) => {
+    dispatch(productActions.selectedIdHandler(id));
   };
-
-  React.useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <Fragment>
@@ -52,34 +35,38 @@ export const Home = () => {
             </div>
           </div>
           <div className="row_full bg-[#34d27b] mb-[64px]">
-            <div className="absolute flex pt-[36px] pb-[24px] text-[14px] ">
-              {data.map((item: any) => (
-                <div key={item.id}>
-                  <div className="relative product_item h-[415px] w-[296px] px-[8px] cursor-pointer">
-                    <div className="absolute bg-[#ffff] top-2 right-2 ">
-                      <FontAwesomeIcon icon={faHeart} className="fa-thin p-[8px] text-[24px]" />
-                    </div>
-                    <img className="h-full w-full object-cover" src={item.category.image} alt="product" />
-                  </div>
-                  {/* <div className="flex ml-[152px] pt-[8px]">
-                    {item.info.map((item, idx) => (
-                      <div key={idx} className="w-[296px] px-[8px] leading-[20px] cursor-pointer">
-                        <div className="pb-[8px]">
-                          <h3>{item.brand}</h3>
-                          <h3>{item.name}</h3>
-                        </div>
-                        <div className="flex flex-col leading-[1.25rem] text-[700]">
-                          <span>{item.price}</span>
+            <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
+              {productToShowHome_1.map((item: Products) => (
+                <Link
+                  to={`/${item.name}`}
+                  key={item.id}
+                  onClick={() => selectedProductHandler(item.id)}
+                  className="first:ml-[152px]"
+                >
+                  <div className="relative h-[415px] w-[296px] px-[8px] cursor-pointer">
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      className="fa-thin p-[8px] text-[24px] absolute bg-[#ffff] top-2 right-2"
+                    />
+                    <img className="w-[288px] h-[415px] object-cover" src={`https://${item.imageUrl}`} alt="product" />
+                    <div className=" leading-[20px] pt-2">
+                      <div className="pb-[8px]">
+                        <h3>{item.brandName}</h3>
+                        <h3>{item.name}</h3>
+                      </div>
+                      <div className="flex flex-col leading-[1.25rem] text-[700]">
+                        <span>{item.price.current.text}</span>
+                        {item.price.previous.value !== null && (
                           <div className="text-[12px] leading-[16px]">
                             <span>Původně:</span>
-                            <span>{item.originalPrice}</span>
+                            <span>{item.price.previous.text}</span>
                             <span>20%</span>
                           </div>
-                        </div>
+                        )}
                       </div>
-                    ))}
-                  </div> */}
-                </div>
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
             <div className="absolute bg-[#ffff] right-[152px] top-1/2 translate-y-[-50%]">
@@ -88,8 +75,6 @@ export const Home = () => {
           </div>
         </div>
       </Content>
-      {/*  */}
-      {/*  */}
       <Content bg_color="bg-[#a3a505] ">
         <div className="flex flex-col w-full h-full">
           <div className="pt-[24px] flex justify-between w-full ">
@@ -106,36 +91,31 @@ export const Home = () => {
             </div>
           </div>
           <div className="row_full bg-[#e3e707] mb-[64px]">
-            <div className="absolute pt-[36px] pb-[24px] text-[14px] ">
-              {zenyDataImages_2.map((item, idx) => (
-                <div key={idx} className="">
-                  <ul className="flex ">
-                    {item.image.map((image, index) => (
-                      <li key={index} className="relative product_item h-[415px] w-[296px] px-[8px]">
-                        <div className="absolute bg-[#ffff] top-2 right-2 ">
-                          <FontAwesomeIcon icon={faHeart} className="fa-thin p-[8px] text-[24px]" />
-                        </div>
-                        <img className="h-full w-full object-cover" src={image} alt="product" />
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex ml-[152px] pt-[8px]">
-                    {item.info.map((item, idx) => (
-                      <div key={idx} className="w-[296px] px-[8px] leading-[20px]">
-                        <div className="pb-[8px]">
-                          <h3>{item.brand}</h3>
-                          <h3>{item.name}</h3>
-                        </div>
-                        <div className="flex flex-col leading-[1.25rem] text-[700]">
-                          <span>{item.price}</span>
+            <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
+              {productToShowHome_2.map((item: Products) => (
+                <div key={item.id} className="first:ml-[152px]">
+                  <div className="relative h-[415px] w-[296px] px-[8px] cursor-pointer">
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      className="fa-thin p-[8px] text-[24px] absolute bg-[#ffff] top-2 right-2"
+                    />
+                    <img className="w-[288px] h-[415px] object-cover" src={`https://${item.imageUrl}`} alt="product" />
+                    <div className=" leading-[20px] pt-2">
+                      <div className="pb-[8px]">
+                        <h3>{item.brandName}</h3>
+                        <h3>{item.name}</h3>
+                      </div>
+                      <div className="flex flex-col leading-[1.25rem] text-[700]">
+                        <span>{item.price.current.text}</span>
+                        {item.price.previous.value !== null && (
                           <div className="text-[12px] leading-[16px]">
                             <span>Původně:</span>
-                            <span>{item.originalPrice}</span>
+                            <span>{item.price.previous.text}</span>
                             <span>20%</span>
                           </div>
-                        </div>
+                        )}
                       </div>
-                    ))}
+                    </div>
                   </div>
                 </div>
               ))}

@@ -1,7 +1,3 @@
-// interface IData {
-
-// }
-
 export const DATA_BANNER: string[] = [
   "Doporučení",
   "Upozornění o zboží",

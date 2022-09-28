@@ -8,6 +8,7 @@ import "./Muzi.css";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks";
 import { productActions } from "../../../stores/product-slice";
+import axios from "axios";
 
 interface Idata {
   image: string;
@@ -26,6 +27,23 @@ export const MuziPage = () => {
     const { name, price, brand } = data;
     dispatch(productActions.selectedProductHandler({ name: name, price: price, brand: brand }));
   };
+
+  const options = {
+    method: "GET",
+    url: "https://asos2.p.rapidapi.com/products/v3/detail",
+    params: { id: "203024461", lang: "en-US", store: "US", sizeSchema: "US", currency: "USD" },
+    headers: {
+      "X-RapidAPI-Key": "c30a5399bcmsh42dc8185eb498d0p148cd7jsn8b6acc1f7ea2",
+      "X-RapidAPI-Host": "asos2.p.rapidapi.com",
+    },
+  };
+
+  axios
+    .request(options)
+    .then(function (response) {})
+    .catch(function (error) {
+      console.error(error);
+    });
 
   return (
     <Fragment>
