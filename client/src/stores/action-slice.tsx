@@ -1,14 +1,20 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { productShoppingCart } from "../interfaces/ProductShoppingCart";
 
 interface InitialState {
   addedShoppingCart: productShoppingCart[];
   addedFavorite: productShoppingCart[];
+  initialAmount: number;
+  totalProduct: number;
+  total: number;
 }
 
 const initialState: InitialState = {
   addedShoppingCart: [],
   addedFavorite: [],
+  initialAmount: 0,
+  totalProduct: 0,
+  total: 0,
 };
 
 const actionSlice = createSlice({
@@ -19,13 +25,17 @@ const actionSlice = createSlice({
       const idProduct = action.payload.id;
       const existingProductIndex = state.addedShoppingCart.findIndex((product) => product.id === idProduct);
       const existingProduct = state.addedShoppingCart[existingProductIndex];
+      state.total = action.payload.amount * action.payload.currentPrice + state.total;
+      // console.log("action", action.payload);
       let updateProduct;
       if (existingProduct) {
         const updatedProduct = {
           ...existingProduct,
           amount: existingProduct.amount + action.payload.amount,
+          totalProduct: existingProduct.totalProduct + existingProduct.currentPrice,
         };
         updateProduct = [...state.addedShoppingCart];
+        console.log("updatedProduct", updatedProduct);
         updateProduct[existingProductIndex] = updatedProduct;
         state.addedShoppingCart = updateProduct;
       } else {
@@ -36,6 +46,8 @@ const actionSlice = createSlice({
       const idProduct = action.payload.id;
       const existingProductIndex = state.addedShoppingCart.findIndex((product) => product.id === idProduct);
       const existingProduct = state.addedShoppingCart[existingProductIndex];
+      state.total = state.total - action.payload.price;
+
       let updateProduct;
       if (existingProduct.amount === 1) {
         updateProduct = state.addedShoppingCart.filter((product) => product.id !== idProduct);
@@ -44,6 +56,7 @@ const actionSlice = createSlice({
         const updatedProduct = {
           ...existingProduct,
           amount: existingProduct.amount - 1,
+          totalProduct: existingProduct.totalProduct - existingProduct.currentPrice,
         };
 
         updateProduct = [...state.addedShoppingCart];

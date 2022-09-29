@@ -29,25 +29,6 @@ const Product = () => {
     },
   });
 
-  // const options = {
-  //   method: "GET",
-  //   url: "https://asos2.p.rapidapi.com/products/v3/detail",
-  //   params: { id: selectedIdToString, lang: "en-US", store: "US", sizeSchema: "US", currency: "USD" },
-  //   headers: {
-  //     "X-RapidAPI-Key": "c30a5399bcmsh42dc8185eb498d0p148cd7jsn8b6acc1f7ea2",
-  //     "X-RapidAPI-Host": "asos2.p.rapidapi.com",
-  //   },
-  // };
-  const options = {
-    method: "GET",
-    url: "https://asos2.p.rapidapi.com/products/v3/detail",
-    params: { id: selectedIdToString, lang: "en-US", store: "US", sizeSchema: "US", currency: "USD" },
-    headers: {
-      "X-RapidAPI-Key": "ef133ce62dmshd721312341522d5p1fab5ajsn971767a772cf",
-      "X-RapidAPI-Host": "asos2.p.rapidapi.com",
-    },
-  };
-
   React.useEffect(() => {
     try {
       FetchProduct();
@@ -56,8 +37,13 @@ const Product = () => {
     }
   }, []);
   const FetchProduct = async () => {
-    const response: AxiosResponse = await axios.request(options);
+    // const response: AxiosResponse = await axios.request(options);
+    const response = await axios.get(`http://localhost:8080/product/${selectedId}`);
     const products = response.data;
+    // console.log(products);
+    if (!products) {
+      return;
+    }
     setSelectedProduct(products);
     setImageShow(ImgToHttp(products.media.images[0]?.url));
   };

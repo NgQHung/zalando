@@ -40,6 +40,8 @@ const Product_info = ({ selectedProduct }: Iprops) => {
 
   const addShoppingCartHandler = () => {
     if (!sizeProduct) {
+      setDropDown(true);
+
       return;
     }
     dispatch(
@@ -52,6 +54,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
         previousPrice: selectedProduct.price.previous?.value,
         amount: 1,
         size: sizeProduct,
+        totalProduct: selectedProduct.price.current.value,
       })
     );
   };

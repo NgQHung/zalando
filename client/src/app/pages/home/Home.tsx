@@ -93,7 +93,12 @@ export const Home = () => {
           <div className="row_full bg-[#e3e707] mb-[64px]">
             <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
               {productToShowHome_2.map((item: Products) => (
-                <div key={item.id} className="first:ml-[152px]">
+                <Link
+                  to={`/${item.name}`}
+                  key={item.id}
+                  onClick={() => selectedProductHandler(item.id)}
+                  className="first:ml-[152px]"
+                >
                   <div className="relative h-[415px] w-[296px] px-[8px] cursor-pointer">
                     <FontAwesomeIcon
                       icon={faHeart}
@@ -117,7 +122,7 @@ export const Home = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
             <div className="absolute bg-[#ffff] right-[152px] top-1/2 translate-y-[-50%]">

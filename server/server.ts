@@ -1,8 +1,10 @@
-import express from "express";
-import env from "dotenv";
-import helmet from "helmet";
-import bodyParser from "body-parser";
-var cors = require("cors");
+import express from 'express';
+import env from 'dotenv';
+import helmet from 'helmet';
+import bodyParser from 'body-parser';
+import router from './src/routes';
+import mongoose from 'mongoose';
+var cors = require('cors');
 
 // PORT
 const PORT = process.env.PORT || 8080;
@@ -19,20 +21,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 app.use(
-    express.urlencoded({
-        extended: true,
-    })
+  express.urlencoded({
+    extended: true,
+  })
 );
 
 /** Parse the body - middleware */
 app.use(express.json());
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-    next();
+  next();
 });
 
 // routes
-app.get("/", (req, res) => {
-    res.json("hello world");
-});
+app.use(router);
 
-app.listen(process.env.PORT, () => console.log("listening on port ", process.env.PORT));
+mongoose
+  .connect(process.env.MONGO_URI as string)
+  .then(() => {
+    app.listen(PORT, () => console.log('listening on port ', PORT));
+  })
+  .catch((error) => {
+    console.log(error);
+  });

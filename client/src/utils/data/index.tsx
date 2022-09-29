@@ -28,16 +28,6 @@ interface Items {
   types: string[];
 }
 
-// interface ISubHeaderCategory {
-//   title: string;
-//   image: string;
-//   type: {
-//     title: string;
-//     types: string[];
-//   }[];
-// }
-// [];
-
 export const SubHeaderCategory_DATA = [
   {
     title: "GET_THE_LOOK",

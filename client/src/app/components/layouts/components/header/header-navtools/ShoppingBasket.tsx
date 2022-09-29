@@ -8,6 +8,7 @@ import "./navtools.css";
 
 const ShoppingBasket = () => {
   const addedShoppingCart = useAppSelector((state) => state.actionSlice.addedShoppingCart);
+  const total = useAppSelector((state) => state.actionSlice.total);
   const lengthAddedShoppingCart = addedShoppingCart.length;
   const dispatch = useAppDispatch();
   const removeProductShoppingCartHandler = (id: number) => {
@@ -55,20 +56,24 @@ const ShoppingBasket = () => {
                     <img src={ImgToHttp(product.imageUrl)} alt="photos" className="h-[96px] object-cover " />
                   </div>
                   <div className="flex flex-col grow py-3 px-2">
-                    <div className="flex ">
-                      <div className="text-left ml-[15px] basis-[60%] max-w-[60%] leading-[18px] ">
-                        <p>{product.brand}</p>
-                        <p className="pt-[5px] leading-[23px] whitespace-nowrap text-ellipsis max-w-[200px] overflow-hidden ">
-                          {product.name}
-                        </p>
+                    <div className=" ml-[15px] leading-[18px] ">
+                      <div className="flex">
+                        <div className="max-w-[100px] text-left">
+                          <p>{product.brand}</p>
+                          <p className="pt-[5px] leading-[23px] whitespace-nowrap text-ellipsis max-w-[200px] overflow-hidden ">
+                            {product.name}
+                          </p>
+                        </div>
+                        <div className="flex flex-col w-full text-[10px] text-right  ">
+                          <span className="text-[14px] text-[#eb0037] mt-[2px] font-[700]">
+                            {formatPrice(product.currentPrice)}
+                          </span>
+                          <span>{formatPrice(product.previousPrice)}</span>
+                        </div>
+                      </div>
+                      <div className="text-left">
                         <p>{product.size}</p>
                         <p>{product.amount}</p>
-                      </div>
-                      <div className="flex flex-col w-full basis-[40%] max-w-[40%] text-[10px] text-center ">
-                        <span className="text-[14px] text-[#eb0037] mt-[2px] font-[700]">
-                          {formatPrice(product.currentPrice)}
-                        </span>
-                        <span>{formatPrice(product.previousPrice)}</span>
                       </div>
                     </div>
                     <div className="flex mt-[22px] flex-col text-left ml-[15px] leading-[20px] text-[#999] tracking-[0.5px] cursor-pointer  ">
@@ -90,13 +95,13 @@ const ShoppingBasket = () => {
                 </div>
               </div>
             ))}
-            <div className="px-[18px] flex justify-between items-center">
+            <div className="px-[18px] flex justify-between items-center text-[14px]">
               <p className="self-start leading-[20px]">Doprava</p>
-              <p className="self-end leading-[20px]">0</p>
+              <p className="self-end leading-[20px]">0.00</p>
             </div>
             <div className="py-2 px-[18px] flex justify-between items-center">
               <p className="text-[12px] text-left ">Celkem(Vč. DPH)</p>
-              <p className="self-end text-[16px] font-bold leading-[23px]">price</p>
+              <p className="self-end text-[16px] font-bold leading-[23px]">{formatPrice(total)}</p>
             </div>
             <div className=" pb-[18px] text-[14px] px-[18px] leading-[18px]  hover:opacity-70 text-center text-[#ffff] ">
               <button className="px-4  py-[10px] rounded-sm bg-[#1a1a1a] w-full font-[700]">

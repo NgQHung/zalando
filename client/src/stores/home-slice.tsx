@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Products } from "../interfaces/Products";
 
-// interface InitialState {
-//   clickedProduct: string[];
-// }
+interface InitialState {
+  productToShowHome_1: Products[];
+  productToShowHome_2: Products[];
+  allProducts: Products[];
+}
 
-const initialState: any = {
+const initialState: InitialState = {
   productToShowHome_1: [],
   productToShowHome_2: [],
+  allProducts: [],
 };
 
 const homeSlice = createSlice({
@@ -18,6 +22,9 @@ const homeSlice = createSlice({
     },
     productToShowHomeHandler_2(state, action) {
       state.productToShowHome_2 = action.payload;
+    },
+    allProducts(state, action) {
+      state.allProducts = action.payload;
     },
   },
 });

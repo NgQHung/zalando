@@ -25,36 +25,18 @@ import { homeActions } from "./stores/home-slice";
 //     "X-RapidAPI-Host": "asos2.p.rapidapi.com",
 //   },
 // };
-const options = {
-  method: "GET",
-  url: "https://asos2.p.rapidapi.com/products/v2/list",
-  params: {
-    store: "US",
-    offset: "0",
-    categoryId: "4209",
-    limit: "48",
-    country: "US",
-    sort: "freshness",
-    currency: "USD",
-    sizeSchema: "US",
-    lang: "en-US",
-  },
-  headers: {
-    "X-RapidAPI-Key": "ef133ce62dmshd721312341522d5p1fab5ajsn971767a772cf",
-    "X-RapidAPI-Host": "asos2.p.rapidapi.com",
-  },
-};
 
 function App() {
   const dispatch = useAppDispatch();
 
   const FetchProduct = async () => {
-    const response: AxiosResponse = await axios.request(options);
-    const products = response.data.products;
+    const response = await axios.get("http://localhost:8080/products");
+    const products = response.data;
     const productToShowHome_1 = products.slice(0, 14);
     const productToShowHome_2 = products.slice(15, 30);
     dispatch(homeActions.productToShowHomeHandler_1(productToShowHome_1));
     dispatch(homeActions.productToShowHomeHandler_2(productToShowHome_2));
+    dispatch(homeActions.allProducts(products));
   };
 
   React.useEffect(() => {

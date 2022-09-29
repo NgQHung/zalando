@@ -7,4 +7,5 @@ export interface productShoppingCart {
   previousPrice?: number;
   amount: number;
   size: string;
+  totalProduct: number;
 }
