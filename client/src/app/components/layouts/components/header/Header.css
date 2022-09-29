@@ -21,7 +21,7 @@
   z-index: 100;
   transition: background-color 0.15s ease-in-out;
 }
-/* .navtools_basket, */
+.navtools_basket,
 .navtools_user,
 .navtools_heart {
   display: none;

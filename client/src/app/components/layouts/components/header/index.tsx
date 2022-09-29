@@ -10,6 +10,10 @@ import { useAppSelector } from "../../../../hooks";
 
 const Header = () => {
   const [gender, setGender] = React.useState("zeny");
+  const addedShoppingCart = useAppSelector((state) => state.actionSlice.addedShoppingCart);
+  const addedFavorite = useAppSelector((state) => state.actionSlice.addedFavorite);
+  const lengthAddedShoppingCart = addedShoppingCart.length;
+  const lengthAddedFavorite = addedFavorite.length;
 
   const activeHandler = (type: string) => {
     setGender(type);
@@ -84,13 +88,13 @@ const Header = () => {
               <div className=" relative flex justify-center items-center p-[10px] cursor-pointer ">
                 <FontAwesomeIcon icon={faHeart} className="h-5 w-5 object-cover" />
                 <div className="absolute top-[5px] right-[3px] bg-[#ff6800] h-[16px] w-[16px] rounded-[50px] flex justify-center items-center ">
-                  <span className="text-white leading-[1rem] text-[0.75rem]">4</span>
+                  <span className="text-white leading-[1rem] text-[0.75rem]">{lengthAddedFavorite}</span>
                 </div>
               </div>
               <div className="relative navtools flex justify-center items-center ">
                 <FontAwesomeIcon icon={faBasketShopping} className="h-5 w-5 object-cover" />
                 <div className="absolute top-[5px] right-[3px] bg-[#ff6800] h-[16px] w-[16px] rounded-[50px] flex justify-center items-center ">
-                  <span className="text-white leading-[1rem] text-[0.75rem]">4</span>
+                  <span className="text-white leading-[1rem] text-[0.75rem]">{lengthAddedShoppingCart}</span>
                 </div>
                 <div className="navtools_basket">
                   <ShoppingBasket />

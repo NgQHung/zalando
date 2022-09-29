@@ -1,13 +1,21 @@
 import React, { Fragment } from "react";
 import { productShoppingCart } from "../../../../../../interfaces/ProductShoppingCart";
+import { actionActions } from "../../../../../../stores/action-slice";
+import { formatPrice } from "../../../../../../utils/formatPrice";
 import { ImgToHttp } from "../../../../../../utils/imageToHTTP";
-import { useAppSelector } from "../../../../../hooks";
+import { useAppDispatch, useAppSelector } from "../../../../../hooks";
 import "./navtools.css";
 
 const ShoppingBasket = () => {
   const addedShoppingCart = useAppSelector((state) => state.actionSlice.addedShoppingCart);
   const lengthAddedShoppingCart = addedShoppingCart.length;
-  // const {brand, name, currentPrice, previousPrice, amount, size}:productShoppingCart = addedShoppingCart
+  const dispatch = useAppDispatch();
+  const removeProductShoppingCartHandler = (id: number) => {
+    dispatch(actionActions.removeShoppingCartHandler({ id: id }));
+  };
+  const addProductFavoriteHandler = (product: productShoppingCart) => {
+    dispatch(actionActions.addFavoriteHandler(product));
+  };
 
   return (
     <Fragment>
@@ -57,29 +65,44 @@ const ShoppingBasket = () => {
                         <p>{product.amount}</p>
                       </div>
                       <div className="flex flex-col w-full basis-[40%] max-w-[40%] text-[10px] text-center ">
-                        <span className="text-[14px] text-[#eb0037] mt-[2px] font-[700]">{product.currentPrice}</span>
-                        <span>{product.previousPrice}</span>
+                        <span className="text-[14px] text-[#eb0037] mt-[2px] font-[700]">
+                          {formatPrice(product.currentPrice)}
+                        </span>
+                        <span>{formatPrice(product.previousPrice)}</span>
                       </div>
                     </div>
-                    <div className="flex mt-[22px] flex-col text-left ml-[15px] leading-[20px] text-[#999] tracking-[0.5px] ">
-                      <span className="text-[10px]">Přesunout na seznam přání</span>
-                      <span className="text-[10px]">Odebrat položku</span>
+                    <div className="flex mt-[22px] flex-col text-left ml-[15px] leading-[20px] text-[#999] tracking-[0.5px] cursor-pointer  ">
+                      <div>
+                        <span onClick={() => addProductFavoriteHandler(product)} className="text-[10px] affect_text">
+                          Přesunout na seznam přání
+                        </span>
+                      </div>
+                      <div>
+                        <span
+                          onClick={() => removeProductShoppingCartHandler(product.id)}
+                          className="text-[10px] cursor-pointer affect_text"
+                        >
+                          Odebrat položku
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="px-[18px] flex justify-between items-center">
-                  <p className="self-start leading-[20px]">Doprava</p>
-                  <p className="self-end leading-[20px]">0</p>
-                </div>
-                <div className="py-2 px-[18px] flex justify-between items-center">
-                  <p className="text-[12px] text-left ">Celkem(Vč. DPH)</p>
-                  <p className="self-end text-[16px] font-bold leading-[23px]">price</p>
-                </div>
-                <div className=" pb-[18px] px-[18px]  hover:opacity-70 text-center text-[#ffff]">
-                  <button className="px-4 py-[10px] bg-[#1a1a1a]">Přejít do nákupního košíku</button>
-                </div>
               </div>
             ))}
+            <div className="px-[18px] flex justify-between items-center">
+              <p className="self-start leading-[20px]">Doprava</p>
+              <p className="self-end leading-[20px]">0</p>
+            </div>
+            <div className="py-2 px-[18px] flex justify-between items-center">
+              <p className="text-[12px] text-left ">Celkem(Vč. DPH)</p>
+              <p className="self-end text-[16px] font-bold leading-[23px]">price</p>
+            </div>
+            <div className=" pb-[18px] text-[14px] px-[18px] leading-[18px]  hover:opacity-70 text-center text-[#ffff] ">
+              <button className="px-4  py-[10px] rounded-sm bg-[#1a1a1a] w-full font-[700]">
+                <span className="">Přejít do nákupního košíku</span>
+              </button>
+            </div>
           </div>
         )}
       </div>

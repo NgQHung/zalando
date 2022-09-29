@@ -39,6 +39,9 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   };
 
   const addShoppingCartHandler = () => {
+    if (!sizeProduct) {
+      return;
+    }
     dispatch(
       actionActions.addShoppingCartHandler({
         id: selectedProduct.id,
