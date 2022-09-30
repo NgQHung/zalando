@@ -1,10 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-// export interface IGetUserAuthInfoRequest extends Request {
-//     user: string // or any other type
-//   }
-
 const middleware = {
   // verify token
   verifyToken: async (req: Request | any, res: Response, next: NextFunction) => {
@@ -28,7 +24,8 @@ const middleware = {
       res.status(401).json('Request is not authorized');
     }
   },
-  verifyTokenAndId: async (req: Request, res: Response, next: NextFunction) => {
+
+  verifyTokenAndAdmin: async (req: Request, res: Response, next: NextFunction) => {
     try {
       middleware.verifyToken(req, res, () => {
         if (req.user?.id == req.params.id || req.params.admin) {

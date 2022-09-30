@@ -17,9 +17,6 @@ const UISLice = createSlice({
     headerChangeBgOnHoverHandler(state, action) {
       state.bg_color = action.payload;
     },
-    // searchMobileHandler(state, action) {
-    //   state.hideAllElement = action.payload;
-    // },
   },
 });
 

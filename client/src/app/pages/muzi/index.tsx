@@ -1,16 +1,14 @@
 import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Fragment } from "react";
-import { DATA_IMAGES } from "../../../utils/data-img";
 import Container from "../../components/layouts/container";
 import { data } from "../../../utils/data_muzi&deti";
 import "./Muzi.css";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks";
 import { productActions } from "../../../stores/product-slice";
-import axios from "axios";
 
-interface Idata {
+export interface Idata {
   image: string;
   brand: string;
   name: string;
@@ -28,34 +26,12 @@ export const MuziPage = () => {
     dispatch(productActions.selectedProductHandler({ name: name, price: price, brand: brand }));
   };
 
-  const options = {
-    method: "GET",
-    url: "https://asos2.p.rapidapi.com/products/v3/detail",
-    params: { id: "203024461", lang: "en-US", store: "US", sizeSchema: "US", currency: "USD" },
-    headers: {
-      "X-RapidAPI-Key": "c30a5399bcmsh42dc8185eb498d0p148cd7jsn8b6acc1f7ea2",
-      "X-RapidAPI-Host": "asos2.p.rapidapi.com",
-    },
-  };
-
-  axios
-    .request(options)
-    .then(function (response) {})
-    .catch(function (error) {
-      console.error(error);
-    });
-
   return (
     <Fragment>
       <Container bg_color="bg-[#229967]" margin="mb-16">
         <section className=" relative flex flex-col w-full h-full">
           <div className="mx-[18px] md:mx-[24px]">
             <div className="  pt-[24px] basis-full max-w-full flex justify-between w-full ">
-              {/* <div className="mt-[36px] px-[8px] basis-1/2 max-w-1/2  lg:basis-[41.666%] lg:max-w-[41.666%]">
-                <p className="text-[32px] font-[700] leading-[2.25rem]">{viewData_1.title}</p>
-                <p className="text_tiempos text-[32px] font-[400] leading-[2.25rem]">{viewData_1.sub_title}</p>
-                <p className="text-[16px] pt-[24px] leading-[1.5rem] font-[700] affect_text">Zobrazit víc</p>
-              </div> */}
               <div className="mt-[36px] px-[8px]">
                 <p className="text-[32px] font-[700] leading-[2.25rem]">{viewData_1.title}</p>
                 <p className="text_tiempos text-[32px] font-[400] leading-[2.25rem]">{viewData_1.sub_title}</p>

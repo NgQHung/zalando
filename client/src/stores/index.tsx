@@ -1,7 +1,6 @@
 import { configureStore, applyMiddleware } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import actionSlice from "./action-slice";
-import homeSlice from "./home-slice";
 import productSlice from "./product-slice";
 import UISlice from "./UI-slice";
 
@@ -9,7 +8,6 @@ export const store = configureStore({
   reducer: {
     productSlice: productSlice,
     UISlice: UISlice,
-    homeSlice: homeSlice,
     actionSlice: actionSlice,
   },
   middleware: (getDefaultMiddleware) =>

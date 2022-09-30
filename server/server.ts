@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import router from './src/routes';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 var cors = require('cors');
 
 // PORT
@@ -13,6 +14,7 @@ env.config();
 
 const app = express();
 app.use(cors());
+app.use(cookieParser());
 app.use(helmet());
 
 // parse application/x-www-form-urlencoded

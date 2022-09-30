@@ -19,7 +19,7 @@ import { useAppDispatch } from "../../../hooks";
 import { actionActions } from "../../../../stores/action-slice";
 
 interface Iprops {
-  selectedProduct: ProductDetail;
+  selectedProduct: ProductDetail | null;
 }
 
 const Product_info = ({ selectedProduct }: Iprops) => {
@@ -46,15 +46,15 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     }
     dispatch(
       actionActions.addShoppingCartHandler({
-        id: selectedProduct.id,
-        brand: selectedProduct.brand.name,
-        name: selectedProduct.name,
-        imageUrl: selectedProduct.media.images[0].url,
-        currentPrice: selectedProduct.price.current.value,
-        previousPrice: selectedProduct.price.previous?.value,
+        id: selectedProduct?.id,
+        brand: selectedProduct?.brand.name,
+        name: selectedProduct?.name,
+        imageUrl: selectedProduct?.media.images[0].url,
+        currentPrice: selectedProduct?.price.current.value,
+        previousPrice: selectedProduct?.price.previous?.value,
         amount: 1,
         size: sizeProduct,
-        totalProduct: selectedProduct.price.current.value,
+        totalProduct: selectedProduct?.price.current.value,
       })
     );
   };
@@ -64,9 +64,9 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       <div className="min-w-1/2 max-w-1/2 flex flex-col basis-1/2 ">
         <div className="px-2 lg:ml-[100px] ">
           <div className="product_content">
-            <p className="text-[28px] text_tiempos  ">{selectedProduct.brand.name}</p>
-            <p className="text-[28px] font-[600] mt-2">{selectedProduct.name}</p>
-            <p className="text-[22px] mt-2">{selectedProduct.price.current.text}</p>
+            <p className="text-[28px] text_tiempos  ">{selectedProduct?.brand.name}</p>
+            <p className="text-[28px] font-[600] mt-2">{selectedProduct?.name}</p>
+            <p className="text-[22px] mt-2">{selectedProduct?.price.current.text}</p>
             <p className="mt-9">
               Barva: <span className="font-[700] mb-2 ">blue denim</span>
             </p>

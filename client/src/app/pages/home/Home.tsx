@@ -10,8 +10,8 @@ import { Link } from "react-router-dom";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
-  const productToShowHome_1: Products[] = useAppSelector((state) => state.homeSlice.productToShowHome_1);
-  const productToShowHome_2: Products[] = useAppSelector((state) => state.homeSlice.productToShowHome_2);
+  const products_1 = useAppSelector((state) => state.productSlice.products_1);
+  const products_2 = useAppSelector((state) => state.productSlice.products_2);
 
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));
@@ -36,7 +36,7 @@ export const Home = () => {
           </div>
           <div className="row_full bg-[#34d27b] mb-[64px]">
             <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
-              {productToShowHome_1.map((item: Products) => (
+              {products_1.map((item: Products) => (
                 <Link
                   to={`/${item.name}`}
                   key={item.id}
@@ -92,7 +92,7 @@ export const Home = () => {
           </div>
           <div className="row_full bg-[#e3e707] mb-[64px]">
             <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
-              {productToShowHome_2.map((item: Products) => (
+              {products_2.map((item: Products) => (
                 <Link
                   to={`/${item.name}`}
                   key={item.id}

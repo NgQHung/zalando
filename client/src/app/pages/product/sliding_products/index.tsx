@@ -8,7 +8,8 @@ import { ImgToHttp } from "../../../../utils/imageToHTTP";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 
 const Sliding_products = () => {
-  const productToShowHome_1: Products[] = useAppSelector((state) => state.homeSlice.productToShowHome_1);
+  const products_1: Products[] = useAppSelector((state) => state.productSlice.products_1);
+
   const dispatch = useAppDispatch();
 
   const clickedProduct = (data: any) => {
@@ -19,7 +20,7 @@ const Sliding_products = () => {
     <Fragment>
       <section className="mt-9 pt-[36px] pb-[24px] text-[14px] row-full ">
         <ul className=" flex relative overflow-x-auto scrollbar_hide ">
-          {productToShowHome_1.map((item, idx) => (
+          {products_1.map((item, idx) => (
             <Link key={idx} to={`/${item.name}`} className="first:ml-[25.4px]">
               <li
                 onClick={() => clickedProduct(item)}

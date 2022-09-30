@@ -7,8 +7,8 @@ import { useAppSelector } from "../../hooks";
 import { Products } from "../../../interfaces/Products";
 
 export const DetiPage = () => {
-  const productToShowHome_1: Products[] = useAppSelector((state) => state.productSlice.productToShowHome_1);
-  const productToShowHome_2: Products[] = useAppSelector((state) => state.productSlice.productToShowHome_2);
+  const products_1: Products[] = useAppSelector((state) => state.productSlice.products_1);
+  const products_2: Products[] = useAppSelector((state) => state.productSlice.products_2);
 
   // "https://img01.ztat.net/banner/65861df87c664ebc8af45790a71aca89/6e892e7902704d3f9bf6a518767b40e6.jpg?imwidth=512",
 
@@ -31,7 +31,7 @@ export const DetiPage = () => {
           </div>
           <div className="row_full bg-[#fae0ad] mb-[64px]">
             <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
-              {productToShowHome_1.map((item: Products) => (
+              {products_1.map((item: Products) => (
                 <div key={item.id} className="first:ml-[152px]">
                   <div className="relative h-[415px] w-[296px] px-[8px] cursor-pointer">
                     <FontAwesomeIcon
@@ -83,7 +83,7 @@ export const DetiPage = () => {
           </div>
           <div className="row_full bg-[#58b7d4] mb-[64px]">
             <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
-              {productToShowHome_2.map((item: Products) => (
+              {products_2.map((item: Products) => (
                 <div key={item.id} className="first:ml-[152px]">
                   <div className="relative h-[415px] w-[296px] px-[8px] cursor-pointer">
                     <FontAwesomeIcon

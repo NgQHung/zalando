@@ -11,7 +11,7 @@ import { ImgToHttp } from "../../../utils/imageToHTTP";
 import { Link } from "react-router-dom";
 import { productActions } from "../../../stores/product-slice";
 export const ListProducts = () => {
-  const allProducts = useAppSelector((state) => state.homeSlice.allProducts);
+  const allProducts = useAppSelector((state) => state.productSlice.allProducts);
   const dispatch = useAppDispatch();
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));

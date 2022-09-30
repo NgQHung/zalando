@@ -8,6 +8,6 @@ const userRouter = express.Router();
 userRouter.get('/all', middleware.verifyToken, userController.getAllUsers);
 
 // delete a user by ID
-userRouter.delete('/:id', middleware.verifyTokenAndId, userController.deleteUser);
+userRouter.delete('/:id', middleware.verifyTokenAndAdmin, userController.deleteUser);
 
 export default userRouter;
