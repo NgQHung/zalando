@@ -16,7 +16,6 @@ const middleware = {
     const token = authorization.split(' ')[1];
 
     try {
-      // const
       jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string, (err: any, user: any) => {
         if (err) {
           res.status(403).json('Token is invalid');
