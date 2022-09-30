@@ -2,6 +2,7 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { uriBase } from "../config/uriBase";
 import { productActions } from "./product-slice";
+import UISlice, { UIActions } from "./UI-slice";
 
 // get all products
 export const getProducts = async (dispatch: Dispatch) => {
@@ -18,13 +19,12 @@ export const getProducts = async (dispatch: Dispatch) => {
   }
 };
 
+// get detail selected product
 export const getDetailProduct = async (dispatch: Dispatch, id: string) => {
   try {
     const response = await axios.get(`${uriBase.server}/product/${id}`);
     const detailProduct = response.data;
-    const firstImage = detailProduct.media.images[0].url;
-    console.log(firstImage);
-    dispatch(productActions.selectedProductHandler({ detailProduct: detailProduct, firstImage: firstImage }));
+    dispatch(productActions.selectedProductHandler(detailProduct));
   } catch (error) {
     console.log(error);
   }

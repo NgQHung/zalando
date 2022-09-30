@@ -4,16 +4,32 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 
+interface IInput {
+  email: string;
+  password: string;
+}
+
 export const Login = () => {
   const [typeInput, setTypeInput] = React.useState("");
   const [isClick, setIsClick] = React.useState(false);
+  const [input, setInput] = React.useState<IInput | any>({ email: "", password: "" });
+  let refInput = React.useRef<any>(null);
 
   const onClickHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     setIsClick(true);
     setTypeInput(e.currentTarget.name);
   };
 
-  let refInput = React.useRef<any>(null);
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
+    setInput({ ...input, [name]: value });
+    // console.log(name);
+  };
+
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(input);
+  };
 
   React.useEffect(() => {
     document.addEventListener("mousedown", (e: any) => {
@@ -35,7 +51,7 @@ export const Login = () => {
         </div>
         <div className="login_content max-w-[33.33333%] px-6 basis-1/3 mx-auto my-0">
           <p className="font-[700] text-[28px] ">Vítejte zpět</p>
-          <form className="pt-6">
+          <form className="pt-6" onSubmit={onSubmitHandler}>
             <div className="email_input pb-6 flex flex-col ">
               <p
                 ref={refInput}
@@ -53,9 +69,8 @@ export const Login = () => {
                   type="text"
                   placeholder="E-mailová adresa"
                   name="email"
-                  // onMouseEnter={onHoverHandler}
-                  // onMouseLeave={mouseOverHandler}
                   onClick={onClickHandler}
+                  onChange={onChangeHandler}
                 />
               </div>
             </div>
@@ -75,10 +90,9 @@ export const Login = () => {
                   className="py-3 px-[10px] w-full h-full outline-none"
                   type="text"
                   placeholder="Heslo"
-                  name="heslo"
-                  // onMouseEnter={onHoverHandler}
-                  // onMouseLeave={mouseOverHandler}
+                  name="password"
                   onClick={onClickHandler}
+                  onChange={onChangeHandler}
                 />
                 <FontAwesomeIcon icon={faEye} className="h- py-2 pr-3" />
               </div>

@@ -7,23 +7,20 @@ import Product_info from "./product_info";
 import Sliding_products from "./sliding_products";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import { getDetailProduct } from "../../../stores/apiRequest";
-import { productActions } from "../../../stores/product-slice";
 
 const Product = () => {
   const selectedId = useAppSelector((state) => state.productSlice.selectedId);
   const selectedProduct = useAppSelector((state) => state.productSlice.selectedProduct);
-  const firstImage: string = useAppSelector((state) => state.productSlice.firstImage);
-  // const selectedIdToString = String(selectedId);
+  let firstImage = selectedProduct?.media?.images[0].url!;
 
   const dispatch = useAppDispatch();
-  const [imageShow, setImageShow] = React.useState<string>(ImgToHttp(firstImage));
+  const [imageShow, setImageShow] = React.useState<string>("");
 
   const scrollRef = React.useRef<any>(null);
   const [chevronUp, setChevronUp] = React.useState(false);
   const [chevronDown, setChevronDown] = React.useState(false);
 
   const typeImageHandler = (image: string) => {
-    dispatch(productActions.selectedProductHandler({ firstImage: "" }));
     setImageShow(image);
   };
 
@@ -47,6 +44,9 @@ const Product = () => {
       console.log(error);
     }
   }, []);
+  React.useEffect(() => {
+    setImageShow(ImgToHttp(firstImage));
+  }, [firstImage]);
 
   return (
     <div className=" mx-6 w-auto  lg:mx-auto lg:my-0  lg:max-w-[1216px]">

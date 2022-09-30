@@ -8,7 +8,6 @@ interface InitialState {
   products_1: Products[]; // products to show 2
   products_2: Products[]; // products to show 2
   selectedProduct: ProductDetail | null; // detail selected product
-  firstImage: string;
   selectedId: any;
 }
 
@@ -17,7 +16,6 @@ const initialState: InitialState = {
   products_1: [],
   products_2: [],
   selectedProduct: null,
-  firstImage: "",
   selectedId: null,
 };
 
@@ -31,8 +29,7 @@ const productSlice = createSlice({
       state.products_2 = action.payload.products_2;
     },
     selectedProductHandler(state, action) {
-      state.selectedProduct = action.payload.detailProduct;
-      state.firstImage = action.payload.firstImage;
+      state.selectedProduct = action.payload;
     },
     selectedIdHandler(state, action) {
       state.selectedId = action.payload;
