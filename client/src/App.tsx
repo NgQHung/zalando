@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { Fragment } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import DefaultLayout from "./app/components/layouts/DefaultLayout";

@@ -1,22 +1,38 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { requestLogout } from "../../../../../../stores/auth-slice";
+import { useAppDispatch, useAppSelector } from "../../../../../hooks";
 import "./navtools.css";
 
 const User = () => {
+  const user = useAppSelector((state) => state.userSlice.user);
+  const accessToken = user?.access_token!;
+  console.log(accessToken);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    if (!user) return;
+    requestLogout(dispatch, navigate, accessToken);
+  };
+
   return (
     <Fragment>
       <div className="absolute w-[296px] bg-white top-full right-[-1px] border border-black z-50 ">
         <div className=" pt-[2px] relative ">
-          <div className=" text-[#ffff] text-center pt-4 pb-[13px] px-[10px] border_bottom">
-            <Link to="/login">
-              <p className="p-[12px] cursor-pointer bg-[#1a1a1a] mb-[14px]">Přihlásit se</p>
-            </Link>
-            <p className="text-[14px] text-[#1a1a1a] ml-[16px] whitespace-normal text-left">
-              <span className="text-[#6328e0] font-[700] affect_text mb-1 ">Zaregistrujte se hned teď</span> - trvá to
-              jen minutu.
-            </p>
-          </div>
-          <ul className="mx-[26px]">
+          {!user && (
+            <div className=" text-[#ffff] text-center pt-4 pb-[13px] px-[10px] border_bottom">
+              <Link to="/login">
+                <p className="p-[12px] cursor-pointer bg-[#1a1a1a] mb-[14px]">Přihlásit se</p>
+              </Link>
+              <p className="text-[14px] text-[#1a1a1a] ml-[16px] whitespace-normal text-left">
+                <span className="text-[#6328e0] font-[700] affect_text mb-1 ">Zaregistrujte se hned teď</span> - trvá to
+                jen minutu.
+              </p>
+            </div>
+          )}
+
+          <ul className=" mx-[26px]">
             <li className="user_list">
               <span className="user_item">Váš přehled</span>
             </li>
@@ -30,6 +46,11 @@ const User = () => {
               <span className="user_item">Nápověda a kontakt</span>
             </li>
           </ul>
+          {user && (
+            <div onClick={logoutHandler} className=" text-left pt-4 pb-[13px] px-[26px] border-t border-[#1a1a1a] ">
+              <span className="text-[14px] affect_text">Nejste {user.firstName}? Odhlásit se</span>
+            </div>
+          )}
         </div>
       </div>
     </Fragment>

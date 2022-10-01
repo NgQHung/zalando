@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8080;
 env.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({ credentials: true, origin: process.env.CLIENT_URI }));
 app.use(cookieParser());
 app.use(helmet());
 

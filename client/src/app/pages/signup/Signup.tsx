@@ -1,12 +1,26 @@
 import { faEnvelope, faEye, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { User_signup } from "../../../interfaces/authentication";
+import { requestSignup } from "../../../stores/auth-slice";
+import { useAppDispatch } from "../../hooks";
 import "./Signup.css";
 
 export const Signup = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [typeInput, setTypeInput] = React.useState("");
   const [isClick, setIsClick] = React.useState(false);
+  const [checkbox, setCheckbox] = React.useState<any>({
+    interest: [],
+  });
+  const [input, setInput] = React.useState<User_signup>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
 
   const onClickHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     setIsClick(true);
@@ -15,9 +29,35 @@ export const Signup = () => {
 
   let refInput = React.useRef<any>(null);
 
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
+    setInput({ ...input, [name]: value });
+  };
+
+  const onChangeCheckboxHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = e.currentTarget;
+    const { interest } = checkbox;
+
+    if (checked) {
+      setCheckbox({
+        interest: [...interest, value],
+      });
+    } else {
+      setCheckbox({
+        interest: interest.filter((e: any) => e !== value),
+      });
+    }
+  };
+
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // console.log({ ...input, interest: checkbox?.interest });
+    requestSignup(dispatch, { ...input, interest: checkbox?.interest }, navigate);
+  };
+
   React.useEffect(() => {
     document.addEventListener("mousedown", (e: any) => {
-      if (!refInput.current.contains(e.target)) {
+      if (!refInput?.current?.contains(e?.currentTarget)) {
         setIsClick(false);
       }
     });
@@ -38,7 +78,7 @@ export const Signup = () => {
         <div className="absolute top-[250px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3]" />
         <div className="login_content mt-[36px] ">
           <p className="text-[28px] font-[700] ">Jsem tu poprvé</p>
-          <form className="pt-6">
+          <form className="pt-6" onSubmit={onSubmitHandler}>
             <div className="firstName_input pb-6 flex flex-col ">
               <p
                 ref={refInput}
@@ -57,6 +97,7 @@ export const Signup = () => {
                   placeholder="Křestní jméno"
                   name="firstName"
                   onClick={onClickHandler}
+                  onChange={onChangeHandler}
                 />
               </div>
             </div>
@@ -77,6 +118,7 @@ export const Signup = () => {
                   placeholder="Příjmení"
                   name="lastName"
                   onClick={onClickHandler}
+                  onChange={onChangeHandler}
                 />
               </div>
             </div>
@@ -97,6 +139,7 @@ export const Signup = () => {
                   placeholder="E-mailová adresa"
                   name="email"
                   onClick={onClickHandler}
+                  onChange={onChangeHandler}
                 />
               </div>
             </div>
@@ -105,7 +148,7 @@ export const Signup = () => {
                 ref={refInput}
                 className={
                   " relative top-[1px] py-1 px-2 text-[12px] border border-t-[#1a1a1a] border-l-[#1a1a1a] border-r-[#1a1a1a] self-start " +
-                  (isClick && typeInput === "heslo" ? "bg-[#1a1a1a] text-[#ffff] " : "")
+                  (isClick && typeInput === "password" ? "bg-[#1a1a1a] text-[#ffff] " : "")
                 }
               >
                 Heslo
@@ -115,8 +158,9 @@ export const Signup = () => {
                   className="py-3 px-[10px] w-full h-full outline-none"
                   type="text"
                   placeholder="Heslo"
-                  name="heslo"
+                  name="password"
                   onClick={onClickHandler}
+                  onChange={onChangeHandler}
                 />
                 <FontAwesomeIcon icon={faEye} className="h- py-2 pr-3" />
               </div>
@@ -133,7 +177,9 @@ export const Signup = () => {
                 <li className="flex items-center mb-4">
                   <input
                     type="checkbox"
-                    className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer "
+                    value="women"
+                    className="h-[26px] w-[26px] cursor-pointer "
+                    onChange={onChangeCheckboxHandler}
                   />
                   <label className="pl-[10px]" htmlFor="damy">
                     Dámská móda
@@ -142,7 +188,9 @@ export const Signup = () => {
                 <li className="flex items-center mb-4">
                   <input
                     type="checkbox"
-                    className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer"
+                    value="men"
+                    className="h-[26px] w-[26px] cursor-pointer"
+                    onChange={onChangeCheckboxHandler}
                   />
                   <label className="pl-[10px] " htmlFor="pani">
                     Pánská móda
@@ -151,7 +199,9 @@ export const Signup = () => {
                 <li className="flex items-center">
                   <input
                     type="checkbox"
-                    className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer"
+                    value="noInterest"
+                    className="h-[26px] w-[26px] cursor-pointer"
+                    onChange={onChangeCheckboxHandler}
                   />
                   <label className="pl-[10px]" htmlFor="none">
                     Bez preference
@@ -162,16 +212,18 @@ export const Signup = () => {
             <div className="pb-6 flex items-start pt-6 justify-between">
               <input
                 type="checkbox"
-                className="h-[26px] w-[26px] pr-[24px] appearance-none border border-[#1a1a1a] cursor-pointer"
+                value="dailyInfo"
+                className="h-[26px] w-[26px] pr-[24px] shrink-0  cursor-pointer"
+                onChange={onChangeCheckboxHandler}
               />
-              <span className="pl-3">
+              <label className="pl-3">
                 Ano, chci občas dostávat e-maily o speciálních nabídkách, nových produktech a exkluzivních propagačních
                 akcích. Svůj odběr můžu kdykoli zrušit. (Volitelné)
-              </span>
+              </label>
             </div>
-            <div className="text-center p-4 bg-[#1a1a1a] text-[#ffff] hover:opacity-70 mb-3">
-              <button className="text-4">Zaregistrovat se</button>
-            </div>
+            <button className="text-center p-4 bg-[#1a1a1a] text-[#ffff] hover:opacity-70 mb-3 w-full">
+              <span className="text-4">Zaregistrovat se</span>
+            </button>
             <p className="text-[12px] mb-4 text-[#66676e]">* povinné pole</p>
             <p>
               Registrací souhlasíte s našimi {""}

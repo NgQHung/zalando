@@ -1,13 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface InitialState {}
+interface InitialState {
+  user: {
+    access_token: string;
+    admin: string;
+    email: string;
+    firstName: string;
+    _id: string;
+  } | null;
+}
 
-const initialState: InitialState = {};
+const initialState: InitialState | null = {
+  user: null,
+};
 
 const userSLice = createSlice({
   name: "user",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    loginHandler(state, action) {
+      state.user = action.payload;
+    },
+    logoutHandler(state) {
+      state.user = null;
+    },
+  },
 });
 
 export const userActions = userSLice.actions;

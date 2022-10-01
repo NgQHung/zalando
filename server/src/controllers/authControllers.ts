@@ -21,9 +21,9 @@ const authController = {
 
       // create an user on Mongoose
       const user = await newUser.save();
-      res.status(200).json(user);
+      return res.status(200).json(user);
     } catch (error) {
-      res.status(500).json(error);
+      return res.status(500).json(error);
     }
   },
   login: async (req: Request, res: Response) => {
@@ -31,11 +31,11 @@ const authController = {
     const user = await User.findOne({ email: req.body.email });
     try {
       if (!user) {
-        res.status(404).json('Incorrect email');
+        return res.status(404).json('Incorrect email');
       }
       const isPasswordMatch = user && user.password ? await bcrypt.compare(req.body.password, user.password) : false;
       if (!isPasswordMatch) {
-        res.status(404).json('Incorrect password');
+        return res.status(404).json('Incorrect password');
       }
 
       const admin = user && user.admin ? user.admin : false;
@@ -62,9 +62,9 @@ const authController = {
     try {
       res.clearCookie('refreshToken');
       GlobalArr.refreshTokens = GlobalArr.refreshTokens.filter((token) => token !== req.cookies.refreshToken);
-      res.status(200).json('You are logged out');
+      return res.status(200).json('You are logged out');
     } catch (error) {
-      res.status(500).json(error);
+      return res.status(500).json(error);
     }
   },
 };

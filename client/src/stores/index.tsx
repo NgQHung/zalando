@@ -3,12 +3,14 @@ import thunk from "redux-thunk";
 import actionSlice from "./action-slice";
 import productSlice from "./product-slice";
 import UISlice from "./UI-slice";
+import userSlice from "./user-slice";
 
 export const store = configureStore({
   reducer: {
     productSlice: productSlice,
     UISlice: UISlice,
     actionSlice: actionSlice,
+    userSlice: userSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -15,16 +15,6 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
 export const getProductsDetail = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
   const idToNumber = Number(id);
-  //   ef133ce62dmshd721312341522d5p1fab5ajsn971767a772cf
-  // const options = {
-  //   method: 'GET',
-  //   url: 'https://asos2.p.rapidapi.com/products/v3/detail',
-  //   params: { id: id, lang: 'en-US', store: 'US', sizeSchema: 'US', currency: 'USD' },
-  //   headers: {
-  //     'X-RapidAPI-Key': '26b16918a6msh97f98caebeb3f62p12bd56jsn089aaa0d1df5',
-  //     'X-RapidAPI-Host': 'asos2.p.rapidapi.com',
-  //   },
-  // };
   let product;
   try {
     const existingProduct = await ProductDetailModel.findOne({ id: idToNumber });

@@ -1,19 +1,26 @@
 import { faEnvelope, faEye, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
-import "./Login.css";
+import { Link, useNavigate } from "react-router-dom";
+import { uriBase } from "../../../config/uriBase";
+import { User_login } from "../../../interfaces/authentication";
+import { requestLogin } from "../../../stores/auth-slice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import jwt_decode from "jwt-decode";
 
-interface IInput {
-  email: string;
-  password: string;
-}
+import "./Login.css";
+import { userActions } from "../../../stores/user-slice";
 
 export const Login = () => {
   const [typeInput, setTypeInput] = React.useState("");
   const [isClick, setIsClick] = React.useState(false);
-  const [input, setInput] = React.useState<IInput | any>({ email: "", password: "" });
+  const [input, setInput] = React.useState<User_login>({ email: "", password: "" });
   let refInput = React.useRef<any>(null);
+  const user = useAppSelector((state) => state.userSlice.user);
+  const accessToken = user?.access_token!;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onClickHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     setIsClick(true);
@@ -26,14 +33,51 @@ export const Login = () => {
     // console.log(name);
   };
 
+  // refresh token
+  const refreshToken = async () => {
+    const authAxios = axios.create({
+      baseURL: uriBase.server,
+      withCredentials: true,
+    });
+    try {
+      const response = await authAxios.post("/v1/auth/refresh");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const axiosJWT = axios.create();
+  axiosJWT.interceptors.request.use(
+    async (config) => {
+      let date = new Date();
+      const decodedToken: any = jwt_decode(accessToken);
+      if (decodedToken.exp < date.getTime() / 1000) {
+        const data: any = await refreshToken();
+        const refreshUser = {
+          ...user,
+          accessToken: data.accessToken,
+        };
+        dispatch(userActions.loginHandler(refreshUser));
+        if (config !== undefined && config.headers !== undefined) {
+          config.headers["authorization"] = "Bearer " + data.accessToken;
+        }
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(input);
+    requestLogin(dispatch, input, navigate, accessToken);
   };
 
   React.useEffect(() => {
     document.addEventListener("mousedown", (e: any) => {
-      if (!refInput.current.contains(e.target)) {
+      if (!refInput.current.contains(e?.currentTarget)) {
         setIsClick(false);
       }
     });
@@ -79,7 +123,7 @@ export const Login = () => {
                 ref={refInput}
                 className={
                   " relative top-[1px] py-1 px-2 text-[12px] border border-t-[#1a1a1a] border-l-[#1a1a1a] border-r-[#1a1a1a] self-start " +
-                  (isClick && typeInput === "heslo" ? "bg-[#1a1a1a] text-[#ffff] " : "")
+                  (isClick && typeInput === "password" ? "bg-[#1a1a1a] text-[#ffff] " : "")
                 }
               >
                 Heslo
@@ -97,9 +141,9 @@ export const Login = () => {
                 <FontAwesomeIcon icon={faEye} className="h- py-2 pr-3" />
               </div>
             </div>
-            <div className="text-center p-4 bg-[#1a1a1a] text-[#ffff]">
-              <button className="text-4">Přihlásit se</button>
-            </div>
+            <button className="text-center p-4 bg-[#1a1a1a] text-[#ffff] w-full">
+              <span className="text-4">Přihlásit se</span>
+            </button>
           </form>
           <p className="affect_text mt-6 text-4 text-[#6328e0] font-[700]">Zapomněli jste své heslo?</p>
         </div>
