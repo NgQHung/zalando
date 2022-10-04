@@ -21,7 +21,7 @@ const SearchMobile = () => {
   // outside click
   useEffect(() => {
     document.addEventListener("mousedown", (e: any) => {
-      if (!refInput.current.contains(e.target)) {
+      if (!refInput?.current?.contains(e.target)) {
         setSearchMobileClick(false);
       }
     });

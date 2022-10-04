@@ -3,13 +3,15 @@ import { NavigateFunction } from "react-router-dom";
 import { Dispatch } from "redux";
 import { uriBase } from "../config/uriBase";
 import { User_login, User_signup } from "../interfaces/authentication";
+import { authAxios } from "../utils/authentication/axiosAuth";
+// import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { userActions } from "./user-slice";
+// const axiosJWT = AxiosJWT();
 
 // request login
 export const requestLogin = async (dispatch: Dispatch, user: any, navigate: NavigateFunction, accessToken: string) => {
   try {
-    const response = await axios.post(`${uriBase.server}/v1/auth/login`, user);
-    // console.log(response.data);
+    const response = await authAxios.post(`/v1/auth/login`, user);
     dispatch(userActions.loginHandler(response.data));
     if (response) {
       navigate("/");
@@ -22,11 +24,10 @@ export const requestLogin = async (dispatch: Dispatch, user: any, navigate: Navi
 // request register
 export const requestSignup = async (dispatch: Dispatch, user: User_signup, navigate: NavigateFunction) => {
   try {
-    const response = await axios.post(`${uriBase.server}/v1/auth/register`, user);
+    const response = await axios.post(`/v1/auth/register`, user);
     if (response) {
       navigate("/login");
     }
-    console.log(response);
   } catch (error) {
     console.log(error);
   }
@@ -44,7 +45,6 @@ export const requestLogout = async (dispatch: Dispatch, navigate: NavigateFuncti
   try {
     const response = await authAxios.post(`/v1/auth/logout`);
     dispatch(userActions.logoutHandler());
-    console.log(response);
   } catch (error) {
     console.log(error);
   }

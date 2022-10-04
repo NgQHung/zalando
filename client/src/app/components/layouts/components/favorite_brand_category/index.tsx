@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Container from "../../container";
-import { DATA_FAVORITE } from "../../../../../utils/data_favorite";
+import { DATA_FAVORITE } from "../../../../../utils/data/footer/footerFavorite";
 
 const brand_data = DATA_FAVORITE[1];
 const category_data = DATA_FAVORITE[0];

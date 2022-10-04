@@ -7,6 +7,8 @@ import { uriBase } from "../../../config/uriBase";
 import { User_login } from "../../../interfaces/authentication";
 import { requestLogin } from "../../../stores/auth-slice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { authAxios } from "../../../utils/authentication/axiosAuth";
+// import { AxiosJWT } from "../../../utils/authentication/axiosJWT";
 import jwt_decode from "jwt-decode";
 
 import "./Login.css";
@@ -30,15 +32,10 @@ export const Login = () => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setInput({ ...input, [name]: value });
-    // console.log(name);
   };
 
   // refresh token
   const refreshToken = async () => {
-    const authAxios = axios.create({
-      baseURL: uriBase.server,
-      withCredentials: true,
-    });
     try {
       const response = await authAxios.post("/v1/auth/refresh");
       return response.data;
@@ -71,13 +68,12 @@ export const Login = () => {
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(input);
     requestLogin(dispatch, input, navigate, accessToken);
   };
 
   React.useEffect(() => {
     document.addEventListener("mousedown", (e: any) => {
-      if (!refInput.current.contains(e?.currentTarget)) {
+      if (!refInput?.current?.contains(e.currentTarget)) {
         setIsClick(false);
       }
     });
@@ -106,7 +102,7 @@ export const Login = () => {
               >
                 E-mailová adresa
               </p>
-              <div className="form_onHover flex items-center ">
+              <div className="outline_onHover flex items-center ">
                 <FontAwesomeIcon icon={faEnvelope} className="h-6 py-2 pl-3" />
                 <input
                   className="py-3 px-[10px] w-full h-full outline-none "
@@ -128,7 +124,7 @@ export const Login = () => {
               >
                 Heslo
               </p>
-              <div className="form_onHover flex items-center   ">
+              <div className="outline_onHover flex items-center   ">
                 <FontAwesomeIcon icon={faLock} className="h-6 py-2 pl-3" />
                 <input
                   className="py-3 px-[10px] w-full h-full outline-none"

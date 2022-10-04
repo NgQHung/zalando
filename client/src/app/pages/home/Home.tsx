@@ -34,7 +34,7 @@ export const Home = () => {
               />
             </div>
           </div>
-          <div className="row_full bg-[#34d27b] mb-[64px]">
+          <div className="row_full h-[584px] bg-[#34d27b] mb-[64px]">
             <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
               {products_1.map((item: Products) => (
                 <Link
@@ -90,7 +90,7 @@ export const Home = () => {
               />
             </div>
           </div>
-          <div className="row_full bg-[#e3e707] mb-[64px]">
+          <div className="row_full h-[584px] bg-[#e3e707] mb-[64px]">
             <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
               {products_2.map((item: Products) => (
                 <Link

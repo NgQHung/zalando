@@ -10,7 +10,7 @@ interface InitialState {
   } | null;
 }
 
-const initialState: InitialState | null = {
+const initialState: InitialState = {
   user: null,
 };
 

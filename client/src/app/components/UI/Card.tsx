@@ -25,11 +25,11 @@ const Card = ({ children, imgUrl }: ICard) => {
     <div
       onMouseEnter={onMouseHandler}
       onMouseLeave={onMouseLeaveHandler}
-      className="inline-block pt-6 pb-3 basis-1/3 max-w-1/3 px-2 cursor-pointer"
+      className="pt-6 pb-3 basis-1/2 max-w-1/2 sm:basis-1/3 sm:max-w-1/3 px-2 cursor-pointer"
     >
-      <div className="w-[288px]">
-        <div className="relative">
-          <img src={imgUrl} alt="" className="w-[288px] h-[416px] object-cover" />
+      <div className="min-w-[135px] max-w-[303px] lg:max-w-[288px] lg:min-w-[224px]">
+        <div className="relative w-full">
+          <img src={imgUrl} alt="" className="w-full object-cover" />
           <div className={"space-x-1 new_hidden " + (onHover ? "new" : "")}>
             <span className="p-1 text-[12px] font-[700] bg-[#ffff]">Hot Drop</span>
             <span className="p-1 text-[12px] font-[700] bg-[#ffff]">Novinka</span>

@@ -1,7 +1,12 @@
 import { faChevronDown, faChevronUp, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Fragment } from "react";
-import { FOOTER_DATA_1, FOOTER_DATA_2, FOOTER_DATA_3, FOOTER_DATA_4 } from "../../../../../../utils/data";
+import {
+  FOOTER_INFO_1,
+  FOOTER_INFO_2,
+  FOOTER_INFO_3,
+  FOOTER_INFO_4,
+} from "../../../../../../utils/data/footer/footerInfo";
 import Container from "../../../container";
 import "./FooterInfo.css";
 
@@ -92,7 +97,7 @@ const FooterInfo = () => {
                   Poukazy a slevy
                 </h2>
                 <ul className="space-y-3 px-2">
-                  {FOOTER_DATA_1.data.map((item, idx) => (
+                  {FOOTER_INFO_1.data.map((item, idx) => (
                     <li key={idx} className="">
                       <span className="affect_text">{item}</span>
                     </li>
@@ -108,7 +113,7 @@ const FooterInfo = () => {
                   O Zalandu
                 </h2>
                 <ul className="space-y-3 px-2">
-                  {FOOTER_DATA_2.data.map((item, idx) => (
+                  {FOOTER_INFO_2.data.map((item, idx) => (
                     <li key={idx} className="">
                       <span className="affect_text">{item}</span>
                     </li>
@@ -202,7 +207,7 @@ const FooterInfo = () => {
                   Naše výhody
                 </h2>
                 <ul className="space-y-3 px-2">
-                  {FOOTER_DATA_3.data.map((item, idx) => (
+                  {FOOTER_INFO_3.data.map((item, idx) => (
                     <li key={idx}>
                       <span className="affect_text">{item}</span>
                     </li>
@@ -218,7 +223,7 @@ const FooterInfo = () => {
                   Naše služby
                 </h2>
                 <ul className="space-y-3 px-2">
-                  {FOOTER_DATA_4.data.map((item, idx) => (
+                  {FOOTER_INFO_4.data.map((item, idx) => (
                     <li key={idx}>
                       <span className="affect_text">{item}</span>
                     </li>
@@ -292,7 +297,7 @@ const FooterInfo = () => {
                 (discountCondition ? "footerInfo_dropdown" : "")
               }
             >
-              {FOOTER_DATA_1.data.map((item, idx) => (
+              {FOOTER_INFO_1.data.map((item, idx) => (
                 <li key={idx} className="mb-3 pl-[6px]">
                   <span className="affect_text">{item}</span>
                 </li>
@@ -316,7 +321,7 @@ const FooterInfo = () => {
                 (aboutCondition ? "footerInfo_dropdown" : "")
               }
             >
-              {FOOTER_DATA_2.data.map((item, idx) => (
+              {FOOTER_INFO_2.data.map((item, idx) => (
                 <li key={idx} className="mb-3 pl-[6px]">
                   <span className="affect_text">{item}</span>
                 </li>
@@ -436,7 +441,7 @@ const FooterInfo = () => {
                 (consCondition ? "footerInfo_dropdown" : "")
               }
             >
-              {FOOTER_DATA_3.data.map((item, idx) => (
+              {FOOTER_INFO_3.data.map((item, idx) => (
                 <li key={idx} className="mb-3 pl-[6px]">
                   <span className="affect_text">{item}</span>
                 </li>
@@ -460,7 +465,7 @@ const FooterInfo = () => {
                 (serviceCondition ? "footerInfo_dropdown" : "")
               }
             >
-              {FOOTER_DATA_2.data.map((item, idx) => (
+              {FOOTER_INFO_2.data.map((item, idx) => (
                 <li key={idx} className="mb-3 pl-[6px]">
                   <span className="affect_text">{item}</span>
                 </li>

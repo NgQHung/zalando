@@ -48,7 +48,6 @@ html {
 
 .row_full {
   position: relative;
-  height: 584px;
   width: 100vw;
   margin-left: calc(-50vw + 50% - 8.5px);
   overflow-x: auto;
@@ -65,12 +64,12 @@ html {
   border-bottom: 1px solid #1a1a1a;
 }
 
-.form_onHover {
+.outline_onHover {
   border: 1px solid #1a1a1a;
   position: relative;
 }
 
-.form_onHover:hover {
+.outline_onHover:hover {
   outline: 2px solid #1a1a1a;
   outline-offset: -2px;
 }

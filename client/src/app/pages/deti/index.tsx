@@ -29,7 +29,7 @@ export const DetiPage = () => {
               />
             </div>
           </div>
-          <div className="row_full bg-[#fae0ad] mb-[64px]">
+          <div className="row_full h-[584px] bg-[#fae0ad] mb-[64px]">
             <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
               {products_1.map((item: Products) => (
                 <div key={item.id} className="first:ml-[152px]">
@@ -81,7 +81,7 @@ export const DetiPage = () => {
             </div>
             {/* 58b7d4 */}
           </div>
-          <div className="row_full bg-[#58b7d4] mb-[64px]">
+          <div className="row_full h-[584px] bg-[#58b7d4] mb-[64px]">
             <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
               {products_2.map((item: Products) => (
                 <div key={item.id} className="first:ml-[152px]">

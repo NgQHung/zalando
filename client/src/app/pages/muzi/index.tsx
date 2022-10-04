@@ -44,7 +44,7 @@ export const MuziPage = () => {
               </div>
             </div>
           </div>
-          <div className="row_full bg-[#34d27b]  ">
+          <div className="row_full h-[584px] bg-[#34d27b]  ">
             <div className=" pt-[36px] pb-[24px] text-[14px] flex ">
               {productData_1.map((item, idx) => (
                 <div key={idx} className="muzi_product_item cursor-pointer">
@@ -94,7 +94,7 @@ export const MuziPage = () => {
               <img src={viewData_2.image} alt="img" />
             </div>
           </div>
-          <div className="row_full bg-[#e3e707]">
+          <div className="row_full h-[584px] bg-[#e3e707]">
             <div className="absolute pt-[36px] pb-[24px] text-[14px] flex ">
               {productData_1.map((item, idx) => (
                 <div key={idx} className="muzi_product_item cursor-pointer">

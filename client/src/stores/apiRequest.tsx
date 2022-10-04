@@ -1,8 +1,10 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { uriBase } from "../config/uriBase";
+// import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { productActions } from "./product-slice";
 import UISlice, { UIActions } from "./UI-slice";
+// const axiosJWT = AxiosJWT();
 
 // get all products
 export const getProducts = async (dispatch: Dispatch) => {

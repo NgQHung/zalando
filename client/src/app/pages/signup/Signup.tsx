@@ -57,7 +57,7 @@ export const Signup = () => {
 
   React.useEffect(() => {
     document.addEventListener("mousedown", (e: any) => {
-      if (!refInput?.current?.contains(e?.currentTarget)) {
+      if (!refInput?.current?.contains(e.currentTarget)) {
         setIsClick(false);
       }
     });
@@ -89,7 +89,7 @@ export const Signup = () => {
               >
                 Křestní jméno*
               </p>
-              <div className="form_onHover flex items-center ">
+              <div className="outline_onHover flex items-center ">
                 {/* <FontAwesomeIcon icon={faEnvelope} className="h-6 py-2 pl-3" /> */}
                 <input
                   className="py-3 px-[10px] w-full h-full outline-none "
@@ -111,7 +111,7 @@ export const Signup = () => {
               >
                 Příjmení*
               </p>
-              <div className="form_onHover flex items-center ">
+              <div className="outline_onHover flex items-center ">
                 <input
                   className="py-3 px-[10px] w-full h-full outline-none "
                   type="text"
@@ -132,7 +132,7 @@ export const Signup = () => {
               >
                 E-mailová adresa
               </p>
-              <div className="form_onHover flex items-center ">
+              <div className="outline_onHover flex items-center ">
                 <input
                   className="py-3 px-[10px] w-full h-full outline-none "
                   type="text"
@@ -153,7 +153,7 @@ export const Signup = () => {
               >
                 Heslo
               </p>
-              <div className="form_onHover flex items-center   ">
+              <div className="outline_onHover flex items-center   ">
                 <input
                   className="py-3 px-[10px] w-full h-full outline-none"
                   type="text"

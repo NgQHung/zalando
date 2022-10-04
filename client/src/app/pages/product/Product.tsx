@@ -49,7 +49,7 @@ const Product = () => {
   }, [firstImage]);
 
   return (
-    <div className=" mx-6 w-auto  lg:mx-auto lg:my-0  lg:max-w-[1216px]">
+    <div className=" mx-6 w-auto lg:mx-auto lg:my-0  lg:max-w-[1216px]">
       <div className="flex flex-row mt-6 flex-wrap">
         {/* images */}
         <div className=" md:sticky md:top-[24px] max-w-1/2 basis-1/2 self-start flex-wrap product_image ">

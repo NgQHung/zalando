@@ -1,7 +1,7 @@
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { DATA_BANNER } from "../../../../../utils/data_banner";
+import { DATA_BANNER } from "../../../../../utils/data/footer/footerBanner";
 import Container from "../../container";
 import "./Banner.css";
 
@@ -20,7 +20,7 @@ const Banner = () => {
 
   React.useEffect(() => {
     document.addEventListener("mousedown", (e: any) => {
-      if (!refInput.current.contains(e.target)) {
+      if (!refInput?.current?.contains(e.target)) {
         setIsClick(false);
       }
     });
