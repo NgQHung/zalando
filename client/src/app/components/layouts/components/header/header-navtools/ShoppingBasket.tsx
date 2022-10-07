@@ -49,8 +49,8 @@ const ShoppingBasket = () => {
         ) : (
           <div className="text-center">
             <p className="text-[16px] mt-[24px] px-[36px] font-[700]">VÁŠ NÁKUPNÍ KOŠÍK</p>
-            {addedShoppingCart.map((product: productShoppingCart) => (
-              <div key={product.id} className="flex text-[14px] flex-col">
+            {addedShoppingCart.map((product: productShoppingCart, idx: number) => (
+              <div key={idx} className="flex text-[14px] flex-col">
                 <div className="flex py-[18px] text-[12px] px-[15px]">
                   <div className="py-3 px-2 self-start shrink-0">
                     <img src={ImgToHttp(product.imageUrl)} alt="photos" className="h-[96px] object-cover " />

@@ -1,13 +1,14 @@
-import axios from "axios";
 import React, { Fragment } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import DefaultLayout from "./app/components/layouts/DefaultLayout";
-import { useAppDispatch } from "./app/hooks";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { publicRoutes } from "./app/routes";
+import { actionActions } from "./stores/action-slice";
 import { getProducts } from "./stores/apiRequest";
 
 function App() {
   const dispatch = useAppDispatch();
+  const addedShoppingCart = useAppSelector((state) => state.actionSlice.addedShoppingCart);
 
   React.useEffect(() => {
     try {
@@ -16,6 +17,10 @@ function App() {
       console.log(error);
     }
   }, []);
+
+  React.useEffect(() => {
+    dispatch(actionActions.calculateTotals());
+  }, [addedShoppingCart]);
   return (
     <div className="App">
       <Routes>

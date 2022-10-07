@@ -7,12 +7,13 @@ import Product_info from "./product_info";
 import Sliding_products from "./sliding_products";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import { getDetailProduct } from "../../../stores/apiRequest";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 const Product = () => {
   const selectedId = useAppSelector((state) => state.productSlice.selectedId);
   const selectedProduct = useAppSelector((state) => state.productSlice.selectedProduct);
-  const firstImage = selectedProduct?.media?.images[0].url;
+  // console.log(selectedId);
+  const isImage = selectedProduct?.media?.images;
+  const firstImage = isImage && selectedProduct?.media?.images[0].url!;
 
   const dispatch = useAppDispatch();
   const [imageShow, setImageShow] = React.useState<string>("");
@@ -20,13 +21,8 @@ const Product = () => {
   const scrollRef = React.useRef<any>(null);
   const [chevronUp, setChevronUp] = React.useState(false);
   const [chevronDown, setChevronDown] = React.useState(false);
-  const [swipe, setSwipe] = React.useState(false);
-  const [my_swiper, set_my_swiper] = React.useState<any>({});
-
-  // const imgUrl = selectedProduct?.media.images
 
   const typeImageHandler = (image: string, index: number) => {
-    console.log(index);
     setImageShow(ImgToHttp(image));
   };
 
@@ -49,9 +45,12 @@ const Product = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [selectedId]);
+
   React.useEffect(() => {
-    setImageShow(ImgToHttp(firstImage!));
+    if (firstImage) {
+      setImageShow(ImgToHttp(firstImage));
+    } else return;
   }, [firstImage]);
 
   return (
@@ -72,15 +71,16 @@ const Product = () => {
               className="scrollbar_hide hidden lg:flex flex-col basis-[16.666%] max-w-[16.666%] md:px-2 absolute overflow-y-auto h-full "
             >
               <ul>
-                {selectedProduct?.media.images.map((image, idx) => (
-                  <li
-                    key={idx}
-                    onMouseEnter={() => typeImageHandler(image.url, idx)}
-                    className="mb-4 hover:outline hover:outline-offset-[-3px] hover:outline-[3px] cursor-pointer"
-                  >
-                    <img src={ImgToHttp(image.url)} alt="img" />
-                  </li>
-                ))}
+                {isImage &&
+                  selectedProduct?.media.images?.map((image, idx) => (
+                    <li
+                      key={idx}
+                      onMouseEnter={() => typeImageHandler(image.url, idx)}
+                      className="mb-4 hover:outline hover:outline-offset-[-3px] hover:outline-[3px] cursor-pointer"
+                    >
+                      <img src={ImgToHttp(image.url)} alt="img" />
+                    </li>
+                  ))}
               </ul>
             </div>
             {chevronDown && (
@@ -98,12 +98,12 @@ const Product = () => {
 
               <div className="lg:hidden flex ">
                 <div className="flex ">
-                  {selectedProduct?.media.images.map((image: any, idx) => (
-                    <img key={idx} className="min-w-full h-auto object-cover" src={ImgToHttp(image.url)} alt="img" />
-                  ))}
+                  {isImage &&
+                    selectedProduct?.media.images?.map((image: any, idx) => (
+                      <img key={idx} className="min-w-full h-auto object-cover" src={ImgToHttp(image.url)} alt="img" />
+                    ))}
                 </div>
                 <FontAwesomeIcon
-                  onClick={() => my_swiper.slideNext()}
                   icon={faChevronRight}
                   className="absolute right-0 top-1/2 translate-y-[-50%] bg-[#ffff] h-6 p-2 cursor-pointer"
                 />
