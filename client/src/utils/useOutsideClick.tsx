@@ -1,18 +1,21 @@
 import React from "react";
-export const useOutsideClick = (callback: () => void) => {
-  const ref = React.useRef();
-
+export const UseOutsideClick = () => {
+  let refInput = React.useRef<any>(null);
+  const [searchMobileClick, setSearchMobileClick] = React.useState(false);
   React.useEffect(() => {
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      callback();
-    };
+    // const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    //   callback();
+    // };
 
-    //   document.addEventListener('click', handleClick);
-
-    //   return () => {
-    //     document.removeEventListener('click', handleClick);
-    //   };
+    document.addEventListener("mousedown", (e: any) => {
+      if (!refInput?.current?.contains(e.target)) {
+        setSearchMobileClick(false);
+      }
+    });
   }, []);
 
-  return ref;
+  return {
+    searchMobileClick,
+    refInput,
+  };
 };

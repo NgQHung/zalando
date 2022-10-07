@@ -2,7 +2,7 @@ import axios from "axios";
 import { NavigateFunction } from "react-router-dom";
 import { Dispatch } from "redux";
 import { uriBase } from "../config/uriBase";
-import { User_login, User_signup } from "../interfaces/authentication";
+import { User_signup } from "../interfaces/authentication";
 import { authAxios } from "../utils/authentication/axiosAuth";
 // import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { userActions } from "./user-slice";

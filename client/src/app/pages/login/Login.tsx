@@ -18,11 +18,12 @@ export const Login = () => {
   const [typeInput, setTypeInput] = React.useState("");
   const [isClick, setIsClick] = React.useState(false);
   const [input, setInput] = React.useState<User_login>({ email: "", password: "" });
-  let refInput = React.useRef<any>(null);
+  const refInput = React.useRef<any>(null);
   const user = useAppSelector((state) => state.userSlice.user);
-  const accessToken = user?.access_token!;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const accessToken = user?.access_token;
 
   const onClickHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     setIsClick(true);
@@ -46,8 +47,8 @@ export const Login = () => {
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
     async (config) => {
-      let date = new Date();
-      const decodedToken: any = jwt_decode(accessToken);
+      const date = new Date();
+      const decodedToken: any = jwt_decode(accessToken!);
       if (decodedToken.exp < date.getTime() / 1000) {
         const data: any = await refreshToken();
         const refreshUser = {
@@ -68,7 +69,7 @@ export const Login = () => {
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    requestLogin(dispatch, input, navigate, accessToken);
+    requestLogin(dispatch, input, navigate, accessToken!);
   };
 
   React.useEffect(() => {

@@ -23,25 +23,32 @@ interface Iprops {
 }
 
 const Product_info = ({ selectedProduct }: Iprops) => {
-  const [dropdown, setDropDown] = React.useState(false);
-  const [nameDropdown, setNameDropdown] = React.useState("");
+  const [nameDropdown, setNameDropdown] = React.useState<Record<string, any>>({
+    selectSize: "",
+    material: "",
+    details: "",
+    size: "",
+  });
   const [sizeProduct, setSizeProduct] = React.useState("");
   const dispatch = useAppDispatch();
 
-  const dropdownHandler = (name: string) => {
-    setDropDown((prev) => !prev);
-    setNameDropdown(name);
+  const dropdownHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const { name } = e.currentTarget;
+    if (nameDropdown[name] === name) {
+      setNameDropdown((prev) => ({ ...prev, [name]: "" }));
+    } else {
+      setNameDropdown((prev) => ({ ...prev, [name]: name }));
+    }
   };
 
   const sizeProductHandler = (size: string) => {
     setSizeProduct(size);
-    setDropDown(false);
+    setNameDropdown((prev) => ({ ...prev, selectSize: "" }));
   };
 
   const addShoppingCartHandler = () => {
     if (!sizeProduct) {
-      setDropDown(true);
-
+      setNameDropdown((prev) => ({ ...prev, selectSize: "selectSize" }));
       return;
     }
     dispatch(
@@ -58,10 +65,21 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       })
     );
   };
+  const ref = React.useRef<any>(null);
+
+  React.useEffect(() => {
+    if (nameDropdown.selectSize) {
+      document.addEventListener("mousedown", (e: any) => {
+        if (!ref?.current?.contains(e.target)) {
+          setNameDropdown((prev) => ({ ...prev, selectSize: "" }));
+        }
+      });
+    }
+  }, [nameDropdown.selectSize]);
 
   return (
     <Fragment>
-      <div className="min-w-1/2 max-w-1/2 flex flex-col basis-1/2 ">
+      <div className="mx-6 mt-6 md:m-0 md:min-w-1/2 md:max-w-1/2 flex flex-col md:basis-1/2 ">
         <div className="px-2 lg:ml-[100px] ">
           <div className="product_content">
             <p className="text-[28px] text_tiempos  ">{selectedProduct?.brand.name}</p>
@@ -73,22 +91,24 @@ const Product_info = ({ selectedProduct }: Iprops) => {
           </div>
           <div className="mt-9">
             {/* select your size start */}
-            <div className="  mb-2 relative ">
+            <div ref={ref} className="  mb-2 relative ">
               <button
-                className={"flex justify-between cursor-pointer w-full p-3 border border-[#1a1a1a]  "}
-                onClick={() => dropdownHandler("selectSize")}
+                name="selectSize"
+                className={
+                  "flex justify-between cursor-pointer w-full p-3 border border-[#1a1a1a] " +
+                  (!sizeProduct ? "outline_onHover" : "outline_effect hover:bg-[#e9e9ed]")
+                }
+                onClick={dropdownHandler}
               >
                 <span className="">{sizeProduct ? sizeProduct : "Zvolte svou velikost"} </span>
-                {nameDropdown === "selectSize" && dropdown ? (
+                {nameDropdown.selectSize ? (
                   <FontAwesomeIcon icon={faChevronUp} />
                 ) : (
                   <FontAwesomeIcon icon={faChevronDown} />
                 )}
               </button>
 
-              <div
-                className={"size_dropdown_hidden " + (nameDropdown === "selectSize" && dropdown ? "size_dropdown" : "")}
-              >
+              <div className={"size_dropdown_hidden " + (nameDropdown.selectSize ? "size_dropdown" : "")}>
                 <div className="hover:bg-[#e9e9ed] transition-all">
                   <div
                     onClick={() => sizeProductHandler("S")}
@@ -121,15 +141,15 @@ const Product_info = ({ selectedProduct }: Iprops) => {
             </div>
             {/* select your size end */}
 
-            <div className="flex items-center">
+            <div className="flex items-center w-full justify-between ">
               <button
                 onClick={addShoppingCartHandler}
-                className="p-3 bg-[#1a1a1a] text-[#ffff] w-full hover:opacity-70"
+                className="p-3 bg-[#1a1a1a] text-[#ffff] grow hover:opacity-70 h-[48px]"
               >
                 <span>Přidat do nákupního košíku</span>
               </button>
-              <button>
-                <FontAwesomeIcon icon={faHeart} className="p-2 border border-[#1a1a1a] h-6" />
+              <button className="ml-2 h-[48px] w-[48px] border border-[#1a1a1a] outline_onHover z-[-1] ">
+                <FontAwesomeIcon icon={faHeart} className="p-2 h-6 w-6" />
               </button>
             </div>
           </div>
@@ -163,20 +183,15 @@ const Product_info = ({ selectedProduct }: Iprops) => {
           <div className="mt-12 font-[700]">
             <div className={" border-y border-[#66676e] relative"}>
               <button
+                name="material"
                 className="  w-full flex justify-between px-6 py-4 hover:bg-[#e9e9ed] "
-                onClick={() => dropdownHandler("material")}
+                onClick={dropdownHandler}
               >
                 <span>Materiál a údržba</span>
-                {dropdown && nameDropdown === "material" ? (
-                  <FontAwesomeIcon icon={faCaretUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faCaretDown} />
-                )}
+                {nameDropdown.material ? <FontAwesomeIcon icon={faCaretUp} /> : <FontAwesomeIcon icon={faCaretDown} />}
               </button>
 
-              <div
-                className={" font-[400] dropdown_hidden " + (dropdown && nameDropdown === "material" ? "dropdown" : "")}
-              >
+              <div className={" font-[400] dropdown_hidden " + (nameDropdown.material ? "dropdown" : "")}>
                 <div className="text-[14px] pt-4 px-6 pb-9 ">
                   <p className="mb-1">
                     <span className="font-[700]">Materiál svrchní látka</span>: 100% bavlna
@@ -198,19 +213,14 @@ const Product_info = ({ selectedProduct }: Iprops) => {
             </div>
             <div className={" border-b border-[#66676e] relative"}>
               <button
-                onClick={() => dropdownHandler("details")}
+                name="details"
+                onClick={dropdownHandler}
                 className="w-full flex justify-between px-6 py-4  hover:bg-[#e9e9ed] "
               >
                 <span>Podrobnosti</span>
-                {dropdown && nameDropdown === "details" ? (
-                  <FontAwesomeIcon icon={faCaretUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faCaretDown} />
-                )}
+                {nameDropdown.details ? <FontAwesomeIcon icon={faCaretUp} /> : <FontAwesomeIcon icon={faCaretDown} />}
               </button>
-              <div
-                className={" font-[400] dropdown_hidden " + (dropdown && nameDropdown === "details" ? "dropdown" : "")}
-              >
+              <div className={" font-[400] dropdown_hidden " + (nameDropdown.details ? "dropdown" : "")}>
                 <div className="text-[14px] pt-4 px-6 pb-9 ">
                   <p className="mb-1">
                     <span>Límec:</span> Polstrovaný límeček
@@ -233,17 +243,14 @@ const Product_info = ({ selectedProduct }: Iprops) => {
 
             <div className={" border-b border-[#66676e] relative"}>
               <button
-                onClick={() => dropdownHandler("size")}
+                name="size"
+                onClick={dropdownHandler}
                 className="w-full flex justify-between px-6 py-4  hover:bg-[#e9e9ed] "
               >
                 <span>Velikost a střih</span>
-                {dropdown && nameDropdown === "size" ? (
-                  <FontAwesomeIcon icon={faCaretUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faCaretDown} />
-                )}
+                {nameDropdown.size ? <FontAwesomeIcon icon={faCaretUp} /> : <FontAwesomeIcon icon={faCaretDown} />}
               </button>
-              <div className={"font-[400]  dropdown_hidden " + (dropdown && nameDropdown === "size" ? "dropdown" : "")}>
+              <div className={"font-[400]  dropdown_hidden " + (nameDropdown.size ? "dropdown" : "")}>
                 <div className="text-[14px] pt-4 px-6 pb-9 ">
                   <p>
                     <span>Velikost modelu:</span> Náš model / naše modelka je vysoký/a 189 cm a má velikost M

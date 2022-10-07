@@ -21,10 +21,10 @@
     "@types/redux-persist": "^4.3.1",
     "axios": "^0.27.2",
     "classnames": "^2.3.2",
-    "eslint": "^8.23.1",
     "font-awesome": "^4.7.0",
     "framer-motion": "^7.3.5",
     "jwt-decode": "^3.1.2",
+    "parser": "@typescript-eslint/parser",
     "react": "^18.2.0",
     "react-aria": "^3.19.0",
     "react-dom": "^18.2.0",
@@ -33,7 +33,7 @@
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
     "redux-persist": "^6.0.0",
-    "swiper": "^8.4.2",
+    "swiper": "^8.4.3",
     "typescript": "^4.8.3",
     "web-vitals": "^2.1.4"
   },
@@ -43,7 +43,8 @@
     "dev": "concurrently -n 'client,server' -c 'red,green' \"react-scripts start\" \"npm run backend\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint": "eslint src/index.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +67,9 @@
   "devDependencies": {
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "eslint": "^8.24.0",
     "tailwindcss": "^3.1.8"
   }
 }
