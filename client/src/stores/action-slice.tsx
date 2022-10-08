@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, current, original } from "@reduxjs/toolkit";
 import { productShoppingCart } from "../interfaces/ProductShoppingCart";
 
 interface InitialState {
@@ -7,6 +7,7 @@ interface InitialState {
   initialAmount: number;
   totalProduct: number;
   total: number;
+  arr: any[];
 }
 
 const initialState: InitialState = {
@@ -15,6 +16,7 @@ const initialState: InitialState = {
   initialAmount: 0,
   totalProduct: 0,
   total: 0,
+  arr: [],
 };
 
 const actionSlice = createSlice({
@@ -23,58 +25,56 @@ const actionSlice = createSlice({
   reducers: {
     addShoppingCartHandler(state, action) {
       const idProduct = action.payload.id;
-      const existingProductIndex = state.addedShoppingCart.findIndex((product) => product.id === idProduct);
-      const existingProduct = state.addedShoppingCart[existingProductIndex];
-      let existingSizeProduct = false;
-      // console.log(action.payload.size);
+      const sizeProduct = action.payload.size;
+      const existingProductWithSizeIndex = state.addedShoppingCart.findIndex((product) => {
+        return product.id === idProduct && product.size === sizeProduct;
+      });
+      const existingProductWithSize = state.addedShoppingCart[existingProductWithSizeIndex];
+
       let updateProduct;
-      if (existingProduct) {
-        existingSizeProduct = existingProduct.size === action.payload.size;
-        console.log(existingSizeProduct);
-        console.log(existingProduct.size);
-        console.log(action.payload.size);
-        if (existingSizeProduct) {
-          const updatedProduct = {
-            ...existingProduct,
-            amount: existingProduct.amount + action.payload.amount,
-            totalProduct: existingProduct.totalProduct + existingProduct.currentPrice,
-          };
-          updateProduct = [...state.addedShoppingCart];
-          updateProduct[existingProductIndex] = updatedProduct;
-          state.addedShoppingCart = updateProduct;
-        } else {
-          state.addedShoppingCart.push(action.payload);
-        }
+      if (existingProductWithSize) {
+        const updatedProduct = {
+          ...existingProductWithSize,
+          amount: existingProductWithSize.amount + action.payload.amount,
+          totalProduct: existingProductWithSize.totalProduct + existingProductWithSize.currentPrice,
+        };
+        updateProduct = [...state.addedShoppingCart];
+        updateProduct[existingProductWithSizeIndex] = updatedProduct;
+        state.addedShoppingCart = updateProduct;
       } else {
         state.addedShoppingCart.push(action.payload);
       }
     },
     removeShoppingCartHandler(state, action) {
       const idProduct = action.payload.id;
-      const existingProductIndex = state.addedShoppingCart.findIndex((product) => product.id === idProduct);
-      const existingProduct = state.addedShoppingCart[existingProductIndex];
+      const sizeProduct = action.payload.size;
+      const existingProductWithSizeIndex = state.addedShoppingCart.findIndex((product) => {
+        return product.id === idProduct && product.size === sizeProduct;
+      });
+      const existingProductWithSize = state.addedShoppingCart[existingProductWithSizeIndex];
 
       let updateProduct;
-      if (existingProduct.amount === 1) {
-        updateProduct = state.addedShoppingCart.filter((product) => product.id !== idProduct);
+      if (existingProductWithSize.amount === 1) {
+        updateProduct = state.addedShoppingCart.filter((product) => {
+          return product.id !== idProduct || product.size !== sizeProduct;
+        });
+
         state.addedShoppingCart = updateProduct;
       } else {
         const updatedProduct = {
-          ...existingProduct,
-          amount: existingProduct.amount - 1,
-          totalProduct: existingProduct.totalProduct - existingProduct.currentPrice,
+          ...existingProductWithSize,
+          amount: existingProductWithSize.amount - 1,
+          totalProduct: existingProductWithSize.totalProduct - existingProductWithSize.currentPrice,
         };
 
         updateProduct = [...state.addedShoppingCart];
-        updateProduct[existingProductIndex] = updatedProduct;
+        updateProduct[existingProductWithSizeIndex] = updatedProduct;
         state.addedShoppingCart = updateProduct;
       }
     },
     calculateTotals(state) {
-      let amount = 0;
       let total = 0;
       state.addedShoppingCart.forEach((item) => {
-        amount += item.amount;
         total += item.amount * item.currentPrice;
       });
       state.total = total;

@@ -11,8 +11,8 @@ const ShoppingBasket = () => {
   const total = useAppSelector((state) => state.actionSlice.total);
   const lengthAddedShoppingCart = addedShoppingCart.length;
   const dispatch = useAppDispatch();
-  const removeProductShoppingCartHandler = (id: number) => {
-    dispatch(actionActions.removeShoppingCartHandler({ id: id }));
+  const removeProductShoppingCartHandler = (id: number, size: string) => {
+    dispatch(actionActions.removeShoppingCartHandler({ id: id, size: size }));
   };
   const addProductFavoriteHandler = (product: productShoppingCart) => {
     dispatch(actionActions.addFavoriteHandler(product));
@@ -84,7 +84,7 @@ const ShoppingBasket = () => {
                       </div>
                       <div>
                         <span
-                          onClick={() => removeProductShoppingCartHandler(product.id)}
+                          onClick={() => removeProductShoppingCartHandler(product.id, product.size)}
                           className="text-[10px] cursor-pointer affect_text"
                         >
                           Odebrat položku

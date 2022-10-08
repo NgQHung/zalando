@@ -25,7 +25,7 @@
   -moz-transition: height, 0.5s linear;
   -ms-transition: height, 0.5s linear;
   -o-transition: height, 0.5s linear;
-  transition: height, 0.5s linear;
+  transition: height, 0.1s linear;
   top: 100%;
   max-height: 0;
   /* width: calc(100% + 2px);
@@ -45,7 +45,7 @@
   -moz-transition: height, 0.5s linear;
   -ms-transition: height, 0.5s linear;
   -o-transition: height, 0.5s linear;
-  transition: height, 0.5s linear;
+  transition: height, 0.1s linear;
   top: 100%;
   width: 100%;
   left: 0;

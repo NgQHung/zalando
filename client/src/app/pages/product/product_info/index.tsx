@@ -144,7 +144,9 @@ const Product_info = ({ selectedProduct }: Iprops) => {
             <div className="flex items-center w-full justify-between ">
               <button
                 onClick={addShoppingCartHandler}
-                className="p-3 bg-[#1a1a1a] text-[#ffff] grow hover:opacity-70 h-[48px]"
+                className={
+                  "p-3 bg-[#1a1a1a] text-[#ffff] grow  h-[48px] " + (!nameDropdown.selectSize ? "hover:opacity-70" : "")
+                }
               >
                 <span>Přidat do nákupního košíku</span>
               </button>
