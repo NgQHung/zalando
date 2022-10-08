@@ -19,7 +19,7 @@ const Header = () => {
     setGender(type);
   };
 
-  const bgColorChangeOnHoverCate = useAppSelector((state) => state.UISlice.bg_color);
+  // const bg_color = useAppSelector((state) => state.UISlice.bg_color);
 
   return (
     <div className="relative border-b border-[#d0d1d3]">
@@ -27,8 +27,9 @@ const Header = () => {
         <div className=" hidden lg:block ">
           <div
             className={
-              " text-[12px] text-[#666666]   font-[700] transition-colors duration-[1.5s] " +
-              (bgColorChangeOnHoverCate ? "bg-[#cac9c9]" : "bg-[#efeff0]")
+              " text-[12px] text-[#666666]   font-[700] transition-colors duration-[1.5s] "
+              // +
+              // (bg_color ? "bg-[#cac9c9]" : "bg-[#efeff0]")
             }
           >
             <div className="flex justify-between h-[32px]  items-center mx-6 xl:mx-auto xl:my-0 lg:max-w-[1216px] lg:min-w-[943px]">

@@ -15,8 +15,10 @@ import {
   faTruck,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useAppDispatch } from "../../../hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { actionActions } from "../../../../stores/action-slice";
+import { backgroundColorHandler, loadingHandler, UIActions } from "../../../../stores/UI-slice";
+import Loader from "../../../components/UI/Loader";
 
 interface Iprops {
   selectedProduct: ProductDetail | null;
@@ -30,6 +32,10 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     size: "",
   });
   const [sizeProduct, setSizeProduct] = React.useState("");
+  const loadingState = useAppSelector((state) => state.UISlice.loading__add);
+  const bg_color = useAppSelector((state) => state.UISlice.bg_color);
+  console.log(bg_color);
+
   const dispatch = useAppDispatch();
 
   const dropdownHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -50,20 +56,24 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     if (!sizeProduct) {
       setNameDropdown((prev) => ({ ...prev, selectSize: "selectSize" }));
       return;
+    } else {
+      dispatch(
+        actionActions.addShoppingCartHandler({
+          id: selectedProduct?.id,
+          brand: selectedProduct?.brand.name,
+          name: selectedProduct?.name,
+          imageUrl: selectedProduct?.media.images[0].url,
+          currentPrice: selectedProduct?.price.current.value,
+          previousPrice: selectedProduct?.price.previous?.value,
+          amount: 1,
+          size: sizeProduct,
+          totalProduct: selectedProduct?.price.current.value,
+        })
+      );
+      loadingHandler(dispatch, 500, "add");
+      backgroundColorHandler(dispatch, 1000);
+      dispatch(UIActions.backgroundColor(true));
     }
-    dispatch(
-      actionActions.addShoppingCartHandler({
-        id: selectedProduct?.id,
-        brand: selectedProduct?.brand.name,
-        name: selectedProduct?.name,
-        imageUrl: selectedProduct?.media.images[0].url,
-        currentPrice: selectedProduct?.price.current.value,
-        previousPrice: selectedProduct?.price.previous?.value,
-        amount: 1,
-        size: sizeProduct,
-        totalProduct: selectedProduct?.price.current.value,
-      })
-    );
   };
   const ref = React.useRef<any>(null);
 
@@ -145,10 +155,12 @@ const Product_info = ({ selectedProduct }: Iprops) => {
               <button
                 onClick={addShoppingCartHandler}
                 className={
-                  "p-3 bg-[#1a1a1a] text-[#ffff] grow  h-[48px] " + (!nameDropdown.selectSize ? "hover:opacity-70" : "")
+                  "p-3  text-[#ffff] grow  h-[48px] " +
+                  (!nameDropdown.selectSize ? "hover:opacity-70 " : "") +
+                  (bg_color ? "bg-[#58b7d4]" : "bg-[#1a1a1a]")
                 }
               >
-                <span>Přidat do nákupního košíku</span>
+                {loadingState ? <Loader /> : <span>Přidat do nákupního košíku</span>}
               </button>
               <button className="ml-2 h-[48px] w-[48px] border border-[#1a1a1a] outline_onHover z-[-1] ">
                 <FontAwesomeIcon icon={faHeart} className="p-2 h-6 w-6" />

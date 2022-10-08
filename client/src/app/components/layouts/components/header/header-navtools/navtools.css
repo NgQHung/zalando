@@ -62,7 +62,35 @@
   opacity: 1;
   width: 100%;
 }
+.shopping__cart-shadow {
+  position: relative;
+}
 
+.shopping__cart-shadow::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  /* box-shadow: 0 -5px 5px -5px #333; */
+  background: linear-gradient(to top, rgba(228, 228, 228, 0.8) 0, rgba(255, 255, 255, 0) 100%);
+  z-index: 100;
+}
+
+.shopping__cart-shadow::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  /* box-shadow: 0 -5px 5px -5px #333; */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0, rgba(255, 255, 255, 0) 100%);
+  z-index: 100;
+}
 /* animation from left to white (option2) */
 
 /* .effect_bg {

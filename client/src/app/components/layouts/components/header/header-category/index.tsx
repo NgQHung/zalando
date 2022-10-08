@@ -13,11 +13,11 @@ const HeaderCategory = () => {
   const onMouseHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.currentTarget;
     setCategory(target.getAttribute("datatype"));
-    dispatch(UIActions.headerChangeBgOnHoverHandler(true));
+    dispatch(UIActions.backgroundColor({ bg_color_boolean: true }));
   };
   const onMouseLeaveHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setCategory("");
-    dispatch(UIActions.headerChangeBgOnHoverHandler(false));
+    dispatch(UIActions.backgroundColor({ bg_color_boolean: false }));
   };
 
   return (
@@ -29,9 +29,9 @@ const HeaderCategory = () => {
               <div
                 key={idx}
                 datatype={item}
-                onMouseEnter={onMouseHandler}
+                // onMouseEnter={onMouseHandler}
                 className="navbar_list pt-[10px] pb-[6px] px-[8px] font-[400]"
-                onMouseLeave={onMouseLeaveHandler}
+                // onMouseLeave={onMouseLeaveHandler}
               >
                 <button className=" first:pl-0 ">
                   <span className="affect_text">{item}</span>

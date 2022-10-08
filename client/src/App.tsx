@@ -5,9 +5,11 @@ import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { publicRoutes } from "./app/routes";
 import { actionActions } from "./stores/action-slice";
 import { getProducts } from "./stores/apiRequest";
+import { loadingHandler, UIActions } from "./stores/UI-slice";
 
 function App() {
   const dispatch = useAppDispatch();
+  // const loadingState = useAppSelector(state => state.UISlice.loading)
   const addedShoppingCart = useAppSelector((state) => state.actionSlice.addedShoppingCart);
 
   React.useEffect(() => {
@@ -19,8 +21,17 @@ function App() {
   }, []);
 
   React.useEffect(() => {
+    // dispatch(UIActions.loadingHandler(true));
+    // setTimeout(() => {
+    // }, 300);
+    // dispatch(UIActions.loadingHandler());
+    loadingHandler(dispatch, 300, "total");
     dispatch(actionActions.calculateTotals());
   }, [addedShoppingCart]);
+
+  // React.useEffect(() => {
+
+  // },[])
   return (
     <div className="App">
       <Routes>
