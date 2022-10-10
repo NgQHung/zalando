@@ -55,7 +55,7 @@
   width: 0px;
   background-color: #1a1a1a;
   /* animation from left to white (option1) */
-  transition: width 1s linear;
+  transition: width 0.2s linear;
 }
 
 .effect_bg:hover::after {
@@ -63,32 +63,31 @@
   width: 100%;
 }
 .shopping__cart-shadow {
-  position: relative;
+  /* position: relative; */
 }
 
-.shopping__cart-shadow::after {
+.shopping__cart-shadow-product::after {
   content: "";
   display: block;
   position: absolute;
-  bottom: 0;
+  top: 42px;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0, rgba(255, 255, 255, 0) 100%);
+  z-index: 100;
+}
+
+.shopping__cart-shadow-total::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
   left: 0;
   width: 100%;
   height: 5px;
   /* box-shadow: 0 -5px 5px -5px #333; */
   background: linear-gradient(to top, rgba(228, 228, 228, 0.8) 0, rgba(255, 255, 255, 0) 100%);
-  z-index: 100;
-}
-
-.shopping__cart-shadow::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  /* box-shadow: 0 -5px 5px -5px #333; */
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0, rgba(255, 255, 255, 0) 100%);
   z-index: 100;
 }
 /* animation from left to white (option2) */
@@ -103,3 +102,64 @@
 .effect_bg:hover {
   background-position: left bottom;
 } */
+
+.border__shoppingCart-info-hidden {
+  max-height: 0px;
+  height: 0;
+  -webkit-transition: height, 0.5s linear;
+  -moz-transition: height, 0.5s linear;
+  -ms-transition: height, 0.5s linear;
+  -o-transition: height, 0.5s linear;
+  transition: height, 0.5s linear;
+  opacity: 0;
+  overflow: hidden;
+}
+.border__shoppingCart-info-hidden.border__shoppingCart-info {
+  position: relative;
+  background-color: white;
+  max-height: 100px;
+  height: 100px;
+  width: 100%;
+  -webkit-transition: height, 0.5s linear;
+  -moz-transition: height, 0.5s linear;
+  -ms-transition: height, 0.5s linear;
+  -o-transition: height, 0.5s linear;
+  transition: height, 0.5s linear;
+  opacity: 1;
+  z-index: 100;
+}
+
+.shoppingCart__item-enter {
+  opacity: 0;
+}
+.shoppingCart__item-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.shoppingCart__item-exit {
+  opacity: 0;
+}
+.shoppingCart__item-exit-active {
+  opacity: 1;
+  transition: opacity 500ms ease-out;
+}
+
+.shoppingCart_border {
+  position: absolute;
+  bottom: 115px;
+  height: 1px;
+  width: 100%;
+  background-color: #1a1a1a;
+  transform: translateY(0px);
+  transition: transform, 0.5s linear;
+}
+
+.shoppingCart_border.shoppingCart_border-active {
+  /* border-bottom: 1px solid transparent; */
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  background-color: #1a1a1a;
+  transform: translateY(-30px);
+  transition: transform, 0.5s linear;
+}

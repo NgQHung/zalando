@@ -3,22 +3,26 @@ import "./HeaderInput.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../../../../hooks";
+import { mobileActions } from "../../../../../../stores/mobile-slice";
 
 const HeaderInput = () => {
   const [isTouched, setIsTouched] = React.useState(false);
+  const [navbarActive, setNavbarActive] = React.useState(false);
+  const dispatch = useAppDispatch();
   // const [searchMobileClick, setSearchMobileClick] = React.useState(false);
 
   const onClickHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>, type?: string) => {
-    // if (e.currentTarget.name === "searchMobile") {
-    //   setSearchMobileClick(true);
-    // } else {
-    //   setSearchMobileClick(false);
-    // }
     if (e.currentTarget.name === "searchScreen") {
       setIsTouched(true);
     } else {
       setIsTouched(false);
     }
+  };
+
+  const navbarsHandler = () => {
+    setNavbarActive((prev) => !prev);
+    dispatch(mobileActions.mobile_navbar(true));
   };
 
   let refInput = React.useRef<any>(null);
@@ -65,7 +69,11 @@ const HeaderInput = () => {
       {/* search for mobile start */}
       <div className=" lg:hidden w-full border-t border-b border-[#d0d1d3] ">
         <div className="flex items-center ">
-          <FontAwesomeIcon icon={faBars} className="w-6 h-full p-[10px] border-r border-[#d0d1d3] " />
+          <FontAwesomeIcon
+            onClick={navbarsHandler}
+            icon={faBars}
+            className="w-6 h-full p-[10px] border-r border-[#d0d1d3] "
+          />
           <Link to="/search" className="w-full">
             <div className=" flex items-stretch justify-between grow  w-full   ">
               <input
@@ -80,6 +88,7 @@ const HeaderInput = () => {
           </Link>
         </div>
       </div>
+
       {/* search for mobile end */}
     </Fragment>
   );

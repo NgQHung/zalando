@@ -17,7 +17,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { actionActions } from "../../../../stores/action-slice";
-import { backgroundColorHandler, loadingHandler, UIActions } from "../../../../stores/UI-slice";
+import { backgroundColorHandler, dropdownShoppingCartHandler, loadingHandler } from "../../../../stores/UI-slice";
 import Loader from "../../../components/UI/Loader";
 
 interface Iprops {
@@ -32,9 +32,8 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     size: "",
   });
   const [sizeProduct, setSizeProduct] = React.useState("");
-  const loadingState = useAppSelector((state) => state.UISlice.loading__add);
-  const bg_color = useAppSelector((state) => state.UISlice.bg_color);
-  console.log(bg_color);
+  const loading__add = useAppSelector((state) => state.UISlice.loading__add);
+  const bg_color_shopping_cart = useAppSelector((state) => state.UISlice.bg_color_shopping_cart);
 
   const dispatch = useAppDispatch();
 
@@ -71,8 +70,8 @@ const Product_info = ({ selectedProduct }: Iprops) => {
         })
       );
       loadingHandler(dispatch, 500, "add");
-      backgroundColorHandler(dispatch, 1000);
-      dispatch(UIActions.backgroundColor(true));
+      backgroundColorHandler(dispatch, 2000);
+      dropdownShoppingCartHandler(dispatch, 5000);
     }
   };
   const ref = React.useRef<any>(null);
@@ -155,12 +154,12 @@ const Product_info = ({ selectedProduct }: Iprops) => {
               <button
                 onClick={addShoppingCartHandler}
                 className={
-                  "p-3  text-[#ffff] grow  h-[48px] " +
+                  "p-3 text-[#ffff] grow  h-[48px] transition-all " +
                   (!nameDropdown.selectSize ? "hover:opacity-70 " : "") +
-                  (bg_color ? "bg-[#58b7d4]" : "bg-[#1a1a1a]")
+                  (bg_color_shopping_cart ? "bg-[#47ac3a]" : "bg-[#1a1a1a]")
                 }
               >
-                {loadingState ? <Loader /> : <span>Přidat do nákupního košíku</span>}
+                {loading__add ? <Loader /> : <span>Přidat do nákupního košíku</span>}
               </button>
               <button className="ml-2 h-[48px] w-[48px] border border-[#1a1a1a] outline_onHover z-[-1] ">
                 <FontAwesomeIcon icon={faHeart} className="p-2 h-6 w-6" />

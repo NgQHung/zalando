@@ -1,4 +1,4 @@
-import { createSlice, current, original } from "@reduxjs/toolkit";
+import { createSlice, current, Dispatch, original } from "@reduxjs/toolkit";
 import { productShoppingCart } from "../interfaces/ProductShoppingCart";
 
 interface InitialState {
@@ -7,7 +7,7 @@ interface InitialState {
   initialAmount: number;
   totalProduct: number;
   total: number;
-  arr: any[];
+  removedProductNotification: boolean;
 }
 
 const initialState: InitialState = {
@@ -16,7 +16,7 @@ const initialState: InitialState = {
   initialAmount: 0,
   totalProduct: 0,
   total: 0,
-  arr: [],
+  removedProductNotification: false,
 };
 
 const actionSlice = createSlice({
@@ -24,6 +24,7 @@ const actionSlice = createSlice({
   initialState: initialState,
   reducers: {
     addShoppingCartHandler(state, action) {
+      state.removedProductNotification = false;
       const idProduct = action.payload.id;
       const sizeProduct = action.payload.size;
       const existingProductWithSizeIndex = state.addedShoppingCart.findIndex((product) => {
@@ -44,6 +45,7 @@ const actionSlice = createSlice({
       } else {
         state.addedShoppingCart.push(action.payload);
       }
+      // console.log(state.addedShoppingCart);
     },
     removeShoppingCartHandler(state, action) {
       const idProduct = action.payload.id;
@@ -54,11 +56,13 @@ const actionSlice = createSlice({
       const existingProductWithSize = state.addedShoppingCart[existingProductWithSizeIndex];
 
       let updateProduct;
+
       if (existingProductWithSize.amount === 1) {
+        state.removedProductNotification = true;
         updateProduct = state.addedShoppingCart.filter((product) => {
           return product.id !== idProduct || product.size !== sizeProduct;
         });
-
+        // console.log("render");
         state.addedShoppingCart = updateProduct;
       } else {
         const updatedProduct = {
@@ -71,6 +75,7 @@ const actionSlice = createSlice({
         updateProduct[existingProductWithSizeIndex] = updatedProduct;
         state.addedShoppingCart = updateProduct;
       }
+      // console.log(state.addedShoppingCart);
     },
     calculateTotals(state) {
       let total = 0;

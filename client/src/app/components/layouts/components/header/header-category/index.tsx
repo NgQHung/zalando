@@ -13,25 +13,25 @@ const HeaderCategory = () => {
   const onMouseHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.currentTarget;
     setCategory(target.getAttribute("datatype"));
-    dispatch(UIActions.backgroundColor({ bg_color_boolean: true }));
+    dispatch(UIActions.backgroundColor__header(true));
   };
   const onMouseLeaveHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setCategory("");
-    dispatch(UIActions.backgroundColor({ bg_color_boolean: false }));
+    dispatch(UIActions.backgroundColor__header(false));
   };
 
   return (
     <Fragment>
-      <div className=" max-w-full lg:max-w-[1216px] lg:flex items-end text-[16px] relative min-h-[35px] ">
+      <div className=" max-w-full lg:max-w-[1216px] lg:flex items-end text-[16px] min-h-[35px] ">
         <div className=" hidden min-w-[925px] lg:flex justify-between text-[0.875rem] cursor-pointer ">
           {HeaderCategory_DATA.map((item, idx) => {
             return (
               <div
                 key={idx}
                 datatype={item}
-                // onMouseEnter={onMouseHandler}
+                onMouseEnter={onMouseHandler}
                 className="navbar_list pt-[10px] pb-[6px] px-[8px] font-[400]"
-                // onMouseLeave={onMouseLeaveHandler}
+                onMouseLeave={onMouseLeaveHandler}
               >
                 <button className=" first:pl-0 ">
                   <span className="affect_text">{item}</span>

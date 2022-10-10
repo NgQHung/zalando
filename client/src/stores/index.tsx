@@ -6,33 +6,45 @@ import UISlice from "./UI-slice";
 import userSlice from "./user-slice";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import mobileSlice from "./mobile-slice";
 
-const persistConfig = {
-  key: "root",
-  version: 1,
-  storage,
-};
+// const persistConfig = {
+//   key: "root",
+//   version: 1,
+//   storage,
+// };
 
-const rootReducer = combineReducers({
-  productSlice: productSlice,
-  UISlice: UISlice,
-  actionSlice: actionSlice,
-  userSlice: userSlice,
-});
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const rootReducer = combineReducers({
+//   productSlice: productSlice,
+//   UISlice: UISlice,
+//   actionSlice: actionSlice,
+//   userSlice: userSlice,
+// });
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// export const store = configureStore({
+//   reducer: persistedReducer,
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       serializableCheck: {
+//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//       },
+//     }),
+// });
 
 export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+  reducer: {
+    productSlice: productSlice,
+    UISlice: UISlice,
+    actionSlice: actionSlice,
+    userSlice: userSlice,
+    mobileSlice: mobileSlice,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 applyMiddleware(thunk);
 
-export let persistor = persistStore(store);
+// export let persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 // // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}

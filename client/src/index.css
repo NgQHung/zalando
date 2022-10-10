@@ -5,12 +5,6 @@ html {
   font-family: HelveticaNow, Helvetica, sans-serif;
 }
 
-.navtools_user,
-.navtools_heart,
-.navtools_basket {
-  /* display: hidden; */
-}
-
 * {
   box-sizing: border-box;
 }

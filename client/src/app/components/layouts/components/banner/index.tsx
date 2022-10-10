@@ -65,7 +65,7 @@ const Banner = () => {
                   <li className="flex items-center mb-4">
                     <input
                       type="checkbox"
-                      className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer "
+                      className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer shrink-0 "
                     />
                     <label className="pl-[10px]" htmlFor="damy">
                       Dámská móda
@@ -74,7 +74,7 @@ const Banner = () => {
                   <li className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer"
+                      className="h-[26px] w-[26px] appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer shrink-0"
                     />
                     <label className="pl-[10px]" htmlFor="pani">
                       Pánská móda
@@ -97,15 +97,15 @@ const Banner = () => {
                     {DATA_BANNER.map((item, idx) => (
                       <div
                         key={idx}
-                        className=" relative h-[24px] md:basis-1/2 md:items-start flex mt-6 px-2 items-center "
+                        className=" relative  h-[40px] lg:h-[24px] md:basis-1/2 flex mt-6 px-2 items-center "
                       >
                         <input
                           type="checkbox"
-                          className="h-[24px] w-[24px] absolute top-0
+                          className="h-[24px] w-[24px] shrink-0
                             "
                           // appearance-none border border-[#1a1a1a] rounded-[50%] cursor-pointer
                         />
-                        <span className=" pl-[36px]">{item}</span>
+                        <span className=" pl-[18px]">{item}</span>
                       </div>
                     ))}
                     <div className="text-right mt-4 px-4 text-[#6230E0] text-[14px]">

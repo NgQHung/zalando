@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import Content from "../../components/layouts/container";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faHeart, faCancel } from "@fortawesome/free-solid-svg-icons";
 import { Products } from "../../../interfaces/Products";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions } from "../../../stores/product-slice";
@@ -12,6 +12,7 @@ export const Home = () => {
   const dispatch = useAppDispatch();
   const products_1 = useAppSelector((state) => state.productSlice.products_1);
   const products_2 = useAppSelector((state) => state.productSlice.products_2);
+  const navbarActive = useAppSelector((state) => state.mobileSlice.navbarActive);
 
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));
@@ -131,6 +132,14 @@ export const Home = () => {
           </div>
         </div>
       </Content>
+      <div className={"navbar__mobile " + (navbarActive ? "navbar__mobile-active" : "")}>
+        <div className="flex justify-center py-4 border-b border-[#1a1a1a]">
+          <span className="">Prochazet podle kategory</span>
+          <FontAwesomeIcon className="h-6 w-6 self-end" icon={faCancel} />
+        </div>
+        <div className=""></div>
+        <div className=""></div>
+      </div>
     </Fragment>
   );
 };
