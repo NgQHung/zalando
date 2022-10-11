@@ -11,6 +11,7 @@ export const routeConfig = {
   product: "/:slug",
   searchMobile: "/search",
   listProducts: "/obleceni",
+  frequentlyAskedQuestion: "/faq",
 
   // following: "/following",
   // profile: "/@:username",

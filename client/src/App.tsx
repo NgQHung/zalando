@@ -5,12 +5,13 @@ import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { publicRoutes } from "./app/routes";
 import { actionActions } from "./stores/action-slice";
 import { getProducts } from "./stores/apiRequest";
-import { loadingHandler, UIActions } from "./stores/UI-slice";
+import { loadingHandler } from "./stores/UI-slice";
+import { NoFooterHeaderLayout } from "./app/components/layouts/NoFooter&HeaderLayout";
 
 function App() {
   const dispatch = useAppDispatch();
-  // const loadingState = useAppSelector(state => state.UISlice.loading)
   const addedShoppingCart = useAppSelector((state) => state.actionSlice.addedShoppingCart);
+  const mobile_navbarActive = useAppSelector((state) => state.mobileSlice.navbarActive);
 
   React.useEffect(() => {
     try {
@@ -21,27 +22,24 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    // dispatch(UIActions.loadingHandler(true));
-    // setTimeout(() => {
-    // }, 300);
-    // dispatch(UIActions.loadingHandler());
     loadingHandler(dispatch, 300, "total");
     dispatch(actionActions.calculateTotals());
   }, [addedShoppingCart]);
 
-  // React.useEffect(() => {
-
-  // },[])
   return (
     <div className="App">
       <Routes>
         {publicRoutes.map((route, idx) => {
           let Layout: any = DefaultLayout;
+          let LayoutMobile: any = NoFooterHeaderLayout;
           if (route.layout) {
             Layout = route.layout;
           } else if (route.layout === null) {
             Layout = Fragment;
           }
+          // else if (mobile_navbarActive) {
+          //   Layout = LayoutMobile;
+          // }
 
           const PageComponent = route.component;
 

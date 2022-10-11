@@ -11,6 +11,7 @@ import { ListProducts } from "../pages/product/ListProducts";
 import FormLayout from "../components/layouts/FormLayout";
 import Product from "../pages/product/Product";
 import SearchMobile from "../pages/mobile/search";
+import Faq from "../pages/faq/Faq";
 
 const publicRoutes: PublicRoutes[] = [
   {
@@ -52,6 +53,10 @@ const publicRoutes: PublicRoutes[] = [
   {
     path: routeConfig.listProducts,
     component: ListProducts,
+  },
+  {
+    path: routeConfig.frequentlyAskedQuestion,
+    component: Faq,
   },
 ];
 

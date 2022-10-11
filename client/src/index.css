@@ -85,3 +85,19 @@ html {
   width: 100vw;
   margin-left: calc(-50vw + 50% - 8.5px);
 }
+
+/* mobile */
+
+.mobile_underline {
+  position: relative;
+}
+.mobile_underline::after {
+  content: "";
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  right: 0;
+  height: 2px;
+  margin: 0 16px;
+  background: #1a1a1a;
+}

@@ -2,20 +2,32 @@
   margin-left: 152px;
 } */
 .navbar__mobile {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
-  background-color: #ffff;
-  width: 0;
-  transition: width, 1s linear;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #f0f0f0;
+  transform: translateX(-100vw);
+  transition: transform, 0.2s linear;
+  z-index: 1000;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
 }
 .navbar__mobile.navbar__mobile-active {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
-  background-color: #ffff;
-  width: 100vw;
-  transition: width, 1s linear;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #f0f0f0;
+  transform: translateX(0);
+  transition: transform, 0.2s linear;
+  z-index: 1000;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
 }
