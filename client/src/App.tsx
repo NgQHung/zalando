@@ -11,7 +11,6 @@ import { NoFooterHeaderLayout } from "./app/components/layouts/NoFooter&HeaderLa
 function App() {
   const dispatch = useAppDispatch();
   const addedShoppingCart = useAppSelector((state) => state.actionSlice.addedShoppingCart);
-  const mobile_navbarActive = useAppSelector((state) => state.mobileSlice.navbarActive);
 
   React.useEffect(() => {
     try {
@@ -31,15 +30,11 @@ function App() {
       <Routes>
         {publicRoutes.map((route, idx) => {
           let Layout: any = DefaultLayout;
-          let LayoutMobile: any = NoFooterHeaderLayout;
           if (route.layout) {
             Layout = route.layout;
           } else if (route.layout === null) {
             Layout = Fragment;
           }
-          // else if (mobile_navbarActive) {
-          //   Layout = LayoutMobile;
-          // }
 
           const PageComponent = route.component;
 

@@ -89,13 +89,16 @@ const Header = () => {
             </ul>
             {/* gender select end */}
             {/* logo start */}
-            <div className="basis-1/2 max-w-1/2 pl-[17px] lg:flex lg:justify-center lg:basis-1/3 lg:max-w-1/3  ">
+            <Link
+              to="/"
+              className="basis-1/2 max-w-1/2 pl-[17px] lg:flex lg:justify-center lg:basis-1/3 lg:max-w-1/3  "
+            >
               <img
                 className="w-[120px] object-cover  "
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Zalando_logo.svg/2560px-Zalando_logo.svg.png"
                 alt="logo"
               />
-            </div>
+            </Link>
             {/* logo end */}
             {/* navtools start */}
             <div className="relative basis-1/2 max-w-1/2 lg:basis-1/3 lg:max-w-1/3 flex text-[24px] space-x-[3px] justify-end ">

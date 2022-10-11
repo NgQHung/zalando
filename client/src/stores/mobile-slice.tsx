@@ -14,6 +14,8 @@ const mobileSlice = createSlice({
   reducers: {
     mobile_navbar(state, action) {
       state.navbarActive = action.payload;
+
+      // console.log(state.navbarActive);
     },
   },
 });

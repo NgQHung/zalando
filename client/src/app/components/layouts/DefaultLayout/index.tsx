@@ -12,8 +12,6 @@ interface IProps {
 }
 
 const DefaultLayout: React.FC<IProps> = ({ children }) => {
-  const mobile_navbarActive = useAppSelector((state) => state.mobileSlice.navbarActive);
-
   return (
     <Fragment>
       <Header />

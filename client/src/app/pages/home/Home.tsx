@@ -20,7 +20,6 @@ export const Home = () => {
   return (
     <Fragment>
       <div>
-        {/* <div className={"" + (navbarActive ? "hidden" : "")}> */}
         <Content bg_color="bg-[#229967] ">
           <div className="flex flex-col w-full h-full">
             <div className="pt-[24px] flex justify-between w-full ">
@@ -141,7 +140,6 @@ export const Home = () => {
             </div>
           </div>
         </Content>
-        {/* </div> */}
       </div>
     </Fragment>
   );

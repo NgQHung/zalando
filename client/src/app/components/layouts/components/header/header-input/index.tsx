@@ -8,9 +8,7 @@ import { mobileActions } from "../../../../../../stores/mobile-slice";
 
 const HeaderInput = () => {
   const [isTouched, setIsTouched] = React.useState(false);
-  const [navbarActive, setNavbarActive] = React.useState(false);
   const dispatch = useAppDispatch();
-  // const [searchMobileClick, setSearchMobileClick] = React.useState(false);
 
   const onClickHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>, type?: string) => {
     if (e.currentTarget.name === "searchScreen") {
@@ -21,18 +19,16 @@ const HeaderInput = () => {
   };
 
   const navbarsHandler = () => {
-    setNavbarActive((prev) => !prev);
     dispatch(mobileActions.mobile_navbar(true));
   };
 
+  // outside click
   let refInput = React.useRef<any>(null);
 
-  // outside click
   useEffect(() => {
     document.addEventListener("mousedown", (e: any) => {
       if (!refInput?.current?.contains(e.target)) {
         setIsTouched(false);
-        // setSearchMobileClick(false);
       }
     });
   }, []);
