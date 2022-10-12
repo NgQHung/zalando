@@ -20,7 +20,7 @@ const Favorite = () => {
                   key={idx}
                   className="mb-[12px] max-w-1/2 basis-1/2 whitespace-nowrap text-ellipsis overflow-hidden md:max-w-1/4 md:basis-1/4 px-[8px] text-[14px] "
                 >
-                  {category}
+                  <span className="affect_text">{category}</span>
                 </li>
               ))}
             </ul>
@@ -35,7 +35,7 @@ const Favorite = () => {
                   key={idx}
                   className="mb-[12px] max-w-1/2 basis-1/2 whitespace-nowrap text-ellipsis overflow-hidden md:max-w-1/4 md:basis-1/4 px-[8px] text-[14px] "
                 >
-                  {brand}
+                  <span className="affect_text">{brand}</span>
                 </li>
               ))}
             </ul>

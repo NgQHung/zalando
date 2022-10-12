@@ -171,6 +171,7 @@
 .product_removed {
   position: absolute;
   /* bottom: 0; */
+
   top: 100%;
   opacity: 0;
   transform: translateY(-100%);
@@ -184,4 +185,20 @@
   opacity: 1;
   transform: translateY(0);
   transition: transform, 0.1s linear;
+}
+.shoppingCart_amount-removed {
+  transition: all 0.02s ease-in-out;
+  transition: transform 0.2s;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+}
+
+.shoppingCart_amount-removed.shoppingCart_amount-removed-active {
+  /* transform: scale(1.1);
+  transition: all 0.05s ease-in-out; */
+  color: red;
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }

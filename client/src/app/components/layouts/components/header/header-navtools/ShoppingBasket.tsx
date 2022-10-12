@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { productShoppingCart } from "../../../../../../interfaces/ProductShoppingCart";
-import { actionActions } from "../../../../../../stores/action-slice";
+import { cartActions } from "../../../../../../stores/cart-slice";
 import { formatPrice } from "../../../../../../utils/formatPrice";
 import { ImgToHttp } from "../../../../../../utils/imageToHTTP";
 import { useAppDispatch, useAppSelector } from "../../../../../hooks";
@@ -9,28 +9,33 @@ import { TransitionGroup } from "react-transition-group";
 import Collapse from "@mui/material/Collapse";
 import "./navtools.css";
 import { Box, ListItem, ListItemText } from "@mui/material";
+import { motion } from "framer-motion";
+import { amountRemovedHandler } from "../../../../../../stores/UI-slice";
 
 const ShoppingBasket = () => {
-  const addedShoppingCart = useAppSelector((state) => state.actionSlice.addedShoppingCart);
+  const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const loading__total = useAppSelector((state) => state.UISlice.loading__total);
-  const total = useAppSelector((state) => state.actionSlice.total);
+  const total = useAppSelector((state) => state.cartSlice.total);
   const dropdownOnHover = useAppSelector((state) => state.UISlice.dropdown_onHover_shoppingCart);
 
-  const removedProductNotification = useAppSelector((state) => state.actionSlice.removedProductNotification);
+  const removedProductNotification = useAppSelector((state) => state.cartSlice.removedProductNotification);
   const lengthAddedShoppingCart = addedShoppingCart.length;
   const emptyShoppingCart = lengthAddedShoppingCart === 0;
   const elementsGreaterThan3 = lengthAddedShoppingCart >= 3;
   const dispatch = useAppDispatch();
   const [shadow, setShadow] = React.useState(true);
+  const amountRemoved = useAppSelector((state) => state.UISlice.amountRemoved);
+  // const [effectRemoved, setEffectRemoved] = useState(false)
 
   const scrollRef = React.useRef<any>(null);
   const removeProductShoppingCartHandler = (id: number, size: string) => {
-    dispatch(actionActions.removeShoppingCartHandler({ id: id, size: size }));
+    dispatch(cartActions.removeShoppingCartHandler({ id: id, size: size }));
+    amountRemovedHandler(dispatch, 500);
   };
   const addProductFavoriteHandler = (product: productShoppingCart) => {
-    dispatch(actionActions.addFavoriteHandler(product));
+    dispatch(cartActions.addFavoriteHandler(product));
   };
-  console.log(removedProductNotification);
+  // console.log(removedProductNotification);
 
   const onScrollHandler = () => {
     const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
@@ -49,7 +54,7 @@ const ShoppingBasket = () => {
 
   const onMouseLeaveHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setOnHoverShoppingCart(false);
-    dispatch(actionActions.notificationRemovedProduct(false));
+    dispatch(cartActions.notificationRemovedProduct(false));
   };
 
   const ref = React.useRef<any>(null);
@@ -63,7 +68,7 @@ const ShoppingBasket = () => {
   return (
     <Fragment>
       <Box ref={ref} className="">
-        {lengthAddedShoppingCart === 0 && dropdownOnHover && !onHoverShoppingCart ? (
+        {lengthAddedShoppingCart === 0 || (lengthAddedShoppingCart === 0 && dropdownOnHover && !onHoverShoppingCart) ? (
           <Fragment>
             <div className="text-center ">
               <div className="mt-[24px] text-[16px] font-[700]">
@@ -146,8 +151,19 @@ const ShoppingBasket = () => {
                                       </div>
                                     </div>
                                     <div className="text-left">
-                                      <p>{product.size}</p>
-                                      <p>{product.amount}</p>
+                                      <p>
+                                        <span className="text-[12px] pr-1">Size:</span> {product.size}
+                                      </p>
+                                      {/* <motion.div initial={{ scale: 1 }} animate={amountRemoved ? "scale: 1" : ""}> */}
+                                      <p
+                                        className={
+                                          "shoppingCart_amount-removed " +
+                                          (amountRemoved ? "shoppingCart_amount-removed-active" : "")
+                                        }
+                                      >
+                                        <span className={"text-[12px] pr-1 "}>Amount:</span> {product.amount}
+                                      </p>
+                                      {/* </motion.div> */}
                                     </div>
                                   </div>
                                   <div className="flex mt-[22px] flex-col text-left ml-[15px] leading-[20px] text-[#999] tracking-[0.5px] cursor-pointer  ">

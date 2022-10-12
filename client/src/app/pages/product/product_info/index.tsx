@@ -16,7 +16,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { actionActions } from "../../../../stores/action-slice";
+import { cartActions } from "../../../../stores/cart-slice";
 import { backgroundColorHandler, dropdownShoppingCartHandler, loadingHandler } from "../../../../stores/UI-slice";
 import Loader from "../../../components/UI/Loader";
 
@@ -57,7 +57,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       return;
     } else {
       dispatch(
-        actionActions.addShoppingCartHandler({
+        cartActions.addShoppingCartHandler({
           id: selectedProduct?.id,
           brand: selectedProduct?.brand.name,
           name: selectedProduct?.name,

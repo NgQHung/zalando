@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Idata } from "../app/pages/muzi";
 import { ProductDetail } from "../interfaces/ProductDetail";
 import { Products } from "../interfaces/Products";
 

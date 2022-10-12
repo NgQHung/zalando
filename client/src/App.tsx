@@ -3,14 +3,13 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import DefaultLayout from "./app/components/layouts/DefaultLayout";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { publicRoutes } from "./app/routes";
-import { actionActions } from "./stores/action-slice";
+import { cartActions } from "./stores/cart-slice";
 import { getProducts } from "./stores/apiRequest";
 import { loadingHandler } from "./stores/UI-slice";
-import { NoFooterHeaderLayout } from "./app/components/layouts/NoFooter&HeaderLayout";
 
 function App() {
   const dispatch = useAppDispatch();
-  const addedShoppingCart = useAppSelector((state) => state.actionSlice.addedShoppingCart);
+  const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
 
   React.useEffect(() => {
     try {
@@ -22,7 +21,7 @@ function App() {
 
   React.useEffect(() => {
     loadingHandler(dispatch, 300, "total");
-    dispatch(actionActions.calculateTotals());
+    dispatch(cartActions.calculateTotals());
   }, [addedShoppingCart]);
 
   return (
@@ -38,7 +37,7 @@ function App() {
 
           const PageComponent = route.component;
 
-          const pathHome = "/damy-domovska-stranka/";
+          const pathHome = "/home-page";
 
           return (
             <Route

@@ -1,12 +1,12 @@
 import { configureStore, applyMiddleware, combineReducers } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
-import actionSlice from "./action-slice";
 import productSlice from "./product-slice";
 import UISlice from "./UI-slice";
 import userSlice from "./user-slice";
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+// import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
+// import storage from "redux-persist/lib/storage";
 import mobileSlice from "./mobile-slice";
+import cartSlice from "./cart-slice";
 
 // const persistConfig = {
 //   key: "root",
@@ -36,7 +36,8 @@ export const store = configureStore({
   reducer: {
     productSlice: productSlice,
     UISlice: UISlice,
-    actionSlice: actionSlice,
+    // actionSlice: actionSlice,
+    cartSlice: cartSlice,
     userSlice: userSlice,
     mobileSlice: mobileSlice,
   },

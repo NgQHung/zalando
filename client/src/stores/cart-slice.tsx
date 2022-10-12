@@ -1,4 +1,4 @@
-import { createSlice, current, Dispatch, original } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { productShoppingCart } from "../interfaces/ProductShoppingCart";
 
 interface InitialState {
@@ -19,8 +19,10 @@ const initialState: InitialState = {
   removedProductNotification: false,
 };
 
-const actionSlice = createSlice({
-  name: "action",
+// const MyContext = createContext(initialState);
+
+const cartSlice = createSlice({
+  name: "Shopping cart",
   initialState: initialState,
   reducers: {
     addShoppingCartHandler(state, action) {
@@ -100,6 +102,6 @@ const actionSlice = createSlice({
   },
 });
 
-export const actionActions = actionSlice.actions;
+export const cartActions = cartSlice.actions;
 
-export default actionSlice.reducer;
+export default cartSlice.reducer;

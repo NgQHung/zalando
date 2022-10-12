@@ -1,7 +1,5 @@
 import React from "react";
 import { Home } from "../pages/home/Home";
-import { MuziPage } from "../pages/muzi";
-import { DetiPage } from "../pages/deti";
 import { routeConfig } from "./routeConfig";
 import { PublicRoutes } from "./types";
 import { Login } from "../pages/login/Login";
@@ -16,19 +14,11 @@ import Faq from "../pages/faq/Faq";
 const publicRoutes: PublicRoutes[] = [
   {
     path: routeConfig.home,
-    redirect: routeConfig.damy,
+    redirect: routeConfig.women,
     component: Home,
   },
   {
-    path: routeConfig.muzi,
-    component: MuziPage,
-  },
-  {
-    path: routeConfig.deti,
-    component: DetiPage,
-  },
-  {
-    path: routeConfig.damy,
+    path: routeConfig.women,
     component: Home,
   },
   {

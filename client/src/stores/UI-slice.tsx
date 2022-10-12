@@ -7,6 +7,7 @@ interface InitialState {
   loading__total: boolean;
   dropdown_shoppingCart: boolean;
   dropdown_onHover_shoppingCart: boolean;
+  amountRemoved: boolean;
 }
 
 const initialState: InitialState = {
@@ -16,6 +17,7 @@ const initialState: InitialState = {
   loading__total: false,
   dropdown_shoppingCart: false,
   dropdown_onHover_shoppingCart: false,
+  amountRemoved: false,
 };
 
 const UISLice = createSlice({
@@ -41,6 +43,9 @@ const UISLice = createSlice({
     },
     dropdown_onHover(state, action) {
       state.dropdown_onHover_shoppingCart = action.payload;
+    },
+    amountRemoved(state, action) {
+      state.amountRemoved = action.payload;
     },
   },
 });
@@ -73,6 +78,13 @@ export const dropdownShoppingCartHandler = (dispatch: Dispatch, timeout: number)
   dispatch(UIActions.dropdown_shoppingCart(true));
   setTimeout(() => {
     dispatch(UIActions.dropdown_shoppingCart(false));
+  }, timeout);
+};
+
+export const amountRemovedHandler = (dispatch: Dispatch, timeout: number) => {
+  dispatch(UIActions.amountRemoved(true));
+  setTimeout(() => {
+    dispatch(UIActions.amountRemoved(false));
   }, timeout);
 };
 

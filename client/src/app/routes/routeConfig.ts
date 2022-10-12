@@ -1,16 +1,12 @@
-import { useNavigate } from "react-router-dom";
-
 export const routeConfig = {
   // main: "/",
   home: "/",
-  damy: "/damy-domovska-stranka",
-  muzi: "/muzi",
-  deti: "/deti",
+  women: "/home-page",
   login: "/login",
   signup: "/signup",
   product: "/:slug",
   searchMobile: "/search",
-  listProducts: "/obleceni",
+  listProducts: "/clothes",
   frequentlyAskedQuestion: "/faq",
 
   // following: "/following",
@@ -19,5 +15,5 @@ export const routeConfig = {
   // search: "/search",
   // live: "/live",
   // media_detail: "/@:username/video/:mediaId",
-  // not_found: "*",
+  not_found: "*",
 };

@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import { UIActions } from "../../../../../../stores/UI-slice";
 import { HeaderCategory_DATA } from "../../../../../../utils/data";
 import { useAppDispatch } from "../../../../../hooks";
@@ -34,7 +35,9 @@ const HeaderCategory = () => {
                 onMouseLeave={onMouseLeaveHandler}
               >
                 <button className=" first:pl-0 ">
-                  <span className="affect_text">{item}</span>
+                  <Link to="/clothes">
+                    <span className="affect_text">{item}</span>
+                  </Link>
                 </button>
                 <div
                   className={

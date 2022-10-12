@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { shallowEqual } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faHeart, faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import User from "./header-navtools/User";
@@ -8,16 +9,20 @@ import ShoppingBasket from "./header-navtools/ShoppingBasket";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../hooks";
 import { UIActions } from "../../../../../stores/UI-slice";
+// import { createSelector } from "@reduxjs/toolkit";
+// import { RootState } from "../../../../../stores";
+// import { addedShoppingCart, addedFavorite } from "../../../../hooks/selector";
 
 const Header = () => {
-  const [gender, setGender] = React.useState("zeny");
-  const [onHover, setOnHover] = React.useState(false);
-  const [dataType, setDataType] = React.useState<string | null>("");
-  const addedShoppingCart = useAppSelector((state) => state.actionSlice.addedShoppingCart);
-  const addedFavorite = useAppSelector((state) => state.actionSlice.addedFavorite);
+  const [gender, setGender] = useState("zeny");
+  const [onHover, setOnHover] = useState(false);
+  const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
+  const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
+  const [dataType, setDataType] = useState<string | null>("");
   const dropdown_shoppingCart = useAppSelector((state) => state.UISlice.dropdown_shoppingCart);
   const lengthAddedShoppingCart = addedShoppingCart.length;
   const lengthAddedFavorite = addedFavorite.length;
+
   const dispatch = useAppDispatch();
 
   const activeHandler = (type: string) => {
@@ -28,18 +33,27 @@ const Header = () => {
     const target = e.currentTarget;
     setDataType(target.getAttribute("datatype"));
     setOnHover(true);
-    // dispatch(UIActions.dropdown_onHover(true));
   };
   const onMouseLeaveHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setOnHover(false);
     dispatch(UIActions.dropdown_onHover(true));
-    // console.log("leave");
     setDataType("");
   };
 
   const bg_color_header = useAppSelector((state) => state.UISlice.bg_color_header);
-  // console.log(dataType === "shopping-cart" && onHover);
-  // console.log(dropdown_shoppingCart);
+
+  // const callback = useCallback(() => {
+  //   console.log(addedShoppingCart);
+  // }, [addedShoppingCart]);
+
+  // useEffect(() => {
+  //   const unsubscribe = callback();
+
+  //   return unsubscribe;
+  // }, [callback]);
+  // useEffect(() => {
+  //   console.log(addedShoppingCart());
+  // }, [addedShoppingCart]);
 
   return (
     <div className="relative border-b border-[#d0d1d3]">
@@ -62,7 +76,7 @@ const Header = () => {
           <div className="pt-[8px] h-[60px] flex items-center w-full ">
             {/* gender select start */}
             <ul className="hidden space-x-[8px] basis-1/3 max-w-1/3 text-[16px] font-[700] lg:flex  ">
-              <Link to="/damy-domovska-stranka">
+              <Link to="/home-page">
                 <li
                   onClick={() => activeHandler("zeny")}
                   className={"header_gender " + (gender === "zeny" ? "active_gender" : "")}
@@ -70,22 +84,22 @@ const Header = () => {
                   Ženy
                 </li>
               </Link>
-              <Link to="/muzi">
-                <li
-                  onClick={() => activeHandler("muzi")}
-                  className={"header_gender " + (gender === "muzi" ? "active_gender" : "")}
-                >
-                  Muži
-                </li>
-              </Link>
-              <Link to="/deti">
-                <li
-                  onClick={() => activeHandler("deti")}
-                  className={"header_gender " + (gender === "deti" ? "active_gender" : "")}
-                >
-                  Děti
-                </li>
-              </Link>
+              {/* <Link to="/muzi"> */}
+              <li
+                onClick={() => activeHandler("muzi")}
+                className={"header_gender " + (gender === "muzi" ? "active_gender" : "")}
+              >
+                Muži
+              </li>
+              {/* </Link> */}
+              {/* <Link to="/deti"> */}
+              <li
+                onClick={() => activeHandler("deti")}
+                className={"header_gender " + (gender === "deti" ? "active_gender" : "")}
+              >
+                Děti
+              </li>
+              {/* </Link> */}
             </ul>
             {/* gender select end */}
             {/* logo start */}
