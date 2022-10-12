@@ -91,7 +91,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       <div className="mx-6 mt-6 md:m-0 md:min-w-1/2 md:max-w-1/2 flex flex-col md:basis-1/2 ">
         <div className="px-2 lg:ml-[100px] ">
           <div className="product_content">
-            <p className="text-[28px] text_tiempos  ">{selectedProduct?.brand.name}</p>
+            <p className="text-[28px] text_tiempos  ">{selectedProduct?.brand?.name}</p>
             <p className="text-[28px] font-[600] mt-2">{selectedProduct?.name}</p>
             <p className="text-[22px] mt-2">{selectedProduct?.price.current.text}</p>
             <p className="mt-9">

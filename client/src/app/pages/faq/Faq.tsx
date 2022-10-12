@@ -59,7 +59,7 @@ const Faq = () => {
                 className=" w-full md:basis-1/2 text-left border-b border-[#dddd] md:border-none md:cursor-default md:mb-[60px] md:self-start "
               >
                 {/* <div>{item.icon}</div> */}
-                <img className="hidden md:block" src={item.imgUrl} alt={item.title} />
+                <img className="hidden md:block px-2" src={item.imgUrl} alt={item.title} />
                 <span className="text-[20px] md:text-[32px] inline-block py-[15px] font-[700] md:pt-6 md:pb-[28px] md:leading-[28px] lg:leading-[32px] md:tracking-[-0.16px] md:px-2">
                   {item.title}
                 </span>

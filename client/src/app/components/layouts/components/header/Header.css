@@ -85,7 +85,7 @@
   background-color: #ffff;
   z-index: 100;
 }
-.navtools__basket-hidden .navtools__basket {
+.navtools__basket-hidden.navtools__basket {
   position: absolute;
   border: 1px solid #1a1a1a;
   top: 100%;
@@ -94,7 +94,6 @@
   max-height: 600px;
   transition: height, 0.5s ease-in-out;
   background-color: #ffff;
-
   z-index: 100;
 }
 

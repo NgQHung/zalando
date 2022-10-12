@@ -24,7 +24,6 @@ const actionSlice = createSlice({
   initialState: initialState,
   reducers: {
     addShoppingCartHandler(state, action) {
-      state.removedProductNotification = false;
       const idProduct = action.payload.id;
       const sizeProduct = action.payload.size;
       const existingProductWithSizeIndex = state.addedShoppingCart.findIndex((product) => {
@@ -83,6 +82,9 @@ const actionSlice = createSlice({
         total += item.amount * item.currentPrice;
       });
       state.total = total;
+    },
+    notificationRemovedProduct(state, action) {
+      state.removedProductNotification = action.payload;
     },
     addFavoriteHandler(state, action) {
       const idProduct = action.payload.id;
