@@ -32,6 +32,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     size: "",
   });
   const [sizeProduct, setSizeProduct] = React.useState("");
+  const [heartAnimated, setHeartAnimated] = React.useState(false);
   const loading__add = useAppSelector((state) => state.UISlice.loading__add);
   const bg_color_shopping_cart = useAppSelector((state) => state.UISlice.bg_color_shopping_cart);
 
@@ -74,6 +75,24 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       dropdownShoppingCartHandler(dispatch, 5000);
     }
   };
+
+  const addProductFavoriteHandler = () => {
+    dispatch(
+      cartActions.addFavoriteHandler({
+        id: selectedProduct?.id,
+        brand: selectedProduct?.brand.name,
+        name: selectedProduct?.name,
+        imageUrl: selectedProduct?.media.images[0].url,
+        currentPrice: selectedProduct?.price.current.value,
+        previousPrice: selectedProduct?.price.previous?.value,
+        amount: 1,
+        size: sizeProduct,
+        totalProduct: selectedProduct?.price.current.value,
+      })
+    );
+    setHeartAnimated((prev) => !prev);
+  };
+
   const ref = React.useRef<any>(null);
 
   React.useEffect(() => {
@@ -85,6 +104,16 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       });
     }
   }, [nameDropdown.selectSize]);
+
+  // React.useEffect(() => {
+  //   let subscribe = true
+  //   if(subscribe) {
+  //     setHeartAnimated(true)
+  //   }
+  //   return () => {
+  //     subscribe = false
+  //   }
+  // })
 
   return (
     <Fragment>
@@ -117,7 +146,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
                 )}
               </button>
 
-              <div className={"size_dropdown_hidden " + (nameDropdown.selectSize ? "size_dropdown" : "")}>
+              <div className={"size_dropdown_hidden z-[1000] " + (nameDropdown.selectSize ? "size_dropdown" : "")}>
                 <div className="hover:bg-[#e9e9ed] transition-all">
                   <div
                     onClick={() => sizeProductHandler("S")}
@@ -161,8 +190,14 @@ const Product_info = ({ selectedProduct }: Iprops) => {
               >
                 {loading__add ? <Loader /> : <span>Přidat do nákupního košíku</span>}
               </button>
-              <button className="ml-2 h-[48px] w-[48px] border border-[#1a1a1a] outline_onHover z-[-1] ">
-                <FontAwesomeIcon icon={faHeart} className="p-2 h-6 w-6" />
+              <button
+                onClick={addProductFavoriteHandler}
+                className={"ml-2 h-[48px] w-[48px] border border-[#1a1a1a] outline_onHover "}
+              >
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  className={"p-2 h-6 w-6 " + (heartAnimated ? "favorite_added-active" : "")}
+                />
               </button>
             </div>
           </div>

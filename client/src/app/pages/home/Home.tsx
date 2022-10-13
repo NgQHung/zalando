@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import Content from "../../components/layouts/container";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,10 +11,30 @@ import { Link } from "react-router-dom";
 export const Home = () => {
   const dispatch = useAppDispatch();
   const products_1 = useAppSelector((state) => state.productSlice.products_1);
+  // const newProducts_1 = useMemo([...products_1],[products_1]);
+
   const products_2 = useAppSelector((state) => state.productSlice.products_2);
+  const [favoriteAnimated, setFavoriteAnimated] = React.useState(false);
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));
   };
+  // const selectedId = useAppSelector((state) => state.productSlice.selectedId);
+  const [selectedProduct, setSelectedProduct] = React.useState<Products>();
+
+  // console.log(selectedProduct);
+
+  const favoriteHandler = (id: number) => {
+    const product = products_1.find((item) => item.id === id);
+    setSelectedProduct(product);
+    if (product) {
+      setFavoriteAnimated((prev) => !prev);
+    }
+  };
+
+  React.useEffect(() => {
+    console.log(selectedProduct);
+  }, [selectedProduct]);
+
   // mobile
 
   return (
@@ -38,40 +58,47 @@ export const Home = () => {
             <div className="row_full h-[584px] bg-[#34d27b] mb-[64px]">
               <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
                 {products_1.map((item: Products) => (
-                  <Link
-                    to={`/${item.name}`}
-                    key={item.id}
-                    onClick={() => selectedProductHandler(item.id)}
-                    className="first:ml-[152px]"
-                  >
-                    <div className="relative h-[415px] w-[296px] px-[8px] cursor-pointer">
-                      <FontAwesomeIcon
-                        icon={faHeart}
-                        className="fa-thin p-[8px] text-[24px] absolute bg-[#ffff] top-2 right-2"
-                      />
-                      <img
-                        className="w-[288px] h-[415px] object-cover"
-                        src={`https://${item.imageUrl}`}
-                        alt="product"
-                      />
-                      <div className=" leading-[20px] pt-2">
-                        <div className="pb-[8px]">
-                          <h3>{item.brandName}</h3>
-                          <h3>{item.name}</h3>
-                        </div>
-                        <div className="flex flex-col leading-[1.25rem] text-[700]">
-                          <span>{item.price.current.text}</span>
-                          {item.price.previous.value !== null && (
-                            <div className="text-[12px] leading-[16px]">
-                              <span>Původně:</span>
-                              <span>{item.price.previous.text}</span>
-                              <span>20%</span>
+                  <>
+                    <div key={item.id} onClick={() => selectedProductHandler(item.id)} className="first:ml-[152px]">
+                      <div
+                        onClick={() => favoriteHandler(item.id)}
+                        className="relative h-[415px] w-[296px] px-[8px] cursor-pointer"
+                      >
+                        <span className=" absolute bg-[#ffff] top-2 right-2">
+                          <FontAwesomeIcon
+                            icon={faHeart}
+                            className={
+                              "fa-thin p-[8px] text-[24px]  " +
+                              (selectedProduct?.id === item.id && favoriteAnimated ? "favorite_added-active" : "")
+                            }
+                          />
+                        </span>
+                        <Link to={`/${item.name}`}>
+                          <img
+                            className="w-[288px] h-[415px] object-cover"
+                            src={`https://${item.imageUrl}`}
+                            alt="product"
+                          />
+                          <div className=" leading-[20px] pt-2">
+                            <div className="pb-[8px]">
+                              <h3>{item.brandName}</h3>
+                              <h3>{item.name}</h3>
                             </div>
-                          )}
-                        </div>
+                            <div className="flex flex-col leading-[1.25rem] text-[700]">
+                              <span>{item.price.current.text}</span>
+                              {item.price.previous.value !== null && (
+                                <div className="text-[12px] leading-[16px]">
+                                  <span>Původně:</span>
+                                  <span>{item.price.previous.text}</span>
+                                  <span>20%</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </Link>
                       </div>
                     </div>
-                  </Link>
+                  </>
                 ))}
               </div>
               <div className="absolute bg-[#ffff] right-[152px] top-1/2 translate-y-[-50%]">
@@ -104,10 +131,16 @@ export const Home = () => {
                     onClick={() => selectedProductHandler(item.id)}
                     className="first:ml-[152px]"
                   >
-                    <div className="relative h-[415px] w-[296px] px-[8px] cursor-pointer">
+                    <div
+                      onClick={() => favoriteHandler(item.id)}
+                      className="relative h-[415px] w-[296px] px-[8px] cursor-pointer"
+                    >
                       <FontAwesomeIcon
                         icon={faHeart}
-                        className="fa-thin p-[8px] text-[24px] absolute bg-[#ffff] top-2 right-2"
+                        className={
+                          "fa-thin p-[8px] text-[24px] absolute bg-[#ffff] top-2 right-2 " +
+                          (favoriteAnimated ? "favorite_added-active" : "")
+                        }
                       />
                       <img
                         className="w-[288px] h-[415px] object-cover"

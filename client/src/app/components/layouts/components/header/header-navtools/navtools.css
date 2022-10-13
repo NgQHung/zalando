@@ -196,8 +196,6 @@
 }
 
 .shoppingCart_amount-removed.shoppingCart_amount-removed-active {
-  /* transform: scale(1.1);
-  transition: all 0.05s ease-in-out; */
   color: red;
   -webkit-transform: scale(1.1);
   transform: scale(1.1);

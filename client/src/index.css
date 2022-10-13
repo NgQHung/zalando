@@ -119,3 +119,32 @@ html {
   background: rgb(0, 0, 0, 0.25);
   z-index: 998;
 }
+
+.favorite_added-active {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: transform 0.15s ease;
+  animation: favoriteAnimated 0.7s ease;
+  font-size: 1.5rem;
+  color: #ff6900;
+}
+
+@keyframes favoriteAnimated {
+  0%,
+  20%,
+  100% {
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  0% {
+    opacity: 0;
+    transform: scale3d(0.1, 0.1, 0.1);
+  }
+  20% {
+    opacity: 1;
+    transform: scale3d(1.35, 1.35, 1.35);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
