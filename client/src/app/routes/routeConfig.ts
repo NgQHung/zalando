@@ -8,6 +8,11 @@ export const routeConfig = {
   searchMobile: "/search",
   listProducts: "/clothes",
   frequentlyAskedQuestion: "/faq",
+  wardrobe: "/wardrobe",
+  wardrobe_lists_liked: "/wardrobe/lists/liked",
+  wardrobe_lists_owned: "/wardrobe/lists/owned",
+  wardrobe_lists_liked_outfits: "/wardrobe/lists/liked-outfits",
+  wardrobe_lists_sell: "/wardrobe/lists/sell",
 
   // following: "/following",
   // profile: "/@:username",

@@ -84,25 +84,19 @@ const Header = () => {
                   Ženy
                 </li>
               </Link>
-              {/* <Link to="/muzi"> */}
               <li
                 onClick={() => activeHandler("muzi")}
                 className={"header_gender " + (gender === "muzi" ? "active_gender" : "")}
               >
                 Muži
               </li>
-              {/* </Link> */}
-              {/* <Link to="/deti"> */}
               <li
                 onClick={() => activeHandler("deti")}
                 className={"header_gender " + (gender === "deti" ? "active_gender" : "")}
               >
                 Děti
               </li>
-              {/* </Link> */}
             </ul>
-            {/* gender select end */}
-            {/* logo start */}
             <Link
               to="/"
               className="basis-1/2 max-w-1/2 pl-[17px] lg:flex lg:justify-center lg:basis-1/3 lg:max-w-1/3  "
@@ -127,12 +121,12 @@ const Header = () => {
                   <User />
                 </div>
               </div>
-              <div className=" relative flex justify-center items-center p-[10px] cursor-pointer ">
+              <Link to="/wardrobe" className=" relative flex justify-center items-center p-[10px] cursor-pointer ">
                 <FontAwesomeIcon icon={faHeart} className="h-5 w-5 object-cover" />
                 <div className="absolute top-[5px] right-[3px] bg-[#ff6800] h-[16px] w-[16px] rounded-[50px] flex justify-center items-center ">
                   <span className="text-white leading-[1rem] text-[0.75rem]">{lengthAddedFavorite}</span>
                 </div>
-              </div>
+              </Link>
               <div
                 onMouseEnter={onMouseHandler}
                 onMouseLeave={onMouseLeaveHandler}

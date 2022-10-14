@@ -10,6 +10,8 @@ import FormLayout from "../components/layouts/FormLayout";
 import Product from "../pages/product/Product";
 import SearchMobile from "../pages/mobile/search";
 import Faq from "../pages/faq/Faq";
+import Wardrobe from "../pages/wardrobe/Wardrobe";
+import WardrobeList from "../pages/wardrobe-list/WardrobeList";
 
 const publicRoutes: PublicRoutes[] = [
   {
@@ -47,6 +49,26 @@ const publicRoutes: PublicRoutes[] = [
   {
     path: routeConfig.frequentlyAskedQuestion,
     component: Faq,
+  },
+  {
+    path: routeConfig.wardrobe,
+    component: Wardrobe,
+  },
+  {
+    path: routeConfig.wardrobe_lists_liked,
+    component: WardrobeList,
+  },
+  {
+    path: routeConfig.wardrobe_lists_liked_outfits,
+    component: WardrobeList,
+  },
+  {
+    path: routeConfig.wardrobe_lists_owned,
+    component: WardrobeList,
+  },
+  {
+    path: routeConfig.wardrobe_lists_sell,
+    component: WardrobeList,
   },
 ];
 

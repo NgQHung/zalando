@@ -75,6 +75,7 @@ export const Home = () => {
                     >
                       <span className="absolute bg-[#ffff] top-2 right-2">
                         <FontAwesomeIcon
+                          type="checkbox"
                           icon={faHeart}
                           className={
                             "fa-thin p-[8px] text-[24px]  " +
