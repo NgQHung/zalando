@@ -7,32 +7,42 @@ import { Products } from "../../../interfaces/Products";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions } from "../../../stores/product-slice";
 import { Link } from "react-router-dom";
+import { cartActions } from "../../../stores/cart-slice";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
   const products_1 = useAppSelector((state) => state.productSlice.products_1);
-  // const newProducts_1 = useMemo([...products_1],[products_1]);
 
   const products_2 = useAppSelector((state) => state.productSlice.products_2);
   const [favoriteAnimated, setFavoriteAnimated] = React.useState(false);
+  const [selectedProduct, setSelectedProduct] = React.useState<any>();
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));
   };
-  // const selectedId = useAppSelector((state) => state.productSlice.selectedId);
-  const [selectedProduct, setSelectedProduct] = React.useState<Products>();
 
-  // console.log(selectedProduct);
-
-  const favoriteHandler = (id: number) => {
-    const product = products_1.find((item) => item.id === id);
-    setSelectedProduct(product);
+  const favoriteHandler = (selectedProduct: Products) => {
+    const product = products_1.find((item) => item.id === selectedProduct.id);
+    const initProduct = { ...product, isFavorite: false };
+    const updateProduct = { ...initProduct, isFavorite: true };
     if (product) {
       setFavoriteAnimated((prev) => !prev);
+    }
+    if (!favoriteAnimated) {
+      setSelectedProduct(updateProduct);
+    } else {
+      setSelectedProduct(initProduct);
     }
   };
 
   React.useEffect(() => {
-    console.log(selectedProduct);
+    // console.log(selectedProduct);
+    if (selectedProduct) {
+      dispatch(cartActions.addFavoriteHandler(selectedProduct));
+    }
+
+    if (!selectedProduct?.isFavorite) {
+      dispatch(cartActions.removeFavorite(selectedProduct));
+    }
   }, [selectedProduct]);
 
   // mobile
@@ -58,47 +68,45 @@ export const Home = () => {
             <div className="row_full h-[584px] bg-[#34d27b] mb-[64px]">
               <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
                 {products_1.map((item: Products) => (
-                  <>
-                    <div key={item.id} onClick={() => selectedProductHandler(item.id)} className="first:ml-[152px]">
-                      <div
-                        onClick={() => favoriteHandler(item.id)}
-                        className="relative h-[415px] w-[296px] px-[8px] cursor-pointer"
-                      >
-                        <span className=" absolute bg-[#ffff] top-2 right-2">
-                          <FontAwesomeIcon
-                            icon={faHeart}
-                            className={
-                              "fa-thin p-[8px] text-[24px]  " +
-                              (selectedProduct?.id === item.id && favoriteAnimated ? "favorite_added-active" : "")
-                            }
-                          />
-                        </span>
-                        <Link to={`/${item.name}`}>
-                          <img
-                            className="w-[288px] h-[415px] object-cover"
-                            src={`https://${item.imageUrl}`}
-                            alt="product"
-                          />
-                          <div className=" leading-[20px] pt-2">
-                            <div className="pb-[8px]">
-                              <h3>{item.brandName}</h3>
-                              <h3>{item.name}</h3>
-                            </div>
-                            <div className="flex flex-col leading-[1.25rem] text-[700]">
-                              <span>{item.price.current.text}</span>
-                              {item.price.previous.value !== null && (
-                                <div className="text-[12px] leading-[16px]">
-                                  <span>Původně:</span>
-                                  <span>{item.price.previous.text}</span>
-                                  <span>20%</span>
-                                </div>
-                              )}
-                            </div>
+                  <div key={item.id} onClick={() => selectedProductHandler(item.id)} className="first:ml-[152px]">
+                    <div
+                      onClick={() => favoriteHandler(item)}
+                      className="relative h-[415px] w-[296px] px-[8px] cursor-pointer"
+                    >
+                      <span className="absolute bg-[#ffff] top-2 right-2">
+                        <FontAwesomeIcon
+                          icon={faHeart}
+                          className={
+                            "fa-thin p-[8px] text-[24px]  " +
+                            (selectedProduct?.id === item.id && favoriteAnimated ? "favorite_added-active" : "")
+                          }
+                        />
+                      </span>
+                      <Link to={`/${item.name}`}>
+                        <img
+                          className="w-[288px] h-[415px] object-cover"
+                          src={`https://${item.imageUrl}`}
+                          alt="product"
+                        />
+                        <div className=" leading-[20px] pt-2">
+                          <div className="pb-[8px]">
+                            <h3>{item.brandName}</h3>
+                            <h3>{item.name}</h3>
                           </div>
-                        </Link>
-                      </div>
+                          <div className="flex flex-col leading-[1.25rem] text-[700]">
+                            <span>{item.price.current.text}</span>
+                            {item.price.previous.value !== null && (
+                              <div className="text-[12px] leading-[16px]">
+                                <span>Původně:</span>
+                                <span>{item.price.previous.text}</span>
+                                <span>20%</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </Link>
                     </div>
-                  </>
+                  </div>
                 ))}
               </div>
               <div className="absolute bg-[#ffff] right-[152px] top-1/2 translate-y-[-50%]">
@@ -132,7 +140,7 @@ export const Home = () => {
                     className="first:ml-[152px]"
                   >
                     <div
-                      onClick={() => favoriteHandler(item.id)}
+                      onClick={() => favoriteHandler(item)}
                       className="relative h-[415px] w-[296px] px-[8px] cursor-pointer"
                     >
                       <FontAwesomeIcon

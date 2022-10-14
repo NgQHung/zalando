@@ -17,6 +17,7 @@ export interface ProductDetail {
       url: string;
     }[];
   };
+  isFavorite: boolean;
   price: {
     currency?: string;
     current: {

@@ -65,6 +65,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
           imageUrl: selectedProduct?.media.images[0].url,
           currentPrice: selectedProduct?.price.current.value,
           previousPrice: selectedProduct?.price.previous?.value,
+          isFavorite: false,
           amount: 1,
           size: sizeProduct,
           totalProduct: selectedProduct?.price.current.value,
@@ -85,8 +86,6 @@ const Product_info = ({ selectedProduct }: Iprops) => {
         imageUrl: selectedProduct?.media.images[0].url,
         currentPrice: selectedProduct?.price.current.value,
         previousPrice: selectedProduct?.price.previous?.value,
-        amount: 1,
-        size: sizeProduct,
         totalProduct: selectedProduct?.price.current.value,
       })
     );

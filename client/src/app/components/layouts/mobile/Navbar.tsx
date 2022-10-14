@@ -93,8 +93,8 @@ const Navbar = () => {
           {/* mobile navigation end  */}
           {/* mobile category start*/}
           <div className={"flex flex-wrap "}>
-            {navbar_data_mobile?.map((item) => (
-              <li className="basis-1/2 max-w-1/2 list-none">
+            {navbar_data_mobile?.map((item, idx) => (
+              <li key={idx} className="basis-1/2 max-w-1/2 list-none">
                 <img className="h-[88px] w-auto object-cover" src={item.image} alt={item.title} />
                 <p className="pt-1 pr-1 pb-4 pl-[14px] text-[16px] font-[700]">{item.title}</p>
               </li>

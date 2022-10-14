@@ -115,13 +115,7 @@ const ShoppingBasket = () => {
                 >
                   <div className={"shoppingCart_border " + (emptyShoppingCart ? "shoppingCart_border-active" : "")} />
                   {addedShoppingCart.map((product: productShoppingCart, idx: number) => (
-                    <Collapse
-                      // className={
-                      //   "relative max-h-[200px] transition-transform " +
-                      //   (removedProductNotification ? "max-h-[90px] transition-transform" : "")
-                      // }
-                      key={idx}
-                    >
+                    <Collapse key={idx}>
                       <ListItem className={"flex text-[14px] flex-col "}>
                         <ListItemText
                           primary={

@@ -11,7 +11,6 @@ import { getDetailProduct } from "../../../stores/apiRequest";
 const Product = () => {
   const selectedId = useAppSelector((state) => state.productSlice.selectedId);
   const selectedProduct = useAppSelector((state) => state.productSlice.selectedProduct);
-  // console.log(selectedId);
   const isImage = selectedProduct?.media?.images;
   const firstImage = isImage && selectedProduct?.media?.images[0].url!;
 

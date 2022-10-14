@@ -89,6 +89,7 @@ const cartSlice = createSlice({
       state.removedProductNotification = action.payload;
     },
     addFavoriteHandler(state, action) {
+      // console.log(action.payload);
       const idProduct = action.payload.id;
       const existingProductIndex = state.addedFavorite.findIndex((product) => product.id === idProduct);
       const existingProduct = state.addedFavorite[existingProductIndex];
@@ -98,6 +99,17 @@ const cartSlice = createSlice({
       } else {
         state.addedFavorite = [...state.addedFavorite, action.payload];
       }
+    },
+    removeFavorite(state, action) {
+      const idProduct = action?.payload?.id;
+      let updateAddedFavorite;
+      const existingProductIndex = state.addedFavorite.findIndex((item) => item.id === idProduct);
+      const existingProduct = state.addedFavorite[existingProductIndex];
+      if (existingProduct) {
+        const newUpdateAddedFavorite = [...state.addedFavorite];
+        updateAddedFavorite = newUpdateAddedFavorite.filter((item) => item.id !== idProduct);
+        state.addedFavorite = updateAddedFavorite;
+      } else return;
     },
   },
 });
