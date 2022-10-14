@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from "react";
+import React, { Fragment } from "react";
 import Content from "../../components/layouts/container";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

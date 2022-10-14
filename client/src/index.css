@@ -148,3 +148,25 @@ html {
     transform: scaleX(1);
   }
 }
+.optionPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffff;
+  /* transition: transform, 0.2s linear; */
+  z-index: 1000;
+  opacity: 0;
+  /* overscroll-behavior: contain; */
+}
+.optionPopup.optionPopup-active {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  background-color: #ffff;
+  /* transition: transform, 0.2s linear; */
+  z-index: 1000;
+  /* overscroll-behavior: contain; */
+}

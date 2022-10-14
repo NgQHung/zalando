@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { productShoppingCart } from "../../../../../../interfaces/ProductShoppingCart";
 import { cartActions } from "../../../../../../stores/cart-slice";
 import { formatPrice } from "../../../../../../utils/formatPrice";
@@ -9,7 +9,7 @@ import { TransitionGroup } from "react-transition-group";
 import Collapse from "@mui/material/Collapse";
 import "./navtools.css";
 import { Box, ListItem, ListItemText } from "@mui/material";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { amountRemovedHandler } from "../../../../../../stores/UI-slice";
 
 const ShoppingBasket = () => {
@@ -18,7 +18,7 @@ const ShoppingBasket = () => {
   const total = useAppSelector((state) => state.cartSlice.total);
   const dropdownOnHover = useAppSelector((state) => state.UISlice.dropdown_onHover_shoppingCart);
 
-  const removedProductNotification = useAppSelector((state) => state.cartSlice.removedProductNotification);
+  // const removedProductNotification = useAppSelector((state) => state.cartSlice.removedProductNotification);
   const lengthAddedShoppingCart = addedShoppingCart.length;
   const emptyShoppingCart = lengthAddedShoppingCart === 0;
   const elementsGreaterThan3 = lengthAddedShoppingCart >= 3;

@@ -1,4 +1,11 @@
-import { faArrowLeft, faArrowRight, faBagShopping, faEllipsis, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faBagShopping,
+  faChevronRight,
+  faEllipsis,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -9,12 +16,55 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 const WardrobeList = () => {
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
   const [notification, setNotification] = React.useState(false);
+  const [optionPopup, setOptionPopup] = React.useState(false);
+
   const dispatch = useAppDispatch();
   const favoriteHandler = () => {
     //     const removedFavorite = addedFavorite.find(item => item.id === id)
     //   dispatch(cartActions.removeFavorite(removedFavorite));
     // alert("product id removed");
     setNotification(true);
+  };
+
+  const addShoppingCartHandler = () => {
+    alert("added product");
+
+    // if (!sizeProduct) {
+    //   setNameDropdown((prev) => ({ ...prev, selectSize: "selectSize" }));
+    //   return;
+    // } else {
+    //   dispatch(
+    //     cartActions.addShoppingCartHandler({
+    //       id: selectedProduct?.id,
+    //       brand: selectedProduct?.brand.name,
+    //       name: selectedProduct?.name,
+    //       imageUrl: selectedProduct?.media.images[0].url,
+    //       currentPrice: selectedProduct?.price.current.value,
+    //       previousPrice: selectedProduct?.price.previous?.value,
+    //       isFavorite: false,
+    //       amount: 1,
+    //       size: sizeProduct,
+    //       totalProduct: selectedProduct?.price.current.value,
+    //     })
+    //   );
+    // //   loadingHandler(dispatch, 500, "add");
+    // //   backgroundColorHandler(dispatch, 2000);
+    // //   dropdownShoppingCartHandler(dispatch, 5000);
+    // }
+  };
+
+  let refInput = React.useRef<any>(null);
+
+  React.useEffect(() => {
+    document.addEventListener("mousedown", (e: any) => {
+      if (!refInput?.current?.contains(e.target)) {
+        setOptionPopup(false);
+      }
+    });
+  }, []);
+
+  const optionsHandler = () => {
+    setOptionPopup(true);
   };
 
   React.useEffect(() => {
@@ -32,10 +82,49 @@ const WardrobeList = () => {
   return (
     <>
       {notification && (
-        <div className="text-[#ffff] flex justify-between max-w-[460px] bg-[#1a1a1a] absolute bottom-0 left-4">
+        <div className="text-[#ffff] flex justify-between max-w-[460px] bg-[#1a1a1a] fixed bottom-0 left-4 z-[1000]">
           <p className=" py-4 pr-4">Předmět odstraněn</p>
           <p className="py-4 pr-4">Vrátit</p>
         </div>
+      )}
+      {optionPopup && (
+        <>
+          <div className="hidden lg:block">
+            <div className={"overlay " + (optionPopup ? "overlay-active" : "")} />
+            <div ref={refInput} className={"flex flex-col optionPopup " + (optionPopup ? "optionPopup-active" : "")}>
+              <button onClick={() => setOptionPopup(false)} className="p-4 text-right">
+                <FontAwesomeIcon className="h-6 w-6" icon={faXmark} />
+              </button>
+              <div className="flex">
+                <div className="basis-[40%] min-w-[480px] max-h-[420px] min-h-[330px] max-w-[606px]">
+                  <img
+                    className="h-full w-full object-cover pb-8 pl-8"
+                    src="https://images.unsplash.com/photo-1665690366910-0c9684d50e92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+                    alt=""
+                  />
+                </div>
+                <div className="basis-[60%]">
+                  <div className="option_title p-6 text-[24px] leading-[28px] font-[600] tracking-[-0.24px] whitespace-nowrap">
+                    LOOSE FIT - Jednoduché triko - light blue
+                  </div>
+                  <div className="flex flex-col">
+                    <button className="p-4 grow flex justify-between border-y border-[#dddd]">
+                      <span>Zvolte velikost</span>
+                      <FontAwesomeIcon icon={faChevronRight} />
+                    </button>
+                    <button className="p-4 grow flex justify-between border-y border-[#dddd]">
+                      <span>Zobrazit podobné předměty</span>
+                      <FontAwesomeIcon icon={faChevronRight} />
+                    </button>
+                    <button onClick={favoriteHandler} className="p-4 grow flex justify-between border-y border-[#dddd]">
+                      <span className="text-[red]">Odstranit</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
       )}
       <div className=" w-full relative lg:max-w-[1216px]  mx-auto my-0 ">
         <div className="wardrobeList_back leading-[36px] text-[#6328e0]  text-[14px] px-2 mt-6">
@@ -64,7 +153,10 @@ const WardrobeList = () => {
                   <button className="h-12 w-12 text-center p-3 bg-[#ffff]">
                     <FontAwesomeIcon icon={faEllipsis} className="h-full object-cover" />
                   </button>
-                  <button className="h-12 w-12 text-center p-3 bg-[#1a1a1a] text-[#ffff]">
+                  <button
+                    onClick={addShoppingCartHandler}
+                    className="h-12 w-12 text-center p-3 bg-[#1a1a1a] text-[#ffff]"
+                  >
                     <FontAwesomeIcon icon={faBagShopping} className="h-full object-cover" />
                   </button>
                 </div>
@@ -78,10 +170,13 @@ const WardrobeList = () => {
                 <FontAwesomeIcon icon={faXmark} className="h-full object-cover" />
               </button>
               <div className="flex flex-col absolute bottom-3 right-0">
-                <button className="h-12 w-12 text-center p-3 bg-[#ffff]">
+                <button onClick={optionsHandler} className="h-12 w-12 text-center p-3 bg-[#ffff]">
                   <FontAwesomeIcon icon={faEllipsis} className="h-full object-cover" />
                 </button>
-                <button className="h-12 w-12 text-center p-3 bg-[#1a1a1a] text-[#ffff]">
+                <button
+                  onClick={addShoppingCartHandler}
+                  className="h-12 w-12 text-center p-3 bg-[#1a1a1a] text-[#ffff]"
+                >
                   <FontAwesomeIcon icon={faBagShopping} className="h-full object-cover" />
                 </button>
               </div>
