@@ -23,7 +23,7 @@ export const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const accessToken = user?.access_token;
+  const accessToken = user?.accessToken;
 
   const onClickHandler = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     setIsClick(true);

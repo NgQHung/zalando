@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { cartActions } from "../../../../stores/cart-slice";
 import { backgroundColorHandler, dropdownShoppingCartHandler, loadingHandler } from "../../../../stores/UI-slice";
 import Loader from "../../../components/UI/Loader";
+import { postDataCart } from "../../../../stores/apiRequest";
 
 interface Iprops {
   selectedProduct: ProductDetail | null;
@@ -35,6 +36,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   const [heartAnimated, setHeartAnimated] = React.useState(false);
   const loading__add = useAppSelector((state) => state.UISlice.loading__add);
   const bg_color_shopping_cart = useAppSelector((state) => state.UISlice.bg_color_shopping_cart);
+  const user = useAppSelector((state) => state.userSlice.user);
 
   const dispatch = useAppDispatch();
 
@@ -53,24 +55,24 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   };
 
   const addShoppingCartHandler = () => {
+    const product = {
+      id: selectedProduct?.id,
+      brand: selectedProduct?.brand.name,
+      name: selectedProduct?.name,
+      imageUrl: selectedProduct?.media.images[0].url,
+      currentPrice: selectedProduct?.price.current.value,
+      previousPrice: selectedProduct?.price.previous?.value,
+      isFavorite: false,
+      amount: 1,
+      size: sizeProduct,
+      totalProduct: selectedProduct?.price.current.value,
+    };
     if (!sizeProduct) {
       setNameDropdown((prev) => ({ ...prev, selectSize: "selectSize" }));
       return;
     } else {
-      dispatch(
-        cartActions.addShoppingCartHandler({
-          id: selectedProduct?.id,
-          brand: selectedProduct?.brand.name,
-          name: selectedProduct?.name,
-          imageUrl: selectedProduct?.media.images[0].url,
-          currentPrice: selectedProduct?.price.current.value,
-          previousPrice: selectedProduct?.price.previous?.value,
-          isFavorite: false,
-          amount: 1,
-          size: sizeProduct,
-          totalProduct: selectedProduct?.price.current.value,
-        })
-      );
+      dispatch(cartActions.addShoppingCartHandler(product));
+      postDataCart(dispatch, user, product);
       loadingHandler(dispatch, 500, "add");
       backgroundColorHandler(dispatch, 2000);
       dropdownShoppingCartHandler(dispatch, 5000);
@@ -83,6 +85,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
         id: selectedProduct?.id,
         brand: selectedProduct?.brand.name,
         name: selectedProduct?.name,
+        isFavorite: false,
         imageUrl: selectedProduct?.media.images[0].url,
         currentPrice: selectedProduct?.price.current.value,
         previousPrice: selectedProduct?.price.previous?.value,
@@ -104,15 +107,15 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     }
   }, [nameDropdown.selectSize]);
 
-  // React.useEffect(() => {
-  //   let subscribe = true
-  //   if(subscribe) {
-  //     setHeartAnimated(true)
-  //   }
-  //   return () => {
-  //     subscribe = false
-  //   }
-  // })
+  const addShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
+
+  React.useEffect(() => {
+    console.log(addShoppingCart);
+  }, [addShoppingCart]);
+
+  React.useEffect(() => {
+    console.log(user?.accessToken);
+  }, [user]);
 
   return (
     <Fragment>

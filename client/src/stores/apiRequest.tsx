@@ -4,8 +4,29 @@ import { uriBase } from "../config/uriBase";
 import { Products } from "../interfaces/Products";
 // import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { productActions } from "./product-slice";
-import UISlice, { UIActions } from "./UI-slice";
+// import UISlice, { UIActions } from "./UI-slice";
 // const axiosJWT = AxiosJWT();
+
+export interface AddShoppingCart {
+  id: number | undefined;
+  brand: string | undefined;
+  name: string | undefined;
+  imageUrl: string | undefined;
+  currentPrice: number | undefined;
+  previousPrice: number | null | undefined;
+  isFavorite: boolean;
+  amount: number;
+  size: string;
+  totalProduct: number | undefined;
+}
+
+export interface User {
+  accessToken: string;
+  admin: string;
+  email: string;
+  firstName: string;
+  _id: string;
+}
 
 // get all products
 export const getProducts = async (dispatch: Dispatch) => {
@@ -31,6 +52,24 @@ export const getDetailProduct = async (dispatch: Dispatch, id: string) => {
     const response = await axios.get(`${uriBase.server}/product/${id}`);
     const detailProduct = response.data;
     dispatch(productActions.selectedProductHandler(detailProduct));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postDataCart = async (dispatch: Dispatch, user: any, data: AddShoppingCart) => {
+  const authAxios = axios.create({
+    baseURL: uriBase.server,
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
+    withCredentials: true,
+  });
+  try {
+    const response = await authAxios.post(`${uriBase.server}/v1/user/${user._id}/shopping-cart`, data);
+    // dispatch(
+    //   productActions.productsHandler({ allProducts: allProducts, products_1: newProducts_1, products_2: products_2 })
+    // );
   } catch (error) {
     console.log(error);
   }

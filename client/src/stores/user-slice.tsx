@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface InitialState {
   user: {
-    access_token: string;
+    accessToken: string;
     admin: string;
     email: string;
     firstName: string;

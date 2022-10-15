@@ -104,8 +104,7 @@ const ShoppingBasket = () => {
               <p className="text-[16px] mt-[24px] px-[36px] font-[700]">VÁŠ NÁKUPNÍ KOŠÍK</p>
               {/* showing product start */}
               <div className={" shopping__cart-shadow-product " + (shadow ? " " : "")}>
-                <TransitionGroup
-                  component="div"
+                <div
                   onScroll={onScrollHandler}
                   ref={scrollRef}
                   className={
@@ -114,93 +113,95 @@ const ShoppingBasket = () => {
                   }
                 >
                   <div className={"shoppingCart_border " + (emptyShoppingCart ? "shoppingCart_border-active" : "")} />
-                  {addedShoppingCart.map((product: productShoppingCart, idx: number) => (
-                    <Collapse key={idx}>
-                      <ListItem className={"flex text-[14px] flex-col "}>
-                        <ListItemText
-                          primary={
-                            <>
-                              <div className="flex py-[4px] text-[12px] px-[15px]">
-                                <div className="py-3 px-2 self-start shrink-0">
-                                  <img
-                                    src={ImgToHttp(product.imageUrl)}
-                                    alt="photos"
-                                    className="h-[96px] object-cover "
-                                  />
-                                </div>
-                                <div className="flex flex-col grow py-3 px-2">
-                                  <div className=" ml-[15px] leading-[18px] ">
-                                    <div className="flex">
-                                      <div className="max-w-[100px] text-left">
-                                        <p>{product.brand}</p>
-                                        <p className="pt-[5px] leading-[23px] whitespace-nowrap text-ellipsis max-w-[200px] overflow-hidden ">
-                                          {product.name}
+                  <TransitionGroup component="div">
+                    {addedShoppingCart.map((product: productShoppingCart, idx: number) => (
+                      <Collapse key={idx}>
+                        <ListItem className={"flex text-[14px] flex-col "}>
+                          <ListItemText
+                            primary={
+                              <>
+                                <div className="flex py-[4px] text-[12px] px-[15px]">
+                                  <div className="py-3 px-2 self-start shrink-0">
+                                    <img
+                                      src={ImgToHttp(product.imageUrl)}
+                                      alt="photos"
+                                      className="h-[96px] object-cover "
+                                    />
+                                  </div>
+                                  <div className="flex flex-col grow py-3 px-2">
+                                    <div className=" ml-[15px] leading-[18px] ">
+                                      <div className="flex">
+                                        <div className="max-w-[100px] text-left">
+                                          <p>{product.brand}</p>
+                                          <p className="pt-[5px] leading-[23px] whitespace-nowrap text-ellipsis max-w-[200px] overflow-hidden ">
+                                            {product.name}
+                                          </p>
+                                        </div>
+                                        <div className="flex flex-col w-full text-[10px] text-right  ">
+                                          <span className="text-[14px] text-[#eb0037] mt-[2px] font-[700]">
+                                            {formatPrice(product.currentPrice)}
+                                          </span>
+                                          <span>{formatPrice(product.previousPrice)}</span>
+                                        </div>
+                                      </div>
+                                      <div className="text-left">
+                                        <p>
+                                          <span className="text-[12px] pr-1">Size:</span> {product.size}
                                         </p>
+                                        {/* <motion.div initial={{ scale: 1 }} animate={amountRemoved ? "scale: 1" : ""}> */}
+                                        <p
+                                          className={
+                                            "shoppingCart_amount-removed " +
+                                            (amountRemoved ? "shoppingCart_amount-removed-active" : "")
+                                          }
+                                        >
+                                          <span className={"text-[12px] pr-1 "}>Amount:</span> {product.amount}
+                                        </p>
+                                        {/* </motion.div> */}
                                       </div>
-                                      <div className="flex flex-col w-full text-[10px] text-right  ">
-                                        <span className="text-[14px] text-[#eb0037] mt-[2px] font-[700]">
-                                          {formatPrice(product.currentPrice)}
+                                    </div>
+                                    <div className="flex mt-[22px] flex-col text-left ml-[15px] leading-[20px] text-[#999] tracking-[0.5px] cursor-pointer  ">
+                                      <div>
+                                        <span
+                                          onClick={() => addProductFavoriteHandler(product)}
+                                          className="text-[10px] affect_text"
+                                        >
+                                          Přesunout na seznam přání
                                         </span>
-                                        <span>{formatPrice(product.previousPrice)}</span>
                                       </div>
-                                    </div>
-                                    <div className="text-left">
-                                      <p>
-                                        <span className="text-[12px] pr-1">Size:</span> {product.size}
-                                      </p>
-                                      {/* <motion.div initial={{ scale: 1 }} animate={amountRemoved ? "scale: 1" : ""}> */}
-                                      <p
-                                        className={
-                                          "shoppingCart_amount-removed " +
-                                          (amountRemoved ? "shoppingCart_amount-removed-active" : "")
-                                        }
-                                      >
-                                        <span className={"text-[12px] pr-1 "}>Amount:</span> {product.amount}
-                                      </p>
-                                      {/* </motion.div> */}
-                                    </div>
-                                  </div>
-                                  <div className="flex mt-[22px] flex-col text-left ml-[15px] leading-[20px] text-[#999] tracking-[0.5px] cursor-pointer  ">
-                                    <div>
-                                      <span
-                                        onClick={() => addProductFavoriteHandler(product)}
-                                        className="text-[10px] affect_text"
-                                      >
-                                        Přesunout na seznam přání
-                                      </span>
-                                    </div>
-                                    <div>
-                                      <span
-                                        onClick={() => removeProductShoppingCartHandler(product.id, product.size)}
-                                        className="text-[10px] cursor-pointer affect_text"
-                                      >
-                                        Odebrat položku
-                                      </span>
+                                      <div>
+                                        <span
+                                          onClick={() => removeProductShoppingCartHandler(product.id, product.size)}
+                                          className="text-[10px] cursor-pointer affect_text"
+                                        >
+                                          Odebrat položku
+                                        </span>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              {/* <div
-                                className={
-                                  "flex flex-col text-center text-[14px] mt-3 mb-3 product_removed " +
-                                  (removedProductNotification ? "product_removed-active" : "")
-                                }
-                              >
-                                <p>Tato položka byla odebrána</p>
-                                <p
-                                  // onClick={() => setOnHoverShoppingCart(false)}
-                                  className="text-[16px]"
+                                {/* <div
+                                  className={
+                                    "flex flex-col text-center text-[14px] mt-3 mb-3 product_removed " +
+                                    (removedProductNotification ? "product_removed-active" : "")
+                                  }
                                 >
-                                  <span className="affect_text">Zpět</span>
-                                </p>
-                              </div> */}
-                            </>
-                          }
-                        ></ListItemText>
-                      </ListItem>
-                    </Collapse>
-                  ))}
-                </TransitionGroup>
+                                  <p>Tato položka byla odebrána</p>
+                                  <p
+                                    // onClick={() => setOnHoverShoppingCart(false)}
+                                    className="text-[16px]"
+                                  >
+                                    <span className="affect_text">Zpět</span>
+                                  </p>
+                                </div> */}
+                              </>
+                            }
+                          ></ListItemText>
+                        </ListItem>
+                      </Collapse>
+                    ))}
+                  </TransitionGroup>
+                </div>
               </div>
             </div>
             {/* showing product end */}

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 export const AxiosJWT = () => {
   // const user = useAppSelector((state) => state.userSlice.user);
-  // const accessToken = user?.access_token!;
+  // const accessToken = user?.accessToken!;
   // const dispatch = useAppDispatch();
   // const refreshToken = async () => {
   //   try {

@@ -6,7 +6,7 @@ import "./navtools.css";
 
 const User = () => {
   const user = useAppSelector((state) => state.userSlice.user);
-  const accessToken = user?.access_token!;
+  const accessToken = user?.accessToken!;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
