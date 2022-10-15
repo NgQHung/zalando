@@ -18,14 +18,7 @@ export const getProductsDetail = async (req: Request, res: Response, next: NextF
   let product;
   try {
     const existingProduct = await ProductDetailModel.findOne({ id: idToNumber });
-    // if (existingProduct) {
     product = existingProduct;
-    // }
-    // else {
-    //   const response = await axios.request(options);
-    //   product = response.data;
-    //   await ProductDetailModel.create(product);
-    // }
   } catch (error) {
     console.log(error);
   }

@@ -149,10 +149,12 @@ html {
   }
 }
 .optionPopup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  /* position: fixed;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1216px; */
+  margin: 0 auto;
   background-color: #ffff;
   /* transition: transform, 0.2s linear; */
   z-index: 1000;
@@ -160,12 +162,15 @@ html {
   /* overscroll-behavior: contain; */
 }
 .optionPopup.optionPopup-active {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 1;
+  /* position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+  width: 100%;
+  max-width: 1216px;
+  margin: 0 auto;
   background-color: #ffff;
+  opacity: 1;
   /* transition: transform, 0.2s linear; */
   z-index: 1000;
   /* overscroll-behavior: contain; */
