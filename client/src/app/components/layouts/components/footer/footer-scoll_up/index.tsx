@@ -19,14 +19,12 @@ const ScrollUp = () => {
 
   return (
     <div className="w-full h-[60px] bg-[#ffff] text-right">
-      <div className="">
-        {isScrollUp && (
-          <button className="bg-[#1a1a1a] text-[#ffff] text-[12px] px-[16px] py-[8px] mr-[16px] mt-[8px] mb-[20px] cursor-pointer fixed bottom-0 right-0 transition-all ">
-            <p className="hidden md:inline mr-[8px]">PŘEJÍT NAHORU</p>
-            <FontAwesomeIcon icon={faArrowUp} />
-          </button>
-        )}
-      </div>
+      {isScrollUp && (
+        <button className="bg-[#1a1a1a] z-[1000000] text-[#ffff] text-[12px] px-[16px] py-[8px] mr-[16px] mt-[8px] mb-[20px] cursor-pointer fixed bottom-0 right-0 transition-all ">
+          <p className="hidden md:inline mr-[8px]">PŘEJÍT NAHORU</p>
+          <FontAwesomeIcon icon={faArrowUp} />
+        </button>
+      )}
     </div>
   );
 };

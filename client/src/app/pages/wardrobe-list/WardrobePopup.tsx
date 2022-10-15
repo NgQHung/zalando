@@ -16,7 +16,7 @@ const WardrobePopup = (props: Iprop) => {
   const navigate = useNavigate();
 
   return (
-    <div className="hidden lg:block">
+    <div className="hidden lg:block ">
       <div className={"overlay " + (props.optionPopup ? "overlay-active" : "")} />
       <div className="px-6 fixed flex justify-center items-center lg:max-w-[1216px] w-full z-[10000] left-0 right-0 mx-auto">
         <div

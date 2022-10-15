@@ -15,11 +15,13 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import WardrobeItems from "./WardrobeItems";
 import WardrobeNotification from "./WardrobeNotification";
 import WardrobePopup from "./WardrobePopup";
+import WardrobePopup_Share from "./WardrobePopup_Share";
 
 const WardrobeList = () => {
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
   const [notification, setNotification] = React.useState(false);
   const [optionPopup, setOptionPopup] = React.useState(false);
+  const [shareProduct, setShareProduct] = React.useState(false);
 
   const dispatch = useAppDispatch();
   const favoriteHandler = () => {
@@ -93,6 +95,7 @@ const WardrobeList = () => {
           favoriteHandler={favoriteHandler}
         />
       )}
+      {shareProduct && <WardrobePopup_Share setShareProduct={setShareProduct} />}
       <div className=" w-full relative lg:max-w-[1216px]  mx-auto my-0 ">
         <div className="wardrobeList_back leading-[36px] text-[#6328e0]  text-[14px] px-2 mt-6">
           <Link to="/wardrobe" className="">
@@ -105,9 +108,11 @@ const WardrobeList = () => {
         <div className="wardrobeList_title text-[28px] leading-[36px] lg:text-[40px] lg:leading-[48px] font-[600] tracking-[-0.28px] mb-4">
           <h1>Oblíbené předměty</h1>
         </div>
-        <div className="wardrobeList-shareProduct text-left md:text-right leading-[20px] text-[#6328e0]  text-[14px] px-2 mt-3">
-          <span className="mr-2 affect_text">Vyberte zboží ke sdílení</span>
-          <FontAwesomeIcon className="h-[14px] w-[14px] text-center" icon={faArrowRight} />
+        <div className="wardrobeList-shareProduct text-left md:text-right ">
+          <button onClick={() => setShareProduct(true)} className="leading-[20px] text-[#6328e0] text-[14px] px-2 mt-3">
+            <span className="mr-2 affect_text">Vyberte zboží ke sdílení</span>
+            <FontAwesomeIcon className="h-[14px] w-[14px] text-center" icon={faArrowRight} />
+          </button>
         </div>
         <ul className="wardrobeList_images flex">
           {/* {addedFavorite.map((product) => ( */}
