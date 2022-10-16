@@ -17,15 +17,14 @@ const ShoppingBasket = () => {
   const loading__total = useAppSelector((state) => state.UISlice.loading__total);
   const total = useAppSelector((state) => state.cartSlice.total);
   const dropdownOnHover = useAppSelector((state) => state.UISlice.dropdown_onHover_shoppingCart);
+  const user = useAppSelector((state) => state.userSlice.user);
 
-  // const removedProductNotification = useAppSelector((state) => state.cartSlice.removedProductNotification);
   const lengthAddedShoppingCart = addedShoppingCart.length;
   const emptyShoppingCart = lengthAddedShoppingCart === 0;
   const elementsGreaterThan3 = lengthAddedShoppingCart >= 3;
   const dispatch = useAppDispatch();
   const [shadow, setShadow] = React.useState(true);
   const amountRemoved = useAppSelector((state) => state.UISlice.amountRemoved);
-  // const [effectRemoved, setEffectRemoved] = useState(false)
 
   const scrollRef = React.useRef<any>(null);
   const removeProductShoppingCartHandler = (id: number, size: string) => {
@@ -35,7 +34,6 @@ const ShoppingBasket = () => {
   const addProductFavoriteHandler = (product: productShoppingCart) => {
     dispatch(cartActions.addFavoriteHandler(product));
   };
-  // console.log(removedProductNotification);
 
   const onScrollHandler = () => {
     const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
@@ -64,6 +62,11 @@ const ShoppingBasket = () => {
       setShadow(false);
     }
   }, [elementsGreaterThan3]);
+
+  React.useEffect(() => {
+    // console.log(userShoppingCart);
+    // console.log(addedShoppingCart);
+  }, [addedShoppingCart]);
 
   return (
     <Fragment>

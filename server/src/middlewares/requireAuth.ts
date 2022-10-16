@@ -14,14 +14,14 @@ const middleware = {
     try {
       jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string, (err: any, user: any) => {
         if (err) {
-          res.status(403).json('Token is invalid');
+          return res.status(403).json('Token is invalid');
         }
         req.user = user;
         next();
       });
     } catch (error) {
       console.log(error);
-      res.status(401).json('Request is not authorized');
+      return res.status(401).json('Request is not authorized');
     }
   },
 
@@ -31,11 +31,11 @@ const middleware = {
         if (req.user?.id == req.params.id || req.params.admin) {
           next();
         } else {
-          res.status(403).json('You are not allowed to delete it');
+          return res.status(403).json('You are not allowed to delete it');
         }
       });
     } catch (error) {
-      res.status(401).json('Request is not authorized');
+      return res.status(401).json('Request is not authorized');
     }
   },
 };

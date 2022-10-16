@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { cartActions } from "../../../../stores/cart-slice";
 import { backgroundColorHandler, dropdownShoppingCartHandler, loadingHandler } from "../../../../stores/UI-slice";
 import Loader from "../../../components/UI/Loader";
-import { postDataCart } from "../../../../stores/apiRequest";
+import { postShoppingCartById } from "../../../../stores/apiRequest";
 
 interface Iprops {
   selectedProduct: ProductDetail | null;
@@ -54,6 +54,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     setNameDropdown((prev) => ({ ...prev, selectSize: "" }));
   };
 
+  const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const addShoppingCartHandler = () => {
     const product = {
       id: selectedProduct?.id,
@@ -72,7 +73,6 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       return;
     } else {
       dispatch(cartActions.addShoppingCartHandler(product));
-      postDataCart(dispatch, user, product);
       loadingHandler(dispatch, 500, "add");
       backgroundColorHandler(dispatch, 2000);
       dropdownShoppingCartHandler(dispatch, 5000);
@@ -107,15 +107,17 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     }
   }, [nameDropdown.selectSize]);
 
-  const addShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
-
   React.useEffect(() => {
-    console.log(addShoppingCart);
-  }, [addShoppingCart]);
+    let subscribe = true;
+    if (subscribe && user) {
+      console.log("send request");
+      postShoppingCartById(dispatch, user, addedShoppingCart);
+    }
 
-  React.useEffect(() => {
-    console.log(user?.accessToken);
-  }, [user]);
+    return () => {
+      subscribe = false;
+    };
+  }, [addedShoppingCart, user]);
 
   return (
     <Fragment>

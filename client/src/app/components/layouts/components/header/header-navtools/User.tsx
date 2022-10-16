@@ -13,6 +13,7 @@ const User = () => {
   const logoutHandler = () => {
     if (!user) return;
     requestLogout(dispatch, navigate, accessToken);
+    navigate("");
   };
 
   return (

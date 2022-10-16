@@ -1,8 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { productShoppingCart } from "../interfaces/ProductShoppingCart";
+
+export interface UserShoppingCart {
+  data: {
+    id: number;
+    brand: string;
+    name: string;
+    imageUrl: string;
+    currentPrice: number;
+    previousPrice?: number;
+    amount: number;
+    size: string;
+    totalProduct: number;
+  }[];
+}
 
 interface InitialState {
   addedShoppingCart: productShoppingCart[];
+  userAddedShoppingCart: UserShoppingCart[];
   addedFavorite: productShoppingCart[];
   initialAmount: number;
   totalProduct: number;
@@ -12,6 +27,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   addedShoppingCart: [],
+  userAddedShoppingCart: [],
   addedFavorite: [],
   initialAmount: 0,
   totalProduct: 0,
@@ -25,6 +41,10 @@ const cartSlice = createSlice({
   name: "Shopping cart",
   initialState: initialState,
   reducers: {
+    getShoppingCart(state, action) {
+      // if(state.)
+      state.addedShoppingCart = action.payload;
+    },
     addShoppingCartHandler(state, action) {
       const idProduct = action.payload.id;
       const sizeProduct = action.payload.size;
@@ -80,9 +100,13 @@ const cartSlice = createSlice({
     },
     calculateTotals(state) {
       let total = 0;
-      state.addedShoppingCart.forEach((item) => {
-        total += item.amount * item.currentPrice;
-      });
+      if (state.addedShoppingCart) {
+        // console.log(current(state.addedShoppingCart));
+        state.addedShoppingCart.forEach((item) => {
+          total += item.amount * item.currentPrice;
+        });
+      }
+
       state.total = total;
     },
     notificationRemovedProduct(state, action) {

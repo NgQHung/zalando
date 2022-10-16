@@ -15,4 +15,5 @@ router.use('/v1/auth', authRouter);
 
 // user
 router.use('/v1/user', userRouter);
+
 export default router;

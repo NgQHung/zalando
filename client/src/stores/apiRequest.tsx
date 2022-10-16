@@ -2,6 +2,8 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { uriBase } from "../config/uriBase";
 import { Products } from "../interfaces/Products";
+import { productShoppingCart } from "../interfaces/ProductShoppingCart";
+import { cartActions } from "./cart-slice";
 // import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { productActions } from "./product-slice";
 // import UISlice, { UIActions } from "./UI-slice";
@@ -57,19 +59,34 @@ export const getDetailProduct = async (dispatch: Dispatch, id: string) => {
   }
 };
 
-export const postDataCart = async (dispatch: Dispatch, user: any, data: AddShoppingCart) => {
+export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: productShoppingCart[]) => {
+  // console.log(data);
   const authAxios = axios.create({
     baseURL: uriBase.server,
     headers: {
-      Authorization: `Bearer ${user.accessToken}`,
+      Authorization: `Bearer ${user?.accessToken}`,
     },
     withCredentials: true,
   });
   try {
-    const response = await authAxios.post(`${uriBase.server}/v1/user/${user._id}/shopping-cart`, data);
-    // dispatch(
-    //   productActions.productsHandler({ allProducts: allProducts, products_1: newProducts_1, products_2: products_2 })
-    // );
+    const response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/shopping-cart`, { data: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
+  // console.log(data);
+  const authAxios = axios.create({
+    baseURL: uriBase.server,
+    headers: {
+      Authorization: `Bearer ${user?.accessToken}`,
+    },
+    withCredentials: true,
+  });
+  try {
+    const response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/shopping-cart/products`);
+    console.log(response.data[0].data);
+    dispatch(cartActions.getShoppingCart(response.data[0].data));
   } catch (error) {
     console.log(error);
   }

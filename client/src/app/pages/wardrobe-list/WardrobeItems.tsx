@@ -8,13 +8,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { productShoppingCart } from "../../../interfaces/ProductShoppingCart";
 
 interface IProps {
   favoriteHandler: () => void;
   optionsHandler: () => void;
   addShoppingCartHandler: () => void;
-  //   product: productShoppingCart;
 }
 
 const WardrobeItems = ({ favoriteHandler, optionsHandler, addShoppingCartHandler }: IProps) => {

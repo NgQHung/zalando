@@ -4,12 +4,13 @@ import DefaultLayout from "./app/components/layouts/DefaultLayout";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { publicRoutes } from "./app/routes";
 import { cartActions } from "./stores/cart-slice";
-import { getProducts } from "./stores/apiRequest";
+import { getProducts, postShoppingCartById } from "./stores/apiRequest";
 import { loadingHandler } from "./stores/UI-slice";
 
 function App() {
   const dispatch = useAppDispatch();
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
+  const user = useAppSelector((state) => state.userSlice.user);
 
   React.useEffect(() => {
     try {
@@ -23,6 +24,16 @@ function App() {
     loadingHandler(dispatch, 300, "total");
     dispatch(cartActions.calculateTotals());
   }, [addedShoppingCart]);
+  React.useEffect(() => {
+    let subscribe = true;
+    if (subscribe && user) {
+      console.log("send request");
+      postShoppingCartById(dispatch, user, addedShoppingCart);
+    }
+    return () => {
+      subscribe = false;
+    };
+  }, [user, addedShoppingCart]);
 
   return (
     <div className="App">

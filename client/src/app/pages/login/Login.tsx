@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { uriBase } from "../../../config/uriBase";
 import { User_login } from "../../../interfaces/authentication";
 import { requestLogin } from "../../../stores/auth-slice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -13,6 +12,7 @@ import jwt_decode from "jwt-decode";
 
 import "./Login.css";
 import { userActions } from "../../../stores/user-slice";
+import { getShoppingCartById } from "../../../stores/apiRequest";
 
 export const Login = () => {
   const [typeInput, setTypeInput] = React.useState("");
@@ -20,6 +20,7 @@ export const Login = () => {
   const [input, setInput] = React.useState<User_login>({ email: "", password: "" });
   const refInput = React.useRef<any>(null);
   const user = useAppSelector((state) => state.userSlice.user);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -79,6 +80,16 @@ export const Login = () => {
       }
     });
   }, []);
+
+  React.useEffect(() => {
+    let subscribe = true;
+    if (user && subscribe) {
+      getShoppingCartById(dispatch, user);
+    }
+    return () => {
+      subscribe = false;
+    };
+  }, [user]);
 
   return (
     <Fragment>

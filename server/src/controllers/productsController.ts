@@ -10,7 +10,7 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
   } catch (error) {
     console.log(error);
   }
-  res.json(products);
+  return res.json(products);
 };
 export const getProductsDetail = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
@@ -19,8 +19,9 @@ export const getProductsDetail = async (req: Request, res: Response, next: NextF
   try {
     const existingProduct = await ProductDetailModel.findOne({ id: idToNumber });
     product = existingProduct;
+    return res.status(200).json(product);
   } catch (error) {
     console.log(error);
+    return res.status(500).json(error);
   }
-  res.json(product);
 };

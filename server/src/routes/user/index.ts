@@ -10,4 +10,12 @@ userRouter.get('/all', middleware.verifyToken, userController.getAllUsers);
 // delete a user by ID
 userRouter.delete('/:id', middleware.verifyTokenAndAdmin, userController.deleteUser);
 
+// post data of user
+userRouter.post('/:id/shopping-cart', middleware.verifyToken, userController.addProductToShoppingCart);
+userRouter.post('/:id/liked', middleware.verifyToken, userController.addProductToLiked);
+
+// get data of user
+userRouter.get('/:id/shopping-cart/products', middleware.verifyToken, userController.getProductsFromShoppingCartById);
+userRouter.get('/:id/liked/products', middleware.verifyToken, userController.getProductsFromLiked);
+
 export default userRouter;

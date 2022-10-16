@@ -39,7 +39,7 @@ const authController = {
       }
 
       const admin = user && user.admin ? user.admin : false;
-      const access_token = tokenController.createAccessToken(user?.id, admin);
+      const accessToken = tokenController.createAccessToken(user?.id, admin);
       const refreshToken = tokenController.createRefreshToken(user?.id, admin);
       GlobalArr.refreshTokens.push(refreshToken);
 
@@ -53,7 +53,7 @@ const authController = {
 
       const { password, ...others }: any = user?._doc;
 
-      return res.status(200).json({ ...others, access_token });
+      return res.status(200).json({ ...others, accessToken });
     } catch (error) {
       return res.status(500).json(error);
     }

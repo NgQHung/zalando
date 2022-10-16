@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { productShoppingCart } from "../interfaces/ProductShoppingCart";
 
 interface InitialState {
   user: {
@@ -24,6 +25,9 @@ const userSLice = createSlice({
     logoutHandler(state) {
       state.user = null;
     },
+    // getShoppingCart(state, action) {
+    //   state.shoppingCart = action.payload;
+    // },
   },
 });
 
