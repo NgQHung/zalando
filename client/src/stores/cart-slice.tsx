@@ -45,6 +45,9 @@ const cartSlice = createSlice({
       // if(state.)
       state.addedShoppingCart = action.payload;
     },
+    getLikedProduct(state, action) {
+      state.addedFavorite = action.payload;
+    },
     addShoppingCartHandler(state, action) {
       const idProduct = action.payload.id;
       const sizeProduct = action.payload.size;

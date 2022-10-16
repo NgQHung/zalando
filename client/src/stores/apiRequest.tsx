@@ -91,3 +91,36 @@ export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
     console.log(error);
   }
 };
+
+export const postLikedProductById = async (dispatch: Dispatch, user: any, data: productShoppingCart[]) => {
+  // console.log(data);
+  const authAxios = axios.create({
+    baseURL: uriBase.server,
+    headers: {
+      Authorization: `Bearer ${user?.accessToken}`,
+    },
+    withCredentials: true,
+  });
+  try {
+    const response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/liked`, { data: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
+  // console.log(data);
+  const authAxios = axios.create({
+    baseURL: uriBase.server,
+    headers: {
+      Authorization: `Bearer ${user?.accessToken}`,
+    },
+    withCredentials: true,
+  });
+  try {
+    const response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/liked/products`);
+    console.log(response.data[0].data);
+    dispatch(cartActions.getLikedProduct(response.data[0].data));
+  } catch (error) {
+    console.log(error);
+  }
+};

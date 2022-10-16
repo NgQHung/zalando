@@ -25,10 +25,10 @@ const User = () => {
               <Link to="/login">
                 <p className="p-[12px] cursor-pointer bg-[#1a1a1a] mb-[14px]">Přihlásit se</p>
               </Link>
-              <p className="text-[14px] text-[#1a1a1a] ml-[16px] whitespace-normal text-left">
+              <Link to="/signup" className="text-[14px] text-[#1a1a1a] ml-[16px] whitespace-normal text-left">
                 <span className="text-[#6328e0] font-[700] affect_text mb-1 ">Zaregistrujte se hned teď</span> - trvá to
                 jen minutu.
-              </p>
+              </Link>
             </div>
           )}
 

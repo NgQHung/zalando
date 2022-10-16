@@ -1,4 +1,4 @@
-import { configureStore, applyMiddleware, combineReducers } from "@reduxjs/toolkit";
+import { configureStore, applyMiddleware } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import productSlice from "./product-slice";
 import UISlice from "./UI-slice";

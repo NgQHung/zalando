@@ -12,7 +12,7 @@ import jwt_decode from "jwt-decode";
 
 import "./Login.css";
 import { userActions } from "../../../stores/user-slice";
-import { getShoppingCartById } from "../../../stores/apiRequest";
+import { getLikedProductById, getShoppingCartById } from "../../../stores/apiRequest";
 
 export const Login = () => {
   const [typeInput, setTypeInput] = React.useState("");
@@ -85,6 +85,7 @@ export const Login = () => {
     let subscribe = true;
     if (user && subscribe) {
       getShoppingCartById(dispatch, user);
+      getLikedProductById(dispatch, user);
     }
     return () => {
       subscribe = false;
