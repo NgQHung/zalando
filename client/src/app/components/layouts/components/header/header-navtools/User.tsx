@@ -33,9 +33,11 @@ const User = () => {
           )}
 
           <ul className=" mx-[26px]">
-            <li className="user_list">
-              <span className="user_item">Váš přehled</span>
-            </li>
+            <Link to="/myaccount">
+              <li className="user_list">
+                <span className="user_item">Váš přehled</span>
+              </li>
+            </Link>
             <li className="user_list">
               <span className="user_item">Objednávky</span>
             </li>

@@ -12,6 +12,7 @@ import SearchMobile from "../pages/mobile/search";
 import Faq from "../pages/faq/Faq";
 import Wardrobe from "../pages/wardrobe/Wardrobe";
 import WardrobeList from "../pages/wardrobe-list/WardrobeList";
+import MyAccount from "../pages/myAccount/MyAccount";
 
 const publicRoutes: PublicRoutes[] = [
   {
@@ -69,6 +70,10 @@ const publicRoutes: PublicRoutes[] = [
   {
     path: routeConfig.wardrobe_lists_sell,
     component: WardrobeList,
+  },
+  {
+    path: routeConfig.myAccount,
+    component: MyAccount,
   },
 ];
 

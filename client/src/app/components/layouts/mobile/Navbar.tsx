@@ -10,9 +10,10 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   const navbarActive = useAppSelector((state) => state.mobileSlice.navbarActive);
   const user = useAppSelector((state) => state.userSlice.user);
+  const [navbarPopup, setNavbarPopup] = React.useState(false);
 
   const [category, setCategory] = React.useState("women");
-  const [bodyScroll, setBodyScroll] = React.useState(false);
+  // const [bodyScroll, setBodyScroll] = React.useState(false);
 
   const categoryHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const { name } = e.currentTarget;
@@ -25,15 +26,15 @@ const Navbar = () => {
 
   let refInput = React.useRef<any>(null);
 
-  React.useEffect(() => {
-    document.addEventListener("touchmove", function (e) {
-      e.preventDefault();
-      if (!refInput?.current?.contains(e.target)) {
-        setBodyScroll(false);
-      }
-      setBodyScroll(true);
-    });
-  }, [bodyScroll]);
+  // React.useEffect(() => {
+  //   document.addEventListener("touchmove", function (e) {
+  //     e.preventDefault();
+  //     if (!refInput?.current?.contains(e.target)) {
+  //       setBodyScroll(false);
+  //     }
+  //     setBodyScroll(true);
+  //   });
+  // }, [bodyScroll]);
 
   // let refInputOutside = React.useRef<any>(null);
 
@@ -44,15 +45,14 @@ const Navbar = () => {
       }
     });
   }, []);
+  // ref={refInput}
 
   return (
     <>
       <div className={"overlay " + (navbarActive ? "overlay-active" : "")} />
       <div
-        ref={refInput}
         className={
-          "lg:hidden max-w-[376px] navbar__mobile h-[calc(100%-32px)] " +
-          (navbarActive ? "navbar__mobile-active z-[999]" : "")
+          "lg:hidden max-w-[376px] navbar__mobile h-[calc(100%-32px)] " + (navbarActive ? "navbar__mobile-active" : "")
         }
       >
         <div className="border-b-[2px] bg-[#ffff] border-[#d0d1d3] mb-4">

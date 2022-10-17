@@ -1,16 +1,19 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { Container } from "@mui/material";
-import Container from "../../components/layouts/container";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../hooks";
+import { productShoppingCart } from "../../../interfaces/ProductShoppingCart";
 
 const Wardrobe = () => {
+  const likedProducts = useAppSelector((state) => state.cartSlice.addedFavorite);
   return (
     <div className="bg-[#efeff0] w-full relative lg:max-w-[1216px]  mx-auto my-0 ">
       <div className="wardrobe_title bg-[#ffff] ">
-        <h1 className="text-[40px] font-[600] leading-[48px] tracking-[-0.4px]">Vaše předměty</h1>
-        <h1>Všechny na jednom místě</h1>
+        <div className="ml-6 p-4">
+          <h1 className="text-[40px] font-[600] leading-[48px] tracking-[-0.4px]">Vaše předměty</h1>
+          <h1>Všechny na jednom místě</h1>
+        </div>
       </div>
       <div className="flex py-6 mx-6 mb-6">
         <div className="flex flex-col basis-1/2 ">
@@ -31,16 +34,19 @@ const Wardrobe = () => {
                 Mějte přehled o všem, co se vám líbí, sdílejte zboží s přáteli a zeptejte se na jejich názor.
               </p>
               <ul className="wardrobe_list-images flex ">
-                <li className="pr-2 basis-1/4">
+                {/* {likedProducts?.map((product: productShoppingCart) => (
+                  <li className="pr-2 basis-1/4 max-w-[128px]">
+                    <img
+                      className="w-full h-full object-cover"
+                      src="https://images.unsplash.com/photo-1665686304129-a6e2d16923e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                      // src={product?.imageUrl}
+                      alt=""
+                    />
+                  </li>
+                ))} */}
+                <li className="px-2 basis-1/4 max-w-[128px]">
                   <img
-                    className="max-sw-[128px] object-cover"
-                    src="https://images.unsplash.com/photo-1665686304129-a6e2d16923e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-                    alt=""
-                  />
-                </li>
-                <li className="px-2 basis-1/4">
-                  <img
-                    className="w-[128px] object-cover"
+                    className="w-full h-full object-cover"
                     src="https://images.unsplash.com/photo-1665686304129-a6e2d16923e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
                     alt=""
                   />

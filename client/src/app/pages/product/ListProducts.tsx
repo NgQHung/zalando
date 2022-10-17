@@ -1,4 +1,4 @@
-import { faChevronDown, faChevronRight, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faChevronDown, faChevronRight, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Fragment } from "react";
 import Container from "../../components/layouts/container";
@@ -21,12 +21,16 @@ export const ListProducts = () => {
     <Fragment>
       <Container bg_color="">
         <div className="flex flex-col w-full mt-[35px] lg:min-w-[768px] md:mx-6 mx-[18px] ">
-          <nav className="flex">
-            <span>Pánové</span>
-            <FontAwesomeIcon icon={faChevronRight} />
-            <span>Pánská obuv</span>
+          <nav className="flex items-center">
+            <FontAwesomeIcon className="lg:hidden h-6 w-6 object-cover mr-2" icon={faArrowLeft} />
+            <span className="font-[700] lg:text-[16px] lg:leading-[23.2px] ">Pánové</span>
+            <FontAwesomeIcon className="hidden lg:inline mx-3 h-4 w-4 object-cover" icon={faChevronRight} />
+
+            <span className="hidden lg:inline lg:text-[16px] lg:leading-[23.2px] lg:text-[#a2a3a8] lg:font-[700]">
+              Pánská obuv
+            </span>
           </nav>
-          <h1 className="text-[40px] font-[600] leading-[48px] pt-3">Oblečení</h1>
+          <h1 className="text-[28px] leading-[36px] lg:text-[40px] font-[600] lg:leading-[48px] pt-3">Oblečení</h1>
           <div className="flex flex-col lg:flex-row mt-6">
             {/* screen start */}
             <div className="hidden lg:block basis-1/4 max-w-1/4 text-[14px] font-[700]">
