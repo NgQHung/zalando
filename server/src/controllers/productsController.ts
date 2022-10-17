@@ -7,10 +7,14 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
   let products;
   try {
     products = await ProductModel.find({});
+    return res.json(products);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return res.status(500).json({
+      data: null,
+      msg: 'Oops!!! Something went wrong.',
+    });
   }
-  return res.json(products);
 };
 export const getProductsDetail = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
@@ -22,6 +26,10 @@ export const getProductsDetail = async (req: Request, res: Response, next: NextF
     return res.status(200).json(product);
   } catch (error) {
     console.log(error);
-    return res.status(500).json(error);
+    // return res.status(500).json(error);
+    return res.status(500).json({
+      data: null,
+      msg: 'Oops!!! Something went wrong.',
+    });
   }
 };

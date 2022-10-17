@@ -23,7 +23,10 @@ const authController = {
       const user = await newUser.save();
       return res.status(200).json(user);
     } catch (error) {
-      return res.status(500).json(error);
+      // return res.status(500).json(error);
+      return res.status(500).json({
+        msg: 'Oops!!! Something went wrong.',
+      });
     }
   },
   login: async (req: Request, res: Response) => {
@@ -31,11 +34,12 @@ const authController = {
     const user = await User.findOne({ email: req.body.email });
     try {
       if (!user) {
-        return res.status(404).json('Incorrect email');
+        return res.status(404).json('Incorrect email!!! Please make sure your email is correct');
+        // return res.status(404).json({msg: ''})
       }
       const isPasswordMatch = user && user.password ? await bcrypt.compare(req.body.password, user.password) : false;
       if (!isPasswordMatch) {
-        return res.status(404).json('Incorrect password');
+        return res.status(404).json('Incorrect password!!! Please make sure your password is correct');
       }
 
       const admin = user && user.admin ? user.admin : false;
@@ -62,9 +66,11 @@ const authController = {
     try {
       res.clearCookie('refreshToken');
       GlobalArr.refreshTokens = GlobalArr.refreshTokens.filter((token) => token !== req.cookies.refreshToken);
-      return res.status(200).json('You are logged out');
+      return res.status(200).json('You are logged out successfully');
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        msg: 'Oops!!! Something went wrong.',
+      });
     }
   },
 };

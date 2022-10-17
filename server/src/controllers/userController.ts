@@ -10,7 +10,10 @@ const userController = {
       const allUsers = await User.find();
       return res.status(200).json(allUsers);
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        data: null,
+        msg: 'Oops!!! Something went wrong.',
+      });
     }
   },
 
@@ -21,7 +24,7 @@ const userController = {
       const user = await User.findById(id);
       return res.status(200).json('User is deleted successfully');
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({ data: null, msg: 'Oops!!! Something went wrong.' });
     }
   },
   addProductToShoppingCart: async (req: Request, res: Response) => {
@@ -54,7 +57,10 @@ const userController = {
         msg: `Product ${data?.name} is added successfully`,
       });
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        data: null,
+        msg: 'Oops!!! Something went wrong.',
+      });
     }
   },
 
@@ -88,7 +94,10 @@ const userController = {
         msg: `Product is added successfully`,
       });
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        data: null,
+        msg: 'Oops!!! Something went wrong.',
+      });
     }
   },
 
@@ -98,7 +107,10 @@ const userController = {
       const all = await ShoppingCart.find({ _id: id });
       return res.status(200).json(all);
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        data: null,
+        msg: 'Oops!!! Something went wrong.',
+      });
     }
   },
   getProductsFromLiked: async (req: Request, res: Response) => {
@@ -107,7 +119,10 @@ const userController = {
       const all = await LikedProductModel.find({ _id: id });
       return res.status(200).json(all);
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        data: null,
+        msg: 'Oops!!! Something went wrong.',
+      });
     }
   },
 };

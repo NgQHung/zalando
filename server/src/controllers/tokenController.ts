@@ -18,9 +18,10 @@ const tokenController = {
     const refreshToken = req.cookies.refreshToken;
 
     try {
-      if (!refreshToken) return res.status(401).json('You are not authenticated');
+      if (!refreshToken) return res.status(401).json({ data: null, msg: 'You are not authenticated' });
 
-      if (!GlobalArr.refreshTokens.includes(refreshToken)) return res.status(403).json('Refresh token is invalid');
+      if (!GlobalArr.refreshTokens.includes(refreshToken))
+        return res.status(403).json({ data: null, msg: 'Refresh token is invalid' });
 
       jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET as string, (err: any, user: any) => {
         if (err) {
@@ -39,7 +40,11 @@ const tokenController = {
         return res.status(200).json({ accessToken: newAccessToken });
       });
     } catch (error) {
-      return res.status(500).json(error);
+      // return res.status(500).json(error);
+      return res.status(500).json({
+        data: null,
+        msg: 'Oops!!! Something went wrong.',
+      });
     }
   },
 };
