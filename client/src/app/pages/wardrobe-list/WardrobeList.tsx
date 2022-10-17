@@ -5,10 +5,13 @@ import { Link } from "react-router-dom";
 import { cartActions } from "../../../stores/cart-slice";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import WardrobeItems from "./WardrobeItems";
-import WardrobeNotification from "./WardrobeNotification";
-import WardrobePopup from "./WardrobePopup";
-import WardrobePopup_Share from "./WardrobePopup_Share";
+import WardrobeItems from "../../containers/wardrobe-list/WardrobeItems";
+import WardrobeNotification from "../../containers/wardrobe-list/WardrobeNotification";
+import WardrobePopup from "../../containers/wardrobe-list/WardrobePopup";
+import WardrobePopup_Share from "../../containers/wardrobe-list/WardrobePopup_Share";
+// import WardrobeNotification from "./WardrobeNotification";
+// import WardrobePopup from "./WardrobePopup";
+// import WardrobePopup_Share from "./WardrobePopup_Share";
 
 const WardrobeList = () => {
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);

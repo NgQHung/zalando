@@ -1,4 +1,17 @@
-export const faq_data = [
+export interface Faq_Data_1 {
+  title: string;
+  data: string[];
+}
+export interface Faq_Data_2 {
+  title: string;
+  data: {
+    title: string;
+    imgUrl: string;
+    questions: string[];
+  }[];
+}
+
+export const faq_data: (Faq_Data_1 | Faq_Data_2)[] = [
   {
     title: "mostQuestions",
     data: ["Jak obnovit mé heslo?", "Mé objednávky", "Jak si můžu objednat?", "Vrácení zboží do 30 dnů"],

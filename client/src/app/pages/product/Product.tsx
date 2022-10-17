@@ -1,17 +1,16 @@
-import { faChevronDown, faChevronRight, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import "./Product.css";
 import Product_info from "./product_info";
-import Sliding_products from "./sliding_products";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import { getDetailProduct } from "../../../stores/apiRequest";
+import PRODUCT_IMAGES from "../../containers/product/Product_Images";
+import Sliding_products from "../../containers/product/sliding_products";
 
 const Product = () => {
   const selectedId = useAppSelector((state) => state.productSlice.selectedId);
   const selectedProduct = useAppSelector((state) => state.productSlice.selectedProduct);
-  const isImage = selectedProduct?.media?.images;
+  const isImage = selectedProduct?.media?.images!;
   const firstImage = isImage && selectedProduct?.media?.images[0].url!;
 
   const dispatch = useAppDispatch();
@@ -56,62 +55,16 @@ const Product = () => {
     <div className=" md:mx-6 w-auto lg:mx-auto lg:my-0 lg:max-w-[1216px] ">
       <div className="flex md:flex-row md:mt-6 flex-wrap md:flex-nowrap">
         {/* images */}
-        <div className=" basis-full md:sticky md:top-[24px] md:min-w-1/2 md:max-w-1/2 md:basis-1/2 flex md:self-start flex-wrap  ">
-          <div className="relative flex flex-row w-full ">
-            {chevronUp && (
-              <FontAwesomeIcon
-                icon={faChevronUp}
-                className=" absolute top-0  h-6 p-2 bg-[#ffff] left-[8.333%] z-50 translate-x-[-50%]"
-              />
-            )}
-            <div
-              onScroll={onScrollHandler}
-              ref={scrollRef}
-              className="scrollbar_hide hidden lg:flex flex-col basis-[16.666%] max-w-[16.666%] md:px-2 absolute overflow-y-auto h-full "
-            >
-              <ul>
-                {isImage &&
-                  selectedProduct?.media.images?.map((image, idx) => (
-                    <li
-                      key={idx}
-                      onMouseEnter={() => typeImageHandler(image.url, idx)}
-                      className="mb-4 hover:outline hover:outline-offset-[-3px] hover:outline-[3px] cursor-pointer"
-                    >
-                      <img src={ImgToHttp(image.url)} alt="img" />
-                    </li>
-                  ))}
-              </ul>
-            </div>
-            {chevronDown && (
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                className="absolute bottom-0 h-6 p-2 bg-[#ffff] left-[8.333%] z-50 translate-x-[-50%] "
-              />
-            )}
-            <div
-              className={
-                "flex max-w-full basis-full lg:basis-[83.333%] lg:max-w-[83.333%] lg:ml-[16.666%] overflow-x-auto scrollbar_hidden"
-              }
-            >
-              <img src={imageShow} alt="imgProduct" className="hidden lg:inline w-full object-cover" />
-
-              <div className="lg:hidden flex ">
-                <div className="flex ">
-                  {isImage &&
-                    selectedProduct?.media.images?.map((image: any, idx) => (
-                      <img key={idx} className="min-w-full h-auto object-cover" src={ImgToHttp(image.url)} alt="img" />
-                    ))}
-                </div>
-                <FontAwesomeIcon
-                  icon={faChevronRight}
-                  className="absolute right-0 top-1/2 translate-y-[-50%] bg-[#ffff] h-6 p-2 cursor-pointer"
-                />
-              </div>
-
-              <div className="absolute p-1 bg-[#ffff] top-[8px] text-[12px] font-[700]">Novinka</div>
-            </div>
-          </div>
-        </div>
+        <PRODUCT_IMAGES
+          chevronUp={chevronUp}
+          onScrollHandler={onScrollHandler}
+          scrollRef={scrollRef}
+          isImage={isImage}
+          selectedProduct={selectedProduct}
+          typeImageHandler={typeImageHandler}
+          chevronDown={chevronDown}
+          imageShow={imageShow}
+        />
         {/* content start */}
         <Product_info selectedProduct={selectedProduct} />
         {/* content end */}

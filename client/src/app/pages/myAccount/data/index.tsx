@@ -1,4 +1,4 @@
-interface Data_MyAccount {
+export interface Data_MyAccount {
   title: string;
   data: string[];
 }

@@ -1,11 +1,4 @@
-import {
-  faArrowLeft,
-  faArrowRight,
-  faBagShopping,
-  faChevronRight,
-  faEllipsis,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBagShopping, faEllipsis, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 

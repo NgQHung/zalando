@@ -2,7 +2,7 @@ import { faChevronLeft, faChevronRight, faXmark } from "@fortawesome/free-solid-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { data_sizes } from "./data";
+import { data_sizes } from "../../pages/wardrobe-list/data";
 
 interface Iprop {
   favoriteHandler: () => void;

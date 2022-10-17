@@ -1,8 +1,4 @@
-import { faChevronLeft, faChevronRight, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { data_sizes } from "./data";
 
 interface IProps {
   setShareProduct: (state: boolean) => void;

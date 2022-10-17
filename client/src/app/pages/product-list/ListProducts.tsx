@@ -3,13 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Fragment } from "react";
 import Container from "../../components/layouts/container";
 import { SubHeaderCategory_DATA } from "../../../utils/data";
-import Category_filter from "./category_filter";
 import Card from "../../components/UI/Card";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { Products } from "../../../interfaces/Products";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import { Link } from "react-router-dom";
 import { productActions } from "../../../stores/product-slice";
+import Category_filter from "../../containers/product/category_filter";
+
 export const ListProducts = () => {
   const allProducts = useAppSelector((state) => state.productSlice.allProducts);
   const dispatch = useAppDispatch();
