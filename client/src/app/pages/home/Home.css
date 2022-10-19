@@ -31,3 +31,15 @@
   overflow-y: scroll;
   overscroll-behavior: contain;
 }
+img.img-topic {
+  max-width: auto;
+  max-height: auto;
+  background: #dddd;
+  object-fit: cover;
+}
+img.img-product {
+  max-width: 280px;
+  max-height: 415px;
+  background: #f0f0f0;
+  object-fit: cover;
+}

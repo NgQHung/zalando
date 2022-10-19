@@ -1,15 +1,19 @@
-import { faArrowLeft, faChevronDown, faChevronRight, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faChevronRight, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { Fragment } from "react";
-import Container from "../../components/layouts/container";
+import React, { Fragment, Suspense } from "react";
+import Container from "../../layouts/container";
 import { SubHeaderCategory_DATA } from "../../../utils/data";
-import Card from "../../components/UI/Card";
+import Card from "../../components/UI/card/Card";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { Products } from "../../../interfaces/Products";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import { Link } from "react-router-dom";
 import { productActions } from "../../../stores/product-slice";
 import Category_filter from "../../containers/product/category_filter";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "../../components/ErrorBoundary";
+import Loader from "../../components/UI/loader/Loader";
+import ready from "../../../utils/intersectionObserver";
 
 export const ListProducts = () => {
   const allProducts = useAppSelector((state) => state.productSlice.allProducts);
@@ -21,6 +25,24 @@ export const ListProducts = () => {
   return (
     <Fragment>
       <Container bg_color="">
+        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
+          <Suspense
+            fallback={
+              <>
+                <Loader />
+                {React.useEffect(() => {
+                  let subscribe = true;
+                  if (subscribe) {
+                    ready();
+                  }
+                  return () => {
+                    subscribe = false;
+                  };
+                })}
+              </>
+            }
+          ></Suspense>
+        </ErrorBoundary>
         <div className="flex flex-col w-full mt-[35px] lg:min-w-[768px] md:mx-6 mx-[18px] ">
           <nav className="flex items-center">
             <FontAwesomeIcon className="lg:hidden h-6 w-6 object-cover mr-2" icon={faArrowLeft} />

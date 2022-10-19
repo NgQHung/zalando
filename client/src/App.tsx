@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import DefaultLayout from "./app/components/layouts/DefaultLayout";
+import DefaultLayout from "./app/layouts/DefaultLayout";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { publicRoutes } from "./app/routes";
 import { cartActions } from "./stores/cart-slice";

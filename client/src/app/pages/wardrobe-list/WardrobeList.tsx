@@ -2,24 +2,19 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
-import { cartActions } from "../../../stores/cart-slice";
-import { ImgToHttp } from "../../../utils/imageToHTTP";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+// import { useAppDispatch, useAppSelector } from "../../hooks";
 import WardrobeItems from "../../containers/wardrobe-list/WardrobeItems";
 import WardrobeNotification from "../../containers/wardrobe-list/WardrobeNotification";
 import WardrobePopup from "../../containers/wardrobe-list/WardrobePopup";
 import WardrobePopup_Share from "../../containers/wardrobe-list/WardrobePopup_Share";
-// import WardrobeNotification from "./WardrobeNotification";
-// import WardrobePopup from "./WardrobePopup";
-// import WardrobePopup_Share from "./WardrobePopup_Share";
 
 const WardrobeList = () => {
-  const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
+  // const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
   const [notification, setNotification] = React.useState(false);
   const [optionPopup, setOptionPopup] = React.useState(false);
   const [shareProduct, setShareProduct] = React.useState(false);
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const favoriteHandler = () => {
     //     const removedFavorite = addedFavorite.find(item => item.id === id)
     //   dispatch(cartActions.removeFavorite(removedFavorite));

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Data_MyAccount } from "../../pages/myAccount/data";
 
 interface IProps {
@@ -24,4 +24,4 @@ const MY_ACCOUNT_NAVBAR = ({ data_myAccount }: IProps) => {
   );
 };
 
-export default MY_ACCOUNT_NAVBAR;
+export default memo(MY_ACCOUNT_NAVBAR);

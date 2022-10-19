@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 const LOGIN_REGISTER = () => {
@@ -28,4 +28,4 @@ const LOGIN_REGISTER = () => {
   );
 };
 
-export default LOGIN_REGISTER;
+export default memo(LOGIN_REGISTER);

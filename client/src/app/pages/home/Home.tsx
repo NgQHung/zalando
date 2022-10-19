@@ -1,18 +1,20 @@
-import React, { Fragment } from "react";
-import Content from "../../components/layouts/container";
+import React, { Fragment, Suspense } from "react";
 import "./Home.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Products } from "../../../interfaces/Products";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions } from "../../../stores/product-slice";
-import { Link } from "react-router-dom";
 import { cartActions } from "../../../stores/cart-slice";
+import Wrapper from "../../components/UI/wrapper/wrapper";
+import ready from "../../../utils/intersectionObserver";
+import { ErrorBoundary } from "react-error-boundary";
+import Loader from "../../components/UI/loader/Loader";
+import ErrorFallback from "../../components/ErrorBoundary";
+import HOME_TOPIC from "../../containers/home/Home_topic";
+import HOME_PRODUCT from "../../containers/home/Home_product";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
   const products_1 = useAppSelector((state) => state.productSlice.products_1);
-
   const products_2 = useAppSelector((state) => state.productSlice.products_2);
   const [favoriteAnimated, setFavoriteAnimated] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState<any>();
@@ -33,9 +35,9 @@ export const Home = () => {
       setSelectedProduct(initProduct);
     }
   };
+  console.log("rendered");
 
   React.useEffect(() => {
-    // console.log(selectedProduct);
     if (selectedProduct) {
       dispatch(cartActions.addFavoriteHandler(selectedProduct));
     }
@@ -50,146 +52,48 @@ export const Home = () => {
   return (
     <Fragment>
       <div>
-        <Content bg_color="bg-[#229967] ">
+        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
+          <Suspense
+            fallback={
+              <>
+                <Loader />
+                {React.useEffect(() => {
+                  let subscribe = true;
+                  if (subscribe) {
+                    ready();
+                  }
+                  return () => {
+                    subscribe = false;
+                  };
+                })}
+              </>
+            }
+          ></Suspense>
+        </ErrorBoundary>
+        <Wrapper className="bg-[#229967]">
           <div className="flex flex-col w-full h-full">
-            <div className=" mt-[36px] px-[24px] flex flex-wrap md:flex-nowrap justify-between w-full ">
-              <div className=" basis-[41.777%] grow pb-6">
-                <p className="text-[32px] font-[700] leading-[2.25rem]">Klasické tenisky</p>
-                <p className="text_tiempos text-[32px] font-[400] leading-[2.25rem]">Objevte nadčasové modely</p>
-                <p className="text-[16px] pt-[24px] leading-[1.5rem] font-[700]">Zobrazit víc</p>
-              </div>
-              <div className="basis-[58.333%] grow">
-                <img
-                  src="https://img01.ztat.net/banner/a115499feaab412b8690d8e381f92b93/980c2102f2ea439eae997c678faf6158.jpg?imwidth=693"
-                  alt="img"
-                />
-              </div>
-            </div>
-            <div className="row_full h-[584px] bg-[#34d27b] mb-[64px]">
-              <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
-                {products_1.map((item: Products) => (
-                  <div
-                    key={item.id}
-                    onClick={() => selectedProductHandler(item.id)}
-                    className="first:ml-[36px] md:first:ml-[48px] lg:first:ml-[152px]"
-                  >
-                    <div
-                      onClick={() => favoriteHandler(item)}
-                      className="relative h-[415px] w-[296px] px-[8px] cursor-pointer"
-                    >
-                      <span className="absolute bg-[#ffff] top-2 right-2">
-                        <FontAwesomeIcon
-                          type="checkbox"
-                          icon={faHeart}
-                          className={
-                            "fa-thin p-[8px] text-[24px]  " +
-                            (selectedProduct?.id === item.id && favoriteAnimated ? "favorite_added-active" : "")
-                          }
-                        />
-                      </span>
-                      <Link to={`/${item.name}`}>
-                        <img
-                          className="w-[288px] h-[415px] object-cover"
-                          src={`https://${item.imageUrl}`}
-                          alt="product"
-                        />
-                        <div className=" leading-[20px] pt-2">
-                          <div className="pb-[8px]">
-                            <h3>{item.brandName}</h3>
-                            <h3>{item.name}</h3>
-                          </div>
-                          <div className="flex flex-col leading-[1.25rem] text-[700]">
-                            <span>{item.price.current.text}</span>
-                            {item.price.previous.value !== null && (
-                              <div className="text-[12px] leading-[16px]">
-                                <span>Původně:</span>
-                                <span>{item.price.previous.text}</span>
-                                <span>20%</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="absolute bg-[#ffff] right-[152px] top-1/2 translate-y-[-50%]">
-                <FontAwesomeIcon icon={faArrowRight} className="p-2 text-[24px]" />
-              </div>
-            </div>
+            <HOME_TOPIC />
+            <HOME_PRODUCT
+              products={products_1}
+              selectedProductHandler={selectedProductHandler}
+              favoriteHandler={favoriteHandler}
+              selectedProduct={selectedProduct}
+              favoriteAnimated={favoriteAnimated}
+            />
           </div>
-        </Content>
-        <Content bg_color="bg-[#229967] ">
+        </Wrapper>
+        {/* <Wrapper className="bg-[#229967] ">
           <div className="flex flex-col w-full h-full">
-            <div className=" mt-[36px] px-[24px] flex flex-wrap md:flex-nowrap justify-between w-full ">
-              <div className=" basis-[41.777%] grow pb-6">
-                <p className="text-[32px] font-[700] leading-[2.25rem]">Klasické tenisky</p>
-                <p className="text_tiempos text-[32px] font-[400] leading-[2.25rem]">Objevte nadčasové modely</p>
-                <p className="text-[16px] pt-[24px] leading-[1.5rem] font-[700]">Zobrazit víc</p>
-              </div>
-              <div className="basis-[58.333%] grow">
-                <img
-                  src="https://img01.ztat.net/banner/a115499feaab412b8690d8e381f92b93/980c2102f2ea439eae997c678faf6158.jpg?imwidth=693"
-                  alt="img"
-                />
-              </div>
-            </div>
-            <div className="row_full h-[584px] bg-[#34d27b] mb-[64px]">
-              <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
-                {products_2.map((item: Products) => (
-                  <div
-                    key={item.id}
-                    onClick={() => selectedProductHandler(item.id)}
-                    className="first:ml-[36px] md:first:ml-[48px] lg:first:ml-[152px]"
-                  >
-                    <div
-                      onClick={() => favoriteHandler(item)}
-                      className="relative h-[415px] w-[296px] px-[8px] cursor-pointer"
-                    >
-                      <span className="absolute bg-[#ffff] top-2 right-2">
-                        <FontAwesomeIcon
-                          type="checkbox"
-                          icon={faHeart}
-                          className={
-                            "fa-thin p-[8px] text-[24px]  " +
-                            (selectedProduct?.id === item.id && favoriteAnimated ? "favorite_added-active" : "")
-                          }
-                        />
-                      </span>
-                      <Link to={`/${item.name}`}>
-                        <img
-                          className="w-[288px] h-[415px] object-cover"
-                          src={`https://${item.imageUrl}`}
-                          alt="product"
-                        />
-                        <div className=" leading-[20px] pt-2">
-                          <div className="pb-[8px]">
-                            <h3>{item.brandName}</h3>
-                            <h3>{item.name}</h3>
-                          </div>
-                          <div className="flex flex-col leading-[1.25rem] text-[700]">
-                            <span>{item.price.current.text}</span>
-                            {item.price.previous.value !== null && (
-                              <div className="text-[12px] leading-[16px]">
-                                <span>Původně:</span>
-                                <span>{item.price.previous.text}</span>
-                                <span>20%</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="absolute bg-[#ffff] right-[152px] top-1/2 translate-y-[-50%]">
-                <FontAwesomeIcon icon={faArrowRight} className="p-2 text-[24px]" />
-              </div>
-            </div>
+            <HOME_TOPIC />
+            <HOME_PRODUCT
+              products={products_2}
+              selectedProductHandler={selectedProductHandler}
+              favoriteHandler={favoriteHandler}
+              selectedProduct={selectedProduct}
+              favoriteAnimated={favoriteAnimated}
+            />
           </div>
-        </Content>
+        </Wrapper> */}
       </div>
     </Fragment>
   );

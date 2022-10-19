@@ -1,12 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 
 interface IProps {
   setShareProduct: (state: boolean) => void;
 }
 
 const WardrobePopup_Share = ({ setShareProduct }: IProps) => {
-  // const navigate = useNavigate();
-
   return (
     <div className="hidden lg:block   ">
       <div className="">
@@ -38,4 +36,4 @@ const WardrobePopup_Share = ({ setShareProduct }: IProps) => {
   );
 };
 
-export default WardrobePopup_Share;
+export default memo(WardrobePopup_Share);

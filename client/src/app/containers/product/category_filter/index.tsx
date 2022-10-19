@@ -1,6 +1,6 @@
 import { faArrowLeft, faCheck, faChevronDown, faChevronRight, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import { FILTER_DATA } from "../../../../utils/data/filter";
 import "./category_filter.css";
 
@@ -8,7 +8,6 @@ const Category_filter = () => {
   const [dropdown, setDropdown] = React.useState(false);
   const [typeFilter, setTypeFilter] = React.useState<string>("");
   const [allFilter, setAllFilter] = React.useState(false);
-  // const getData = typeFilter === FILTER_DATA.map(item => item.title)
   const typeIndex = FILTER_DATA.findIndex((item) => item.title === typeFilter);
   const getData = FILTER_DATA[typeIndex]?.data;
 
@@ -20,9 +19,6 @@ const Category_filter = () => {
   const allFiltersHandler = () => {
     setAllFilter(true);
   };
-  // console.log(getData);
-
-  // console.log(typeFilter);
   return (
     <Fragment>
       <div className="flex xs:flex-wrap gap-2 relative w-screen xs:w-full overflow-x-auto xs:overflow-visible scrollbar_hide ml-[calc(-50vw+50%-8.5px)] xs:ml-0 ">
@@ -85,4 +81,4 @@ const Category_filter = () => {
   );
 };
 
-export default Category_filter;
+export default memo(Category_filter);

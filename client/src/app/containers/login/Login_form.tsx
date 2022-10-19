@@ -1,6 +1,7 @@
 import { faEnvelope, faEye, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { memo } from "react";
+import ButtonPrimary from "../../components/UI/button/Button";
 
 interface IProps {
   onSubmitHandler: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -15,11 +16,7 @@ const LOGIN_FORM = ({ onSubmitHandler, refInput, isClick, typeInput, onClickHand
   return (
     <section className="login_section tex-center mx-auto my-0 border border-b-[#a0a0a0] pb-12 ">
       <div className="login_header_logo max-w-[1216px] mx-auto my-0 text-left px-6 pt-4 pb-6">
-        <img
-          className="h-[25px] object-cover leading-[25px]"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Zalando_logo.svg/2560px-Zalando_logo.svg.png"
-          alt="logo"
-        />
+        <img className="h-[25px] object-cover leading-[25px]" src="Logo.png" alt="logo" />
       </div>
       <div className="login_content max-w-[33.33333%] px-6 basis-1/3 mx-auto my-0">
         <p className="font-[700] text-[28px] ">Vítejte zpět</p>
@@ -69,9 +66,9 @@ const LOGIN_FORM = ({ onSubmitHandler, refInput, isClick, typeInput, onClickHand
               <FontAwesomeIcon icon={faEye} className="h- py-2 pr-3" />
             </div>
           </div>
-          <button className="text-center p-4 bg-[#1a1a1a] text-[#ffff] w-full">
+          <ButtonPrimary className=" bg-[#1a1a1a] text-[#ffff] w-full">
             <span className="text-4">Přihlásit se</span>
-          </button>
+          </ButtonPrimary>
         </form>
         <p className="affect_text mt-6 text-4 text-[#6328e0] font-[700]">Zapomněli jste své heslo?</p>
       </div>
@@ -79,4 +76,4 @@ const LOGIN_FORM = ({ onSubmitHandler, refInput, isClick, typeInput, onClickHand
   );
 };
 
-export default LOGIN_FORM;
+export default memo(LOGIN_FORM);

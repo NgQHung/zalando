@@ -12,17 +12,6 @@ export const HeaderCategory_DATA: string[] = [
   "Pre_owned",
 ];
 
-interface ITest {
-  // 'image': string,
-  // [key: string]: {
-  //   items: Record<string, Items>
-  // }
-  title: string;
-  type: {
-    [key: string]: Items;
-  };
-}
-
 interface Items {
   title: string;
   types: string[];

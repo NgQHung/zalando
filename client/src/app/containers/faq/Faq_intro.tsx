@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Faq_Data_1, Faq_Data_2 } from "../../../utils/data/mobile/faq";
 
 interface IProps {
@@ -33,4 +33,4 @@ const FAQ_INTRO = ({ mostQuestions }: IProps) => {
   );
 };
 
-export default FAQ_INTRO;
+export default memo(FAQ_INTRO);

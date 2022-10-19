@@ -1,7 +1,8 @@
 import { faChevronLeft, faChevronRight, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
+import Overlay from "../../components/UI/overlay/Overlay";
 import { data_sizes } from "../../pages/wardrobe-list/data";
 
 interface Iprop {
@@ -17,7 +18,7 @@ const WardrobePopup = (props: Iprop) => {
 
   return (
     <div className="hidden lg:block ">
-      <div className={"overlay " + (props.optionPopup ? "overlay-active" : "")} />
+      <Overlay optionPopup={props.optionPopup} />
       <div className="px-6 fixed flex justify-center items-center lg:max-w-[1216px] w-full z-[10000] left-0 right-0 mx-auto">
         <div
           ref={props.refInput}
@@ -91,4 +92,4 @@ const WardrobePopup = (props: Iprop) => {
   );
 };
 
-export default WardrobePopup;
+export default memo(WardrobePopup);

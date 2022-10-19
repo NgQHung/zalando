@@ -4,7 +4,7 @@ import { faArrowLeftLong, faMagnifyingGlass } from "@fortawesome/free-solid-svg-
 import "./Search.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { UseOutsideClick } from "../../../../utils/useOutsideClick";
+// import { UseOutsideClick } from "../../../../utils/useOutsideClick";
 const SearchMobile = () => {
   const navigate = useNavigate();
   const [searchMobileClick, setSearchMobileClick] = React.useState(false);

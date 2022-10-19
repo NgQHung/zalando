@@ -1,4 +1,5 @@
-import React from "react";
+import React, { memo } from "react";
+import ButtonPrimary from "../../components/UI/button/Button";
 
 const FAQ_COMMENT_QUESTIONS = () => {
   return (
@@ -9,13 +10,13 @@ const FAQ_COMMENT_QUESTIONS = () => {
           <div className="faq_questions-own-content ">Pokud se přihlásíte, můžeme vám pomoci rychleji.</div>
         </div>
         <div className="faq_questions-own-btn text-[#ffff] text-center flex basis-full xs:basis-1/2">
-          <button className="p-3 w-[70%] inline-flex justify-center items-center self-center  bg-[#1a1a1a]">
+          <ButtonPrimary className=" w-[70%] inline-flex justify-center items-center self-center bg-[#1a1a1a]">
             <span className="leading-6">Přihlásit se</span>
-          </button>
+          </ButtonPrimary>
         </div>
       </div>
     </div>
   );
 };
 
-export default FAQ_COMMENT_QUESTIONS;
+export default memo(FAQ_COMMENT_QUESTIONS);

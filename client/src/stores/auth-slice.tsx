@@ -43,7 +43,7 @@ export const requestLogout = async (dispatch: Dispatch, navigate: NavigateFuncti
     withCredentials: true,
   });
   try {
-    const response = await authAxios.post(`/v1/auth/logout`);
+    await authAxios.post(`/v1/auth/logout`);
     dispatch(userActions.logoutHandler());
   } catch (error) {
     console.log(error);

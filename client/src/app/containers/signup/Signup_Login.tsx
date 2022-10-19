@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 const SIGNUP_LOGIN = () => {
@@ -15,4 +15,4 @@ const SIGNUP_LOGIN = () => {
   );
 };
 
-export default SIGNUP_LOGIN;
+export default memo(SIGNUP_LOGIN);

@@ -1,6 +1,6 @@
 import React from "react";
 import { faq_data } from "../../../utils/data/mobile/faq";
-import Container from "../../components/layouts/container";
+import Container from "../../layouts/container";
 import FAQ_COMMENT_QUESTIONS from "../../containers/faq/Faq_Common_Questions";
 import FAQ_INTRO from "../../containers/faq/Faq_intro";
 import FAQ_TOPIC_QUESTIONS from "../../containers/faq/Faq_Topic_Questions";

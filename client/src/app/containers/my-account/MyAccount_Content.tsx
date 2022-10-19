@@ -1,6 +1,6 @@
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { memo } from "react";
 
 const MY_ACCOUNT_CONTENT = () => {
   return (
@@ -28,4 +28,4 @@ const MY_ACCOUNT_CONTENT = () => {
   );
 };
 
-export default MY_ACCOUNT_CONTENT;
+export default memo(MY_ACCOUNT_CONTENT);

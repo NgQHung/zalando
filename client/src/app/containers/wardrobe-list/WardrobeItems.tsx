@@ -1,6 +1,6 @@
 import { faBagShopping, faEllipsis, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { memo } from "react";
 
 interface IProps {
   favoriteHandler: () => void;
@@ -32,4 +32,4 @@ const WardrobeItems = ({ favoriteHandler, optionsHandler, addShoppingCartHandler
   );
 };
 
-export default WardrobeItems;
+export default memo(WardrobeItems);

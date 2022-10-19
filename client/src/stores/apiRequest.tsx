@@ -69,7 +69,7 @@ export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: 
     withCredentials: true,
   });
   try {
-    const response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/shopping-cart`, { data: data });
+    await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/shopping-cart`, { data: data });
   } catch (error) {
     console.log(error);
   }
@@ -102,7 +102,7 @@ export const postLikedProductById = async (dispatch: Dispatch, user: any, data: 
     withCredentials: true,
   });
   try {
-    const response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/liked`, { data: data });
+    await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/liked`, { data: data });
   } catch (error) {
     console.log(error);
   }

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { productShoppingCart } from "../interfaces/ProductShoppingCart";
+// import { productShoppingCart } from "../interfaces/ProductShoppingCart";
 
 interface InitialState {
   user: {

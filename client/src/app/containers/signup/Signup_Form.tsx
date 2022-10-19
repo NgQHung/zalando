@@ -1,6 +1,6 @@
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { memo } from "react";
 
 interface IProps {
   onSubmitHandler: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -183,4 +183,4 @@ const SIGNUP_FORM = ({
   );
 };
 
-export default SIGNUP_FORM;
+export default memo(SIGNUP_FORM);

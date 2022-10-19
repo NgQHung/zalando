@@ -1,11 +1,17 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import "./Product.css";
-import Product_info from "./product_info";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import { getDetailProduct } from "../../../stores/apiRequest";
-import PRODUCT_IMAGES from "../../containers/product/Product_Images";
-import Sliding_products from "../../containers/product/sliding_products";
+import { ErrorBoundary } from "react-error-boundary";
+
+// containers
+import Loader from "../../components/UI/loader/Loader";
+import ErrorFallback from "../../components/ErrorBoundary";
+
+const PRODUCT_IMAGES = React.lazy(() => import("../../containers/product/Product_Images"));
+const Sliding_products = React.lazy(() => import("../../containers/product/sliding_products"));
+const Product_info = React.lazy(() => import("../../containers/product/product_info"));
 
 const Product = () => {
   const selectedId = useAppSelector((state) => state.productSlice.selectedId);
@@ -53,24 +59,28 @@ const Product = () => {
 
   return (
     <div className=" md:mx-6 w-auto lg:mx-auto lg:my-0 lg:max-w-[1216px] ">
-      <div className="flex md:flex-row md:mt-6 flex-wrap md:flex-nowrap">
-        {/* images */}
-        <PRODUCT_IMAGES
-          chevronUp={chevronUp}
-          onScrollHandler={onScrollHandler}
-          scrollRef={scrollRef}
-          isImage={isImage}
-          selectedProduct={selectedProduct}
-          typeImageHandler={typeImageHandler}
-          chevronDown={chevronDown}
-          imageShow={imageShow}
-        />
-        {/* content start */}
-        <Product_info selectedProduct={selectedProduct} />
-        {/* content end */}
-      </div>
-      {/* sliding products start */}
-      <Sliding_products />
+      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
+        <Suspense fallback={<Loader />}>
+          <div className="flex md:flex-row md:mt-6 flex-wrap md:flex-nowrap">
+            {/* images */}
+            <PRODUCT_IMAGES
+              chevronUp={chevronUp}
+              onScrollHandler={onScrollHandler}
+              scrollRef={scrollRef}
+              isImage={isImage}
+              selectedProduct={selectedProduct}
+              typeImageHandler={typeImageHandler}
+              chevronDown={chevronDown}
+              imageShow={imageShow}
+            />
+            {/* content start */}
+            <Product_info selectedProduct={selectedProduct} />
+            {/* content end */}
+          </div>
+          {/* sliding products start */}
+          <Sliding_products />
+        </Suspense>
+      </ErrorBoundary>
       {/* sliding products end */}
     </div>
   );

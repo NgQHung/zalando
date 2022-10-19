@@ -1,6 +1,6 @@
 import { faChevronDown, faChevronRight, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { memo } from "react";
 import { ProductDetail } from "../../../interfaces/ProductDetail";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 
@@ -85,4 +85,4 @@ const PRODUCT_IMAGES = ({
   );
 };
 
-export default PRODUCT_IMAGES;
+export default memo(PRODUCT_IMAGES);

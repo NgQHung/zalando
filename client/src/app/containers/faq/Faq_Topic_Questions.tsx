@@ -1,6 +1,6 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { memo } from "react";
 import { Faq_Data_1, Faq_Data_2 } from "../../../utils/data/mobile/faq";
 
 interface IProps {
@@ -63,4 +63,4 @@ const FAQ_TOPIC_QUESTIONS = ({ topicQuestions }: IProps) => {
   );
 };
 
-export default FAQ_TOPIC_QUESTIONS;
+export default memo(FAQ_TOPIC_QUESTIONS);

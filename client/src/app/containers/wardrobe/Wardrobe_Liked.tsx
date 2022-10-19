@@ -1,6 +1,6 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 const WARDROBE_LIKED = () => {
@@ -22,16 +22,6 @@ const WARDROBE_LIKED = () => {
           Mějte přehled o všem, co se vám líbí, sdílejte zboží s přáteli a zeptejte se na jejich názor.
         </p>
         <ul className="wardrobe_list-images flex ">
-          {/* {likedProducts?.map((product: productShoppingCart) => (
-        <li className="pr-2 basis-1/4 max-w-[128px]">
-          <img
-            className="w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1665686304129-a6e2d16923e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            // src={product?.imageUrl}
-            alt=""
-          />
-        </li>
-      ))} */}
           <li className="px-2 basis-1/4 max-w-[128px]">
             <img
               className="w-full h-full object-cover"
@@ -45,4 +35,4 @@ const WARDROBE_LIKED = () => {
   );
 };
 
-export default WARDROBE_LIKED;
+export default memo(WARDROBE_LIKED);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 const WardrobeNotification = () => {
   return (
@@ -9,4 +9,4 @@ const WardrobeNotification = () => {
   );
 };
 
-export default WardrobeNotification;
+export default memo(WardrobeNotification);

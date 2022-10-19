@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import router from './src/routes';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import serveStatic from 'serve-static';
 var cors = require('cors');
 
 // PORT
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 8080;
 env.config();
 
 const app = express();
+app.use(serveStatic('public/ftp', { index: ['default.html', 'default.htm'] }));
 app.use(cors({ credentials: true, origin: process.env.CLIENT_URI }));
 app.use(cookieParser());
 app.use(helmet());

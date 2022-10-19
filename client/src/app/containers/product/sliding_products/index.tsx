@@ -1,6 +1,6 @@
 import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import { Link } from "react-router-dom";
 import { Products } from "../../../../interfaces/Products";
 import { productActions } from "../../../../stores/product-slice";
@@ -60,4 +60,4 @@ const Sliding_products = () => {
   );
 };
 
-export default Sliding_products;
+export default memo(Sliding_products);

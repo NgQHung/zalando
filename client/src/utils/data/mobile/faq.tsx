@@ -119,12 +119,3 @@ export const faq_data: (Faq_Data_1 | Faq_Data_2)[] = [
     ],
   },
 ];
-// ['Jak mohu vrátit objednávku?', 'Reklamace', 'Vrácení zboží do 100 dnů', 'Mohu zboží vyměnit?']
-// ['Kdy dostanu své peníze zpět?', 'Reklamace']
-// ['Platba na dobírku', 'Platba kartou online s technologií 3D Secure', 'Jak mohu získat fakturu?', 'Jak zaplatím bankovním převodem?']
-// ['Reklamace', 'Jak zruším svou objednávku?', 'Mohu změnit objednávku po jejím odeslání?', 'Jak mohu získat fakturu?']
-// ['Jak vrátím položku od Zalando Partnera?', 'Co jsou partnerské položky?', 'Podmínky doručení partnerských položek']
-// ['Nákup pre-owned položek na Zalandu', 'Jak prodám položky na Zalandu?','Jaké jsou podmínky prodeje mých položek?', 'Jak vrátím pre-owned zboží zakoupené na Zalandu?']
-// ['Jak uplatním dárkovou kartu?', 'Moje poukazy a můj zůstatek', 'Jak koupím dárkovou kartu?', 'Obecné informace k dárkovým kartám']
-// ['Přehled všech průvodců velikostmi']
-// ['Kde je má objednávka?', 'Uplatněte váš dárkový poukaz','Změnit doručovací adresu']

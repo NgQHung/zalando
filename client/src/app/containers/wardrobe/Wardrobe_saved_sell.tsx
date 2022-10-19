@@ -1,6 +1,6 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
 const WARDROBE_SAVED_SELL = () => {
@@ -45,4 +45,4 @@ const WARDROBE_SAVED_SELL = () => {
   );
 };
 
-export default WARDROBE_SAVED_SELL;
+export default memo(WARDROBE_SAVED_SELL);
