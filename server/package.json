@@ -30,6 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "mongoose": "^6.6.2",
+    "node-cache": "^5.1.2",
     "nodemon": "^2.0.20",
     "redux-persist": "^6.0.0",
     "serve-static": "^1.15.0",

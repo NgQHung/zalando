@@ -9,6 +9,7 @@ import PRODUCT_INFO_SELECTSIZE from "./Product_info_selectSize";
 import PRODUCT_INFO_BASICINFO from "./Product_info_basicInfo";
 import PRODUCT_INFO_DETAILEDINFO from "./Product_info_detailedInfo";
 import PRODUCT_INFO_RATE from "./Product_info_rate";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
 
 interface Iprops {
   selectedProduct: ProductDetail | null;
@@ -87,15 +88,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
 
   const ref = React.useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
-    if (nameDropdown.selectSize) {
-      document.addEventListener("mousedown", (e: any) => {
-        if (!ref?.current?.contains(e.target)) {
-          setNameDropdown((prev) => ({ ...prev, selectSize: "" }));
-        }
-      });
-    }
-  }, [nameDropdown.selectSize]);
+  useOnClickOutside(ref, () => setNameDropdown((prev) => ({ ...prev, selectSize: "" })));
 
   React.useEffect(() => {
     let subscribe = true;

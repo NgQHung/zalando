@@ -131,9 +131,25 @@ html {
   z-index: 1000;
 }
 
-img-topic.js-user-action .topic {
-  background-image: url("/client/public/Img-topic-1.png");
+/* .img-topic.js-user-action .topic {
+  object-fit: cover;
+  background-image: url("../public/Img-topic-1.png");
+  background-size: cover;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
 }
 .topic {
-  background: linear-gradient(140deg, #004990e6, #00499057);
+  background-size: cover;
+  background-image: url("../public/Skeleton-img.png");
+} */
+
+.img-top {
+  font-display: swap;
+}
+.navbar_items:nth-child(even) {
+  padding-left: 4px;
+}
+.navbar_items:nth-child(odd) {
+  padding-right: 4px;
 }

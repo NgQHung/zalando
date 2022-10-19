@@ -33,8 +33,8 @@ const Category_filter = () => {
             <div className="hidden xs:block">
               {dropdown && typeFilter === item.title ? (
                 <div className="absolute top-full left-[-1px] bg-[#ffff] border border-[#1a1a1a] z-[10000] w-[312px] ">
-                  {getData.map((item) => (
-                    <div className="hover:bg-[#dddd]">
+                  {getData.map((item, index) => (
+                    <div key={index} className="hover:bg-[#dddd]">
                       <div className="ml-6 border-b  py-4 pr-3 border-[#dddd] flex justify-between items-center">
                         <p className="">{item}</p>
                         <p className="h-6 w-6">
@@ -68,8 +68,11 @@ const Category_filter = () => {
             </div>
           </div>
           <ul className="allFilter_list">
-            {FILTER_DATA.map((items) => (
-              <li className={`allFilter_items-${items.title} px-6 py-4 border-b border-[#dddd] flex justify-between`}>
+            {FILTER_DATA.map((items, index) => (
+              <li
+                key={index}
+                className={`allFilter_items-${items.title} px-6 py-4 border-b border-[#dddd] flex justify-between`}
+              >
                 <span className="text-[16px] leading-[24px] ">{items.title}</span>
                 <FontAwesomeIcon className="h-6 w-6 object-cover" icon={faChevronRight} />
               </li>

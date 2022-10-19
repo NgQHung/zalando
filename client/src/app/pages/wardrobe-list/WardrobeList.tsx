@@ -7,6 +7,7 @@ import WardrobeItems from "../../containers/wardrobe-list/WardrobeItems";
 import WardrobeNotification from "../../containers/wardrobe-list/WardrobeNotification";
 import WardrobePopup from "../../containers/wardrobe-list/WardrobePopup";
 import WardrobePopup_Share from "../../containers/wardrobe-list/WardrobePopup_Share";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 const WardrobeList = () => {
   // const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
@@ -51,13 +52,7 @@ const WardrobeList = () => {
 
   let refInput = React.useRef<any>(null);
 
-  React.useEffect(() => {
-    document.addEventListener("mousedown", (e: any) => {
-      if (!refInput?.current?.contains(e.target)) {
-        setOptionPopup(false);
-      }
-    });
-  }, []);
+  useOnClickOutside(refInput, () => setOptionPopup(false));
 
   const optionsHandler = () => {
     setOptionPopup(true);

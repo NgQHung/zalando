@@ -12,6 +12,7 @@ import { userActions } from "../../../stores/user-slice";
 import { getLikedProductById, getShoppingCartById } from "../../../stores/apiRequest";
 import LOGIN_FORM from "../../containers/login/Login_form";
 import LOGIN_REGISTER from "../../containers/login/Login_Register";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 export const Login = () => {
   const [typeInput, setTypeInput] = React.useState("");
@@ -72,13 +73,7 @@ export const Login = () => {
     requestLogin(dispatch, input, navigate, accessToken!);
   };
 
-  React.useEffect(() => {
-    document.addEventListener("mousedown", (e: any) => {
-      if (!refInput?.current?.contains(e.currentTarget)) {
-        setIsClick(false);
-      }
-    });
-  }, []);
+  useOnClickOutside(refInput, () => setIsClick(false));
 
   React.useEffect(() => {
     let subscribe = true;

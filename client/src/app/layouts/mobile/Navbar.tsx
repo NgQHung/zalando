@@ -10,6 +10,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "../../components/ErrorBoundary";
 import Loader from "../../components/UI/loader/Loader";
 import ready from "../../../utils/intersectionObserver";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
@@ -31,13 +32,7 @@ const Navbar = () => {
 
   let refInput = React.useRef<any>(null);
 
-  React.useEffect(() => {
-    document.addEventListener("mousedown", (e: any) => {
-      if (!refInput?.current?.contains(e.target)) {
-        dispatch(mobileActions.mobile_navbar(false));
-      }
-    });
-  }, []);
+  useOnClickOutside(refInput, () => dispatch(mobileActions.mobile_navbar(false)));
 
   return (
     <>
@@ -65,7 +60,7 @@ const Navbar = () => {
           "lg:hidden max-w-[376px] navbar__mobile h-[calc(100%-32px)] " + (navbarActive ? "navbar__mobile-active" : "")
         }
       >
-        <div className="border-b-[2px] bg-[#ffff] border-[#d0d1d3] mb-4">
+        <div ref={refInput} className="border-b-[2px] bg-[#ffff] border-[#d0d1d3] mb-4">
           {/* mobile title start */}
           <div className=" relative py-3 mx-3 border-b text-[16px] border-[#d0d1d3] text-center">
             <span className="leading-6">Prochazet podle kategory</span>
@@ -104,13 +99,15 @@ const Navbar = () => {
           {/* mobile category start*/}
           <div className={"flex flex-wrap "}>
             {navbar_data_mobile?.map((item, idx) => (
-              <li key={idx} className="basis-1/2 h-[88px] max-w-1/2 list-none">
-                <img
-                  src="Skeleton-img.png"
-                  className="w-full h-full object-cover"
-                  lazy-src={item.image}
-                  alt={item.title}
-                />
+              <li key={idx} className="basis-1/2 max-w-1/2 list-none navbar_items">
+                <p className="h-[88px]">
+                  <img
+                    src="Skeleton-img.png"
+                    className="w-full h-full object-cover"
+                    lazy-src={item.image}
+                    alt={item.title}
+                  />
+                </p>
                 <p className="pt-1 pr-1 pb-4 pl-[14px] text-[16px] font-[700]">{item.title}</p>
               </li>
             ))}

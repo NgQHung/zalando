@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../hooks";
 import "./Signup.css";
 import SIGNUP_FORM from "../../containers/signup/Signup_Form";
 import SIGNUP_LOGIN from "../../containers/signup/Signup_Login";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 export const Signup = () => {
   const dispatch = useAppDispatch();
@@ -55,13 +56,7 @@ export const Signup = () => {
     requestSignup(dispatch, { ...input, interest: checkbox?.interest }, navigate);
   };
 
-  React.useEffect(() => {
-    document.addEventListener("mousedown", (e: any) => {
-      if (!refInput?.current?.contains(e.currentTarget)) {
-        setIsClick(false);
-      }
-    });
-  }, []);
+  useOnClickOutside(refInput, () => setIsClick(false));
 
   return (
     <Fragment>

@@ -1,10 +1,14 @@
 import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { Fragment, memo } from "react";
+import React, { Fragment, memo, Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { Link } from "react-router-dom";
 import { Products } from "../../../../interfaces/Products";
 import { productActions } from "../../../../stores/product-slice";
 import { ImgToHttp } from "../../../../utils/imageToHTTP";
+import ready from "../../../../utils/intersectionObserver";
+import ErrorFallback from "../../../components/ErrorBoundary";
+import Loader from "../../../components/UI/loader/Loader";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 
 const Sliding_products = () => {
@@ -18,6 +22,24 @@ const Sliding_products = () => {
   };
   return (
     <Fragment>
+      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
+        <Suspense
+          fallback={
+            <>
+              <Loader />
+              {React.useEffect(() => {
+                let subscribe = true;
+                if (subscribe) {
+                  ready();
+                }
+                return () => {
+                  subscribe = false;
+                };
+              })}
+            </>
+          }
+        ></Suspense>
+      </ErrorBoundary>
       <section className="mt-9 pt-[36px] pb-[24px] text-[14px] row-full ">
         <ul className=" flex relative overflow-x-auto scrollbar_hide ">
           {products_1.map((item, idx) => (
@@ -27,7 +49,12 @@ const Sliding_products = () => {
                 className=" relative min-w-[157px] max-w-[340px] sm:min-w-[344px] md:min-w-[304px] px-[8px]  cursor-pointer"
               >
                 <div className="relative">
-                  <img className="h-full w-full  object-cover " src={ImgToHttp(item.imageUrl)} alt="product" />
+                  <img
+                    className="h-full w-full object-cover "
+                    src="Skeleton-img.png"
+                    lazy-src={ImgToHttp(item.imageUrl)}
+                    alt="product"
+                  />
                   <FontAwesomeIcon
                     icon={faHeart}
                     className="fa-thin p-[8px] text-[24px] absolute bg-[#ffff] top-2 right-0 "
@@ -40,11 +67,7 @@ const Sliding_products = () => {
                   </div>
                   <div className="flex flex-col leading-[1.25rem] text-[700]">
                     <span>{item.price.previous.text}</span>
-                    <div className="text-[12px] leading-[16px]">
-                      {/* <span>Původně:</span>
-                                <span>{item.originalPrice}</span>
-                                <span>20%</span> */}
-                    </div>
+                    <div className="text-[12px] leading-[16px]"></div>
                   </div>
                 </div>
               </li>

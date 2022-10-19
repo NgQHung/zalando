@@ -4,6 +4,7 @@ import { faArrowLeftLong, faMagnifyingGlass } from "@fortawesome/free-solid-svg-
 import "./Search.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
 // import { UseOutsideClick } from "../../../../utils/useOutsideClick";
 const SearchMobile = () => {
   const navigate = useNavigate();
@@ -19,14 +20,7 @@ const SearchMobile = () => {
 
   const refInput = React.useRef<any>(null);
 
-  // outside click
-  useEffect(() => {
-    document.addEventListener("mousedown", (e: any) => {
-      if (!refInput?.current?.contains(e.target)) {
-        setSearchMobileClick(false);
-      }
-    });
-  }, []);
+  useOnClickOutside(refInput, () => setSearchMobileClick(false));
 
   // const {searchMobile, refInput} = UseOutsideClick()
 

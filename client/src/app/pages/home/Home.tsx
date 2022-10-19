@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from "react";
+import React, { Fragment, Suspense, useState } from "react";
 import "./Home.css";
 import { Products } from "../../../interfaces/Products";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -18,6 +18,7 @@ export const Home = () => {
   const products_2 = useAppSelector((state) => state.productSlice.products_2);
   const [favoriteAnimated, setFavoriteAnimated] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState<any>();
+
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));
   };
@@ -46,8 +47,6 @@ export const Home = () => {
       dispatch(cartActions.removeFavorite(selectedProduct));
     }
   }, [selectedProduct]);
-
-  // mobile
 
   return (
     <Fragment>
@@ -82,7 +81,7 @@ export const Home = () => {
             />
           </div>
         </Wrapper>
-        {/* <Wrapper className="bg-[#229967] ">
+        <Wrapper className="bg-[#229967] ">
           <div className="flex flex-col w-full h-full">
             <HOME_TOPIC />
             <HOME_PRODUCT
@@ -93,7 +92,7 @@ export const Home = () => {
               favoriteAnimated={favoriteAnimated}
             />
           </div>
-        </Wrapper> */}
+        </Wrapper>
       </div>
     </Fragment>
   );

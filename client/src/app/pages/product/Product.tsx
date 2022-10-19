@@ -8,6 +8,8 @@ import { ErrorBoundary } from "react-error-boundary";
 // containers
 import Loader from "../../components/UI/loader/Loader";
 import ErrorFallback from "../../components/ErrorBoundary";
+import { AfterRefresh } from "../../../utils/pageIsRefreshed";
+// import { CheckRefresh } from "../../../utils/pageIsRefreshed";
 
 const PRODUCT_IMAGES = React.lazy(() => import("../../containers/product/Product_Images"));
 const Sliding_products = React.lazy(() => import("../../containers/product/sliding_products"));
@@ -44,11 +46,12 @@ const Product = () => {
     }
   };
   React.useEffect(() => {
-    try {
-      getDetailProduct(dispatch, selectedId);
-    } catch (error) {
-      console.log(error);
-    }
+    if (AfterRefresh()) {
+      const getSelectedId = JSON.parse(localStorage.getItem("selectedId")!) || [];
+      if (getSelectedId !== null || selectedId) {
+        getDetailProduct(dispatch, getSelectedId);
+      } else return;
+    } else return;
   }, [selectedId]);
 
   React.useEffect(() => {
@@ -60,7 +63,13 @@ const Product = () => {
   return (
     <div className=" md:mx-6 w-auto lg:mx-auto lg:my-0 lg:max-w-[1216px] ">
       <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
-        <Suspense fallback={<Loader />}>
+        <Suspense
+          fallback={
+            <>
+              <Loader />
+            </>
+          }
+        >
           <div className="flex md:flex-row md:mt-6 flex-wrap md:flex-nowrap">
             {/* images */}
             <PRODUCT_IMAGES

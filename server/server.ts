@@ -1,11 +1,12 @@
-import express from 'express';
+import express, { Response } from 'express';
 import env from 'dotenv';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import router from './src/routes';
-import mongoose from 'mongoose';
+import mongoose, { Path } from 'mongoose';
 import cookieParser from 'cookie-parser';
 import serveStatic from 'serve-static';
+import path from 'path';
 var cors = require('cors');
 
 // PORT
@@ -14,7 +15,13 @@ const PORT = process.env.PORT || 8080;
 env.config();
 
 const app = express();
+// serve static
 app.use(serveStatic('public/ftp', { index: ['default.html', 'default.htm'] }));
+app.use('/dist', express.static(path.resolve(__dirname, '../client/dist')));
+router.get('/', (req, res: Response) => {
+  res.download(path.resolve(__dirname, '../client/public/index.html'));
+});
+app.use('/', express.static(path.join(__dirname, '../client/public/index.html')));
 app.use(cors({ credentials: true, origin: process.env.CLIENT_URI }));
 app.use(cookieParser());
 app.use(helmet());
@@ -33,6 +40,8 @@ app.use(
 /** Parse the body - middleware */
 app.use(express.json());
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+  // res.setHeader('Cache-Control', 'max-age=1209600');
+  // res.setHeader('Cache-Control', 'no-cache');
   next();
 });
 

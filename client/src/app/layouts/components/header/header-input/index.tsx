@@ -5,6 +5,7 @@ import { faBars, faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../../../hooks";
 import { mobileActions } from "../../../../../stores/mobile-slice";
+import useOnClickOutside from "../../../../hooks/useOnClickOutside";
 
 const HeaderInput = () => {
   const [isTouched, setIsTouched] = React.useState(false);
@@ -25,13 +26,7 @@ const HeaderInput = () => {
   // outside click
   let refInput = React.useRef<any>(null);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", (e: any) => {
-      if (!refInput?.current?.contains(e.target)) {
-        setIsTouched(false);
-      }
-    });
-  }, []);
+  useOnClickOutside(refInput, () => setIsTouched(false));
 
   return (
     <Fragment>
