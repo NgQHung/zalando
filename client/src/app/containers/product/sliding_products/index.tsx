@@ -9,6 +9,7 @@ import { ImgToHttp } from "../../../../utils/imageToHTTP";
 import ready from "../../../../utils/intersectionObserver";
 import ErrorFallback from "../../../components/ErrorBoundary";
 import Loader from "../../../components/UI/loader/Loader";
+import Loading from "../../../components/UI/loader/Loading";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 
 const Sliding_products = () => {
@@ -26,7 +27,8 @@ const Sliding_products = () => {
         <Suspense
           fallback={
             <>
-              <Loader />
+              <Loading />
+              {/* <div className="h-screen"/> */}
               {React.useEffect(() => {
                 let subscribe = true;
                 if (subscribe) {

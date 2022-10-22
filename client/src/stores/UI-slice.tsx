@@ -9,6 +9,7 @@ interface InitialState {
   dropdown_onHover_shoppingCart: boolean;
   amountRemoved: boolean;
   disabled: boolean;
+  loading_page: boolean;
 }
 
 const initialState: InitialState = {
@@ -20,6 +21,7 @@ const initialState: InitialState = {
   dropdown_onHover_shoppingCart: false,
   amountRemoved: false,
   disabled: false,
+  loading_page: false,
 };
 
 const UISLice = createSlice({
@@ -52,39 +54,11 @@ const UISLice = createSlice({
     disabledButton(state, action) {
       state.disabled = action.payload;
     },
+    loadingPage(state, action) {
+      state.loading_page = action.payload;
+    },
   },
 });
-
-export const loadingHandler = (dispatch: Dispatch, timeout: number, type: string) => {
-  if (type === "total") {
-    dispatch(UIActions.loading__total({ loading__total: true }));
-    setTimeout(() => {
-      dispatch(UIActions.loading__total({ loading__total: false }));
-    }, timeout);
-  }
-  if (type === "add") {
-    // console.log("hi");
-    dispatch(UIActions.loading__add({ loading__add: true }));
-    setTimeout(() => {
-      dispatch(UIActions.loading__add({ loading__add: false }));
-    }, timeout);
-  }
-};
-export const backgroundColorHandler = (dispatch: Dispatch, timeout: number) => {
-  setTimeout(() => {
-    dispatch(UIActions.backgroundColor__shoppingCart(true));
-  }, timeout / 3);
-  setTimeout(() => {
-    dispatch(UIActions.backgroundColor__shoppingCart(false));
-  }, timeout);
-};
-
-export const dropdownShoppingCartHandler = (dispatch: Dispatch, timeout: number) => {
-  dispatch(UIActions.dropdown_shoppingCart(true));
-  setTimeout(() => {
-    dispatch(UIActions.dropdown_shoppingCart(false));
-  }, timeout);
-};
 
 export const amountRemovedHandler = (dispatch: Dispatch, timeout: number) => {
   dispatch(UIActions.amountRemoved(true));

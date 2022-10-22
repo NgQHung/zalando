@@ -7,6 +7,8 @@ import { ImgToHttp } from "../../../utils/imageToHTTP";
 import ready from "../../../utils/intersectionObserver";
 import ErrorFallback from "../../components/ErrorBoundary";
 import Loader from "../../components/UI/loader/Loader";
+import Loading from "../../components/UI/loader/Loading";
+import { useAppSelector } from "../../hooks";
 
 interface IProps {
   chevronUp: boolean;
@@ -34,7 +36,7 @@ const PRODUCT_IMAGES = ({
       <Suspense
         fallback={
           <>
-            <Loader />
+            <Loading />
             {React.useEffect(() => {
               let subscribe = true;
               if (subscribe) {
@@ -79,6 +81,7 @@ const PRODUCT_IMAGES = ({
                 className="absolute bottom-0 h-6 p-2 bg-[#ffff] left-[8.333%] z-50 translate-x-[-50%] "
               />
             )}
+
             <div
               className={
                 "flex max-w-full basis-full lg:basis-[83.333%] lg:max-w-[83.333%] lg:ml-[16.666%] overflow-x-auto scrollbar_hidden"

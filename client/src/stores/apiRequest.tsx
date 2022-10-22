@@ -7,6 +7,7 @@ import { productShoppingCart } from "../interfaces/ProductShoppingCart";
 import { cartActions } from "./cart-slice";
 // import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { productActions } from "./product-slice";
+import { UIActions } from "./UI-slice";
 // import { UIActions } from "./UI-slice";
 // import UISlice, { UIActions } from "./UI-slice";
 // const axiosJWT = AxiosJWT();
@@ -36,20 +37,22 @@ export interface User {
 export const getProducts = async (dispatch: Dispatch) => {
   let response;
   try {
-    response = await axios.get(`${uriBase.server}/products`);
-    const allProducts = await response.data;
-    const products_1 = allProducts.slice(0, 14);
-    const newProducts_1 = products_1.map((product: Products) => {
-      return { ...product, isFavorite: false };
-    });
-    const products_2 = allProducts.slice(15, 30);
-    dispatch(
-      productActions.productsHandler({ allProducts: allProducts, products_1: newProducts_1, products_2: products_2 })
-    );
+    dispatch(UIActions.loadingPage(true));
+    setTimeout(async () => {
+      response = await axios.get(`${uriBase.server}/products`);
+      const allProducts = await response.data;
+      const products_1 = allProducts.slice(0, 14);
+      const newProducts_1 = products_1.map((product: Products) => {
+        return { ...product, isFavorite: false };
+      });
+      const products_2 = allProducts.slice(15, 30);
+      dispatch(
+        productActions.productsHandler({ allProducts: allProducts, products_1: newProducts_1, products_2: products_2 })
+      );
+      dispatch(UIActions.loadingPage(false));
+    }, 2000);
   } catch (error: any) {
     toast.error(error.response?.data.message);
-
-    // console.log(error);
   }
 };
 
@@ -57,13 +60,15 @@ export const getProducts = async (dispatch: Dispatch) => {
 export const getDetailProduct = async (dispatch: Dispatch, id: number) => {
   let response;
   try {
-    response = await axios.get(`${uriBase.server}/product/${id}`);
-    const detailProduct = response.data;
-    dispatch(productActions.selectedProductHandler(detailProduct));
+    dispatch(UIActions.loadingPage(true));
+    setTimeout(async () => {
+      response = await axios.get(`${uriBase.server}/product/${id}`);
+      const detailProduct = response.data;
+      dispatch(productActions.selectedProductHandler(detailProduct));
+      dispatch(UIActions.loadingPage(false));
+    }, 2000);
   } catch (error: any) {
     toast.error(error.response?.data.message);
-
-    // console.log(error);
   }
 };
 
@@ -86,7 +91,6 @@ export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: 
   }
 };
 export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
-  // console.log(data);
   const authAxios = axios.create({
     baseURL: uriBase.server,
     headers: {
@@ -95,14 +99,16 @@ export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
     withCredentials: true,
   });
   let response;
+
   try {
-    response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/shopping-cart/products`);
-    // console.log(response.data[0].data);
-    dispatch(cartActions.getShoppingCart(response.data[0].data));
+    dispatch(UIActions.loadingPage(true));
+    setTimeout(async () => {
+      response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/shopping-cart/products`);
+      dispatch(cartActions.getShoppingCart(response.data[0].data));
+      dispatch(UIActions.loadingPage(false));
+    }, 2000);
   } catch (error: any) {
     toast.error(error.response?.data.message);
-
-    // console.log(error);
   }
 };
 
@@ -115,13 +121,16 @@ export const postLikedProductById = async (dispatch: Dispatch, user: any, data: 
     },
     withCredentials: true,
   });
+
   let response;
   try {
-    response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/liked`, { data: data });
+    dispatch(UIActions.loadingPage(true));
+    setTimeout(async () => {
+      response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/liked`, { data: data });
+    }, 2000);
+    dispatch(UIActions.loadingPage(false));
   } catch (error: any) {
     toast.error(error.response?.data.message);
-
-    // console.log(error);
   }
 };
 export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
@@ -136,11 +145,8 @@ export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
   let response;
   try {
     response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/liked/products`);
-    // console.log(response.data[0].data);
     dispatch(cartActions.getLikedProduct(response.data[0].data));
   } catch (error: any) {
     toast.error(error.response?.data.message);
-
-    // console.log(error);
   }
 };

@@ -13,8 +13,10 @@ const HeaderCategory = () => {
 
   const onMouseHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.currentTarget;
-    setCategory(target.getAttribute("datatype"));
-    dispatch(UIActions.backgroundColor__header(true));
+    setTimeout(() => {
+      setCategory(target.getAttribute("datatype"));
+      dispatch(UIActions.backgroundColor__header(true));
+    }, 500);
   };
   const onMouseLeaveHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setCategory("");
@@ -24,21 +26,21 @@ const HeaderCategory = () => {
   return (
     <Fragment>
       <div className=" max-w-full lg:max-w-[1216px] lg:flex items-end text-[16px] min-h-[35px] ">
-        <div className=" hidden min-w-[925px] lg:flex justify-between text-[0.875rem] cursor-pointer ">
+        <div className=" hidden min-w-[925px] lg:flex justify-between text-[0.875rem]">
           {HeaderCategory_DATA.map((item, idx) => {
             return (
               <div
-                key={idx}
                 datatype={item}
                 onMouseEnter={onMouseHandler}
-                className="navbar_list pt-[10px] pb-[6px] px-[8px] font-[400]"
                 onMouseLeave={onMouseLeaveHandler}
+                className=" mt-[10px] mb-[6px] mx-[8px] font-[400]  navbar_list"
+                key={idx}
               >
-                <button className=" first:pl-0 ">
-                  <Link to="/clothes">
-                    <span className="affect_text">{item}</span>
-                  </Link>
-                </button>
+                {/* <div className=" "> */}
+                <span className="first:pl-0 affect_text cursor-pointer">
+                  <Link to="/clothes">{item}</Link>
+                </span>
+                {/* </div> */}
                 <div
                   className={
                     "sub_header_category_hidden absolute w-full top-full left-0 border-t border-[#efeff0] " +

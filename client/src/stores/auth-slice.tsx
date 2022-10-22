@@ -5,47 +5,71 @@ import { Dispatch } from "redux";
 import { uriBase } from "../config/uriBase";
 import { User_signup } from "../interfaces/authentication";
 import { authAxios } from "../utils/authentication/axiosAuth";
+import { UIActions } from "./UI-slice";
 // import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { userActions } from "./user-slice";
 // const axiosJWT = AxiosJWT();
 
 // request login
-export const requestLogin = async (dispatch: Dispatch, user: any, navigate: NavigateFunction, accessToken: string) => {
+export const requestLogin = (dispatch: Dispatch, user: any, navigate: NavigateFunction, accessToken: string) => {
   // let response;
   try {
-    const response = await authAxios.post(`/v1/auth/login`, user);
-    dispatch(userActions.loginHandler(response.data));
-    if (response) {
-      navigate("/");
-    }
+    dispatch(UIActions.loadingPage(true));
+    setTimeout(async () => {
+      const response = await authAxios.post(`/v1/auth/login`, user);
+      dispatch(userActions.loginHandler(response.data));
+      if (response) {
+        navigate("/");
+      }
+      dispatch(UIActions.loadingPage(false));
+    }, 2000);
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }
 };
 
 // request register
-export const requestSignup = async (dispatch: Dispatch, user: User_signup, navigate: NavigateFunction) => {
+export const requestSignup = (dispatch: Dispatch, user: User_signup, navigate: NavigateFunction) => {
   const id = toast.loading("Please wait...");
-  try {
-    const response = await authAxios.post(`/v1/auth/register`, user);
-    if (response) {
-      setTimeout(() => {
-        toast.update(id, { render: response.data.message, type: "success", isLoading: false, autoClose: 1500 });
-      }, 1500);
-      setTimeout(() => {
-        navigate("/login");
-      }, 3000);
-    }
-    // toast.success(response.data.message);
-  } catch (error: any) {
-    setTimeout(() => {
-      toast.update(id, { render: error.response?.data.message, type: "error", isLoading: false, autoClose: 1500 });
-    }, 1500);
-  }
+  // try {
+  dispatch(UIActions.loadingPage(true));
+  setTimeout(async () => {
+    await authAxios
+      .post(`/v1/auth/register`, user)
+      .then((res) => {
+        setTimeout(() => {
+          toast.update(id, { render: res.data.message, type: "success", isLoading: false, autoClose: 1500 });
+        }, 1500);
+      })
+      .then(() => {
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
+        dispatch(UIActions.loadingPage(false));
+      })
+      .catch((error) => {
+        setTimeout(() => {
+          toast.update(id, { render: error.response?.data.message, type: "error", isLoading: false, autoClose: 1500 });
+        }, 1500);
+      });
+  }, 2000);
+  // if (response) {
+  //   setTimeout(() => {
+  // toast.update(id, { render: response.data.message, type: "success", isLoading: false, autoClose: 1500 });
+  //   }, 1500);
+  //   setTimeout(() => {
+  //     navigate("/login");
+  //   }, 3000);
+  // }
+  // } catch (error: any) {
+  //   setTimeout(() => {
+  //     toast.update(id, { render: error.response?.data.message, type: "error", isLoading: false, autoClose: 1500 });
+  //   }, 1500);
+  // }
 };
 
 // request log out
-export const requestLogout = async (dispatch: Dispatch, navigate: NavigateFunction, accessToken: string) => {
+export const requestLogout = (dispatch: Dispatch, navigate: NavigateFunction, accessToken: string) => {
   const authAxios = axios.create({
     baseURL: uriBase.server,
     headers: {
@@ -55,8 +79,12 @@ export const requestLogout = async (dispatch: Dispatch, navigate: NavigateFuncti
   });
   let response;
   try {
-    response = await authAxios.post(`/v1/auth/logout`);
-    dispatch(userActions.logoutHandler());
+    dispatch(UIActions.loadingPage(true));
+    setTimeout(async () => {
+      response = await authAxios.post(`/v1/auth/logout`);
+      dispatch(userActions.logoutHandler());
+      dispatch(UIActions.loadingPage(false));
+    }, 2000);
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }

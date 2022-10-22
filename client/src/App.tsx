@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { publicRoutes } from "./app/routes";
 import { cartActions } from "./stores/cart-slice";
 import { getProducts } from "./stores/apiRequest";
-import { loadingHandler } from "./stores/UI-slice";
+import { UIActions } from "./stores/UI-slice";
 import "react-toastify/dist/ReactToastify.css";
 
 import { ToastContainer } from "react-toastify";
@@ -23,7 +23,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    loadingHandler(dispatch, 300, "total");
+    dispatch(UIActions.loading__total({ loading__total: true }));
+    setTimeout(() => {
+      dispatch(UIActions.loading__total({ loading__total: false }));
+    }, 300);
     dispatch(cartActions.calculateTotals());
   }, [addedShoppingCart]);
 

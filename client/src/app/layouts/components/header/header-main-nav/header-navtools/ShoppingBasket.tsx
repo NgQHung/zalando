@@ -11,7 +11,7 @@ import "./navtools.css";
 import { Box, ListItem, ListItemText } from "@mui/material";
 // import { motion } from "framer-motion";
 import { amountRemovedHandler, UIActions } from "../../../../../../stores/UI-slice";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 const ShoppingBasket = () => {
   const dispatch = useAppDispatch();

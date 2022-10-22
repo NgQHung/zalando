@@ -3,7 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Products } from "../../../interfaces/Products";
+import Loader from "../../components/UI/loader/Loader";
+import Loading from "../../components/UI/loader/Loading";
 import WrapperRowFull from "../../components/UI/wrapper/WrapperRowFull";
+import { useAppSelector } from "../../hooks";
 
 interface IProps {
   products: Products[];
@@ -20,10 +23,13 @@ const HOME_PRODUCT = ({
   selectedProduct,
   favoriteAnimated,
 }: IProps) => {
+  const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
+
   return (
     <WrapperRowFull className="h-[584px] bg-[#34d27b] ">
       <>
         <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
+          {loadingPage && <Loading />}
           {products.map((item: Products) => (
             <div
               key={item.id}

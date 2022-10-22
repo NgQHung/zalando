@@ -9,7 +9,7 @@
   -moz-transition: height, 0.5s linear;
   -ms-transition: height, 0.5s linear;
   -o-transition: height, 0.5s linear;
-  transition: height, 0.5s ease-out;
+  transition: height, 0.2s ease-out;
 }
 
 .navbar_list:hover .sub_header_category_hidden.sub_header_category {
@@ -17,7 +17,7 @@
   -moz-transition: height, 0.5s linear;
   -ms-transition: height, 0.5s linear;
   -o-transition: height, 0.5s linear;
-  transition: height, 0.5s ease-out;
+  transition: height, 0.2s ease-out;
   background-color: #ffff;
   max-height: 488px;
   opacity: 1;

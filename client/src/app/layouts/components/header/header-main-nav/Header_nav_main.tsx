@@ -2,7 +2,6 @@ import { faBasketShopping, faHeart, faUser } from "@fortawesome/free-solid-svg-i
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../../../hooks";
 import ShoppingBasket from "./header-navtools/ShoppingBasket";
 import User from "./header-navtools/User";
 
@@ -54,9 +53,11 @@ const HEADER_MAIN_NAV = ({
           Děti
         </li>
       </ul>
-      <Link to="/" className="basis-1/2 max-w-1/2 pl-[17px] lg:flex lg:justify-center lg:basis-1/3 lg:max-w-1/3  ">
-        <img className="w-[120px] h-full object-cover  " src="Logo.png" alt="logo" />
-      </Link>
+      <div className="basis-1/2 max-w-1/2 pl-[17px] lg:flex lg:justify-center lg:basis-1/3 lg:max-w-1/3">
+        <Link to="/" className=" w-[120px] ">
+          <img className="w-full h-full object-cover  " src="Logo.png" alt="logo" />
+        </Link>
+      </div>
       {/* logo end */}
       {/* navtools start */}
       <div className="relative basis-1/2 max-w-1/2 lg:basis-1/3 lg:max-w-1/3 flex text-[24px] space-x-[3px] justify-end ">

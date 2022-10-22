@@ -12,6 +12,7 @@ import ErrorFallback from "../../components/ErrorBoundary";
 import HOME_TOPIC from "../../containers/home/Home_topic";
 import HOME_PRODUCT from "../../containers/home/Home_product";
 import { getDetailProduct } from "../../../stores/apiRequest";
+import Loading from "../../components/UI/loader/Loading";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -57,7 +58,7 @@ export const Home = () => {
           <Suspense
             fallback={
               <>
-                <Loader />
+                <Loading />
                 {React.useEffect(() => {
                   let subscribe = true;
                   if (subscribe) {

@@ -1,15 +1,8 @@
-import React, { Fragment, useCallback, useState } from "react";
+import React, { Fragment } from "react";
 import { ProductDetail } from "../../../../interfaces/ProductDetail";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { cartActions } from "../../../../stores/cart-slice";
-import {
-  backgroundColorHandler,
-  disabledHandlerHandler,
-  dropdownShoppingCartHandler,
-  loadingHandler,
-  UIActions,
-  // UIActions,
-} from "../../../../stores/UI-slice";
+import { disabledHandlerHandler, UIActions } from "../../../../stores/UI-slice";
 import { postLikedProductById, postShoppingCartById } from "../../../../stores/apiRequest";
 import Product_info_intro from "./Product_info_intro";
 import PRODUCT_INFO_SELECTSIZE from "./Product_info_selectSize";
@@ -18,9 +11,8 @@ import PRODUCT_INFO_DETAILEDINFO from "./Product_info_detailedInfo";
 import PRODUCT_INFO_RATE from "./Product_info_rate";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import _ from "lodash";
+import { toast } from "react-toastify";
 const INTERVAL = 1000;
-
-// import { toast } from "react-toastify";
 
 interface Iprops {
   selectedProduct: ProductDetail | null;
@@ -40,9 +32,6 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   const user = useAppSelector((state) => state.userSlice.user);
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
-  // const toast = useAppSelector(state => state.)
-  // const [cartUnregisteredUser, setCartUnregisteredUser] = useState();
-  // const [likedUnregisteredUser, setLikedUnregisteredUser] = useState();
 
   const dispatch = useAppDispatch();
 
@@ -62,7 +51,6 @@ const Product_info = ({ selectedProduct }: Iprops) => {
 
   const addShoppingCartHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    console.log("hi?");
     const product = {
       id: selectedProduct?.id,
       brand: selectedProduct?.brand.name,
@@ -79,21 +67,38 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       setNameDropdown((prev) => ({ ...prev, selectSize: "selectSize" }));
       return;
     } else {
-      dispatch(cartActions.addShoppingCartHandler(product));
+      const promise = new Promise<void>((resolve) => {
+        return resolve();
+      });
+      promise
+        .then(() => {
+          dispatch(UIActions.loading__add({ loading__add: true }));
+          return new Promise((resolve) =>
+            setTimeout(() => {
+              dispatch(UIActions.loading__add({ loading__add: false }));
+              resolve(dispatch(cartActions.addShoppingCartHandler(product)));
+            }, 500)
+          );
+        })
+        .then(() => {
+          dispatch(UIActions.backgroundColor__shoppingCart(true));
+          setTimeout(() => {
+            dispatch(UIActions.backgroundColor__shoppingCart(false));
+          }, 2000);
+        })
+        .then(() => {
+          dispatch(UIActions.dropdown_shoppingCart(true));
+
+          return setTimeout(() => {
+            dispatch(UIActions.dropdown_shoppingCart(false));
+          }, 3000);
+        })
+        .catch((err) => {
+          toast.error("Something went wrong");
+        });
       disabledHandlerHandler(dispatch, 1000);
-      console.count("click counter");
-      loadingHandler(dispatch, 500, "add");
-      backgroundColorHandler(dispatch, 2000);
-      dropdownShoppingCartHandler(dispatch, 5000);
     }
   };
-
-  // preventing double click add
-  // const debouncedAddingShoppingCartHandler = _.debounce(addShoppingCartHandler, INTERVAL, {
-  //   leading: true,
-  //   trailing: false,
-  //   maxWait: INTERVAL,
-  // });
 
   const addProductFavoriteHandler = () => {
     dispatch(

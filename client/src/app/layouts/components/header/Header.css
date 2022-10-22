@@ -59,7 +59,6 @@
   max-height: 0;
   /* opacity: 0; */
   overflow: hidden;
-  /* transition: height, 0.5s ease-in-out; */
   background-color: #ffff;
   z-index: 10000;
 }
@@ -69,8 +68,7 @@
   right: -1px;
   width: 296px;
   max-height: 600px;
-  /* opacity: 1; */
-  transition: height, 0.5s ease-in-out;
+  transition: height, 0.5s ease-in-out 0.1s;
   background-color: #ffff;
   z-index: 10000;
 }
@@ -92,7 +90,7 @@
   right: -1px;
   width: 336px;
   max-height: 600px;
-  transition: height, 0.5s ease-in-out;
+  transition: height, 0.5s ease-in-out 0.1s;
   background-color: #ffff;
   z-index: 10000;
 }

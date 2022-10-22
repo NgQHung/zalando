@@ -31,6 +31,7 @@ const Header = () => {
 
   const onMouseHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.currentTarget;
+
     setDataType(target.getAttribute("datatype"));
     setOnHover(true);
   };

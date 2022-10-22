@@ -78,7 +78,7 @@ const PRODUCT_INFO_SELECTSIZE = ({
       </div>
       {/* select your size end */}
 
-      <div className="flex items-center w-full justify-between ">
+      <div className="flex items-center w-full justify-between gap-2">
         <ButtonPrimary
           onClick={addShoppingCartHandler}
           className={
@@ -91,9 +91,12 @@ const PRODUCT_INFO_SELECTSIZE = ({
         </ButtonPrimary>
         <button
           onClick={addProductFavoriteHandler}
-          className={"ml-2 h-[48px] w-[48px] border border-[#1a1a1a] outline_onHover "}
+          className={"h-[48px] w-[48px] p-2 shrink-0 border border-[#1a1a1a] outline_onHover "}
         >
-          <FontAwesomeIcon icon={faHeart} className={"p-2 h-6 w-6 " + (heartAnimated ? "favorite_added-active" : "")} />
+          <FontAwesomeIcon
+            icon={faHeart}
+            className={"h-full w-full object-cover " + (heartAnimated ? "favorite_added-active" : "")}
+          />
         </button>
       </div>
     </div>

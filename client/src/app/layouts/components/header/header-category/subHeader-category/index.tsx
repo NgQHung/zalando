@@ -4,6 +4,7 @@ import React, { Fragment, memo } from "react";
 import "./subHeader_category.css";
 import { SubHeaderCategory_DATA } from "../../../../../../utils/data";
 import Container from "../../../../container";
+import { motion } from "framer-motion";
 
 // import { Link } from "react-router-dom";
 
@@ -31,12 +32,21 @@ const SubHeaderCategory: React.FC<IProps> = ({ category }) => {
   return (
     <Fragment>
       <Container bg_color="">
-        {/* <div className=""> */}
         {dataCategory?.map((item, index) => (
           <div key={index} className="w-full flex py-[22px] px-[24px]">
             {item.type.map((type, idx) => {
               return (
-                <div key={idx} className="py-[10px] max-w-1/4 basis-1/4">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                    transition: {
+                      duration: 1,
+                    },
+                  }}
+                  key={idx}
+                  className="py-[10px] max-w-1/4 basis-1/4"
+                >
                   <h5 className=" mb-[12px] text-[18px] tracking-[-0.16px] h-[24px] font-[400] text-[#66676e] text_tiempos leading-[24px] ">
                     {type.title}
                   </h5>
@@ -47,19 +57,25 @@ const SubHeaderCategory: React.FC<IProps> = ({ category }) => {
                       </div>
                     </div>
                   ))}
-                </div>
+                </motion.div>
               );
             })}
-            {/* <div className="  "> */}
-            <div className="w-[288px] relative h-[438px] bg-red-500">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+                transition: {
+                  duration: 1.5,
+                },
+              }}
+              className="w-[288px] relative h-[438px] bg-red-500"
+            >
               <div className=" absolute right-0 top-0">
                 <img className="w-[268px] h-[385px] object-cover" src={item.image} alt={item?.title} />
               </div>
-            </div>
-            {/* </div> */}
+            </motion.div>
           </div>
         ))}
-        {/* </div> */}
       </Container>
     </Fragment>
   );
