@@ -1,24 +1,26 @@
 import React, { Fragment, memo, useCallback, useMemo } from "react";
-import { productShoppingCart } from "../../../../../interfaces/ProductShoppingCart";
-import { cartActions } from "../../../../../stores/cart-slice";
-import { formatPrice } from "../../../../../utils/formatPrice";
-import { ImgToHttp } from "../../../../../utils/imageToHTTP";
-import { useAppDispatch, useAppSelector } from "../../../../hooks";
-import Loader from "../../../../components/UI/loader/Loader";
+import { productShoppingCart } from "../../../../../../interfaces/ProductShoppingCart";
+import { cartActions } from "../../../../../../stores/cart-slice";
+import { formatPrice } from "../../../../../../utils/formatPrice";
+import { ImgToHttp } from "../../../../../../utils/imageToHTTP";
+import { useAppDispatch, useAppSelector } from "../../../../../hooks";
+import Loader from "../../../../../components/UI/loader/Loader";
 import { TransitionGroup } from "react-transition-group";
 import Collapse from "@mui/material/Collapse";
 import "./navtools.css";
 import { Box, ListItem, ListItemText } from "@mui/material";
 // import { motion } from "framer-motion";
-import { amountRemovedHandler } from "../../../../../stores/UI-slice";
+import { amountRemovedHandler, UIActions } from "../../../../../../stores/UI-slice";
+import { toast } from "react-toastify";
 
 const ShoppingBasket = () => {
   const dispatch = useAppDispatch();
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
+  // const user = useAppSelector((state) => state.userSlice.user);
+  // const cart = user === null ? JSON.parse(localStorage.getItem("cart")!).addedShoppingCart : addedShoppingCart;
   const loading__total = useAppSelector((state) => state.UISlice.loading__total);
   const total = useAppSelector((state) => state.cartSlice.total);
   const dropdownOnHover = useAppSelector((state) => state.UISlice.dropdown_onHover_shoppingCart);
-  // const user = useAppSelector((state) => state.userSlice.user);
   const amountRemoved = useAppSelector((state) => state.UISlice.amountRemoved);
 
   const lengthAddedShoppingCart = useMemo(() => addedShoppingCart.length, [addedShoppingCart.length]);
@@ -30,9 +32,11 @@ const ShoppingBasket = () => {
   const removeProductShoppingCartHandler = (id: number, size: string) => {
     dispatch(cartActions.removeShoppingCartHandler({ id: id, size: size }));
     amountRemovedHandler(dispatch, 500);
+    toast.success("Your product is deleted successfully");
   };
   const addProductFavoriteHandler = (product: productShoppingCart) => {
     dispatch(cartActions.addFavoriteHandler(product));
+    toast.success("Your product is added successfully");
   };
 
   const onScrollHandler = useCallback(() => {
@@ -112,7 +116,7 @@ const ShoppingBasket = () => {
                 >
                   <div className={"shoppingCart_border " + (emptyShoppingCart ? "shoppingCart_border-active" : "")} />
                   <TransitionGroup component="div">
-                    {addedShoppingCart.map((product: productShoppingCart, idx: number) => (
+                    {addedShoppingCart?.map((product: productShoppingCart, idx: number) => (
                       <Collapse key={idx}>
                         <ListItem className={"flex text-[14px] flex-col "}>
                           <ListItemText
@@ -215,8 +219,6 @@ const ShoppingBasket = () => {
               </div>
             </div>
           </div>
-          // </div>
-          // </div>
         )}
       </Box>
     </Fragment>

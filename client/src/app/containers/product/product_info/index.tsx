@@ -1,8 +1,13 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { ProductDetail } from "../../../../interfaces/ProductDetail";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { cartActions } from "../../../../stores/cart-slice";
-import { backgroundColorHandler, dropdownShoppingCartHandler, loadingHandler } from "../../../../stores/UI-slice";
+import {
+  backgroundColorHandler,
+  dropdownShoppingCartHandler,
+  loadingHandler,
+  UIActions,
+} from "../../../../stores/UI-slice";
 import { postLikedProductById, postShoppingCartById } from "../../../../stores/apiRequest";
 import Product_info_intro from "./Product_info_intro";
 import PRODUCT_INFO_SELECTSIZE from "./Product_info_selectSize";
@@ -10,6 +15,7 @@ import PRODUCT_INFO_BASICINFO from "./Product_info_basicInfo";
 import PRODUCT_INFO_DETAILEDINFO from "./Product_info_detailedInfo";
 import PRODUCT_INFO_RATE from "./Product_info_rate";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import { toast } from "react-toastify";
 
 interface Iprops {
   selectedProduct: ProductDetail | null;
@@ -29,6 +35,9 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   const user = useAppSelector((state) => state.userSlice.user);
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
+  // const toast = useAppSelector(state => state.)
+  // const [cartUnregisteredUser, setCartUnregisteredUser] = useState();
+  // const [likedUnregisteredUser, setLikedUnregisteredUser] = useState();
 
   const dispatch = useAppDispatch();
 
@@ -67,6 +76,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       loadingHandler(dispatch, 500, "add");
       backgroundColorHandler(dispatch, 2000);
       dropdownShoppingCartHandler(dispatch, 5000);
+      toast.success("Your product is added successfully");
     }
   };
 
@@ -84,6 +94,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       })
     );
     setHeartAnimated((prev) => !prev);
+    toast.success("Your product is added successfully");
   };
 
   const ref = React.useRef<HTMLDivElement>(null);
@@ -92,8 +103,9 @@ const Product_info = ({ selectedProduct }: Iprops) => {
 
   React.useEffect(() => {
     let subscribe = true;
+
     if (subscribe && user) {
-      console.log("send request");
+      // console.log("send request");
       postShoppingCartById(dispatch, user, addedShoppingCart);
       postLikedProductById(dispatch, user, addedLikedProduct);
     }

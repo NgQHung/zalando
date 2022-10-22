@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { UIActions } from "../../../../../stores/UI-slice";
 import { HeaderCategory_DATA } from "../../../../../utils/data";
 import { useAppDispatch } from "../../../../hooks";
-import HeaderInput from "../header-input";
-import SubHeaderCategory from "../subHeader-category";
+import HeaderInput from "./header-input";
+import SubHeaderCategory from "./subHeader-category";
 import "./header_category.css";
 
 const HeaderCategory = () => {

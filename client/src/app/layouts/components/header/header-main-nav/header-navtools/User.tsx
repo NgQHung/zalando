@@ -1,8 +1,8 @@
 import React, { Fragment, memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { requestLogout } from "../../../../../stores/auth-slice";
-import ButtonPrimary from "../../../../components/UI/button/Button";
-import { useAppDispatch, useAppSelector } from "../../../../hooks";
+import { requestLogout } from "../../../../../../stores/auth-slice";
+import ButtonPrimary from "../../../../../components/UI/button/Button";
+import { useAppDispatch, useAppSelector } from "../../../../../hooks";
 import "./navtools.css";
 
 const User = () => {
@@ -29,9 +29,9 @@ const User = () => {
                 </ButtonPrimary>
               </Link>
               <Link to="/signup" className="text-[14px] text-[#1a1a1a] ml-[16px] whitespace-normal text-left">
-                <ButtonPrimary className="text-[#6328e0] affect_text mb-1 ">
+                <button className="text-[#6328e0] affect_text mb-1 ">
                   <span>Zaregistrujte se hned teď</span>
-                </ButtonPrimary>{" "}
+                </button>{" "}
                 - trvá to jen minutu.
               </Link>
             </div>

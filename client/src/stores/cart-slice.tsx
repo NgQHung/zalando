@@ -1,5 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, Dispatch } from "@reduxjs/toolkit";
+import { User } from "../app/containers/product/product_info/types/user";
+import { ProductDetail } from "../interfaces/ProductDetail";
 import { productShoppingCart } from "../interfaces/ProductShoppingCart";
+import { AfterRefresh } from "../utils/pageIsRefreshed";
 
 export interface UserShoppingCart {
   data: {
@@ -23,6 +26,8 @@ interface InitialState {
   totalProduct: number;
   total: number;
   removedProductNotification: boolean;
+  // cartUnregisteredUser: any;
+  // likedUnregisteredUser: any[];
 }
 
 const initialState: InitialState = {
@@ -33,6 +38,8 @@ const initialState: InitialState = {
   totalProduct: 0,
   total: 0,
   removedProductNotification: false,
+  // cartUnregisteredUser: any,
+  // likedUnregisteredUser: [],
 };
 
 // const MyContext = createContext(initialState);
@@ -57,6 +64,7 @@ const cartSlice = createSlice({
       const existingProductWithSize = state.addedShoppingCart[existingProductWithSizeIndex];
 
       let updateProduct;
+      let updateStorage;
       if (existingProductWithSize) {
         const updatedProduct = {
           ...existingProductWithSize,
@@ -69,7 +77,7 @@ const cartSlice = createSlice({
       } else {
         state.addedShoppingCart.push(action.payload);
       }
-      // console.log(state.addedShoppingCart);
+      const cartLocalStorage = localStorage.setItem("cart", JSON.stringify(state.addedShoppingCart));
     },
     removeShoppingCartHandler(state, action) {
       const idProduct = action.payload.id;
@@ -99,12 +107,13 @@ const cartSlice = createSlice({
         updateProduct[existingProductWithSizeIndex] = updatedProduct;
         state.addedShoppingCart = updateProduct;
       }
+      localStorage.setItem("cart", JSON.stringify(state.addedShoppingCart));
+
       // console.log(state.addedShoppingCart);
     },
     calculateTotals(state) {
       let total = 0;
       if (state.addedShoppingCart) {
-        // console.log(current(state.addedShoppingCart));
         state.addedShoppingCart.forEach((item) => {
           total += item.amount * item.currentPrice;
         });

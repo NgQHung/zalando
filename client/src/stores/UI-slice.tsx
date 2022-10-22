@@ -1,4 +1,8 @@
 import { createSlice, Dispatch } from "@reduxjs/toolkit";
+// import { uniqueId } from "lodash";
+import { v4 as uuidv4 } from "uuid";
+import { IToast } from "../app/components/UI/toast/helpers";
+// import { Toast } from "./types/toast";
 
 interface InitialState {
   bg_color_shopping_cart: boolean;
@@ -8,6 +12,8 @@ interface InitialState {
   dropdown_shoppingCart: boolean;
   dropdown_onHover_shoppingCart: boolean;
   amountRemoved: boolean;
+  // toast: IToast[];
+  toast: IToast;
 }
 
 const initialState: InitialState = {
@@ -18,6 +24,7 @@ const initialState: InitialState = {
   dropdown_shoppingCart: false,
   dropdown_onHover_shoppingCart: false,
   amountRemoved: false,
+  toast: { type: "", content: "" },
 };
 
 const UISLice = createSlice({
@@ -47,6 +54,24 @@ const UISLice = createSlice({
     amountRemoved(state, action) {
       state.amountRemoved = action.payload;
     },
+    // toast(state, action) {
+    //   const { type, content } = action.payload;
+    //   state.toast.push({
+    //     id: uuidv4(),
+    //     type: type,
+    //     content: content,
+    //   });
+    // },
+    toast(state, action) {
+      const { type, content } = action.payload;
+      state.toast.type = type;
+      state.toast.content = content;
+    },
+    // removeToast(state, action) {
+    //   const newToast = state.toast.filter((item) => item.id !== action.payload);
+    //   state.toast = [...newToast];
+    //   console.log(state.toast);
+    // },
   },
 });
 

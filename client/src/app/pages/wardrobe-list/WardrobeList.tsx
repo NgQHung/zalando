@@ -10,7 +10,6 @@ import WardrobePopup_Share from "../../containers/wardrobe-list/WardrobePopup_Sh
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 const WardrobeList = () => {
-  // const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
   const [notification, setNotification] = React.useState(false);
   const [optionPopup, setOptionPopup] = React.useState(false);
   const [shareProduct, setShareProduct] = React.useState(false);

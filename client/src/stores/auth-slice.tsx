@@ -1,5 +1,6 @@
 import axios from "axios";
 import { NavigateFunction } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Dispatch } from "redux";
 import { uriBase } from "../config/uriBase";
 import { User_signup } from "../interfaces/authentication";
@@ -10,26 +11,33 @@ import { userActions } from "./user-slice";
 
 // request login
 export const requestLogin = async (dispatch: Dispatch, user: any, navigate: NavigateFunction, accessToken: string) => {
+  let response;
   try {
-    const response = await authAxios.post(`/v1/auth/login`, user);
+    response = await authAxios.post(`/v1/auth/login`, user);
     dispatch(userActions.loginHandler(response.data));
     if (response) {
       navigate("/");
     }
+    console.log(response);
+    // toast.success(response?.data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    toast.error(response?.data);
   }
 };
 
 // request register
 export const requestSignup = async (dispatch: Dispatch, user: User_signup, navigate: NavigateFunction) => {
+  let response;
   try {
-    const response = await axios.post(`/v1/auth/register`, user);
+    response = await axios.post(`/v1/auth/register`, user);
     if (response) {
       navigate("/login");
     }
+    // toast.success(response?.data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    toast.error(response?.data);
   }
 };
 
@@ -42,10 +50,12 @@ export const requestLogout = async (dispatch: Dispatch, navigate: NavigateFuncti
     },
     withCredentials: true,
   });
+  let response;
   try {
-    await authAxios.post(`/v1/auth/logout`);
+    response = await authAxios.post(`/v1/auth/logout`);
     dispatch(userActions.logoutHandler());
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    toast.error(response?.data);
   }
 };

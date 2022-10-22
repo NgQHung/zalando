@@ -9,6 +9,8 @@ import { ErrorBoundary } from "react-error-boundary";
 import Loader from "../../components/UI/loader/Loader";
 import ErrorFallback from "../../components/ErrorBoundary";
 import { AfterRefresh } from "../../../utils/pageIsRefreshed";
+import { cartActions } from "../../../stores/cart-slice";
+import React_Toast from "../../components/UI/toast/React-toast";
 // import { CheckRefresh } from "../../../utils/pageIsRefreshed";
 
 const PRODUCT_IMAGES = React.lazy(() => import("../../containers/product/Product_Images"));
@@ -20,6 +22,9 @@ const Product = () => {
   const selectedProduct = useAppSelector((state) => state.productSlice.selectedProduct);
   const isImage = selectedProduct?.media?.images!;
   const firstImage = isImage && selectedProduct?.media?.images[0].url!;
+  // const user = useAppSelector((state) => state.userSlice.user);
+  // const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
+  // const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
 
   const dispatch = useAppDispatch();
   const [imageShow, setImageShow] = React.useState<string>("");
@@ -60,8 +65,15 @@ const Product = () => {
     } else return;
   }, [firstImage]);
 
+  // let cart = JSON.parse(localStorage.getItem("cart")!);
+
+  // React.useEffect(() => {
+  //   console.log(cart);
+  // }, [cart]);
+
   return (
     <div className=" md:mx-6 w-auto lg:mx-auto lg:my-0 lg:max-w-[1216px] ">
+      <React_Toast />
       <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
         <Suspense
           fallback={

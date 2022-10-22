@@ -49,6 +49,7 @@ const HOME_PRODUCT = ({
                     src="Skeleton-img.png"
                     className=" w-[288px] h-[415px] object-cover"
                     lazy-src={`https://${item.imageUrl}`}
+                    // lazy-src="Img-topic-1.png"
                     alt="product"
                   />
                   <div className=" leading-[20px] pt-2">

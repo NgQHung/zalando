@@ -2,8 +2,8 @@ import React, { Fragment, memo } from "react";
 // import { motion } from "framer-motion";
 // import { Link } from "react-router-dom";
 import "./subHeader_category.css";
-import { SubHeaderCategory_DATA } from "../../../../../utils/data";
-import Container from "../../../container";
+import { SubHeaderCategory_DATA } from "../../../../../../utils/data";
+import Container from "../../../../container";
 
 // import { Link } from "react-router-dom";
 

@@ -4,7 +4,6 @@ import "./index.css";
 import "./resetCss.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-
 import store from "./stores";
 import { Provider } from "react-redux";
 

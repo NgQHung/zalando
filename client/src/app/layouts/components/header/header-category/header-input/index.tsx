@@ -3,9 +3,9 @@ import "./HeaderInput.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../../../hooks";
-import { mobileActions } from "../../../../../stores/mobile-slice";
-import useOnClickOutside from "../../../../hooks/useOnClickOutside";
+import { useAppDispatch } from "../../../../../hooks";
+import { mobileActions } from "../../../../../../stores/mobile-slice";
+import useOnClickOutside from "../../../../../hooks/useOnClickOutside";
 
 const HeaderInput = () => {
   const [isTouched, setIsTouched] = React.useState(false);

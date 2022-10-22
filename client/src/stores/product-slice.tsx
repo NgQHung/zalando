@@ -7,7 +7,7 @@ interface InitialState {
   products_1: Products[]; // products to show 2
   products_2: Products[]; // products to show 2
   selectedProduct: ProductDetail | null; // detail selected product
-  selectedId: any;
+  selectedId: number | null;
 }
 
 const initialState: InitialState = {
@@ -32,6 +32,7 @@ const productSlice = createSlice({
     },
     selectedIdHandler(state, action) {
       state.selectedId = action.payload;
+      localStorage.setItem("selectedId", JSON.stringify(action.payload));
     },
   },
 });

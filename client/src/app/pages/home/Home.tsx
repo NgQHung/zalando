@@ -11,6 +11,7 @@ import Loader from "../../components/UI/loader/Loader";
 import ErrorFallback from "../../components/ErrorBoundary";
 import HOME_TOPIC from "../../containers/home/Home_topic";
 import HOME_PRODUCT from "../../containers/home/Home_product";
+import { getDetailProduct } from "../../../stores/apiRequest";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ export const Home = () => {
 
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));
+    getDetailProduct(dispatch, id);
   };
 
   const favoriteHandler = (selectedProduct: Products) => {
@@ -36,7 +38,7 @@ export const Home = () => {
       setSelectedProduct(initProduct);
     }
   };
-  console.log("rendered");
+  // console.log("rendered");
 
   React.useEffect(() => {
     if (selectedProduct) {
