@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import express, { Response, Request, NextFunction } from 'express';
 import { GlobalArr } from '../store/resfreshTokens';
+import { AxiosError } from 'axios';
 
 const tokenController = {
   // create access token
@@ -40,10 +41,11 @@ const tokenController = {
         return res.status(200).json({ accessToken: newAccessToken });
       });
     } catch (error) {
-      // return res.status(500).json(error);
+      const err = error as AxiosError;
       return res.status(500).json({
         data: null,
-        msg: 'Oops!!! Something went wrong.',
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
       });
     }
   },

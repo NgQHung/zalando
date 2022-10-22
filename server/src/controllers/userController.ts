@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import ShoppingCart from '../models/userShoppingCart';
 import LikedProductModel from '../models/userLiked';
 import User from '../models/user';
+import { AxiosError } from 'axios';
 
 const userController = {
   // get all users
@@ -10,9 +11,11 @@ const userController = {
       const allUsers = await User.find();
       return res.status(200).json(allUsers);
     } catch (error) {
+      const err = error as AxiosError;
       return res.status(500).json({
         data: null,
-        msg: 'Oops!!! Something went wrong.',
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
       });
     }
   },
@@ -24,7 +27,12 @@ const userController = {
       const user = await User.findById(id);
       return res.status(200).json('User is deleted successfully');
     } catch (error) {
-      return res.status(500).json({ data: null, msg: 'Oops!!! Something went wrong.' });
+      const err = error as AxiosError;
+      return res.status(500).json({
+        data: null,
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
+      });
     }
   },
   addProductToShoppingCart: async (req: Request, res: Response) => {
@@ -54,12 +62,14 @@ const userController = {
 
       // return res.status(200).json({ id: id, data: data, result: all });
       return res.status(200).json({
-        msg: `Product ${data?.name} is added successfully`,
+        message: `Product ${data?.name} is added successfully`,
       });
     } catch (error) {
+      const err = error as AxiosError;
       return res.status(500).json({
         data: null,
-        msg: 'Oops!!! Something went wrong.',
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
       });
     }
   },
@@ -91,12 +101,14 @@ const userController = {
 
       // return res.status(200).json({ id: id, data: data, result: all });
       return res.status(200).json({
-        msg: `Product is added successfully`,
+        message: `Product is added to liked successfully`,
       });
     } catch (error) {
+      const err = error as AxiosError;
       return res.status(500).json({
         data: null,
-        msg: 'Oops!!! Something went wrong.',
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
       });
     }
   },
@@ -107,9 +119,11 @@ const userController = {
       const all = await ShoppingCart.find({ _id: id });
       return res.status(200).json(all);
     } catch (error) {
+      const err = error as AxiosError;
       return res.status(500).json({
         data: null,
-        msg: 'Oops!!! Something went wrong.',
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
       });
     }
   },
@@ -119,9 +133,11 @@ const userController = {
       const all = await LikedProductModel.find({ _id: id });
       return res.status(200).json(all);
     } catch (error) {
+      const err = error as AxiosError;
       return res.status(500).json({
         data: null,
-        msg: 'Oops!!! Something went wrong.',
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
       });
     }
   },

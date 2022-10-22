@@ -2,13 +2,38 @@ import express, { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/user';
 import tokenController from './tokenController';
+import validator from 'validator';
 import { GlobalArr } from '../store/resfreshTokens';
+import { AxiosError } from 'axios';
 
 const authController = {
   register: async (req: Request, res: Response) => {
     const { password, firstName, email } = req.body;
+    let errors;
+
     try {
       // hash the password
+      if (!validator.isStrongPassword(password)) {
+        errors = 'Password is not strong enough';
+      }
+      if (!validator.isEmail(email)) {
+        errors = 'Email is not valid';
+      }
+      if (!email || !password) {
+        errors = 'All field must not be empty';
+      }
+      const exist = await User.findOne({ email });
+
+      if (exist) {
+        errors = 'Email already in use';
+      }
+      if (exist || errors) {
+        return res.status(404).json({
+          message: errors,
+
+          data: null,
+        });
+      }
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -23,9 +48,11 @@ const authController = {
       const user = await newUser.save();
       return res.status(200).json(user);
     } catch (error) {
-      // return res.status(500).json(error);
+      const err = error as AxiosError;
       return res.status(500).json({
-        msg: 'Oops!!! Something went wrong.',
+        data: null,
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
       });
     }
   },
@@ -34,12 +61,15 @@ const authController = {
     const user = await User.findOne({ email: req.body.email });
     try {
       if (!user) {
-        return res.status(404).json('Incorrect email!!! Please make sure your email is correct');
+        return res.status(404).json({ data: null, message: 'Incorrect email!' });
         // return res.status(404).json({msg: ''})
       }
       const isPasswordMatch = user && user.password ? await bcrypt.compare(req.body.password, user.password) : false;
       if (!isPasswordMatch) {
-        return res.status(404).json('Incorrect password!!! Please make sure your password is correct');
+        return res.status(404).json({ data: null, message: 'Incorrect password!' });
+      }
+      if (!user || !isPasswordMatch) {
+        return res.status(404).json({ data: null, message: 'All field must not be empty' });
       }
 
       const admin = user && user.admin ? user.admin : false;
@@ -59,7 +89,12 @@ const authController = {
 
       return res.status(200).json({ ...others, accessToken });
     } catch (error) {
-      return res.status(500).json(error);
+      const err = error as AxiosError;
+      return res.status(500).json({
+        data: null,
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
+      });
     }
   },
   logout: async (req: Request, res: Response) => {
@@ -68,8 +103,11 @@ const authController = {
       GlobalArr.refreshTokens = GlobalArr.refreshTokens.filter((token) => token !== req.cookies.refreshToken);
       return res.status(200).json('You are logged out successfully');
     } catch (error) {
+      const err = error as AxiosError;
       return res.status(500).json({
-        msg: 'Oops!!! Something went wrong.',
+        data: null,
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
       });
     }
   },

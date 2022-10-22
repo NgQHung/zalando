@@ -1,6 +1,6 @@
 import ProductModel from '../models/products';
 import express, { Request, Response, NextFunction } from 'express';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import ProductDetailModel from '../models/productDetail';
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
@@ -9,10 +9,11 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
     products = await ProductModel.find({});
     return res.json(products);
   } catch (error) {
-    // console.log(error);
+    const err = error as AxiosError;
     return res.status(500).json({
       data: null,
-      msg: 'Oops!!! Something went wrong.',
+      message: 'Oops!!! Something went wrong.',
+      error: err.message,
     });
   }
 };
@@ -25,11 +26,11 @@ export const getProductsDetail = async (req: Request, res: Response, next: NextF
     product = existingProduct;
     return res.status(200).json(product);
   } catch (error) {
-    console.log(error);
-    // return res.status(500).json(error);
+    const err = error as AxiosError;
     return res.status(500).json({
       data: null,
-      msg: 'Oops!!! Something went wrong.',
+      message: 'Oops!!! Something went wrong.',
+      error: err.message,
     });
   }
 };
