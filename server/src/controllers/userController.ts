@@ -41,9 +41,9 @@ const userController = {
 
     try {
       const existingId = await ShoppingCart.findOne({ _id: id });
-
+      let product;
       if (existingId) {
-        await ShoppingCart.findOneAndUpdate(
+        product = await ShoppingCart.findOneAndUpdate(
           {
             _id: id,
           },
@@ -54,7 +54,7 @@ const userController = {
           { data: data }
         );
       } else {
-        await ShoppingCart.create({
+        product = await ShoppingCart.create({
           _id: id,
           data: [data],
         });
@@ -62,6 +62,7 @@ const userController = {
 
       // return res.status(200).json({ id: id, data: data, result: all });
       return res.status(200).json({
+        data: product,
         message: `Product ${data?.name} is added successfully`,
       });
     } catch (error) {
@@ -80,9 +81,9 @@ const userController = {
 
     try {
       const existingId = await LikedProductModel.findOne({ _id: id });
-
+      let product;
       if (existingId) {
-        await LikedProductModel.findOneAndUpdate(
+        product = await LikedProductModel.findOneAndUpdate(
           {
             _id: id,
           },
@@ -93,7 +94,7 @@ const userController = {
           { data: data }
         );
       } else {
-        await LikedProductModel.create({
+        product = await LikedProductModel.create({
           _id: id,
           data: [data],
         });
@@ -101,6 +102,7 @@ const userController = {
 
       // return res.status(200).json({ id: id, data: data, result: all });
       return res.status(200).json({
+        data: product,
         message: `Product is added to liked successfully`,
       });
     } catch (error) {
