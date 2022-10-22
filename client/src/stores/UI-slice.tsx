@@ -1,8 +1,4 @@
 import { createSlice, Dispatch } from "@reduxjs/toolkit";
-// import { uniqueId } from "lodash";
-import { v4 as uuidv4 } from "uuid";
-import { IToast } from "../app/components/UI/toast/helpers";
-// import { Toast } from "./types/toast";
 
 interface InitialState {
   bg_color_shopping_cart: boolean;
@@ -12,8 +8,7 @@ interface InitialState {
   dropdown_shoppingCart: boolean;
   dropdown_onHover_shoppingCart: boolean;
   amountRemoved: boolean;
-  // toast: IToast[];
-  toast: IToast;
+  disabled: boolean;
 }
 
 const initialState: InitialState = {
@@ -24,7 +19,7 @@ const initialState: InitialState = {
   dropdown_shoppingCart: false,
   dropdown_onHover_shoppingCart: false,
   amountRemoved: false,
-  toast: { type: "", content: "" },
+  disabled: false,
 };
 
 const UISLice = createSlice({
@@ -54,24 +49,9 @@ const UISLice = createSlice({
     amountRemoved(state, action) {
       state.amountRemoved = action.payload;
     },
-    // toast(state, action) {
-    //   const { type, content } = action.payload;
-    //   state.toast.push({
-    //     id: uuidv4(),
-    //     type: type,
-    //     content: content,
-    //   });
-    // },
-    toast(state, action) {
-      const { type, content } = action.payload;
-      state.toast.type = type;
-      state.toast.content = content;
+    disabledButton(state, action) {
+      state.disabled = action.payload;
     },
-    // removeToast(state, action) {
-    //   const newToast = state.toast.filter((item) => item.id !== action.payload);
-    //   state.toast = [...newToast];
-    //   console.log(state.toast);
-    // },
   },
 });
 
@@ -110,6 +90,14 @@ export const amountRemovedHandler = (dispatch: Dispatch, timeout: number) => {
   dispatch(UIActions.amountRemoved(true));
   setTimeout(() => {
     dispatch(UIActions.amountRemoved(false));
+  }, timeout);
+};
+export const disabledHandlerHandler = (dispatch: Dispatch, timeout: number) => {
+  let timeoutVar;
+  dispatch(UIActions.disabledButton(true));
+  clearTimeout(timeoutVar);
+  timeoutVar = setTimeout(() => {
+    dispatch(UIActions.disabledButton(false));
   }, timeout);
 };
 

@@ -1,6 +1,7 @@
 import { faEnvelope, faEye, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo } from "react";
+import { Link } from "react-router-dom";
 import ButtonPrimary from "../../components/UI/button/Button";
 
 interface IProps {
@@ -16,7 +17,9 @@ const LOGIN_FORM = ({ onSubmitHandler, refInput, isClick, typeInput, onClickHand
   return (
     <section className="login_section tex-center mx-auto my-0 border border-b-[#a0a0a0] pb-12 ">
       <div className="login_header_logo max-w-[1216px] mx-auto my-0 text-left px-6 pt-4 pb-6">
-        <img className="h-[25px] object-cover leading-[25px]" src="Logo.png" alt="logo" />
+        <Link to="/home-page">
+          <img className="h-[25px] object-cover leading-[25px]" src="Logo.png" alt="logo" />
+        </Link>
       </div>
       <div className="login_content max-w-[33.33333%] px-6 basis-1/3 mx-auto my-0">
         <p className="font-[700] text-[28px] ">Vítejte zpět</p>

@@ -1,4 +1,5 @@
 import { createSlice, Dispatch } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { User } from "../app/containers/product/product_info/types/user";
 import { ProductDetail } from "../interfaces/ProductDetail";
 import { productShoppingCart } from "../interfaces/ProductShoppingCart";
@@ -64,7 +65,6 @@ const cartSlice = createSlice({
       const existingProductWithSize = state.addedShoppingCart[existingProductWithSizeIndex];
 
       let updateProduct;
-      let updateStorage;
       if (existingProductWithSize) {
         const updatedProduct = {
           ...existingProductWithSize,
@@ -77,7 +77,7 @@ const cartSlice = createSlice({
       } else {
         state.addedShoppingCart.push(action.payload);
       }
-      const cartLocalStorage = localStorage.setItem("cart", JSON.stringify(state.addedShoppingCart));
+      toast.success("Your product is added successfully");
     },
     removeShoppingCartHandler(state, action) {
       const idProduct = action.payload.id;
@@ -107,7 +107,7 @@ const cartSlice = createSlice({
         updateProduct[existingProductWithSizeIndex] = updatedProduct;
         state.addedShoppingCart = updateProduct;
       }
-      localStorage.setItem("cart", JSON.stringify(state.addedShoppingCart));
+      // toast.success("Your product is deleted successfully");
 
       // console.log(state.addedShoppingCart);
     },
@@ -125,16 +125,15 @@ const cartSlice = createSlice({
       state.removedProductNotification = action.payload;
     },
     addFavoriteHandler(state, action) {
-      // console.log(action.payload);
       const idProduct = action.payload.id;
       const existingProductIndex = state.addedFavorite.findIndex((product) => product.id === idProduct);
       const existingProduct = state.addedFavorite[existingProductIndex];
-      // let updateProduct
       if (existingProduct) {
         return;
       } else {
         state.addedFavorite = [...state.addedFavorite, action.payload];
       }
+      toast.success("Your product is added successfully");
     },
     removeFavorite(state, action) {
       const idProduct = action?.payload?.id;

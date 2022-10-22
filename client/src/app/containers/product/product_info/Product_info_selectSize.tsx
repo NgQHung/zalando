@@ -9,7 +9,7 @@ interface IProps {
   sizeProduct: string;
   dropdownHandler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   sizeProductHandler: (size: string) => void;
-  addShoppingCartHandler: () => void;
+  addShoppingCartHandler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   addProductFavoriteHandler: () => void;
   bg_color_shopping_cart: boolean;
   loading__add: boolean;

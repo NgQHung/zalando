@@ -91,7 +91,7 @@ const HEADER_MAIN_NAV = ({
           {/* </div> */}
           <div
             className={
-              "navtools__basket-hidden " +
+              "navtools__basket-hidden z-[10000] " +
               (dataType === "shopping-cart" && onHover
                 ? "navtools__basket"
                 : dropdown_shoppingCart

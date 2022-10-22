@@ -17,7 +17,7 @@
   width: 102%;
   top: 100%;
   left: -0.5px;
-  z-index: 100;
+  z-index: 10001;
   transition: background-color 0.15s ease-in-out;
 }
 .navtools__add {
@@ -33,7 +33,7 @@
   width: 102%;
   top: 100%;
   left: -0.5px;
-  z-index: 100;
+  z-index: 10000;
   transition: background-color 0.15s ease-in-out;
 }
 
@@ -47,7 +47,7 @@
   width: 41px;
   top: 0;
   right: 0.5px;
-  z-index: 100;
+  z-index: 10000;
   /* transition: background-color 0.15s ease-in-out; */
 }
 
@@ -61,7 +61,7 @@
   overflow: hidden;
   /* transition: height, 0.5s ease-in-out; */
   background-color: #ffff;
-  z-index: 100;
+  z-index: 10000;
 }
 .navtools_user-hidden.navtools_user {
   position: absolute;
@@ -72,7 +72,7 @@
   /* opacity: 1; */
   transition: height, 0.5s ease-in-out;
   background-color: #ffff;
-  z-index: 100;
+  z-index: 10000;
 }
 
 .navtools__basket-hidden {
@@ -83,7 +83,7 @@
   max-height: 0;
   overflow: hidden;
   background-color: #ffff;
-  z-index: 100;
+  z-index: 10000;
 }
 .navtools__basket-hidden.navtools__basket {
   position: absolute;
@@ -94,7 +94,7 @@
   max-height: 600px;
   transition: height, 0.5s ease-in-out;
   background-color: #ffff;
-  z-index: 100;
+  z-index: 10000;
 }
 
 .header_gender {

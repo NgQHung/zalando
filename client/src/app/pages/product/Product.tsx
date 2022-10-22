@@ -9,8 +9,8 @@ import { ErrorBoundary } from "react-error-boundary";
 import Loader from "../../components/UI/loader/Loader";
 import ErrorFallback from "../../components/ErrorBoundary";
 import { AfterRefresh } from "../../../utils/pageIsRefreshed";
-import { cartActions } from "../../../stores/cart-slice";
-import React_Toast from "../../components/UI/toast/React-toast";
+// import { cartActions } from "../../../stores/cart-slice";
+// import React_Toast from "../../components/UI/toast/React-toast";
 // import { CheckRefresh } from "../../../utils/pageIsRefreshed";
 
 const PRODUCT_IMAGES = React.lazy(() => import("../../containers/product/Product_Images"));
@@ -73,7 +73,6 @@ const Product = () => {
 
   return (
     <div className=" md:mx-6 w-auto lg:mx-auto lg:my-0 lg:max-w-[1216px] ">
-      <React_Toast />
       <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
         <Suspense
           fallback={

@@ -8,8 +8,6 @@ import { getProducts } from "./stores/apiRequest";
 import { loadingHandler } from "./stores/UI-slice";
 import "react-toastify/dist/ReactToastify.css";
 
-// import Toast from "./app/components/UI/toast/Toast";
-// import React_Toast from "./app/components/UI/toast/React-toast";
 import { ToastContainer } from "react-toastify";
 
 function App() {
@@ -63,8 +61,8 @@ function App() {
       </Routes>
       <ToastContainer
         position="top-left"
-        autoClose={3000}
-        limit={4}
+        autoClose={1500}
+        // limit={4}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

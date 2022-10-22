@@ -19,7 +19,7 @@ const User = () => {
 
   return (
     <Fragment>
-      <div className="bg-white border border-black z-50 ">
+      <div className="bg-white border border-black z-[10000] ">
         <div className=" pt-[2px] relative ">
           {!user && (
             <div className=" text-[#ffff] text-center pt-4 pb-[13px] px-[10px] border_bottom">

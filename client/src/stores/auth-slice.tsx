@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { NavigateFunction } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Dispatch } from "redux";
@@ -11,33 +11,36 @@ import { userActions } from "./user-slice";
 
 // request login
 export const requestLogin = async (dispatch: Dispatch, user: any, navigate: NavigateFunction, accessToken: string) => {
-  let response;
+  // let response;
   try {
-    response = await authAxios.post(`/v1/auth/login`, user);
+    const response = await authAxios.post(`/v1/auth/login`, user);
     dispatch(userActions.loginHandler(response.data));
     if (response) {
       navigate("/");
     }
-    console.log(response);
-    // toast.success(response?.data);
-  } catch (error) {
-    // console.log(error);
-    toast.error(response?.data);
+  } catch (error: any) {
+    toast.error(error.response?.data.message);
   }
 };
 
 // request register
 export const requestSignup = async (dispatch: Dispatch, user: User_signup, navigate: NavigateFunction) => {
-  let response;
+  const id = toast.loading("Please wait...");
   try {
-    response = await axios.post(`/v1/auth/register`, user);
+    const response = await authAxios.post(`/v1/auth/register`, user);
     if (response) {
-      navigate("/login");
+      setTimeout(() => {
+        toast.update(id, { render: response.data.message, type: "success", isLoading: false, autoClose: 1500 });
+      }, 1500);
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
     }
-    // toast.success(response?.data);
-  } catch (error) {
-    // console.log(error);
-    toast.error(response?.data);
+    // toast.success(response.data.message);
+  } catch (error: any) {
+    setTimeout(() => {
+      toast.update(id, { render: error.response?.data.message, type: "error", isLoading: false, autoClose: 1500 });
+    }, 1500);
   }
 };
 
@@ -54,8 +57,7 @@ export const requestLogout = async (dispatch: Dispatch, navigate: NavigateFuncti
   try {
     response = await authAxios.post(`/v1/auth/logout`);
     dispatch(userActions.logoutHandler());
-  } catch (error) {
-    // console.log(error);
-    toast.error(response?.data);
+  } catch (error: any) {
+    toast.error(error.response?.data.message);
   }
 };
