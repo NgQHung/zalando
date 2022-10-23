@@ -33,7 +33,7 @@ const HeaderCategory = () => {
                 datatype={item}
                 onMouseEnter={onMouseHandler}
                 onMouseLeave={onMouseLeaveHandler}
-                className=" mt-[10px] mb-[6px] mx-[8px] font-[400]  navbar_list"
+                className=" mt-[10px] pb-[6px] px-[8px] font-[400] cursor-pointer navbar_list"
                 key={idx}
               >
                 {/* <div className=" "> */}

@@ -53,9 +53,10 @@ const HEADER_MAIN_NAV = ({
           Děti
         </li>
       </ul>
+      {/* logo start */}
       <div className="basis-1/2 max-w-1/2 pl-[17px] lg:flex lg:justify-center lg:basis-1/3 lg:max-w-1/3">
-        <Link to="/" className=" w-[120px] ">
-          <img className="w-full h-full object-cover  " src="Logo.png" alt="logo" />
+        <Link to="/" className="   ">
+          <img className="max-w-[120px] max-h-[60px] object-cover  " src="Logo.png" alt="logo" />
         </Link>
       </div>
       {/* logo end */}

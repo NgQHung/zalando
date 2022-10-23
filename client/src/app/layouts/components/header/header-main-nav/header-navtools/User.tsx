@@ -1,6 +1,6 @@
 import React, { Fragment, memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { requestLogout } from "../../../../../../stores/auth-slice";
+import { requestLogout } from "../../../../../../services/auth-slice";
 import ButtonPrimary from "../../../../../components/UI/button/Button";
 import { useAppDispatch, useAppSelector } from "../../../../../hooks";
 import "./navtools.css";

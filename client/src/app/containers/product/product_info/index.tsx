@@ -3,7 +3,7 @@ import { ProductDetail } from "../../../../interfaces/ProductDetail";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { cartActions } from "../../../../stores/cart-slice";
 import { disabledHandlerHandler, UIActions } from "../../../../stores/UI-slice";
-import { postLikedProductById, postShoppingCartById } from "../../../../stores/apiRequest";
+import { postLikedProductById, postShoppingCartById } from "../../../../services/apiRequest";
 import Product_info_intro from "./Product_info_intro";
 import PRODUCT_INFO_SELECTSIZE from "./Product_info_selectSize";
 import PRODUCT_INFO_BASICINFO from "./Product_info_basicInfo";
@@ -84,7 +84,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
           dispatch(UIActions.backgroundColor__shoppingCart(true));
           setTimeout(() => {
             dispatch(UIActions.backgroundColor__shoppingCart(false));
-          }, 2000);
+          }, 500);
         })
         .then(() => {
           dispatch(UIActions.dropdown_shoppingCart(true));
@@ -124,7 +124,6 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     let subscribe = true;
 
     if (subscribe && user) {
-      // console.log("send request");
       postShoppingCartById(dispatch, user, addedShoppingCart);
       postLikedProductById(dispatch, user, addedLikedProduct);
     }

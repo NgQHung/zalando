@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { User_signup } from "../../../interfaces/authentication";
-import { requestSignup } from "../../../stores/auth-slice";
+import { requestSignup } from "../../../services/auth-slice";
 import { useAppDispatch } from "../../hooks";
 import "./Signup.css";
 import SIGNUP_FORM from "../../containers/signup/Signup_Form";

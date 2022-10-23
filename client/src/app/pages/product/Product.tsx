@@ -2,13 +2,14 @@ import React, { Suspense } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import "./Product.css";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
-import { getDetailProduct } from "../../../stores/apiRequest";
+import { getDetailProduct } from "../../../services/apiRequest";
 import { ErrorBoundary } from "react-error-boundary";
 
 // containers
 import ErrorFallback from "../../components/ErrorBoundary";
 import { AfterRefresh } from "../../../utils/pageIsRefreshed";
 import Loading from "../../components/UI/loader/Loading";
+import { productActions } from "../../../stores/product-slice";
 
 const PRODUCT_IMAGES = React.lazy(() => import("../../containers/product/Product_Images"));
 const Sliding_products = React.lazy(() => import("../../containers/product/sliding_products"));
@@ -30,6 +31,11 @@ const Product = () => {
 
   const typeImageHandler = (image: string, index: number) => {
     setImageShow(ImgToHttp(image));
+  };
+
+  const selectedProductHandler = (id: number) => {
+    dispatch(productActions.selectedIdHandler(id));
+    getDetailProduct(dispatch, id);
   };
 
   const onScrollHandler = () => {
@@ -71,31 +77,31 @@ const Product = () => {
             </>
           }
         >
-          {loadingPage ? (
+          {/* {loadingPage ? (
             <>
               <Loading />
               <div className="h-screen" />
             </>
-          ) : (
-            <div className="flex md:flex-row md:mt-6 flex-wrap md:flex-nowrap">
-              {/* images */}
-              <PRODUCT_IMAGES
-                chevronUp={chevronUp}
-                onScrollHandler={onScrollHandler}
-                scrollRef={scrollRef}
-                isImage={isImage}
-                selectedProduct={selectedProduct}
-                typeImageHandler={typeImageHandler}
-                chevronDown={chevronDown}
-                imageShow={imageShow}
-              />
-              {/* content start */}
-              <Product_info selectedProduct={selectedProduct} />
-              {/* content end */}
-            </div>
-          )}
+          ) : ( */}
+          <div className="flex md:flex-row md:mt-6 flex-wrap md:flex-nowrap">
+            {/* images */}
+            <PRODUCT_IMAGES
+              chevronUp={chevronUp}
+              onScrollHandler={onScrollHandler}
+              scrollRef={scrollRef}
+              isImage={isImage}
+              selectedProduct={selectedProduct}
+              typeImageHandler={typeImageHandler}
+              chevronDown={chevronDown}
+              imageShow={imageShow}
+            />
+            {/* content start */}
+            <Product_info selectedProduct={selectedProduct} />
+            {/* content end */}
+          </div>
+          {/* )} */}
           {/* sliding products start */}
-          <Sliding_products />
+          <Sliding_products selectedProductHandler={selectedProductHandler} />
         </Suspense>
       </ErrorBoundary>
       {/* sliding products end */}

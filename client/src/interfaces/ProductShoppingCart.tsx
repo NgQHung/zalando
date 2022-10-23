@@ -5,6 +5,7 @@ export interface productShoppingCart {
   imageUrl: string;
   currentPrice: number;
   previousPrice?: number;
+  isFavorite?: boolean;
   amount: number;
   size: string;
   totalProduct: number;

@@ -16,8 +16,6 @@ import { amountRemovedHandler, UIActions } from "../../../../../../stores/UI-sli
 const ShoppingBasket = () => {
   const dispatch = useAppDispatch();
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
-  // const user = useAppSelector((state) => state.userSlice.user);
-  // const cart = user === null ? JSON.parse(localStorage.getItem("cart")!).addedShoppingCart : addedShoppingCart;
   const loading__total = useAppSelector((state) => state.UISlice.loading__total);
   const total = useAppSelector((state) => state.cartSlice.total);
   const dropdownOnHover = useAppSelector((state) => state.UISlice.dropdown_onHover_shoppingCart);

@@ -107,9 +107,6 @@ const cartSlice = createSlice({
         updateProduct[existingProductWithSizeIndex] = updatedProduct;
         state.addedShoppingCart = updateProduct;
       }
-      // toast.success("Your product is deleted successfully");
-
-      // console.log(state.addedShoppingCart);
     },
     calculateTotals(state) {
       let total = 0;

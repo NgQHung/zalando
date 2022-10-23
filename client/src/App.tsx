@@ -4,7 +4,7 @@ import DefaultLayout from "./app/layouts/DefaultLayout";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { publicRoutes } from "./app/routes";
 import { cartActions } from "./stores/cart-slice";
-import { getProducts } from "./stores/apiRequest";
+import { getProducts } from "./services/apiRequest";
 import { UIActions } from "./stores/UI-slice";
 import "react-toastify/dist/ReactToastify.css";
 

@@ -8,11 +8,20 @@ import { productActions } from "../../../../stores/product-slice";
 import { ImgToHttp } from "../../../../utils/imageToHTTP";
 import ready from "../../../../utils/intersectionObserver";
 import ErrorFallback from "../../../components/ErrorBoundary";
-import Loader from "../../../components/UI/loader/Loader";
+// import Loader from "../../../components/UI/loader/Loader";
 import Loading from "../../../components/UI/loader/Loading";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 
-const Sliding_products = () => {
+type IProps = {
+  selectedProductHandler: (id: number) => void;
+  // favoriteAnimated: boolean;
+  // selectedProduct: any;
+};
+
+const Sliding_products = ({
+  selectedProductHandler,
+}: //  selectedProduct, favoriteAnimated
+IProps) => {
   const products_1: Products[] = useAppSelector((state) => state.productSlice.products_1);
 
   const dispatch = useAppDispatch();
@@ -45,7 +54,12 @@ const Sliding_products = () => {
       <section className="mt-9 pt-[36px] pb-[24px] text-[14px] row-full ">
         <ul className=" flex relative overflow-x-auto scrollbar_hide ">
           {products_1.map((item, idx) => (
-            <Link key={idx} to={`/${item.name}`} className="first:ml-[25.4px]">
+            <Link
+              onClick={() => selectedProductHandler(item.id)}
+              key={idx}
+              to={`/${item.name}`}
+              className="first:ml-[25.4px]"
+            >
               <li
                 onClick={() => clickedProduct(item)}
                 className=" relative min-w-[157px] max-w-[340px] sm:min-w-[344px] md:min-w-[304px] px-[8px]  cursor-pointer"
@@ -59,7 +73,11 @@ const Sliding_products = () => {
                   />
                   <FontAwesomeIcon
                     icon={faHeart}
-                    className="fa-thin p-[8px] text-[24px] absolute bg-[#ffff] top-2 right-0 "
+                    className={
+                      "fa-thin p-[8px] text-[24px] absolute bg-[#ffff] top-2 right-0 "
+                      //  +
+                      // (selectedProduct?.id === item.id && favoriteAnimated ? "favorite_added-active" : "")
+                    }
                   />
                 </div>
                 <div className=" leading-[20px] pt-2">

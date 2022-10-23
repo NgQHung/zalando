@@ -5,9 +5,9 @@ import { Dispatch } from "redux";
 import { uriBase } from "../config/uriBase";
 import { User_signup } from "../interfaces/authentication";
 import { authAxios } from "../utils/authentication/axiosAuth";
-import { UIActions } from "./UI-slice";
+import { UIActions } from "../stores/UI-slice";
 // import { AxiosJWT } from "../utils/authentication/axiosJWT";
-import { userActions } from "./user-slice";
+import { userActions } from "../stores/user-slice";
 // const axiosJWT = AxiosJWT();
 
 // request login
@@ -22,7 +22,7 @@ export const requestLogin = (dispatch: Dispatch, user: any, navigate: NavigateFu
         navigate("/");
       }
       dispatch(UIActions.loadingPage(false));
-    }, 2000);
+    }, 1000);
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }
@@ -52,20 +52,7 @@ export const requestSignup = (dispatch: Dispatch, user: User_signup, navigate: N
           toast.update(id, { render: error.response?.data.message, type: "error", isLoading: false, autoClose: 1500 });
         }, 1500);
       });
-  }, 2000);
-  // if (response) {
-  //   setTimeout(() => {
-  // toast.update(id, { render: response.data.message, type: "success", isLoading: false, autoClose: 1500 });
-  //   }, 1500);
-  //   setTimeout(() => {
-  //     navigate("/login");
-  //   }, 3000);
-  // }
-  // } catch (error: any) {
-  //   setTimeout(() => {
-  //     toast.update(id, { render: error.response?.data.message, type: "error", isLoading: false, autoClose: 1500 });
-  //   }, 1500);
-  // }
+  }, 1000);
 };
 
 // request log out
@@ -84,7 +71,7 @@ export const requestLogout = (dispatch: Dispatch, navigate: NavigateFunction, ac
       response = await authAxios.post(`/v1/auth/logout`);
       dispatch(userActions.logoutHandler());
       dispatch(UIActions.loadingPage(false));
-    }, 2000);
+    }, 1000);
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }

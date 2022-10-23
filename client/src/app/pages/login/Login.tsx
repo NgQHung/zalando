@@ -2,14 +2,14 @@ import axios from "axios";
 import React, { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { User_login } from "../../../interfaces/authentication";
-import { requestLogin } from "../../../stores/auth-slice";
+import { requestLogin } from "../../../services/auth-slice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { authAxios } from "../../../utils/authentication/axiosAuth";
 import jwt_decode from "jwt-decode";
 
 import "./Login.css";
 import { userActions } from "../../../stores/user-slice";
-import { getLikedProductById, getShoppingCartById } from "../../../stores/apiRequest";
+import { getLikedProductById, getShoppingCartById } from "../../../services/apiRequest";
 import LOGIN_FORM from "../../containers/login/Login_form";
 import LOGIN_REGISTER from "../../containers/login/Login_Register";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
