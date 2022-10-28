@@ -64,7 +64,7 @@ const PRODUCT_IMAGES = ({
             >
               <ul>
                 {isImage &&
-                  selectedProduct?.media.images?.map((image, idx) => (
+                  selectedProduct?.media?.images.map((image, idx) => (
                     <li
                       key={idx}
                       onMouseEnter={() => typeImageHandler(image.url, idx)}
@@ -97,7 +97,7 @@ const PRODUCT_IMAGES = ({
               <div className="lg:hidden flex ">
                 <div className="flex ">
                   {isImage &&
-                    selectedProduct?.media.images?.map((image: any, idx) => (
+                    selectedProduct?.media?.images.map((image: any, idx) => (
                       <img
                         key={idx}
                         className="min-w-full h-auto object-cover"

@@ -2,6 +2,9 @@ import { faChevronLeft, faChevronRight, faXmark } from "@fortawesome/free-solid-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
+import { ProductDetail } from "../../../interfaces/ProductDetail";
+import { cartActions } from "../../../stores/cart-slice";
+import { ImgToHttp } from "../../../utils/imageToHTTP";
 import Overlay from "../../components/UI/overlay/Overlay";
 import { data_sizes } from "../../pages/wardrobe-list/data";
 
@@ -10,28 +13,31 @@ interface Iprop {
   refInput: React.MutableRefObject<any>;
   optionPopup: boolean;
   setOptionPopup: (state: boolean) => void;
+  selectedFavorite: any;
 }
 
-const WardrobePopup = (props: Iprop) => {
+const WardrobePopup = ({ favoriteHandler, refInput, optionPopup, setOptionPopup, selectedFavorite }: Iprop) => {
   const [selectSize, setSelectSize] = React.useState(false);
+  console.log(selectedFavorite);
+  console.log("hi");
+  // if (selectedProduct?.isFavorite === false) {
+  //   dispatch(cartActions.removeFavorite(selectedProduct));
+  // }
   const navigate = useNavigate();
 
   return (
     <div className="hidden lg:block ">
-      <Overlay optionPopup={props.optionPopup} />
+      <Overlay optionPopup={optionPopup} />
       <div className="px-6 fixed flex justify-center items-center lg:max-w-[1216px] w-full z-[10000] left-0 right-0 mx-auto">
-        <div
-          ref={props.refInput}
-          className={"flex flex-col  optionPopup " + (props.optionPopup ? "optionPopup-active" : "")}
-        >
+        <div ref={refInput} className={"flex flex-col  optionPopup " + (optionPopup ? "optionPopup-active" : "")}>
           <button className="p-4 text-right self-end ">
-            <FontAwesomeIcon onClick={() => props.setOptionPopup(false)} className="h-6 w-6 " icon={faXmark} />
+            <FontAwesomeIcon onClick={() => setOptionPopup(false)} className="h-6 w-6 " icon={faXmark} />
           </button>
           <div className="flex w-full">
             <div className="basis-[40%] min-w-[480px] max-h-[420px] min-h-[330px] max-w-[606px]">
               <img
                 className="h-full w-full object-cover pb-8 pl-8"
-                src="https://images.unsplash.com/photo-1665690366910-0c9684d50e92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+                src={ImgToHttp(selectedFavorite?.imageUrl)}
                 alt=""
               />
             </div>
@@ -76,7 +82,7 @@ const WardrobePopup = (props: Iprop) => {
                       <FontAwesomeIcon icon={faChevronRight} />
                     </button>
                     <button
-                      onClick={props.favoriteHandler}
+                      onClick={favoriteHandler}
                       className="p-4 grow flex justify-between border-y border-[#dddd] hover:bg-[#f0f0f0]"
                     >
                       <span className="text-[red]">Odstranit</span>

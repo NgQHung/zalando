@@ -53,9 +53,9 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     e.stopPropagation();
     const product = {
       id: selectedProduct?.id,
-      brand: selectedProduct?.brand.name,
+      brand: selectedProduct?.brand?.name,
       name: selectedProduct?.name,
-      imageUrl: selectedProduct?.media.images[0].url,
+      imageUrl: selectedProduct?.media?.images[0].url,
       currentPrice: selectedProduct?.price.current.value,
       previousPrice: selectedProduct?.price.previous?.value,
       isFavorite: false,
@@ -104,10 +104,10 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     dispatch(
       cartActions.addFavoriteHandler({
         id: selectedProduct?.id,
-        brand: selectedProduct?.brand.name,
+        brand: selectedProduct?.brand?.name,
         name: selectedProduct?.name,
         isFavorite: false,
-        imageUrl: selectedProduct?.media.images[0].url,
+        imageUrl: selectedProduct?.media?.images[0].url,
         currentPrice: selectedProduct?.price.current.value,
         previousPrice: selectedProduct?.price.previous?.value,
         totalProduct: selectedProduct?.price.current.value,

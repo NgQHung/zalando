@@ -1,5 +1,5 @@
 export interface ProductDetail {
-  brand: {
+  brand?: {
     brandId?: number;
     name: string;
     description?: string;
@@ -11,7 +11,7 @@ export interface ProductDetail {
     aboutMe: string;
     careInfo: string;
   };
-  media: {
+  media?: {
     catwalk?: string[];
     images: {
       url: string;
@@ -26,4 +26,5 @@ export interface ProductDetail {
     };
     previous?: { value: null | number; text: string };
   };
+  size?: string;
 }

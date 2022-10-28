@@ -7,8 +7,8 @@ interface IProps {
 
 const Wrapper = ({ children, className, ...props }: IProps) => {
   return (
-    <div className={`font-[14px]  z-[100] transition-background ${className}`} {...props}>
-      <div className="px-2 lg:max-w-[1216px] relative mx-6 md:mx-auto md:my-0 ">{children}</div>
+    <div className={`font-[14px] z-[100] transition-background ${className}`} {...props}>
+      <div className="lg:max-w-[1216px] relative mx-6 xl:mx-auto lg:my-0 md:my-0 ">{children}</div>
     </div>
   );
 };

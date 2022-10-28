@@ -1,32 +1,60 @@
 import { faBagShopping, faEllipsis, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo } from "react";
+import { ProductDetail } from "../../../interfaces/ProductDetail";
+import { Products } from "../../../interfaces/Products";
+import { SelectedProduct } from "../../../interfaces/SelectedProduct";
+import { ImgToHttp } from "../../../utils/imageToHTTP";
 
 interface IProps {
   favoriteHandler: () => void;
-  optionsHandler: () => void;
-  addShoppingCartHandler: () => void;
+  optionsHandler: (selectedProduct: ProductDetail) => void;
+  addShoppingCartHandler: (selectedProduct: ProductDetail) => void;
+  product: Products;
 }
 
-const WardrobeItems = ({ favoriteHandler, optionsHandler, addShoppingCartHandler }: IProps) => {
+const WardrobeItems = ({ favoriteHandler, optionsHandler, addShoppingCartHandler, product }: IProps) => {
   return (
     <div className="px-2">
-      <li className="relative max-w-[288px] mb-[36px] basis-full xs:basis-1/2 md:basis-1/4 mt-6">
-        <button onClick={favoriteHandler} className="h-12 w-12 text-center absolute top-3 right-0 p-3 bg-[#ffff]">
-          <FontAwesomeIcon icon={faXmark} className="h-full object-cover" />
-        </button>
-        <div className="flex flex-col absolute bottom-3 right-0">
-          <button onClick={optionsHandler} className="h-12 w-12 text-center p-3 bg-[#ffff]">
-            <FontAwesomeIcon icon={faEllipsis} className="h-full object-cover" />
+      <li className=" max-w-[288px] mb-[36px] basis-full xs:basis-1/2 md:basis-1/4 md:min-w-[25%] mt-6">
+        <div className="relative">
+          <img
+            className="w-full h-full object-cover"
+            // src="Skeleton-img.png"
+            src={ImgToHttp(product.imageUrl)}
+            alt=""
+          />
+          <button onClick={favoriteHandler} className="h-12 w-12 text-center absolute top-3 right-0 p-3 bg-[#ffff]">
+            <FontAwesomeIcon icon={faXmark} className="h-full object-cover" />
           </button>
-          <button onClick={addShoppingCartHandler} className="h-12 w-12 text-center p-3 bg-[#1a1a1a] text-[#ffff]">
-            <FontAwesomeIcon icon={faBagShopping} className="h-full object-cover" />
-          </button>
+          <div className="flex flex-col absolute bottom-3 right-0">
+            <button onClick={() => optionsHandler(product)} className="h-12 w-12 text-center p-3 bg-[#ffff]">
+              <FontAwesomeIcon icon={faEllipsis} className="h-full object-cover" />
+            </button>
+            <button
+              onClick={() => addShoppingCartHandler(product)}
+              className="h-12 w-12 text-center p-3 bg-[#1a1a1a] text-[#ffff]"
+            >
+              <FontAwesomeIcon icon={faBagShopping} className="h-full object-cover" />
+            </button>
+          </div>
         </div>
-        <img
-          src="https://images.unsplash.com/photo-1665690366910-0c9684d50e92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-          alt=""
-        />
+        <div className=" leading-[20px] pt-2">
+          <div className="pb-[8px]">
+            <h3>{product.brandName}</h3>
+            <h3>{product.name}</h3>
+          </div>
+          <div className="flex flex-col leading-[1.25rem] text-[700]">
+            <span>{product.price.current.text}</span>
+            {product.price.previous.value !== null && (
+              <div className="text-[12px] leading-[16px]">
+                <span>Původně:</span>
+                <span>{product.price.previous.text}</span>
+                <span>20%</span>
+              </div>
+            )}
+          </div>
+        </div>
       </li>
     </div>
   );

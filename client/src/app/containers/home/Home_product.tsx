@@ -13,6 +13,8 @@ interface IProps {
   favoriteHandler: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   selectedProduct: any;
   favoriteAnimated: boolean;
+  afterRefresh: boolean;
+  setAfterRefresh: (state: boolean) => void;
 }
 
 const HOME_PRODUCT = ({
@@ -21,19 +23,26 @@ const HOME_PRODUCT = ({
   favoriteHandler,
   selectedProduct,
   favoriteAnimated,
+  setAfterRefresh,
+  afterRefresh,
 }: IProps) => {
   const [favoriteLcst, setFavoriteLcst] = useState<any>([]);
   useEffect(() => {
     if (AfterRefresh()) {
       const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
       const addedFavorite = JSON.parse(getCart.cartSlice).addedFavorite;
+      if (addedFavorite) {
+        setAfterRefresh(true);
+      }
+      // console.log(addedFavorite);
+
       setFavoriteLcst(addedFavorite);
-      // if (getCart !== null || getCart) {
-      //   getDetailProduct(dispatch, getSelectedId);
-      // } else return;
     } else return;
-  }, [products]);
-  console.log(favoriteLcst);
+  }, [AfterRefresh]);
+
+  // useEffect(() => {
+  //   console.log(products[0]?.isFavorite);
+  // }, [products]);
   return (
     <WrapperRowFull className="h-[584px] bg-[#34d27b] ">
       <>
@@ -47,7 +56,11 @@ const HOME_PRODUCT = ({
                     type="checkbox"
                     icon={faHeart}
                     className={
-                      "fa-thin p-[8px] text-[24px] " + (item?.isFavorite === true ? "favorite_added-active" : "")
+                      "fa-thin p-[8px] text-[24px] " +
+                      ((favoriteLcst?.some((product: any) => product.id === item.id) && afterRefresh) ||
+                      item?.isFavorite === true
+                        ? "favorite_added-active"
+                        : "")
                     }
                   />
                   {/* ))} */}

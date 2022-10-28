@@ -1,11 +1,11 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { memo } from "react";
+import React, { Fragment, memo } from "react";
 import { Link } from "react-router-dom";
 
 const WARDROBE_SAVED_SELL = () => {
   return (
-    <div className="flex flex-col basis-1/2">
+    <Fragment>
       <Link to="lists/liked-outfits" className="wardrobe_savedOutfit  px-2 mt-2 cursor-pointer">
         <div className="p-4 bg-[#ffff]">
           <div className="wardrobe_list-head flex items-center">
@@ -41,7 +41,7 @@ const WARDROBE_SAVED_SELL = () => {
           </p>
         </div>
       </Link>
-    </div>
+    </Fragment>
   );
 };
 
