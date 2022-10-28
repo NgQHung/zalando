@@ -7,13 +7,13 @@ import { SelectedProduct } from "../../../interfaces/SelectedProduct";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 
 interface IProps {
-  favoriteHandler: () => void;
+  removeFavorite: (id: number) => void;
   optionsHandler: (selectedProduct: ProductDetail) => void;
   addShoppingCartHandler: (selectedProduct: ProductDetail) => void;
-  product: Products;
+  product: any;
 }
 
-const WardrobeItems = ({ favoriteHandler, optionsHandler, addShoppingCartHandler, product }: IProps) => {
+const WardrobeItems = ({ removeFavorite, optionsHandler, addShoppingCartHandler, product }: IProps) => {
   return (
     <div className="px-2">
       <li className=" max-w-[288px] mb-[36px] basis-full xs:basis-1/2 md:basis-1/4 md:min-w-[25%] mt-6">
@@ -24,7 +24,10 @@ const WardrobeItems = ({ favoriteHandler, optionsHandler, addShoppingCartHandler
             src={ImgToHttp(product.imageUrl)}
             alt=""
           />
-          <button onClick={favoriteHandler} className="h-12 w-12 text-center absolute top-3 right-0 p-3 bg-[#ffff]">
+          <button
+            onClick={() => removeFavorite(product.id)}
+            className="h-12 w-12 text-center absolute top-3 right-0 p-3 bg-[#ffff]"
+          >
             <FontAwesomeIcon icon={faXmark} className="h-full object-cover" />
           </button>
           <div className="flex flex-col absolute bottom-3 right-0">

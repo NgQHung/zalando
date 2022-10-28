@@ -12,34 +12,49 @@ import WardrobeItems from "../../containers/wardrobe-list/WardrobeItems";
 import WardrobeNotification from "../../containers/wardrobe-list/WardrobeNotification";
 import WardrobePopup from "../../containers/wardrobe-list/WardrobePopup";
 import WardrobePopup_Share from "../../containers/wardrobe-list/WardrobePopup_Share";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 const WardrobeList = () => {
   const [notification, setNotification] = useState(false);
   const [optionPopup, setOptionPopup] = useState(false);
   const [shareProduct, setShareProduct] = useState(false);
-  const [addedFavorite, setAddedFavorite] = useState<Products[]>([]);
+  // const [addedFavorite, setAddedFavorite] = useState<Products[]>([]);
   const [selectedFavorite, setSelectedFavorite] = useState<ProductDetail>();
+  const [selectedId, setSelectedId] = useState<number>();
+  const [selectSize, setSelectSize] = React.useState(false);
+
+  const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
+  // console.log(data);
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
-    setAddedFavorite(JSON.parse(getCart.cartSlice).addedFavorite);
-  }, []);
+  // useEffect(() => {
+  //   const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
+  //   setAddedFavorite(JSON.parse(getCart.cartSlice).addedFavorite);
+  // }, []);
 
   // const dispatch = useAppDispatch();
-  const favoriteHandler = () => {
-    //     const removedFavorite = addedFavorite.find(item => item.id === id)
-    //   dispatch(cartActions.removeFavorite(removedFavorite));
+  const removeFavorite = (id?: number) => {
+    // console.log(id);
+    let idFavorite: any = selectedId ? selectedId : id;
+
+    const removedFavorite = addedFavorite.find((item) => item.id === idFavorite);
+    dispatch(cartActions.removeFavorite(removedFavorite));
+    if (removedFavorite) {
+      setNotification(true);
+    }
+    setOptionPopup(false);
+
     // alert("product id removed");
-    setNotification(true);
   };
 
   const addShoppingCartHandler = (selectedProduct: ProductDetail) => {
     // alert("added product");
-
+    setSelectedId(selectedProduct.id);
     if (!selectedProduct.size) {
+      setSelectedFavorite(selectedProduct);
+      setSelectedId(selectedProduct.id);
       setOptionPopup(true);
+      setSelectSize(true);
       // setNameDropdown((prev) => ({ ...prev, selectSize: "selectSize" }));
       return;
     } else {
@@ -57,9 +72,6 @@ const WardrobeList = () => {
           totalProduct: selectedProduct?.price.current.value,
         })
       );
-      //   loadingHandler(dispatch, 500, "add");
-      //   backgroundColorHandler(dispatch, 2000);
-      //   dropdownShoppingCartHandler(dispatch, 5000);
     }
   };
 
@@ -69,7 +81,11 @@ const WardrobeList = () => {
 
   const optionsHandler = (selectedProduct: ProductDetail) => {
     setSelectedFavorite(selectedProduct);
+    setSelectedId(selectedProduct.id);
     setOptionPopup(true);
+    console.log(optionPopup);
+
+    // console.log(selectedProduct);
   };
 
   React.useEffect(() => {
@@ -87,17 +103,19 @@ const WardrobeList = () => {
   return (
     <>
       {notification && <WardrobeNotification />}
-      {optionPopup && selectedFavorite?.id ? (
+      {optionPopup ? (
         <WardrobePopup
           optionPopup={optionPopup}
           setOptionPopup={setOptionPopup}
           refInput={refInput}
-          favoriteHandler={favoriteHandler}
+          removeFavorite={removeFavorite}
           selectedFavorite={selectedFavorite}
+          setSelectSize={setSelectSize}
+          selectSize={selectSize}
         />
       ) : null}
       {shareProduct && <WardrobePopup_Share setShareProduct={setShareProduct} />}
-      <Wrapper className="  ">
+      <Wrapper className="">
         <>
           <div className="wardrobeList_back leading-[36px] text-[#6328e0]  text-[14px] px-2 mt-6">
             <Link to="/wardrobe" className="">
@@ -120,9 +138,9 @@ const WardrobeList = () => {
             </button>
           </div>
           <ul className="wardrobeList_images flex flex-wrap ">
-            {addedFavorite.map((product) => (
+            {addedFavorite.map((product: any) => (
               <WardrobeItems
-                favoriteHandler={favoriteHandler}
+                removeFavorite={removeFavorite}
                 optionsHandler={optionsHandler}
                 addShoppingCartHandler={addShoppingCartHandler}
                 product={product}

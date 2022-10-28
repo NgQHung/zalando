@@ -9,17 +9,26 @@ import Overlay from "../../components/UI/overlay/Overlay";
 import { data_sizes } from "../../pages/wardrobe-list/data";
 
 interface Iprop {
-  favoriteHandler: () => void;
+  removeFavorite: () => void;
   refInput: React.MutableRefObject<any>;
   optionPopup: boolean;
   setOptionPopup: (state: boolean) => void;
   selectedFavorite: any;
+  setSelectSize: (state: boolean) => void;
+  selectSize: boolean;
 }
 
-const WardrobePopup = ({ favoriteHandler, refInput, optionPopup, setOptionPopup, selectedFavorite }: Iprop) => {
-  const [selectSize, setSelectSize] = React.useState(false);
-  console.log(selectedFavorite);
-  console.log("hi");
+const WardrobePopup = ({
+  removeFavorite,
+  refInput,
+  optionPopup,
+  setOptionPopup,
+  selectedFavorite,
+  setSelectSize,
+  selectSize,
+}: Iprop) => {
+  // console.log(selectedFavorite);
+  // console.log("hi");
   // if (selectedProduct?.isFavorite === false) {
   //   dispatch(cartActions.removeFavorite(selectedProduct));
   // }
@@ -82,7 +91,7 @@ const WardrobePopup = ({ favoriteHandler, refInput, optionPopup, setOptionPopup,
                       <FontAwesomeIcon icon={faChevronRight} />
                     </button>
                     <button
-                      onClick={favoriteHandler}
+                      onClick={removeFavorite}
                       className="p-4 grow flex justify-between border-y border-[#dddd] hover:bg-[#f0f0f0]"
                     >
                       <span className="text-[red]">Odstranit</span>
