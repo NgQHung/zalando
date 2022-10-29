@@ -113,6 +113,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
         totalProduct: selectedProduct?.price.current.value,
       })
     );
+    console.log(selectedProduct);
     setHeartAnimated((prev) => !prev);
   };
 

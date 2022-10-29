@@ -1,9 +1,8 @@
 import { faBagShopping, faEllipsis, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo } from "react";
+// import { motion } from "framer-motion";
 import { ProductDetail } from "../../../interfaces/ProductDetail";
-import { Products } from "../../../interfaces/Products";
-import { SelectedProduct } from "../../../interfaces/SelectedProduct";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 
 interface IProps {
@@ -15,7 +14,7 @@ interface IProps {
 
 const WardrobeItems = ({ removeFavorite, optionsHandler, addShoppingCartHandler, product }: IProps) => {
   return (
-    <div className="px-2">
+    <div className="px-2 ">
       <li className=" max-w-[288px] mb-[36px] basis-full xs:basis-1/2 md:basis-1/4 md:min-w-[25%] mt-6">
         <div className="relative">
           <img

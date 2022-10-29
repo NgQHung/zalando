@@ -45,10 +45,15 @@ export const getProducts = async (dispatch: Dispatch) => {
       const newAllProduct = allProducts.map((item: Products) => {
         return { ...item, isFavorite: false };
       });
-      const products_1 = newAllProduct.slice(0, 14);
-      const products_2 = newAllProduct.slice(15, 30);
+      const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
+      const addedFavorite = JSON.parse(getCart.cartSlice).addedFavorite;
+      // update data from server with data from local storage
+      const map = new Map(addedFavorite.map((o: Products) => [o.id, o]));
+      const newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
+      const products_1 = newAllProducts.slice(0, 14);
+      const products_2 = newAllProducts.slice(15, 30);
       dispatch(
-        productActions.productsHandler({ allProducts: newAllProduct, products_1: products_1, products_2: products_2 })
+        productActions.productsHandler({ allProducts: newAllProducts, products_1: products_1, products_2: products_2 })
       );
       dispatch(UIActions.loadingPage(false));
     }, 1000);

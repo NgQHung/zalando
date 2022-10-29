@@ -1,9 +1,11 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Fade } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+// import { TransitionGroup } from "react-transition-group";
 import { ProductDetail } from "../../../interfaces/ProductDetail";
-import { Products } from "../../../interfaces/Products";
+// import { Products } from "../../../interfaces/Products";
 // import { SelectedProduct } from "../../../interfaces/SelectedProduct";
 import { cartActions } from "../../../stores/cart-slice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
@@ -23,18 +25,15 @@ const WardrobeList = () => {
   const [selectedFavorite, setSelectedFavorite] = useState<ProductDetail>();
   const [selectedId, setSelectedId] = useState<number>();
   const [selectSize, setSelectSize] = React.useState(false);
+  const [selectedSize, setSelectedSize] = useState<string>();
 
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
-  // console.log(data);
   const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
-  //   setAddedFavorite(JSON.parse(getCart.cartSlice).addedFavorite);
-  // }, []);
+  // const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
+  // console.log(addedShoppingCart);
 
   // const dispatch = useAppDispatch();
   const removeFavorite = (id?: number) => {
-    // console.log(id);
     let idFavorite: any = selectedId ? selectedId : id;
 
     const removedFavorite = addedFavorite.find((item) => item.id === idFavorite);
@@ -43,19 +42,16 @@ const WardrobeList = () => {
       setNotification(true);
     }
     setOptionPopup(false);
-
-    // alert("product id removed");
   };
 
-  const addShoppingCartHandler = (selectedProduct: ProductDetail) => {
-    // alert("added product");
-    setSelectedId(selectedProduct.id);
-    if (!selectedProduct.size) {
+  const addShoppingCartHandler = (selectedProduct?: ProductDetail) => {
+    setSelectedId(selectedProduct?.id);
+
+    if (!selectedSize) {
       setSelectedFavorite(selectedProduct);
-      setSelectedId(selectedProduct.id);
+      setSelectedId(selectedProduct?.id);
       setOptionPopup(true);
       setSelectSize(true);
-      // setNameDropdown((prev) => ({ ...prev, selectSize: "selectSize" }));
       return;
     } else {
       dispatch(
@@ -68,12 +64,21 @@ const WardrobeList = () => {
           previousPrice: selectedProduct?.price.previous?.value,
           isFavorite: false,
           amount: 1,
-          size: selectedProduct.size,
+          size: selectedSize,
           totalProduct: selectedProduct?.price.current.value,
         })
       );
+      setSelectedSize("");
+      setOptionPopup(false);
     }
   };
+
+  useEffect(() => {
+    console.log(selectedSize);
+
+    addShoppingCartHandler();
+    setOptionPopup(false);
+  }, [selectedSize]);
 
   let refInput = React.useRef<any>(null);
 
@@ -82,8 +87,10 @@ const WardrobeList = () => {
   const optionsHandler = (selectedProduct: ProductDetail) => {
     setSelectedFavorite(selectedProduct);
     setSelectedId(selectedProduct.id);
+    setSelectSize(false);
+
     setOptionPopup(true);
-    console.log(optionPopup);
+    // console.log(optionPopup);
 
     // console.log(selectedProduct);
   };
@@ -99,6 +106,7 @@ const WardrobeList = () => {
       subscribe = false;
     };
   }, [notification]);
+  // console.log(optionPopup);
 
   return (
     <>
@@ -112,6 +120,7 @@ const WardrobeList = () => {
           selectedFavorite={selectedFavorite}
           setSelectSize={setSelectSize}
           selectSize={selectSize}
+          setSelectedSize={setSelectedSize}
         />
       ) : null}
       {shareProduct && <WardrobePopup_Share setShareProduct={setShareProduct} />}
@@ -139,12 +148,14 @@ const WardrobeList = () => {
           </div>
           <ul className="wardrobeList_images flex flex-wrap ">
             {addedFavorite.map((product: any) => (
-              <WardrobeItems
-                removeFavorite={removeFavorite}
-                optionsHandler={optionsHandler}
-                addShoppingCartHandler={addShoppingCartHandler}
-                product={product}
-              />
+              <Fade key={product.id}>
+                <WardrobeItems
+                  removeFavorite={removeFavorite}
+                  optionsHandler={optionsHandler}
+                  addShoppingCartHandler={addShoppingCartHandler}
+                  product={product}
+                />
+              </Fade>
             ))}
           </ul>
         </>
