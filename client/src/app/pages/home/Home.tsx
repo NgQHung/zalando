@@ -32,7 +32,7 @@ export const Home = () => {
     const productIndex1 = products_1.findIndex((item) => item.name === target.getAttribute("datatype"));
     const product1 = products_1[productIndex1];
 
-    console.log(product1);
+    // console.log(product1);
     setAfterRefresh(false);
     let update;
     if (product1) {

@@ -1,6 +1,7 @@
 import { faChevronDown, faChevronUp, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { AfterRefresh } from "../../../../utils/pageIsRefreshed";
 import ButtonPrimary from "../../../components/UI/button/Button";
 import Loader from "../../../components/UI/loader/Loader";
 
@@ -15,6 +16,9 @@ interface IProps {
   loading__add: boolean;
   heartAnimated: boolean;
   nameDropdown: Record<string, any>;
+  afterRefresh: boolean;
+  setAfterRefresh: (state: boolean) => void;
+  isFavorite: boolean;
 }
 
 const PRODUCT_INFO_SELECTSIZE = ({
@@ -28,7 +32,23 @@ const PRODUCT_INFO_SELECTSIZE = ({
   loading__add,
   heartAnimated,
   nameDropdown,
+  afterRefresh,
+  setAfterRefresh,
+  isFavorite,
 }: IProps) => {
+  const [favoriteLcst, setFavoriteLcst] = useState<any>([]);
+  useEffect(() => {
+    if (AfterRefresh()) {
+      const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
+      const addedFavorite = JSON.parse(getCart.cartSlice).addedFavorite;
+      if (addedFavorite) {
+        setAfterRefresh(true);
+      }
+      // console.log(addedFavorite);
+
+      setFavoriteLcst(addedFavorite);
+    } else return;
+  }, [AfterRefresh]);
   return (
     <div className="mt-9">
       {/* select your size start */}
@@ -95,7 +115,7 @@ const PRODUCT_INFO_SELECTSIZE = ({
         >
           <FontAwesomeIcon
             icon={faHeart}
-            className={"h-full w-full object-cover " + (heartAnimated ? "favorite_added-active" : "")}
+            className={"h-full w-full object-cover " + (isFavorite ? "favorite_added-active" : "")}
           />
         </button>
       </div>

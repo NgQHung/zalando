@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { ProductDetail } from "../../../../interfaces/ProductDetail";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { cartActions } from "../../../../stores/cart-slice";
@@ -12,6 +12,7 @@ import PRODUCT_INFO_RATE from "./Product_info_rate";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import _ from "lodash";
 import { toast } from "react-toastify";
+import { productActions } from "../../../../stores/product-slice";
 const INTERVAL = 1000;
 
 interface Iprops {
@@ -19,19 +20,26 @@ interface Iprops {
 }
 
 const Product_info = ({ selectedProduct }: Iprops) => {
-  const [nameDropdown, setNameDropdown] = React.useState<Record<string, any>>({
+  const [nameDropdown, setNameDropdown] = useState<Record<string, any>>({
     selectSize: "",
     material: "",
     details: "",
     size: "",
   });
-  const [sizeProduct, setSizeProduct] = React.useState("");
-  const [heartAnimated, setHeartAnimated] = React.useState(false);
+  const [sizeProduct, setSizeProduct] = useState("");
+  const [heartAnimated, setHeartAnimated] = useState(false);
+  const [selectedFavoriteProduct, setSelectedFavoriteProduct] = useState<any>();
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const [afterRefresh, setAfterRefresh] = useState(false);
+
+  // const
   const loading__add = useAppSelector((state) => state.UISlice.loading__add);
   const bg_color_shopping_cart = useAppSelector((state) => state.UISlice.bg_color_shopping_cart);
   const user = useAppSelector((state) => state.userSlice.user);
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
+  const products_1 = useAppSelector((state) => state.productSlice.products_1);
 
   const dispatch = useAppDispatch();
 
@@ -51,6 +59,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
 
   const addShoppingCartHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
+
     const product = {
       id: selectedProduct?.id,
       brand: selectedProduct?.brand?.name,
@@ -101,19 +110,21 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   };
 
   const addProductFavoriteHandler = () => {
-    dispatch(
-      cartActions.addFavoriteHandler({
-        id: selectedProduct?.id,
-        brand: selectedProduct?.brand?.name,
-        name: selectedProduct?.name,
-        isFavorite: false,
-        imageUrl: selectedProduct?.media?.images[0].url,
-        currentPrice: selectedProduct?.price.current.value,
-        previousPrice: selectedProduct?.price.previous?.value,
-        totalProduct: selectedProduct?.price.current.value,
-      })
-    );
-    console.log(selectedProduct);
+    const productIndex1 = products_1.findIndex((item: any) => item.id === selectedProduct?.id);
+    const product1 = products_1[productIndex1];
+    setAfterRefresh(false);
+    let update;
+    if (product1) {
+      const updateProduct1 = { ...product1, isFavorite: !product1.isFavorite };
+      setSelectedFavoriteProduct(updateProduct1);
+      update = [...products_1];
+      update[productIndex1] = updateProduct1;
+      dispatch(productActions.productsHandler({ products_1: update }));
+      // setIsFavorite(updateProduct1.isFavorite);
+      // console.log(updateProduct1.isFavorite);
+    }
+    // dispatch(cartActions.addFavoriteHandler(product1));
+    // console.log(product1);
     setHeartAnimated((prev) => !prev);
   };
 
@@ -134,6 +145,25 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     };
   }, [addedShoppingCart, user]);
 
+  React.useEffect(() => {
+    if (selectedFavoriteProduct) {
+      dispatch(cartActions.addFavoriteHandler(selectedFavoriteProduct));
+    }
+
+    if (selectedFavoriteProduct?.isFavorite === false) {
+      dispatch(cartActions.removeFavorite(selectedFavoriteProduct));
+    }
+  }, [selectedFavoriteProduct]);
+
+  const selectedId = useAppSelector((state) => state.productSlice.selectedId);
+  useEffect(() => {
+    const productIndex1 = products_1.findIndex((item: any) => item.id === selectedId);
+    const product1 = products_1[productIndex1];
+    if (product1.isFavorite) {
+      setIsFavorite(true);
+    }
+  }, []);
+
   return (
     <Fragment>
       <div className="mx-6 mt-6 md:m-0 md:min-w-1/2 md:max-w-1/2 flex flex-col md:basis-1/2 ">
@@ -152,6 +182,9 @@ const Product_info = ({ selectedProduct }: Iprops) => {
             loading__add={loading__add}
             heartAnimated={heartAnimated}
             nameDropdown={nameDropdown}
+            afterRefresh={afterRefresh}
+            setAfterRefresh={setAfterRefresh}
+            isFavorite={isFavorite}
           />
           {/* select your size end */}
           {/* </div> */}
