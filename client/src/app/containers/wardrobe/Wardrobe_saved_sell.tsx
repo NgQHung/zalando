@@ -9,7 +9,7 @@ const WARDROBE_SAVED_SELL = () => {
       <Link to="lists/liked-outfits" className="wardrobe_savedOutfit  px-2 mt-2 cursor-pointer">
         <div className="p-4 bg-[#ffff]">
           <div className="wardrobe_list-head flex items-center">
-            <h2 className="wardrobe_list-title mr-auto grow text-[28px] font-[600] leading-[32px] tracking-[-0.28px] ">
+            <h2 className="wardrobe_list-title mr-auto grow text-[20px] leading-[28px] tracking-[-.2px] lg:text-[28px] font-[600] lg:leading-[32px] lg:tracking-[-0.28px] ">
               Uložené outfity
             </h2>
             <span className="h-6 w-6 text-center">
@@ -29,7 +29,7 @@ const WARDROBE_SAVED_SELL = () => {
       <Link to="lists/sell" className="wardrobe_sellYourProduct px-2 mt-2 cursor-pointer">
         <div className="p-4 bg-[#ffff] ">
           <div className="wardrobe_list-head flex items-center">
-            <h2 className="wardrobe_list-title mr-auto grow text-[28px] font-[600] leading-[32px] tracking-[-0.28px] ">
+            <h2 className="wardrobe_list-title mr-auto grow text-[20px] leading-[28px] tracking-[-.2px] lg:text-[28px] font-[600] lg:leading-[32px] lg:tracking-[-0.28px] ">
               Prodejte své předměty
             </h2>
             <span className="h-6 w-6 text-center">

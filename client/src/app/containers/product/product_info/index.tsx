@@ -16,10 +16,9 @@ import { productActions } from "../../../../stores/product-slice";
 
 interface Iprops {
   selectedProduct: ProductDetail;
-  isProductFavorite: boolean;
 }
 
-const Product_info = ({ selectedProduct, isProductFavorite }: Iprops) => {
+const Product_info = ({ selectedProduct }: Iprops) => {
   const [nameDropdown, setNameDropdown] = useState<Record<string, any>>({
     selectSize: "",
     material: "",
@@ -141,6 +140,7 @@ const Product_info = ({ selectedProduct, isProductFavorite }: Iprops) => {
 
   React.useEffect(() => {
     if (selectedFavoriteProduct) {
+      console.log(selectedFavoriteProduct);
       dispatch(cartActions.addFavoriteHandler(selectedFavoriteProduct));
     }
 
@@ -148,6 +148,10 @@ const Product_info = ({ selectedProduct, isProductFavorite }: Iprops) => {
       dispatch(cartActions.removeFavorite(selectedFavoriteProduct));
     }
   }, [selectedFavoriteProduct]);
+
+  React.useEffect(() => {
+    // const productIndex = getSelectedId
+  }, []);
 
   return (
     <Fragment>
@@ -166,7 +170,7 @@ const Product_info = ({ selectedProduct, isProductFavorite }: Iprops) => {
             loading__add={loading__add}
             nameDropdown={nameDropdown}
             selectedProduct={selectedProduct}
-            isProductFavorite={isProductFavorite}
+            selectedFavoriteProduct={selectedFavoriteProduct}
           />
           {/* select your size end */}
           <PRODUCT_INFO_BASICINFO />

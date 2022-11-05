@@ -10,18 +10,18 @@ const Wardrobe = () => {
   return (
     <Wrapper className="bg-[#efeff0]  ">
       <>
-        <div className="wardrobe_title bg-[#ffff] ">
+        <div className="wardrobe_title bg-[#ffff] row-full ">
           <div className="ml-6 p-4">
             <h1 className="text-[40px] font-[600] leading-[48px] tracking-[-0.4px]">Vaše předměty</h1>
             <h1>Všechny na jednom místě</h1>
           </div>
         </div>
-        <div className="flex py-6 mx-6 mb-6">
-          <div className="flex flex-col basis-1/2 min-w-[50%] ">
+        <div className="flex flex-col md:flex-row  py-6 mx-6 mb-6 gap-12 md:gap-0">
+          <div className="flex flex-col basis-full min-w-full md:basis-1/2 md:min-w-[50%] gap-2 md:gap-0 ">
             <WARDROBE_LIKED />
             <WARDROBE_OWN />
           </div>
-          <div className="flex flex-col basis-1/2 min-w-[50%]">
+          <div className="flex flex-col basis-1/2 min-w-[50%] gap-2">
             <WARDROBE_SAVED_SELL />
           </div>
         </div>

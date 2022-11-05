@@ -21,7 +21,6 @@ function App() {
       console.log(error);
     }
   }, []);
-  // console.log("helo?");
 
   useEffect(() => {
     dispatch(UIActions.loading__total({ loading__total: true }));

@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, Dispatch } from "@reduxjs/toolkit";
 import { ProductDetail } from "../interfaces/ProductDetail";
 import { Products } from "../interfaces/Products";
+import { productShoppingCart } from "../interfaces/ProductShoppingCart";
 
 interface InitialState {
   allProducts: Products[]; // all products
@@ -8,6 +9,7 @@ interface InitialState {
   products_2: Products[]; // products to show 2
   selectedProduct: ProductDetail; // detail selected product
   selectedId: number | null;
+  removedProduct: Products[];
 }
 
 const initialState: InitialState = {
@@ -16,6 +18,7 @@ const initialState: InitialState = {
   products_2: [],
   selectedProduct: {},
   selectedId: null,
+  removedProduct: [],
 };
 
 const productSlice = createSlice({
@@ -34,8 +37,35 @@ const productSlice = createSlice({
       state.selectedId = action.payload;
       localStorage.setItem("selectedId", JSON.stringify(action.payload));
     },
+    removedProductHandler(state, action) {
+      const { removedFavorite, restore } = action.payload;
+
+      state.removedProduct = [...removedFavorite];
+      if (restore) {
+        return;
+      }
+      setTimeout(() => {
+        state.removedProduct.pop();
+      }, 3000);
+      // console.log(state.removedProduct);
+    },
   },
 });
+
+// export const hardDeleteProduct = (
+//   dispatch: Dispatch,
+//   removedFavorite: productShoppingCart | undefined,
+//   isRestore: boolean
+// ) => {
+//   dispatch(productActions.removedProductHandler(removedFavorite));
+//   if (isRestore) {
+//     return;
+//   } else {
+//     setTimeout(() => {
+//       dispatch(productActions.removedProductHandler(null));
+//     }, 3000);
+//   }
+// };
 
 export const productActions = productSlice.actions;
 

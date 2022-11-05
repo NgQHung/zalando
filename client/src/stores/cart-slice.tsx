@@ -27,8 +27,6 @@ interface InitialState {
   totalProduct: number;
   total: number;
   removedProductNotification: boolean;
-  // cartUnregisteredUser: any;
-  // likedUnregisteredUser: any[];
 }
 
 const initialState: InitialState = {
@@ -39,8 +37,6 @@ const initialState: InitialState = {
   totalProduct: 0,
   total: 0,
   removedProductNotification: false,
-  // cartUnregisteredUser: any,
-  // likedUnregisteredUser: [],
 };
 
 // const MyContext = createContext(initialState);

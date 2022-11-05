@@ -136,7 +136,7 @@ export const ListProducts = () => {
                             {product.name}
                           </h3>
                         </div>
-                        <p className="font-400 ">{product.price.current.text}</p>
+                        <p className="font-400 ">{product?.price?.current?.text}</p>
                       </div>
                     </Card>
                     // </Link>

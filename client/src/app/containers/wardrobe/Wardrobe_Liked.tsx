@@ -18,7 +18,7 @@ const WARDROBE_LIKED = () => {
     <Link to="lists/liked" className="wardrobe_list-favorite px-2 mt-2 cursor-pointer">
       <div className="p-4 bg-[#ffff] ">
         <div className="wardrobe_list-head flex items-center">
-          <h2 className="wardrobe_list-title mr-auto grow text-[28px] font-[600] leading-[32px] tracking-[-0.28px] ">
+          <h2 className="wardrobe_list-title mr-auto grow text-[20px] leading-[28px] tracking-[-.2px] lg:text-[28px] font-[600] lg:leading-[32px] lg:tracking-[-0.28px] ">
             Oblíbené předměty
           </h2>
           <h3 className="wardrobe_list-quantity leading-[24px] font-[400] tracking-[-0.16px] whitespace-nowrap mr-3 text-[#a2a3a8]">

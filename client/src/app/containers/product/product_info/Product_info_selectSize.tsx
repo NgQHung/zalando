@@ -2,6 +2,7 @@ import { faChevronDown, faChevronUp, faHeart } from "@fortawesome/free-solid-svg
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo } from "react";
 import { ProductDetail } from "../../../../interfaces/ProductDetail";
+import { Products } from "../../../../interfaces/Products";
 import ButtonPrimary from "../../../components/UI/button/Button";
 import Loader from "../../../components/UI/loader/Loader";
 
@@ -16,7 +17,7 @@ interface IProps {
   loading__add: boolean;
   nameDropdown: Record<string, any>;
   selectedProduct: ProductDetail;
-  isProductFavorite: boolean;
+  selectedFavoriteProduct: Products;
 }
 
 const PRODUCT_INFO_SELECTSIZE = ({
@@ -30,9 +31,8 @@ const PRODUCT_INFO_SELECTSIZE = ({
   loading__add,
   nameDropdown,
   selectedProduct,
-  isProductFavorite,
+  selectedFavoriteProduct,
 }: IProps) => {
-  // console.log(selectedFavoriteProduct);
   return (
     <div className="mt-9">
       {/* select your size start */}
@@ -96,11 +96,14 @@ const PRODUCT_INFO_SELECTSIZE = ({
         <div
           datatype={selectedProduct.name}
           onClick={addProductFavoriteHandler}
-          className={"h-[48px] w-[48px] p-2 shrink-0 border border-[#1a1a1a] outline_onHover "}
+          className={"h-[48px] w-[48px] cursor-pointer p-2 shrink-0 border border-[#1a1a1a] outline_onHover "}
         >
           <FontAwesomeIcon
             icon={faHeart}
-            className={"h-full w-full object-cover " + (isProductFavorite ? "favorite_added-active" : "")}
+            className={
+              "h-full w-full object-cover " +
+              (selectedFavoriteProduct?.isFavorite === true ? "favorite_added-active" : "")
+            }
           />
         </div>
       </div>

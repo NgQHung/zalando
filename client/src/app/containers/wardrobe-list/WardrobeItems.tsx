@@ -48,11 +48,11 @@ const WardrobeItems = ({ removeFavorite, optionsHandler, addShoppingCartHandler,
             <h3>{product.name}</h3>
           </div>
           <div className="flex flex-col leading-[1.25rem] text-[700]">
-            <span>{product.price.current.text}</span>
-            {product.price.previous.value !== null && (
+            <span>{product?.price?.current?.text}</span>
+            {product?.price?.previous?.value !== null && (
               <div className="text-[12px] leading-[16px]">
                 <span>Původně:</span>
-                <span>{product.price.previous.text}</span>
+                <span>{product?.price?.previous?.text}</span>
                 <span>20%</span>
               </div>
             )}

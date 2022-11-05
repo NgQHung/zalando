@@ -19,7 +19,6 @@ const Product_info = React.lazy(() => import("../../containers/product/product_i
 const Product = () => {
   const selectedId = useAppSelector((state) => state.productSlice.selectedId);
   const selectedProduct = useAppSelector((state) => state.productSlice.selectedProduct);
-  const [isProductFavorite, setIsProductFavorite] = useState<boolean>(false);
   const allProducts = useAppSelector((state) => state.productSlice.allProducts);
 
   const isImage = selectedProduct?.media?.images!;
@@ -31,7 +30,7 @@ const Product = () => {
   const scrollRef = React.useRef<any>(null);
   const [chevronUp, setChevronUp] = React.useState(false);
   const [chevronDown, setChevronDown] = React.useState(false);
-  const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
+  // const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
 
   const typeImageHandler = (image: string, index: number) => {
     setImageShow(ImgToHttp(image));
@@ -59,7 +58,6 @@ const Product = () => {
     getDetailProduct(dispatch, selectedId);
     const productIndex = allProducts.findIndex((item: Products) => item.id === selectedId);
     const product = allProducts[productIndex];
-    setIsProductFavorite(product.isFavorite);
   }, [selectedId]);
 
   React.useEffect(() => {
@@ -93,7 +91,7 @@ const Product = () => {
               imageShow={imageShow}
             />
             {/* content start */}
-            <Product_info selectedProduct={selectedProduct} isProductFavorite={isProductFavorite} />
+            <Product_info selectedProduct={selectedProduct} />
             {/* content end */}
           </div>
           {/* sliding products start */}

@@ -6,9 +6,11 @@ import { Link } from "react-router-dom";
 // import { TransitionGroup } from "react-transition-group";
 import { ProductDetail } from "../../../interfaces/ProductDetail";
 import { Products } from "../../../interfaces/Products";
+import { productShoppingCart } from "../../../interfaces/ProductShoppingCart";
 // import { Products } from "../../../interfaces/Products";
 // import { SelectedProduct } from "../../../interfaces/SelectedProduct";
 import { cartActions } from "../../../stores/cart-slice";
+import { productActions } from "../../../stores/product-slice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
 // import { useAppDispatch, useAppSelector } from "../../hooks";
 import WardrobeItems from "../../containers/wardrobe-list/WardrobeItems";
@@ -27,8 +29,10 @@ const WardrobeList = () => {
   const [selectedId, setSelectedId] = useState<number>();
   const [selectSize, setSelectSize] = React.useState(false);
   const [selectedSize, setSelectedSize] = useState<string>();
+  const [restore, setRestore] = useState<boolean>(false);
 
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
+  const removedFavorite = useAppSelector((state) => state.productSlice.removedProduct);
   const dispatch = useAppDispatch();
   // const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   // console.log(addedShoppingCart);
@@ -39,6 +43,8 @@ const WardrobeList = () => {
 
     const removedFavorite = addedFavorite.find((item) => item.id === idFavorite);
     dispatch(cartActions.removeFavorite(removedFavorite));
+    dispatch(productActions.removedProductHandler({ removedFavorite: removedFavorite, restore: restore }));
+    // hardDeleteProduct(dispatch, removedFavorite, restore);
     if (removedFavorite) {
       setNotification(true);
     }
@@ -70,18 +76,29 @@ const WardrobeList = () => {
           totalProduct: selectedProduct?.price.current.value,
         })
       );
-      console.log(selectedProduct);
+      // console.log(selectedProduct);
       setSelectedSize("");
       setOptionPopup(false);
     }
   };
 
   useEffect(() => {
-    console.log(selectedSize);
+    // console.log(selectedSize);
 
     addShoppingCartHandler(selectedFavorite);
     setOptionPopup(false);
   }, [selectedSize]);
+
+  useEffect(() => {
+    const idRemovedProduct = removedFavorite[0]?.id;
+    const checkExistingIndex = addedFavorite.findIndex((item) => item.id === idRemovedProduct);
+    if (checkExistingIndex !== -1) {
+      return;
+    }
+    if (removedFavorite) {
+      dispatch(cartActions.addFavoriteHandler(removedFavorite));
+    }
+  }, [restore]);
 
   let refInput = React.useRef<any>(null);
 
@@ -113,7 +130,7 @@ const WardrobeList = () => {
 
   return (
     <>
-      {notification && <WardrobeNotification />}
+      {notification && <WardrobeNotification setRestore={setRestore} />}
       {optionPopup ? (
         <WardrobePopup
           optionPopup={optionPopup}
@@ -150,8 +167,8 @@ const WardrobeList = () => {
             </button>
           </div>
           <ul className="wardrobeList_images flex flex-wrap ">
-            {addedFavorite.map((product: any) => (
-              <Fade key={product.id}>
+            {addedFavorite.map((product: any, idx) => (
+              <Fade key={idx}>
                 <WardrobeItems
                   removeFavorite={removeFavorite}
                   optionsHandler={optionsHandler}

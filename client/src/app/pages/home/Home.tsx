@@ -11,14 +11,13 @@ import HOME_TOPIC from "../../containers/home/Home_topic";
 import { getDetailProduct } from "../../../services/apiRequest";
 import Loading from "../../components/UI/loader/Loading";
 import { refreshPage } from "../../../utils/refreshPage";
-const HOME_PRODUCT = lazy(() => import("../../containers/home/Home_product"));
+import HOME_PRODUCT from "../../containers/home/Home_product";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
   const products_1 = useAppSelector((state) => state.productSlice.products_1);
   const [selectedProduct, setSelectedProduct] = React.useState<any>();
   const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
-  const allProducts = useAppSelector((state) => state.productSlice.allProducts);
 
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));
@@ -26,17 +25,19 @@ export const Home = () => {
   };
 
   const favoriteHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
     const target = e.currentTarget;
-    const productIndex = allProducts.findIndex((item) => item.name === target.getAttribute("datatype"));
-    const product = allProducts[productIndex];
+    const productIndex = products_1.findIndex((item) => item.name === target.getAttribute("datatype"));
+    const product = products_1[productIndex];
+    console.log("hello");
 
     let update;
     if (product) {
       const updateProduct = { ...product, isFavorite: !product.isFavorite };
       setSelectedProduct(updateProduct);
-      update = [...allProducts];
+      update = [...products_1];
       update[productIndex] = updateProduct;
-      dispatch(productActions.productsHandler({ allProducts: update }));
+      dispatch(productActions.productsHandler({ products_1: update }));
     }
   };
 
@@ -50,11 +51,13 @@ export const Home = () => {
     }
   }, [selectedProduct]);
 
-  React.useEffect(() => {
-    if (products_1 === undefined) {
-      refreshPage();
-    }
-  }, []);
+  // React.useEffect(() => {
+  //   if (products_1 === undefined) {
+  //     refreshPage();
+  //   }
+  // }, []);
+  // console.log(products_1);
+  // console.log(loadingPage);
 
   return (
     <Fragment>
@@ -63,7 +66,7 @@ export const Home = () => {
           <Suspense
             fallback={
               <>
-                <Loading />
+                {/* <Loading /> */}
                 {React.useEffect(() => {
                   let subscribe = true;
                   if (subscribe) {
