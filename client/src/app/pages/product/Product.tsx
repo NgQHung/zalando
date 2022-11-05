@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import "./Product.css";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
@@ -10,6 +10,7 @@ import ErrorFallback from "../../components/ErrorBoundary";
 import { AfterRefresh } from "../../../utils/pageIsRefreshed";
 import Loading from "../../components/UI/loader/Loading";
 import { productActions } from "../../../stores/product-slice";
+import { Products } from "../../../interfaces/Products";
 
 const PRODUCT_IMAGES = React.lazy(() => import("../../containers/product/Product_Images"));
 const Sliding_products = React.lazy(() => import("../../containers/product/sliding_products"));
@@ -18,6 +19,9 @@ const Product_info = React.lazy(() => import("../../containers/product/product_i
 const Product = () => {
   const selectedId = useAppSelector((state) => state.productSlice.selectedId);
   const selectedProduct = useAppSelector((state) => state.productSlice.selectedProduct);
+  const [isProductFavorite, setIsProductFavorite] = useState<boolean>(false);
+  const allProducts = useAppSelector((state) => state.productSlice.allProducts);
+
   const isImage = selectedProduct?.media?.images!;
   const firstImage = isImage && selectedProduct?.media?.images[0].url!;
 
@@ -52,12 +56,10 @@ const Product = () => {
     }
   };
   React.useEffect(() => {
-    if (AfterRefresh()) {
-      const getSelectedId = JSON.parse(localStorage.getItem("selectedId")!) || [];
-      if (getSelectedId !== null || selectedId) {
-        getDetailProduct(dispatch, getSelectedId);
-      } else return;
-    } else return;
+    getDetailProduct(dispatch, selectedId);
+    const productIndex = allProducts.findIndex((item: Products) => item.id === selectedId);
+    const product = allProducts[productIndex];
+    setIsProductFavorite(product.isFavorite);
   }, [selectedId]);
 
   React.useEffect(() => {
@@ -65,6 +67,7 @@ const Product = () => {
       setImageShow(ImgToHttp(firstImage));
     } else return;
   }, [firstImage]);
+  // console.log(selectedProduct);
 
   return (
     <div className=" md:mx-6 w-auto lg:mx-auto lg:my-0 lg:max-w-[1216px] ">
@@ -77,12 +80,6 @@ const Product = () => {
             </>
           }
         >
-          {/* {loadingPage ? (
-            <>
-              <Loading />
-              <div className="h-screen" />
-            </>
-          ) : ( */}
           <div className="flex md:flex-row md:mt-6 flex-wrap md:flex-nowrap">
             {/* images */}
             <PRODUCT_IMAGES
@@ -96,10 +93,9 @@ const Product = () => {
               imageShow={imageShow}
             />
             {/* content start */}
-            <Product_info selectedProduct={selectedProduct} />
+            <Product_info selectedProduct={selectedProduct} isProductFavorite={isProductFavorite} />
             {/* content end */}
           </div>
-          {/* )} */}
           {/* sliding products start */}
           <Sliding_products selectedProductHandler={selectedProductHandler} />
         </Suspense>

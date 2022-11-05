@@ -14,14 +14,9 @@ import { useAppDispatch, useAppSelector } from "../../../hooks";
 
 type IProps = {
   selectedProductHandler: (id: number) => void;
-  // favoriteAnimated: boolean;
-  // selectedProduct: any;
 };
 
-const Sliding_products = ({
-  selectedProductHandler,
-}: //  selectedProduct, favoriteAnimated
-IProps) => {
+const Sliding_products = ({ selectedProductHandler }: IProps) => {
   const products_1: Products[] = useAppSelector((state) => state.productSlice.products_1);
 
   const dispatch = useAppDispatch();
@@ -37,7 +32,6 @@ IProps) => {
           fallback={
             <>
               <Loading />
-              {/* <div className="h-screen"/> */}
               {React.useEffect(() => {
                 let subscribe = true;
                 if (subscribe) {
@@ -53,7 +47,7 @@ IProps) => {
       </ErrorBoundary>
       <section className="mt-9 pt-[36px] pb-[24px] text-[14px] row-full ">
         <ul className=" flex relative overflow-x-auto scrollbar_hide ">
-          {products_1.map((item, idx) => (
+          {products_1?.map((item, idx) => (
             <Link
               onClick={() => selectedProductHandler(item.id)}
               key={idx}

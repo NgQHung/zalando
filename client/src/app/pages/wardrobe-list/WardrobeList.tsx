@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import { TransitionGroup } from "react-transition-group";
 import { ProductDetail } from "../../../interfaces/ProductDetail";
+import { Products } from "../../../interfaces/Products";
 // import { Products } from "../../../interfaces/Products";
 // import { SelectedProduct } from "../../../interfaces/SelectedProduct";
 import { cartActions } from "../../../stores/cart-slice";
@@ -22,7 +23,7 @@ const WardrobeList = () => {
   const [optionPopup, setOptionPopup] = useState(false);
   const [shareProduct, setShareProduct] = useState(false);
   // const [addedFavorite, setAddedFavorite] = useState<Products[]>([]);
-  const [selectedFavorite, setSelectedFavorite] = useState<ProductDetail>();
+  const [selectedFavorite, setSelectedFavorite] = useState<Products>();
   const [selectedId, setSelectedId] = useState<number>();
   const [selectSize, setSelectSize] = React.useState(false);
   const [selectedSize, setSelectedSize] = useState<string>();
@@ -44,8 +45,9 @@ const WardrobeList = () => {
     setOptionPopup(false);
   };
 
-  const addShoppingCartHandler = (selectedProduct?: ProductDetail) => {
+  const addShoppingCartHandler = (selectedProduct?: Products) => {
     setSelectedId(selectedProduct?.id);
+    // console.log(selectedProduct);
 
     if (!selectedSize) {
       setSelectedFavorite(selectedProduct);
@@ -57,17 +59,18 @@ const WardrobeList = () => {
       dispatch(
         cartActions.addShoppingCartHandler({
           id: selectedProduct?.id,
-          brand: selectedProduct?.brand?.name,
+          brand: selectedProduct?.brandName,
           name: selectedProduct?.name,
-          imageUrl: selectedProduct?.media?.images[0].url,
+          imageUrl: selectedProduct?.imageUrl,
           currentPrice: selectedProduct?.price.current.value,
           previousPrice: selectedProduct?.price.previous?.value,
-          isFavorite: false,
+          isFavorite: selectedProduct?.isFavorite,
           amount: 1,
           size: selectedSize,
           totalProduct: selectedProduct?.price.current.value,
         })
       );
+      console.log(selectedProduct);
       setSelectedSize("");
       setOptionPopup(false);
     }
@@ -76,7 +79,7 @@ const WardrobeList = () => {
   useEffect(() => {
     console.log(selectedSize);
 
-    addShoppingCartHandler();
+    addShoppingCartHandler(selectedFavorite);
     setOptionPopup(false);
   }, [selectedSize]);
 
@@ -84,7 +87,7 @@ const WardrobeList = () => {
 
   useOnClickOutside(refInput, () => setOptionPopup(false));
 
-  const optionsHandler = (selectedProduct: ProductDetail) => {
+  const optionsHandler = (selectedProduct: Products) => {
     setSelectedFavorite(selectedProduct);
     setSelectedId(selectedProduct.id);
     setSelectSize(false);

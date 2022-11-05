@@ -42,6 +42,7 @@ export const Login = () => {
       const response = await authAxios.post("/v1/auth/refresh");
       return response.data;
     } catch (error) {
+      // console.log('error?')
       console.log(error);
     }
   };

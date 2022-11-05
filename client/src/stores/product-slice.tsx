@@ -6,7 +6,7 @@ interface InitialState {
   allProducts: Products[]; // all products
   products_1: Products[]; // products to show 2
   products_2: Products[]; // products to show 2
-  selectedProduct: ProductDetail | null; // detail selected product
+  selectedProduct: ProductDetail; // detail selected product
   selectedId: number | null;
 }
 
@@ -14,7 +14,7 @@ const initialState: InitialState = {
   allProducts: [],
   products_1: [],
   products_2: [],
-  selectedProduct: null,
+  selectedProduct: {},
   selectedId: null,
 };
 

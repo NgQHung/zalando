@@ -12,7 +12,7 @@ import { userActions } from "../stores/user-slice";
 
 // request login
 export const requestLogin = (dispatch: Dispatch, user: any, navigate: NavigateFunction, accessToken: string) => {
-  // let response;
+  let response;
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
@@ -23,7 +23,11 @@ export const requestLogin = (dispatch: Dispatch, user: any, navigate: NavigateFu
       }
       dispatch(UIActions.loadingPage(false));
     }, 1000);
+    // console.log(response);
   } catch (error: any) {
+    // console.log("error?2");
+    // console.log(response);
+
     toast.error(error.response?.data.message);
   }
 };

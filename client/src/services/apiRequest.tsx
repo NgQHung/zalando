@@ -8,6 +8,7 @@ import { cartActions } from "../stores/cart-slice";
 // import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { productActions } from "../stores/product-slice";
 import { UIActions } from "../stores/UI-slice";
+import { AfterRefresh } from "../utils/pageIsRefreshed";
 // import { UIActions } from "./UI-slice";
 // import UISlice, { UIActions } from "./UI-slice";
 // const axiosJWT = AxiosJWT();
@@ -63,14 +64,21 @@ export const getProducts = async (dispatch: Dispatch) => {
 };
 
 // get detail selected product
-export const getDetailProduct = async (dispatch: Dispatch, id: number) => {
+export const getDetailProduct = async (dispatch: Dispatch, id: number | null) => {
   let response;
   console.log("getdetail");
+  let getSelectedId: number;
+  if (AfterRefresh()) {
+    getSelectedId = JSON.parse(localStorage.getItem("selectedId")!) || [];
+    if (getSelectedId) {
+      dispatch(productActions.selectedIdHandler(getSelectedId));
+    }
+  }
 
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
-      response = await axios.get(`${uriBase.server}/product/${id}`);
+      response = await axios.get(`${uriBase.server}/product/${id ? id : getSelectedId}`);
       const detailProduct = response.data;
       dispatch(productActions.selectedProductHandler(detailProduct));
       dispatch(UIActions.loadingPage(false));

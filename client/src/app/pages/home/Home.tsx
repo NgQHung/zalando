@@ -1,6 +1,5 @@
-import React, { Fragment, lazy, Suspense, useEffect, useState } from "react";
+import React, { Fragment, lazy, Suspense } from "react";
 import "./Home.css";
-import { Products } from "../../../interfaces/Products";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions } from "../../../stores/product-slice";
 import { cartActions } from "../../../stores/cart-slice";
@@ -11,16 +10,15 @@ import ErrorFallback from "../../components/ErrorBoundary";
 import HOME_TOPIC from "../../containers/home/Home_topic";
 import { getDetailProduct } from "../../../services/apiRequest";
 import Loading from "../../components/UI/loader/Loading";
-// import { AfterRefresh } from "../../../utils/pageIsRefreshed";
+import { refreshPage } from "../../../utils/refreshPage";
 const HOME_PRODUCT = lazy(() => import("../../containers/home/Home_product"));
 
 export const Home = () => {
   const dispatch = useAppDispatch();
   const products_1 = useAppSelector((state) => state.productSlice.products_1);
-  const [favoriteAnimated, setFavoriteAnimated] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState<any>();
   const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
-  const [afterRefresh, setAfterRefresh] = useState(false);
+  const allProducts = useAppSelector((state) => state.productSlice.allProducts);
 
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));
@@ -29,18 +27,16 @@ export const Home = () => {
 
   const favoriteHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const target = e.currentTarget;
-    const productIndex1 = products_1.findIndex((item) => item.name === target.getAttribute("datatype"));
-    const product1 = products_1[productIndex1];
+    const productIndex = allProducts.findIndex((item) => item.name === target.getAttribute("datatype"));
+    const product = allProducts[productIndex];
 
-    // console.log(product1);
-    setAfterRefresh(false);
     let update;
-    if (product1) {
-      const updateProduct1 = { ...product1, isFavorite: !product1.isFavorite };
-      setSelectedProduct(updateProduct1);
-      update = [...products_1];
-      update[productIndex1] = updateProduct1;
-      dispatch(productActions.productsHandler({ products_1: update }));
+    if (product) {
+      const updateProduct = { ...product, isFavorite: !product.isFavorite };
+      setSelectedProduct(updateProduct);
+      update = [...allProducts];
+      update[productIndex] = updateProduct;
+      dispatch(productActions.productsHandler({ allProducts: update }));
     }
   };
 
@@ -53,6 +49,12 @@ export const Home = () => {
       dispatch(cartActions.removeFavorite(selectedProduct));
     }
   }, [selectedProduct]);
+
+  React.useEffect(() => {
+    if (products_1 === undefined) {
+      refreshPage();
+    }
+  }, []);
 
   return (
     <Fragment>
@@ -80,22 +82,18 @@ export const Home = () => {
             <Loading /> <div className="h-screen" />
           </>
         )}
-        {products_1 && (
+        {products_1 && !loadingPage ? (
           <Wrapper className="bg-[#229967]">
             <div className="flex flex-col w-full h-full">
               <HOME_TOPIC />
               <HOME_PRODUCT
-                setAfterRefresh={setAfterRefresh}
-                afterRefresh={afterRefresh}
                 products={products_1}
                 selectedProductHandler={selectedProductHandler}
                 favoriteHandler={favoriteHandler}
-                selectedProduct={selectedProduct}
-                favoriteAnimated={favoriteAnimated}
               />
             </div>
           </Wrapper>
-        )}
+        ) : null}
 
         {/* <Wrapper className="bg-[#229967] ">
           <div className="flex flex-col w-full h-full">

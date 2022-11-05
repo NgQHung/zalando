@@ -3,12 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo } from "react";
 // import { motion } from "framer-motion";
 import { ProductDetail } from "../../../interfaces/ProductDetail";
+import { Products } from "../../../interfaces/Products";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 
 interface IProps {
   removeFavorite: (id: number) => void;
-  optionsHandler: (selectedProduct: ProductDetail) => void;
-  addShoppingCartHandler: (selectedProduct: ProductDetail) => void;
+  optionsHandler: (selectedProduct: Products) => void;
+  addShoppingCartHandler: (selectedProduct: Products) => void;
   product: any;
 }
 

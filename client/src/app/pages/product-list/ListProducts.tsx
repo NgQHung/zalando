@@ -6,24 +6,48 @@ import { SubHeaderCategory_DATA } from "../../../utils/data";
 import Card from "../../components/UI/card/Card";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { Products } from "../../../interfaces/Products";
-import { ImgToHttp } from "../../../utils/imageToHTTP";
-import { Link } from "react-router-dom";
 import { productActions } from "../../../stores/product-slice";
 import Category_filter from "../../containers/product/category_filter";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "../../components/ErrorBoundary";
-import Loader from "../../components/UI/loader/Loader";
 import ready from "../../../utils/intersectionObserver";
 import Loading from "../../components/UI/loader/Loading";
+import { cartActions } from "../../../stores/cart-slice";
 
 export const ListProducts = () => {
   const allProducts = useAppSelector((state) => state.productSlice.allProducts);
   const dispatch = useAppDispatch();
   const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
+  const [selectedProduct, setSelectedProduct] = React.useState<any>();
 
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));
   };
+
+  const favoriteHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const target = e.currentTarget;
+    const productIndex1 = allProducts.findIndex((item) => item.name === target.getAttribute("datatype"));
+    const product = allProducts[productIndex1];
+
+    let update;
+    if (product) {
+      const updateProduct1 = { ...product, isFavorite: !product.isFavorite };
+      setSelectedProduct(updateProduct1);
+      update = [...allProducts];
+      update[productIndex1] = updateProduct1;
+      dispatch(productActions.productsHandler({ allProducts: update }));
+    }
+  };
+
+  React.useEffect(() => {
+    if (selectedProduct) {
+      dispatch(cartActions.addFavoriteHandler(selectedProduct));
+    }
+
+    if (selectedProduct?.isFavorite === false) {
+      dispatch(cartActions.removeFavorite(selectedProduct));
+    }
+  }, [selectedProduct]);
 
   return (
     <Fragment>
@@ -103,20 +127,19 @@ export const ListProducts = () => {
                   </span>
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:max-w-[912px]">
-                  {allProducts.map((product: Products, idx) => (
-                    <Link key={idx} to={`/${product.name}`} onClick={() => selectedProductHandler(product.id)}>
-                      <Card imgUrl={ImgToHttp(product.imageUrl)}>
-                        <div className="text-[14px] leading-5">
-                          <div className="pb-2">
-                            <h3 className="text-tiempos ">{product.brandName}</h3>
-                            <h3 className=" font-[400] whitespace-nowrap text-ellipsis overflow-hidden">
-                              {product.name}
-                            </h3>
-                          </div>
-                          <p className="font-400 ">{product.price.current.text}</p>
+                  {allProducts?.map((product: Products, idx) => (
+                    <Card key={idx} onClick={selectedProductHandler} data={product} favoriteHandler={favoriteHandler}>
+                      <div className="text-[14px] leading-5">
+                        <div className="pb-2">
+                          <h3 className="text-tiempos ">{product.brandName}</h3>
+                          <h3 className=" font-[400] whitespace-nowrap text-ellipsis overflow-hidden">
+                            {product.name}
+                          </h3>
                         </div>
-                      </Card>
-                    </Link>
+                        <p className="font-400 ">{product.price.current.text}</p>
+                      </div>
+                    </Card>
+                    // </Link>
                   ))}
                 </div>
               </div>

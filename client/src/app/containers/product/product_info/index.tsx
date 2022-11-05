@@ -13,13 +13,13 @@ import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { productActions } from "../../../../stores/product-slice";
-const INTERVAL = 1000;
 
 interface Iprops {
-  selectedProduct: ProductDetail | null;
+  selectedProduct: ProductDetail;
+  isProductFavorite: boolean;
 }
 
-const Product_info = ({ selectedProduct }: Iprops) => {
+const Product_info = ({ selectedProduct, isProductFavorite }: Iprops) => {
   const [nameDropdown, setNameDropdown] = useState<Record<string, any>>({
     selectSize: "",
     material: "",
@@ -27,11 +27,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     size: "",
   });
   const [sizeProduct, setSizeProduct] = useState("");
-  const [heartAnimated, setHeartAnimated] = useState(false);
   const [selectedFavoriteProduct, setSelectedFavoriteProduct] = useState<any>();
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const [afterRefresh, setAfterRefresh] = useState(false);
 
   // const
   const loading__add = useAppSelector((state) => state.UISlice.loading__add);
@@ -39,7 +35,8 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   const user = useAppSelector((state) => state.userSlice.user);
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
-  const products_1 = useAppSelector((state) => state.productSlice.products_1);
+  const allProducts = useAppSelector((state) => state.productSlice.allProducts);
+  const getSelectedId = JSON.parse(localStorage.getItem("selectedId")!) || [];
 
   const dispatch = useAppDispatch();
 
@@ -59,18 +56,20 @@ const Product_info = ({ selectedProduct }: Iprops) => {
 
   const addShoppingCartHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
+    const productIndex1 = allProducts.findIndex((item: any) => item.id === selectedProduct?.id);
+    const product = allProducts[productIndex1];
 
-    const product = {
-      id: selectedProduct?.id,
-      brand: selectedProduct?.brand?.name,
-      name: selectedProduct?.name,
-      imageUrl: selectedProduct?.media?.images[0].url,
-      currentPrice: selectedProduct?.price.current.value,
-      previousPrice: selectedProduct?.price.previous?.value,
-      isFavorite: false,
+    const updateProduct = {
+      id: product?.id,
+      brand: product?.brandName,
+      name: product?.name,
+      imageUrl: product?.imageUrl,
+      currentPrice: product?.price.current.value,
+      previousPrice: product?.price.previous?.value,
+      isFavorite: product?.isFavorite,
       amount: 1,
       size: sizeProduct,
-      totalProduct: selectedProduct?.price.current.value,
+      totalProduct: product?.price.current.value,
     };
     if (!sizeProduct) {
       setNameDropdown((prev) => ({ ...prev, selectSize: "selectSize" }));
@@ -85,7 +84,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
           return new Promise((resolve) =>
             setTimeout(() => {
               dispatch(UIActions.loading__add({ loading__add: false }));
-              resolve(dispatch(cartActions.addShoppingCartHandler(product)));
+              resolve(dispatch(cartActions.addShoppingCartHandler(updateProduct)));
             }, 500)
           );
         })
@@ -110,22 +109,17 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   };
 
   const addProductFavoriteHandler = () => {
-    const productIndex1 = products_1.findIndex((item: any) => item.id === selectedProduct?.id);
-    const product1 = products_1[productIndex1];
-    setAfterRefresh(false);
+    const productIndex = allProducts.findIndex((item: any) => item.id === getSelectedId);
+    // console.log(selectedId);
+    const product = allProducts[productIndex];
     let update;
-    if (product1) {
-      const updateProduct1 = { ...product1, isFavorite: !product1.isFavorite };
+    if (product) {
+      const updateProduct1 = { ...product, isFavorite: !product.isFavorite };
       setSelectedFavoriteProduct(updateProduct1);
-      update = [...products_1];
-      update[productIndex1] = updateProduct1;
-      dispatch(productActions.productsHandler({ products_1: update }));
-      // setIsFavorite(updateProduct1.isFavorite);
-      // console.log(updateProduct1.isFavorite);
+      update = [...allProducts];
+      update[productIndex] = updateProduct1;
+      dispatch(productActions.productsHandler({ allProducts: update }));
     }
-    // dispatch(cartActions.addFavoriteHandler(product1));
-    // console.log(product1);
-    setHeartAnimated((prev) => !prev);
   };
 
   const ref = React.useRef<HTMLDivElement>(null);
@@ -155,21 +149,11 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     }
   }, [selectedFavoriteProduct]);
 
-  const selectedId = useAppSelector((state) => state.productSlice.selectedId);
-  useEffect(() => {
-    const productIndex1 = products_1.findIndex((item: any) => item.id === selectedId);
-    const product1 = products_1[productIndex1];
-    if (product1.isFavorite) {
-      setIsFavorite(true);
-    }
-  }, []);
-
   return (
     <Fragment>
       <div className="mx-6 mt-6 md:m-0 md:min-w-1/2 md:max-w-1/2 flex flex-col md:basis-1/2 ">
         <div className="px-2 lg:ml-[100px] ">
           <Product_info_intro selectedProduct={selectedProduct} />
-          {/* <div className="mt-9"> */}
           {/* select your size start */}
           <PRODUCT_INFO_SELECTSIZE
             inputRef={ref}
@@ -180,14 +164,11 @@ const Product_info = ({ selectedProduct }: Iprops) => {
             addProductFavoriteHandler={addProductFavoriteHandler}
             bg_color_shopping_cart={bg_color_shopping_cart}
             loading__add={loading__add}
-            heartAnimated={heartAnimated}
             nameDropdown={nameDropdown}
-            afterRefresh={afterRefresh}
-            setAfterRefresh={setAfterRefresh}
-            isFavorite={isFavorite}
+            selectedProduct={selectedProduct}
+            isProductFavorite={isProductFavorite}
           />
           {/* select your size end */}
-          {/* </div> */}
           <PRODUCT_INFO_BASICINFO />
           {/* infor start */}
           <PRODUCT_INFO_DETAILEDINFO dropdownHandler={dropdownHandler} nameDropdown={nameDropdown} />

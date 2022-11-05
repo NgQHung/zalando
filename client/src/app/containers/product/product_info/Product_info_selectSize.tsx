@@ -1,7 +1,7 @@
 import { faChevronDown, faChevronUp, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
-import { AfterRefresh } from "../../../../utils/pageIsRefreshed";
+import React, { memo } from "react";
+import { ProductDetail } from "../../../../interfaces/ProductDetail";
 import ButtonPrimary from "../../../components/UI/button/Button";
 import Loader from "../../../components/UI/loader/Loader";
 
@@ -14,11 +14,9 @@ interface IProps {
   addProductFavoriteHandler: () => void;
   bg_color_shopping_cart: boolean;
   loading__add: boolean;
-  heartAnimated: boolean;
   nameDropdown: Record<string, any>;
-  afterRefresh: boolean;
-  setAfterRefresh: (state: boolean) => void;
-  isFavorite: boolean;
+  selectedProduct: ProductDetail;
+  isProductFavorite: boolean;
 }
 
 const PRODUCT_INFO_SELECTSIZE = ({
@@ -30,25 +28,11 @@ const PRODUCT_INFO_SELECTSIZE = ({
   addProductFavoriteHandler,
   bg_color_shopping_cart,
   loading__add,
-  heartAnimated,
   nameDropdown,
-  afterRefresh,
-  setAfterRefresh,
-  isFavorite,
+  selectedProduct,
+  isProductFavorite,
 }: IProps) => {
-  const [favoriteLcst, setFavoriteLcst] = useState<any>([]);
-  useEffect(() => {
-    if (AfterRefresh()) {
-      const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
-      const addedFavorite = JSON.parse(getCart.cartSlice).addedFavorite;
-      if (addedFavorite) {
-        setAfterRefresh(true);
-      }
-      // console.log(addedFavorite);
-
-      setFavoriteLcst(addedFavorite);
-    } else return;
-  }, [AfterRefresh]);
+  // console.log(selectedFavoriteProduct);
   return (
     <div className="mt-9">
       {/* select your size start */}
@@ -109,18 +93,19 @@ const PRODUCT_INFO_SELECTSIZE = ({
         >
           {loading__add ? <Loader /> : <span>Přidat do nákupního košíku</span>}
         </ButtonPrimary>
-        <button
+        <div
+          datatype={selectedProduct.name}
           onClick={addProductFavoriteHandler}
           className={"h-[48px] w-[48px] p-2 shrink-0 border border-[#1a1a1a] outline_onHover "}
         >
           <FontAwesomeIcon
             icon={faHeart}
-            className={"h-full w-full object-cover " + (isFavorite ? "favorite_added-active" : "")}
+            className={"h-full w-full object-cover " + (isProductFavorite ? "favorite_added-active" : "")}
           />
-        </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default PRODUCT_INFO_SELECTSIZE;
+export default memo(PRODUCT_INFO_SELECTSIZE);

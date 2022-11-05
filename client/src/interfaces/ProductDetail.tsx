@@ -5,7 +5,7 @@ export interface ProductDetail {
     description?: string;
   };
   gender?: string;
-  name: string;
+  name?: string;
   id?: number;
   info?: {
     aboutMe: string;
@@ -17,8 +17,8 @@ export interface ProductDetail {
       url: string;
     }[];
   };
-  isFavorite: boolean;
-  price: {
+  isFavorite?: boolean;
+  price?: {
     currency?: string;
     current: {
       value?: number;

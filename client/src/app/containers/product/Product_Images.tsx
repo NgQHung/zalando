@@ -15,7 +15,7 @@ interface IProps {
   onScrollHandler: () => void;
   scrollRef: React.MutableRefObject<any>;
   isImage: { url: string }[];
-  selectedProduct: ProductDetail | null;
+  selectedProduct: ProductDetail;
   typeImageHandler: (image: string, index: number) => void;
   chevronDown: boolean;
   imageShow: string;

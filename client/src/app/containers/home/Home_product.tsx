@@ -1,76 +1,38 @@
 import { faArrowRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Products } from "../../../interfaces/Products";
-import { AfterRefresh } from "../../../utils/pageIsRefreshed";
 import WrapperRowFull from "../../components/UI/wrapper/WrapperRowFull";
-import { useAppSelector } from "../../hooks";
 
 interface IProps {
   products: Products[];
   selectedProductHandler: (id: number) => void;
   favoriteHandler: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  selectedProduct: any;
-  favoriteAnimated: boolean;
-  afterRefresh: boolean;
-  setAfterRefresh: (state: boolean) => void;
 }
 
-const HOME_PRODUCT = ({
-  products,
-  selectedProductHandler,
-  favoriteHandler,
-  selectedProduct,
-  favoriteAnimated,
-  setAfterRefresh,
-  afterRefresh,
-}: IProps) => {
-  const [favoriteLcst, setFavoriteLcst] = useState<any>([]);
-  useEffect(() => {
-    if (AfterRefresh()) {
-      const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
-      const addedFavorite = JSON.parse(getCart.cartSlice).addedFavorite;
-      if (addedFavorite) {
-        setAfterRefresh(true);
-      }
-      // console.log(addedFavorite);
-
-      setFavoriteLcst(addedFavorite);
-    } else return;
-  }, [AfterRefresh]);
-
-  // useEffect(() => {
-  //   console.log(products[0]?.isFavorite);
-  // }, [products]);
+const HOME_PRODUCT = ({ products, selectedProductHandler, favoriteHandler }: IProps) => {
   return (
     <WrapperRowFull className="h-[584px] bg-[#34d27b] ">
       <>
         <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
-          {products.map((item: Products, index) => (
+          {products.map((item: Products) => (
             <div key={item.id} className="first:ml-[36px] md:first:ml-[48px] lg:first:ml-[152px]">
               <div className="relative h-[415px] w-[296px] px-[8px] cursor-pointer">
                 <div datatype={item.name} onClick={favoriteHandler} className="absolute bg-[#ffff] top-2 right-2">
-                  {/* {favoriteLcst.map((favorite: any) => ( */}
                   <FontAwesomeIcon
                     type="checkbox"
                     icon={faHeart}
                     className={
-                      "fa-thin p-[8px] text-[24px] " +
-                      ((favoriteLcst?.some((product: any) => product.id === item.id) && afterRefresh) ||
-                      item?.isFavorite === true
-                        ? "favorite_added-active"
-                        : "")
+                      "fa-thin p-[8px] text-[24px] " + (item?.isFavorite === true ? "favorite_added-active" : "")
                     }
                   />
-                  {/* ))} */}
                 </div>
                 <Link onClick={() => selectedProductHandler(item.id)} to={`/${item.name}`}>
                   <img
                     src="Skeleton-img.png"
                     className=" w-[288px] h-[415px] object-cover"
                     lazy-src={`https://${item.imageUrl}`}
-                    // lazy-src="Img-topic-1.png"
                     alt="product"
                   />
                   <div className=" leading-[20px] pt-2">
