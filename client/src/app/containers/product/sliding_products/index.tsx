@@ -62,7 +62,7 @@ const Sliding_products = ({ selectedProductHandler }: IProps) => {
                   <img
                     className="h-full w-full object-cover "
                     src="Skeleton-img.png"
-                    lazy-src={ImgToHttp(item.imageUrl)}
+                    lazy-src={ImgToHttp(item?.imageUrl)}
                     alt="product"
                   />
                   <FontAwesomeIcon
@@ -80,7 +80,7 @@ const Sliding_products = ({ selectedProductHandler }: IProps) => {
                     <h3>{item.name}</h3>
                   </div>
                   <div className="flex flex-col leading-[1.25rem] text-[700]">
-                    <span>{item.price.previous.text}</span>
+                    <span>{item?.price?.previous?.text}</span>
                     <div className="text-[12px] leading-[16px]"></div>
                   </div>
                 </div>

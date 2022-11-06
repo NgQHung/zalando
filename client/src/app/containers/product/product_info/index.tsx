@@ -13,6 +13,7 @@ import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { productActions } from "../../../../stores/product-slice";
+import { Products } from "../../../../interfaces/Products";
 
 interface Iprops {
   selectedProduct: ProductDetail;
@@ -26,7 +27,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     size: "",
   });
   const [sizeProduct, setSizeProduct] = useState("");
-  const [selectedFavoriteProduct, setSelectedFavoriteProduct] = useState<any>();
+  const [selectedFavoriteProduct, setSelectedFavoriteProduct] = useState<Products>();
 
   // const
   const loading__add = useAppSelector((state) => state.UISlice.loading__add);
@@ -34,7 +35,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   const user = useAppSelector((state) => state.userSlice.user);
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
-  const allProducts = useAppSelector((state) => state.productSlice.allProducts);
+  const allProducts: Products[] = useAppSelector((state) => state.productSlice.allProducts);
   const getSelectedId = JSON.parse(localStorage.getItem("selectedId")!) || [];
 
   const dispatch = useAppDispatch();
@@ -55,7 +56,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
 
   const addShoppingCartHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    const productIndex1 = allProducts.findIndex((item: any) => item.id === selectedProduct?.id);
+    const productIndex1 = allProducts.findIndex((item: Products) => item.id === selectedProduct?.id);
     const product = allProducts[productIndex1];
 
     const updateProduct = {
@@ -63,12 +64,12 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       brand: product?.brandName,
       name: product?.name,
       imageUrl: product?.imageUrl,
-      currentPrice: product?.price.current.value,
-      previousPrice: product?.price.previous?.value,
+      currentPrice: product?.price?.current?.value,
+      previousPrice: product?.price?.previous?.value,
       isFavorite: product?.isFavorite,
       amount: 1,
       size: sizeProduct,
-      totalProduct: product?.price.current.value,
+      totalProduct: product?.price?.current?.value,
     };
     if (!sizeProduct) {
       setNameDropdown((prev) => ({ ...prev, selectSize: "selectSize" }));
@@ -108,7 +109,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   };
 
   const addProductFavoriteHandler = () => {
-    const productIndex = allProducts.findIndex((item: any) => item.id === getSelectedId);
+    const productIndex = allProducts.findIndex((item: Products) => item.id === getSelectedId);
     // console.log(selectedId);
     const product = allProducts[productIndex];
     let update;
@@ -170,7 +171,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
             loading__add={loading__add}
             nameDropdown={nameDropdown}
             selectedProduct={selectedProduct}
-            selectedFavoriteProduct={selectedFavoriteProduct}
+            selectedFavoriteProduct={selectedFavoriteProduct!}
           />
           {/* select your size end */}
           <PRODUCT_INFO_BASICINFO />

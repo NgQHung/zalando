@@ -32,9 +32,9 @@ const WARDROBE_LIKED = () => {
           Mějte přehled o všem, co se vám líbí, sdílejte zboží s přáteli a zeptejte se na jejich názor.
         </p>
         <ul className="wardrobe_list-images flex ">
-          {addedFavoriteToShow.map((item: Products) => (
-            <li className="px-2 basis-1/4 max-w-[128px]">
-              <img className="w-full h-full object-cover" src={ImgToHttp(item.imageUrl)} alt="" />
+          {addedFavoriteToShow.map((item: Products, idx) => (
+            <li key={idx} className="px-2 basis-1/4 max-w-[128px]">
+              <img className="w-full h-full object-cover" src={ImgToHttp(item?.imageUrl)} alt="" />
             </li>
           ))}
         </ul>

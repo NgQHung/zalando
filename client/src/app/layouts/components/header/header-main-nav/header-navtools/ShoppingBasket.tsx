@@ -1,5 +1,4 @@
 import React, { Fragment, memo, useCallback, useMemo, useState } from "react";
-import { productShoppingCart } from "../../../../../../interfaces/ProductShoppingCart";
 import { cartActions } from "../../../../../../stores/cart-slice";
 import { formatPrice } from "../../../../../../utils/formatPrice";
 import { ImgToHttp } from "../../../../../../utils/imageToHTTP";
@@ -11,6 +10,7 @@ import "./navtools.css";
 import { Box, ListItem, ListItemText } from "@mui/material";
 // import { motion } from "framer-motion";
 import { amountRemovedHandler, UIActions } from "../../../../../../stores/UI-slice";
+import { Products } from "../../../../../../interfaces/Products";
 // import { toast } from "react-toastify";
 
 const ShoppingBasket = () => {
@@ -33,7 +33,7 @@ const ShoppingBasket = () => {
     setPosProduct(index);
     amountRemovedHandler(dispatch, 500);
   };
-  const addProductFavoriteHandler = (product: productShoppingCart) => {
+  const addProductFavoriteHandler = (product: Products) => {
     dispatch(cartActions.addFavoriteHandler(product));
   };
 
@@ -113,7 +113,7 @@ const ShoppingBasket = () => {
               >
                 <div className={"shoppingCart_border " + (emptyShoppingCart ? "shoppingCart_border-active" : "")} />
                 <TransitionGroup component="div">
-                  {addedShoppingCart?.map((product: productShoppingCart, idx: number) => (
+                  {addedShoppingCart?.map((product: Products, idx: number) => (
                     <Collapse key={idx}>
                       <ListItem className={"flex text-[14px] flex-col "}>
                         <ListItemText
@@ -122,7 +122,7 @@ const ShoppingBasket = () => {
                               <div className="flex py-[4px] text-[12px] px-[15px]">
                                 <div className="py-3 px-2 self-start shrink-0">
                                   <img
-                                    src={ImgToHttp(product.imageUrl)}
+                                    src={ImgToHttp(product?.imageUrl)}
                                     alt="photos"
                                     className="h-[96px] object-cover "
                                   />
@@ -131,21 +131,23 @@ const ShoppingBasket = () => {
                                   <div className=" ml-[15px] leading-[18px] ">
                                     <div className="flex">
                                       <div className="max-w-[100px] text-left">
-                                        <p>{product.brand}</p>
+                                        <p>{product.brandName}</p>
                                         <p className="pt-[5px] leading-[23px] whitespace-nowrap text-ellipsis max-w-[200px] overflow-hidden ">
                                           {product.name}
                                         </p>
                                       </div>
                                       <div className="flex flex-col w-full text-[10px] text-right  ">
                                         <span className="text-[14px] text-[#eb0037] mt-[2px] font-[700]">
-                                          {formatPrice(product.currentPrice)}
+                                          {formatPrice(product?.price?.current?.value)}
                                         </span>
-                                        <span>{formatPrice(product.previousPrice)}</span>
+                                        {product?.price?.previous?.value && (
+                                          <span>{formatPrice(product?.price?.previous?.value)}</span>
+                                        )}
                                       </div>
                                     </div>
                                     <div className="text-left">
                                       <p>
-                                        <span className="text-[12px] pr-1">Size:</span> {product.size}
+                                        <span className="text-[12px] pr-1">Size:</span> {product?.size}
                                       </p>
                                       {/* <motion.div initial={{ scale: 1 }} animate={amountRemoved ? "scale: 1" : ""}> */}
                                       <p
@@ -156,7 +158,7 @@ const ShoppingBasket = () => {
                                             : "")
                                         }
                                       >
-                                        <span className={"text-[12px] pr-1 "}>Amount:</span> {product.amount}
+                                        <span className={"text-[12px] pr-1 "}>Amount:</span> {product?.amount}
                                       </p>
                                       {/* </motion.div> */}
                                     </div>
@@ -172,7 +174,9 @@ const ShoppingBasket = () => {
                                     </div>
                                     <div>
                                       <span
-                                        onClick={() => removeProductShoppingCartHandler(product.id, product.size, idx)}
+                                        onClick={() =>
+                                          removeProductShoppingCartHandler(product.id, product?.size!, idx)
+                                        }
                                         className="text-[10px] cursor-pointer affect_text"
                                       >
                                         Odebrat položku

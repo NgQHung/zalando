@@ -1,11 +1,11 @@
 export interface Products {
+  id: number;
+  name: string;
   brandName: string;
   colour: string;
-  id: number;
   imageUrl: string;
   isFavorite: boolean;
   isSellingFast?: boolean;
-  name: string;
   price: {
     currency: string;
     current: {
@@ -17,4 +17,7 @@ export interface Products {
   productCode?: number;
   productType: string;
   url?: string;
+  amount?: number;
+  size?: string;
+  totalProduct?: number;
 }

@@ -1,7 +1,6 @@
 import { createSlice, Dispatch } from "@reduxjs/toolkit";
 import { ProductDetail } from "../interfaces/ProductDetail";
 import { Products } from "../interfaces/Products";
-import { productShoppingCart } from "../interfaces/ProductShoppingCart";
 
 interface InitialState {
   allProducts: Products[]; // all products
@@ -38,15 +37,14 @@ const productSlice = createSlice({
       localStorage.setItem("selectedId", JSON.stringify(action.payload));
     },
     removedProductHandler(state, action) {
-      const { removedFavorite, restore } = action.payload;
-
-      state.removedProduct = [...removedFavorite];
-      if (restore) {
-        return;
-      }
-      setTimeout(() => {
-        state.removedProduct.pop();
-      }, 3000);
+      // const { removedFavorite, restore } = action.payload;
+      // state.removedProduct = [...removedFavorite];
+      // if (restore) {
+      //   return;
+      // }
+      // setTimeout(() => {
+      //   state.removedProduct.pop();
+      // }, 3000);
       // console.log(state.removedProduct);
     },
   },

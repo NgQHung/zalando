@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { Dispatch } from "redux";
 import { uriBase } from "../config/uriBase";
 import { Products } from "../interfaces/Products";
-import { productShoppingCart } from "../interfaces/ProductShoppingCart";
 import { cartActions } from "../stores/cart-slice";
 // import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { productActions } from "../stores/product-slice";
@@ -12,19 +11,6 @@ import { AfterRefresh } from "../utils/pageIsRefreshed";
 // import { UIActions } from "./UI-slice";
 // import UISlice, { UIActions } from "./UI-slice";
 // const axiosJWT = AxiosJWT();
-
-export interface AddShoppingCart {
-  id: number | undefined;
-  brand: string | undefined;
-  name: string | undefined;
-  imageUrl: string | undefined;
-  currentPrice: number | undefined;
-  previousPrice: number | null | undefined;
-  isFavorite: boolean;
-  amount: number;
-  size: string;
-  totalProduct: number | undefined;
-}
 
 export interface User {
   accessToken: string;
@@ -49,7 +35,7 @@ export const getProducts = async (dispatch: Dispatch) => {
       const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
       const addedFavorite = JSON.parse(getCart.cartSlice).addedFavorite;
       // update data from server with data from local storage
-      const map = new Map(addedFavorite.map((o: Products) => [o.id, o]));
+      const map = new Map(addedFavorite.map((o: Products) => [o?.id, o]));
       const newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
       const products_1 = newAllProducts.slice(0, 14);
       const products_2 = newAllProducts.slice(15, 30);
@@ -88,7 +74,7 @@ export const getDetailProduct = async (dispatch: Dispatch, id: number | null) =>
   }
 };
 
-export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: productShoppingCart[]) => {
+export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: Products[]) => {
   // console.log(data);
   // console.log("post shopping cart");
 
@@ -132,7 +118,7 @@ export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
   }
 };
 
-export const postLikedProductById = async (dispatch: Dispatch, user: any, data: productShoppingCart[]) => {
+export const postLikedProductById = async (dispatch: Dispatch, user: any, data: Products[]) => {
   // console.log(data);
   // console.log("post liked cart");
 

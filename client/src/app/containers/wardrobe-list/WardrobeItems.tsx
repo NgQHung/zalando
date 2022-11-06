@@ -7,13 +7,13 @@ import { Products } from "../../../interfaces/Products";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 
 interface IProps {
-  removeFavorite: (id: number) => void;
+  removeFavoriteHandler: (id: number) => void;
   optionsHandler: (selectedProduct: Products) => void;
   addShoppingCartHandler: (selectedProduct: Products) => void;
   product: any;
 }
 
-const WardrobeItems = ({ removeFavorite, optionsHandler, addShoppingCartHandler, product }: IProps) => {
+const WardrobeItems = ({ removeFavoriteHandler, optionsHandler, addShoppingCartHandler, product }: IProps) => {
   return (
     <div className="px-2 ">
       <li className=" max-w-[288px] mb-[36px] basis-full xs:basis-1/2 md:basis-1/4 md:min-w-[25%] mt-6">
@@ -21,11 +21,11 @@ const WardrobeItems = ({ removeFavorite, optionsHandler, addShoppingCartHandler,
           <img
             className="w-full h-full object-cover"
             // src="Skeleton-img.png"
-            src={ImgToHttp(product.imageUrl)}
+            src={ImgToHttp(product?.imageUrl)}
             alt=""
           />
           <button
-            onClick={() => removeFavorite(product.id)}
+            onClick={() => removeFavoriteHandler(product?.id)}
             className="h-12 w-12 text-center absolute top-3 right-0 p-3 bg-[#ffff]"
           >
             <FontAwesomeIcon icon={faXmark} className="h-full object-cover" />
@@ -44,8 +44,8 @@ const WardrobeItems = ({ removeFavorite, optionsHandler, addShoppingCartHandler,
         </div>
         <div className=" leading-[20px] pt-2">
           <div className="pb-[8px]">
-            <h3>{product.brandName}</h3>
-            <h3>{product.name}</h3>
+            <h3>{product?.brandName}</h3>
+            <h3>{product?.name}</h3>
           </div>
           <div className="flex flex-col leading-[1.25rem] text-[700]">
             <span>{product?.price?.current?.text}</span>

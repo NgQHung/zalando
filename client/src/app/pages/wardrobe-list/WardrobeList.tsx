@@ -3,12 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fade } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import { TransitionGroup } from "react-transition-group";
-import { ProductDetail } from "../../../interfaces/ProductDetail";
 import { Products } from "../../../interfaces/Products";
-import { productShoppingCart } from "../../../interfaces/ProductShoppingCart";
-// import { Products } from "../../../interfaces/Products";
-// import { SelectedProduct } from "../../../interfaces/SelectedProduct";
+// import { TransitionGroup } from "react-transition-group";
+// import { Products } from "../../../interfaces/ProductShoppingCart";
 import { cartActions } from "../../../stores/cart-slice";
 import { productActions } from "../../../stores/product-slice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
@@ -24,32 +21,39 @@ const WardrobeList = () => {
   const [notification, setNotification] = useState(false);
   const [optionPopup, setOptionPopup] = useState(false);
   const [shareProduct, setShareProduct] = useState(false);
-  // const [addedFavorite, setAddedFavorite] = useState<Products[]>([]);
   const [selectedFavorite, setSelectedFavorite] = useState<Products>();
   const [selectedId, setSelectedId] = useState<number>();
   const [selectSize, setSelectSize] = React.useState(false);
   const [selectedSize, setSelectedSize] = useState<string>();
   const [restore, setRestore] = useState<boolean>(false);
+  // let removedItems: any = [];
 
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
-  const removedFavorite = useAppSelector((state) => state.productSlice.removedProduct);
+  // const removedFavorite = useAppSelector((state) => state.productSlice.removedProduct);
   const dispatch = useAppDispatch();
   // const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   // console.log(addedShoppingCart);
 
   // const dispatch = useAppDispatch();
-  const removeFavorite = (id?: number) => {
-    let idFavorite: any = selectedId ? selectedId : id;
+  const removeFavoriteHandler = (id: number) => {
+    // let idFavorite: number = id;
 
-    const removedFavorite = addedFavorite.find((item) => item.id === idFavorite);
+    const removedFavorite = addedFavorite.find((item: Products) => item?.id === id);
+    console.log(removedFavorite);
+    // let newRemovedItems = [...removedItems];
+
+    // newRemovedItems.push(removedFavorite);
+    // removedItems = newRemovedItems;
     dispatch(cartActions.removeFavorite(removedFavorite));
-    dispatch(productActions.removedProductHandler({ removedFavorite: removedFavorite, restore: restore }));
+
+    // dispatch(productActions.removedProductHandler({ removedFavorite: removedFavorite, restore: restore }));
     // hardDeleteProduct(dispatch, removedFavorite, restore);
     if (removedFavorite) {
       setNotification(true);
     }
     setOptionPopup(false);
   };
+  // console.log(removedItems);
 
   const addShoppingCartHandler = (selectedProduct?: Products) => {
     setSelectedId(selectedProduct?.id);
@@ -68,12 +72,12 @@ const WardrobeList = () => {
           brand: selectedProduct?.brandName,
           name: selectedProduct?.name,
           imageUrl: selectedProduct?.imageUrl,
-          currentPrice: selectedProduct?.price.current.value,
-          previousPrice: selectedProduct?.price.previous?.value,
+          currentPrice: selectedProduct?.price?.current?.value,
+          previousPrice: selectedProduct?.price?.previous?.value,
           isFavorite: selectedProduct?.isFavorite,
           amount: 1,
           size: selectedSize,
-          totalProduct: selectedProduct?.price.current.value,
+          totalProduct: selectedProduct?.totalProduct,
         })
       );
       // console.log(selectedProduct);
@@ -90,14 +94,14 @@ const WardrobeList = () => {
   }, [selectedSize]);
 
   useEffect(() => {
-    const idRemovedProduct = removedFavorite[0]?.id;
-    const checkExistingIndex = addedFavorite.findIndex((item) => item.id === idRemovedProduct);
-    if (checkExistingIndex !== -1) {
-      return;
-    }
-    if (removedFavorite) {
-      dispatch(cartActions.addFavoriteHandler(removedFavorite));
-    }
+    // const idRemovedProduct = removedFavorite[0]?.id;
+    // const checkExistingIndex = addedFavorite.findIndex((item) => item?.id === idRemovedProduct);
+    // if (checkExistingIndex !== -1) {
+    //   return;
+    // }
+    // if (removedFavorite) {
+    //   dispatch(cartActions.addFavoriteHandler(removedFavorite));
+    // }
   }, [restore]);
 
   let refInput = React.useRef<any>(null);
@@ -116,15 +120,15 @@ const WardrobeList = () => {
   };
 
   React.useEffect(() => {
-    let subscribe = true;
-    if (subscribe) {
-      setTimeout(() => {
-        setNotification(false);
-      }, 3000);
-    }
-    return () => {
-      subscribe = false;
-    };
+    // let subscribe = true;
+    // if (subscribe) {
+    //   setTimeout(() => {
+    //     setNotification(false);
+    //   }, 3000);
+    // }
+    // return () => {
+    //   subscribe = false;
+    // };
   }, [notification]);
   // console.log(optionPopup);
 
@@ -136,8 +140,8 @@ const WardrobeList = () => {
           optionPopup={optionPopup}
           setOptionPopup={setOptionPopup}
           refInput={refInput}
-          removeFavorite={removeFavorite}
-          selectedFavorite={selectedFavorite}
+          removeFavoriteHandler={removeFavoriteHandler}
+          selectedFavorite={selectedFavorite!}
           setSelectSize={setSelectSize}
           selectSize={selectSize}
           setSelectedSize={setSelectedSize}
@@ -170,7 +174,7 @@ const WardrobeList = () => {
             {addedFavorite.map((product: any, idx) => (
               <Fade key={idx}>
                 <WardrobeItems
-                  removeFavorite={removeFavorite}
+                  removeFavoriteHandler={removeFavoriteHandler}
                   optionsHandler={optionsHandler}
                   addShoppingCartHandler={addShoppingCartHandler}
                   product={product}

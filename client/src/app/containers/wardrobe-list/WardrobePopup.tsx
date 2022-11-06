@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Backdrop, Box, Fade, Modal } from "@mui/material";
 import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
+import { Products } from "../../../interfaces/Products";
 // import { ProductDetail } from "../../../interfaces/ProductDetail";
 // import { cartActions } from "../../../stores/cart-slice";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
@@ -10,18 +11,18 @@ import Overlay from "../../components/UI/overlay/Overlay";
 import { data_sizes } from "../../pages/wardrobe-list/data";
 
 interface Iprop {
-  removeFavorite: () => void;
+  removeFavoriteHandler: (id: number) => void;
   refInput: React.MutableRefObject<any>;
   optionPopup: boolean;
   setOptionPopup: (state: boolean) => void;
-  selectedFavorite: any;
+  selectedFavorite: Products;
   setSelectSize: (state: boolean) => void;
   selectSize: boolean;
   setSelectedSize: (size: string) => void;
 }
 
 const WardrobePopup = ({
-  removeFavorite,
+  removeFavoriteHandler,
   refInput,
   optionPopup,
   setOptionPopup,
@@ -103,7 +104,7 @@ const WardrobePopup = ({
                           <FontAwesomeIcon icon={faChevronRight} />
                         </button>
                         <button
-                          onClick={removeFavorite}
+                          onClick={() => removeFavoriteHandler(selectedFavorite.id)}
                           className="p-4 grow flex justify-between border-y border-[#dddd] hover:bg-[#f0f0f0]"
                         >
                           <span className="text-[red]">Odstranit</span>

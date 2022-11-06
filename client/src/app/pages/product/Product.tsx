@@ -19,7 +19,7 @@ const Product_info = React.lazy(() => import("../../containers/product/product_i
 const Product = () => {
   const selectedId = useAppSelector((state) => state.productSlice.selectedId);
   const selectedProduct = useAppSelector((state) => state.productSlice.selectedProduct);
-  const allProducts = useAppSelector((state) => state.productSlice.allProducts);
+  const allProducts: Products[] = useAppSelector((state) => state.productSlice.allProducts);
 
   const isImage = selectedProduct?.media?.images!;
   const firstImage = isImage && selectedProduct?.media?.images[0].url!;

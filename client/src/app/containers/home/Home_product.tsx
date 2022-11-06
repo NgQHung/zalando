@@ -32,7 +32,7 @@ const HOME_PRODUCT = ({ products, selectedProductHandler, favoriteHandler }: IPr
                   <img
                     src="Skeleton-img.png"
                     className=" w-[288px] h-[415px] object-cover"
-                    lazy-src={`https://${item.imageUrl}`}
+                    lazy-src={`https://${item?.imageUrl}`}
                     alt="product"
                   />
                   <div className=" leading-[20px] pt-2">
@@ -41,11 +41,11 @@ const HOME_PRODUCT = ({ products, selectedProductHandler, favoriteHandler }: IPr
                       <h3>{item.name}</h3>
                     </div>
                     <div className="flex flex-col leading-[1.25rem] text-[700]">
-                      <span>{item.price.current.text}</span>
-                      {item.price.previous.value !== null && (
+                      <span>{item?.price?.current?.text}</span>
+                      {item?.price?.previous?.value !== null && (
                         <div className="text-[12px] leading-[16px]">
                           <span>Původně:</span>
-                          <span>{item.price.previous.text}</span>
+                          <span>{item?.price?.previous?.text}</span>
                           <span>20%</span>
                         </div>
                       )}

@@ -32,7 +32,7 @@ const Card = ({ children, data, favoriteHandler }: ICard) => {
     >
       <Link to={`/${data.name}`} className="min-w-[135px] max-w-[303px] lg:max-w-[288px] lg:min-w-[224px]">
         <div className="relative w-full">
-          <img src="Skeleton-img.png" lazy-src={ImgToHttp(data.imageUrl)} alt="" className="w-full object-cover" />
+          <img src="Skeleton-img.png" lazy-src={ImgToHttp(data?.imageUrl)} alt="" className="w-full object-cover" />
           <div className={"space-x-1 new_hidden " + (onHover ? "new" : "")}>
             <span className="p-1 text-[12px] font-[700] bg-[#ffff]">Hot Drop</span>
             <span className="p-1 text-[12px] font-[700] bg-[#ffff]">Novinka</span>

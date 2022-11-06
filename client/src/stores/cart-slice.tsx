@@ -2,7 +2,7 @@ import { createSlice, Dispatch } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { User } from "../app/containers/product/product_info/types/user";
 import { ProductDetail } from "../interfaces/ProductDetail";
-import { productShoppingCart } from "../interfaces/ProductShoppingCart";
+import { Products } from "../interfaces/Products";
 import { AfterRefresh } from "../utils/pageIsRefreshed";
 
 export interface UserShoppingCart {
@@ -20,9 +20,9 @@ export interface UserShoppingCart {
 }
 
 interface InitialState {
-  addedShoppingCart: productShoppingCart[];
+  addedShoppingCart: Products[];
   userAddedShoppingCart: UserShoppingCart[];
-  addedFavorite: productShoppingCart[];
+  addedFavorite: Products[];
   initialAmount: number;
   totalProduct: number;
   total: number;
@@ -65,7 +65,7 @@ const cartSlice = createSlice({
         const updatedProduct = {
           ...existingProductWithSize,
           amount: existingProductWithSize.amount + action.payload.amount,
-          totalProduct: existingProductWithSize.totalProduct + existingProductWithSize.currentPrice,
+          totalProduct: existingProductWithSize.totalProduct! + existingProductWithSize?.price?.current?.value,
         };
         updateProduct = [...state.addedShoppingCart];
         updateProduct[existingProductWithSizeIndex] = updatedProduct;
@@ -81,11 +81,11 @@ const cartSlice = createSlice({
       const existingProductWithSizeIndex = state.addedShoppingCart.findIndex((product) => {
         return product.id === idProduct && product.size === sizeProduct;
       });
-      const existingProductWithSize = state.addedShoppingCart[existingProductWithSizeIndex];
+      const existingProductWithSize: Products = state.addedShoppingCart[existingProductWithSizeIndex];
 
       let updateProduct;
 
-      if (existingProductWithSize.amount === 1) {
+      if (existingProductWithSize?.amount === 1) {
         state.removedProductNotification = true;
         updateProduct = state.addedShoppingCart.filter((product) => {
           return product.id !== idProduct || product.size !== sizeProduct;
@@ -93,10 +93,10 @@ const cartSlice = createSlice({
         // console.log("render");
         state.addedShoppingCart = updateProduct;
       } else {
-        const updatedProduct = {
+        const updatedProduct: Products = {
           ...existingProductWithSize,
-          amount: existingProductWithSize.amount - 1,
-          totalProduct: existingProductWithSize.totalProduct - existingProductWithSize.currentPrice,
+          amount: existingProductWithSize.amount! - 1,
+          totalProduct: existingProductWithSize.totalProduct! - existingProductWithSize?.price?.current?.value,
         };
 
         updateProduct = [...state.addedShoppingCart];
@@ -107,8 +107,8 @@ const cartSlice = createSlice({
     calculateTotals(state) {
       let total = 0;
       if (state.addedShoppingCart) {
-        state.addedShoppingCart.forEach((item) => {
-          total += item.amount * item.currentPrice;
+        state.addedShoppingCart.forEach((item: Products) => {
+          total += item.amount! * item?.price?.current?.value;
         });
       }
 
@@ -118,8 +118,8 @@ const cartSlice = createSlice({
       state.removedProductNotification = action.payload;
     },
     addFavoriteHandler(state, action) {
-      const idProduct = action.payload.id;
-      const existingProductIndex = state.addedFavorite.findIndex((product) => product.id === idProduct);
+      const idProduct = action.payload?.id;
+      const existingProductIndex = state.addedFavorite.findIndex((product: Products) => product?.id === idProduct);
       const existingProduct = state.addedFavorite[existingProductIndex];
       if (existingProduct) {
         return;
@@ -129,13 +129,14 @@ const cartSlice = createSlice({
       toast.success("Your product is added successfully");
     },
     removeFavorite(state, action) {
+      console.log(action.payload);
       const idProduct = action?.payload?.id;
       let updateAddedFavorite;
-      const existingProductIndex = state.addedFavorite.findIndex((item) => item.id === idProduct);
+      const existingProductIndex = state.addedFavorite.findIndex((item) => item?.id === idProduct);
       const existingProduct = state.addedFavorite[existingProductIndex];
       if (existingProduct) {
         const newUpdateAddedFavorite = [...state.addedFavorite];
-        updateAddedFavorite = newUpdateAddedFavorite.filter((item) => item.id !== idProduct);
+        updateAddedFavorite = newUpdateAddedFavorite.filter((item) => item?.id !== idProduct);
         state.addedFavorite = updateAddedFavorite;
       } else return;
     },
