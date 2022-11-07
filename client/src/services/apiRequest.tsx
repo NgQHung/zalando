@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { Dispatch } from "redux";
 import { uriBase } from "../config/uriBase";
 import { Products } from "../interfaces/Products";
+import { ShoppingProducts } from "../interfaces/ShoppingProducts";
 import { cartActions } from "../stores/cart-slice";
 // import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { productActions } from "../stores/product-slice";
@@ -32,15 +33,26 @@ export const getProducts = async (dispatch: Dispatch) => {
       const newAllProduct = allProducts.map((item: Products) => {
         return { ...item, isFavorite: false };
       });
-      const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
-      const addedFavorite = JSON.parse(getCart.cartSlice).addedFavorite;
-      // update data from server with data from local storage
-      const map = new Map(addedFavorite.map((o: Products) => [o?.id, o]));
-      const newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
-      const products_1 = newAllProducts.slice(0, 14);
-      const products_2 = newAllProducts.slice(15, 30);
+      let getCart;
+      let addedFavorite;
+      let map: any;
+      let newAllProducts;
+      if (!JSON.parse(localStorage.getItem("persist:root")!)) {
+        getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
+        // console.log(getCart);
+        addedFavorite = JSON.parse(getCart.cartSlice).addedFavorite;
+        map = new Map(addedFavorite.map((o: Products) => [o?.id, o]));
+        // update data from server with data from local storage
+        newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
+      }
+      const products_1 = newAllProducts ? newAllProducts.slice(0, 14) : newAllProduct.slice(0, 14);
+      const products_2 = newAllProducts ? newAllProducts.slice(15, 30) : newAllProduct.slice(15, 30);
       dispatch(
-        productActions.productsHandler({ allProducts: newAllProducts, products_1: products_1, products_2: products_2 })
+        productActions.productsHandler({
+          allProducts: newAllProducts ? newAllProducts : newAllProduct,
+          products_1: products_1,
+          products_2: products_2,
+        })
       );
       dispatch(UIActions.loadingPage(false));
     }, 1000);
@@ -74,7 +86,7 @@ export const getDetailProduct = async (dispatch: Dispatch, id: number | null) =>
   }
 };
 
-export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: Products[]) => {
+export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: Products[] | ShoppingProducts[]) => {
   // console.log(data);
   // console.log("post shopping cart");
 

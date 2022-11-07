@@ -10,10 +10,10 @@ const WARDROBE_LIKED = () => {
   const addedFavoriteLength = addedFavorite?.length;
   const addedFavoriteToShow = addedFavorite.slice(0, 4);
 
-  useEffect(() => {
-    const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
-    setAddedFavorite(JSON.parse(getCart.cartSlice).addedFavorite);
-  }, []);
+  // useEffect(() => {
+  //   const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
+  //   setAddedFavorite(JSON.parse(getCart.cartSlice).addedFavorite);
+  // }, []);
   return (
     <Link to="lists/liked" className="wardrobe_list-favorite px-2 mt-2 cursor-pointer">
       <div className="p-4 bg-[#ffff] ">

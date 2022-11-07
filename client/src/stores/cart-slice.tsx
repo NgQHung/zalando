@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { User } from "../app/containers/product/product_info/types/user";
 import { ProductDetail } from "../interfaces/ProductDetail";
 import { Products } from "../interfaces/Products";
+import { ShoppingProducts } from "../interfaces/ShoppingProducts";
 import { AfterRefresh } from "../utils/pageIsRefreshed";
 
 export interface UserShoppingCart {
@@ -20,7 +21,7 @@ export interface UserShoppingCart {
 }
 
 interface InitialState {
-  addedShoppingCart: Products[];
+  addedShoppingCart: ShoppingProducts[];
   userAddedShoppingCart: UserShoppingCart[];
   addedFavorite: Products[];
   initialAmount: number;
@@ -65,7 +66,7 @@ const cartSlice = createSlice({
         const updatedProduct = {
           ...existingProductWithSize,
           amount: existingProductWithSize.amount + action.payload.amount,
-          totalProduct: existingProductWithSize.totalProduct! + existingProductWithSize?.price?.current?.value,
+          totalProduct: existingProductWithSize.totalProduct! + existingProductWithSize.currentPrice,
         };
         updateProduct = [...state.addedShoppingCart];
         updateProduct[existingProductWithSizeIndex] = updatedProduct;
@@ -81,7 +82,7 @@ const cartSlice = createSlice({
       const existingProductWithSizeIndex = state.addedShoppingCart.findIndex((product) => {
         return product.id === idProduct && product.size === sizeProduct;
       });
-      const existingProductWithSize: Products = state.addedShoppingCart[existingProductWithSizeIndex];
+      const existingProductWithSize: ShoppingProducts = state.addedShoppingCart[existingProductWithSizeIndex];
 
       let updateProduct;
 
@@ -93,10 +94,10 @@ const cartSlice = createSlice({
         // console.log("render");
         state.addedShoppingCart = updateProduct;
       } else {
-        const updatedProduct: Products = {
+        const updatedProduct: ShoppingProducts = {
           ...existingProductWithSize,
           amount: existingProductWithSize.amount! - 1,
-          totalProduct: existingProductWithSize.totalProduct! - existingProductWithSize?.price?.current?.value,
+          totalProduct: existingProductWithSize.totalProduct! - existingProductWithSize.currentPrice,
         };
 
         updateProduct = [...state.addedShoppingCart];
@@ -107,8 +108,8 @@ const cartSlice = createSlice({
     calculateTotals(state) {
       let total = 0;
       if (state.addedShoppingCart) {
-        state.addedShoppingCart.forEach((item: Products) => {
-          total += item.amount! * item?.price?.current?.value;
+        state.addedShoppingCart.forEach((item: ShoppingProducts) => {
+          total += item.amount! * item.currentPrice;
         });
       }
 
@@ -129,7 +130,7 @@ const cartSlice = createSlice({
       toast.success("Your product is added successfully");
     },
     removeFavorite(state, action) {
-      console.log(action.payload);
+      // console.log(act  ion.payload);
       const idProduct = action?.payload?.id;
       let updateAddedFavorite;
       const existingProductIndex = state.addedFavorite.findIndex((item) => item?.id === idProduct);

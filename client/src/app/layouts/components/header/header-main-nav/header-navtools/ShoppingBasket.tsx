@@ -11,6 +11,7 @@ import { Box, ListItem, ListItemText } from "@mui/material";
 // import { motion } from "framer-motion";
 import { amountRemovedHandler, UIActions } from "../../../../../../stores/UI-slice";
 import { Products } from "../../../../../../interfaces/Products";
+import { ShoppingProducts } from "../../../../../../interfaces/ShoppingProducts";
 // import { toast } from "react-toastify";
 
 const ShoppingBasket = () => {
@@ -33,7 +34,7 @@ const ShoppingBasket = () => {
     setPosProduct(index);
     amountRemovedHandler(dispatch, 500);
   };
-  const addProductFavoriteHandler = (product: Products) => {
+  const addProductFavoriteHandler = (product: ShoppingProducts) => {
     dispatch(cartActions.addFavoriteHandler(product));
   };
 
@@ -113,7 +114,7 @@ const ShoppingBasket = () => {
               >
                 <div className={"shoppingCart_border " + (emptyShoppingCart ? "shoppingCart_border-active" : "")} />
                 <TransitionGroup component="div">
-                  {addedShoppingCart?.map((product: Products, idx: number) => (
+                  {addedShoppingCart?.map((product: ShoppingProducts, idx: number) => (
                     <Collapse key={idx}>
                       <ListItem className={"flex text-[14px] flex-col "}>
                         <ListItemText
@@ -138,11 +139,9 @@ const ShoppingBasket = () => {
                                       </div>
                                       <div className="flex flex-col w-full text-[10px] text-right  ">
                                         <span className="text-[14px] text-[#eb0037] mt-[2px] font-[700]">
-                                          {formatPrice(product?.price?.current?.value)}
+                                          {formatPrice(product.currentPrice)}
                                         </span>
-                                        {product?.price?.previous?.value && (
-                                          <span>{formatPrice(product?.price?.previous?.value)}</span>
-                                        )}
+                                        {product.previousPrice && <span>{formatPrice(product.previousPrice)}</span>}
                                       </div>
                                     </div>
                                     <div className="text-left">

@@ -26,7 +26,9 @@ const WardrobeList = () => {
   const [selectSize, setSelectSize] = React.useState(false);
   const [selectedSize, setSelectedSize] = useState<string>();
   const [restore, setRestore] = useState<boolean>(false);
-  // let removedItems: any = [];
+  const [removedProduct, setRemovedProduct] = useState<Products[]>([]);
+
+  // let removedItems: Products[] = [];
 
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
   // const removedFavorite = useAppSelector((state) => state.productSlice.removedProduct);
@@ -39,15 +41,11 @@ const WardrobeList = () => {
     // let idFavorite: number = id;
 
     const removedFavorite = addedFavorite.find((item: Products) => item?.id === id);
-    console.log(removedFavorite);
-    // let newRemovedItems = [...removedItems];
-
-    // newRemovedItems.push(removedFavorite);
-    // removedItems = newRemovedItems;
+    setRemovedProduct([removedFavorite!]);
     dispatch(cartActions.removeFavorite(removedFavorite));
+    // setTimeout(() => {
+    // }, 5000);
 
-    // dispatch(productActions.removedProductHandler({ removedFavorite: removedFavorite, restore: restore }));
-    // hardDeleteProduct(dispatch, removedFavorite, restore);
     if (removedFavorite) {
       setNotification(true);
     }
@@ -93,16 +91,24 @@ const WardrobeList = () => {
     setOptionPopup(false);
   }, [selectedSize]);
 
+  const restoreHandler = () => {
+    setRestore(true);
+    setNotification(false);
+  };
+
   useEffect(() => {
-    // const idRemovedProduct = removedFavorite[0]?.id;
-    // const checkExistingIndex = addedFavorite.findIndex((item) => item?.id === idRemovedProduct);
-    // if (checkExistingIndex !== -1) {
-    //   return;
-    // }
-    // if (removedFavorite) {
-    //   dispatch(cartActions.addFavoriteHandler(removedFavorite));
-    // }
-  }, [restore]);
+    if (removedProduct.length === 1 && !notification && restore) {
+      const idRemovedProduct = removedProduct[0]?.id;
+      const checkExistingIndex = addedFavorite.findIndex((item) => item?.id === idRemovedProduct);
+      const existingProduct = addedFavorite[checkExistingIndex];
+      if (!existingProduct) {
+        dispatch(cartActions.addFavoriteHandler(removedProduct[0]));
+      }
+      setRemovedProduct((prev) => prev.filter((item) => item.id !== idRemovedProduct));
+      setNotification(false);
+      setRestore(false);
+    }
+  }, [notification]);
 
   let refInput = React.useRef<any>(null);
 
@@ -120,21 +126,20 @@ const WardrobeList = () => {
   };
 
   React.useEffect(() => {
-    // let subscribe = true;
-    // if (subscribe) {
-    //   setTimeout(() => {
-    //     setNotification(false);
-    //   }, 3000);
-    // }
-    // return () => {
-    //   subscribe = false;
-    // };
+    let subscribe = true;
+    if (subscribe) {
+      setTimeout(() => {
+        setNotification(false);
+      }, 5000);
+    }
+    return () => {
+      subscribe = false;
+    };
   }, [notification]);
-  // console.log(optionPopup);
 
   return (
     <>
-      {notification && <WardrobeNotification setRestore={setRestore} />}
+      {notification && <WardrobeNotification restoreHandler={restoreHandler} />}
       {optionPopup ? (
         <WardrobePopup
           optionPopup={optionPopup}

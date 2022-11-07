@@ -14,6 +14,7 @@ import _ from "lodash";
 import { toast } from "react-toastify";
 import { productActions } from "../../../../stores/product-slice";
 import { Products } from "../../../../interfaces/Products";
+import { ShoppingProducts } from "../../../../interfaces/ShoppingProducts";
 
 interface Iprops {
   selectedProduct: ProductDetail;
@@ -56,17 +57,17 @@ const Product_info = ({ selectedProduct }: Iprops) => {
 
   const addShoppingCartHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    const productIndex1 = allProducts.findIndex((item: Products) => item.id === selectedProduct?.id);
-    const product = allProducts[productIndex1];
+    const productIndex1: number = allProducts.findIndex((item: Products) => item.id === selectedProduct?.id);
+    const product: Products = allProducts[productIndex1];
 
-    const updateProduct = {
-      id: product?.id,
-      brand: product?.brandName,
-      name: product?.name,
-      imageUrl: product?.imageUrl,
-      currentPrice: product?.price?.current?.value,
-      previousPrice: product?.price?.previous?.value,
-      isFavorite: product?.isFavorite,
+    const updateProduct: ShoppingProducts = {
+      id: product.id,
+      brandName: product.brandName,
+      name: product.name,
+      imageUrl: product.imageUrl,
+      currentPrice: product.price.current.value,
+      previousPrice: product?.price?.previous?.value!,
+      // isFavorite: product.isFavorite,
       amount: 1,
       size: sizeProduct,
       totalProduct: product?.price?.current?.value,

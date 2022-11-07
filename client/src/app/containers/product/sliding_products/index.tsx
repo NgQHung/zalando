@@ -67,11 +67,7 @@ const Sliding_products = ({ selectedProductHandler }: IProps) => {
                   />
                   <FontAwesomeIcon
                     icon={faHeart}
-                    className={
-                      "fa-thin p-[8px] text-[24px] absolute bg-[#ffff] top-2 right-0 "
-                      //  +
-                      // (selectedProduct?.id === item.id && favoriteAnimated ? "favorite_added-active" : "")
-                    }
+                    className={"fa-thin p-[8px] text-[24px] absolute bg-[#ffff] top-2 right-0 "}
                   />
                 </div>
                 <div className=" leading-[20px] pt-2">

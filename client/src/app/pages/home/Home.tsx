@@ -9,8 +9,8 @@ import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "../../components/ErrorBoundary";
 import HOME_TOPIC from "../../containers/home/Home_topic";
 import { getDetailProduct } from "../../../services/apiRequest";
-import Loading from "../../components/UI/loader/Loading";
-import { refreshPage } from "../../../utils/refreshPage";
+// import Loading from "../../components/UI/loader/Loading";
+// import { refreshPage } from "../../../utils/refreshPage";
 import HOME_PRODUCT from "../../containers/home/Home_product";
 
 export const Home = () => {
@@ -58,6 +58,7 @@ export const Home = () => {
   // }, []);
   // console.log(products_1);
   // console.log(loadingPage);
+  // console.log(products_1);
 
   return (
     <Fragment>
@@ -66,7 +67,6 @@ export const Home = () => {
           <Suspense
             fallback={
               <>
-                {/* <Loading /> */}
                 {React.useEffect(() => {
                   let subscribe = true;
                   if (subscribe) {
@@ -80,23 +80,22 @@ export const Home = () => {
             }
           ></Suspense>
         </ErrorBoundary>
-        {loadingPage && (
+        {/* {loadingPage && products_1.length === 0 ? (
           <>
             <Loading /> <div className="h-screen" />
           </>
-        )}
-        {products_1 && !loadingPage ? (
-          <Wrapper className="bg-[#229967]">
-            <div className="flex flex-col w-full h-full">
-              <HOME_TOPIC />
-              <HOME_PRODUCT
-                products={products_1}
-                selectedProductHandler={selectedProductHandler}
-                favoriteHandler={favoriteHandler}
-              />
-            </div>
-          </Wrapper>
-        ) : null}
+        ) : ( */}
+        <Wrapper className="bg-[#229967]">
+          <div className="flex flex-col w-full h-full">
+            <HOME_TOPIC />
+            <HOME_PRODUCT
+              products={products_1}
+              selectedProductHandler={selectedProductHandler}
+              favoriteHandler={favoriteHandler}
+            />
+          </div>
+        </Wrapper>
+        {/* )} */}
 
         {/* <Wrapper className="bg-[#229967] ">
           <div className="flex flex-col w-full h-full">

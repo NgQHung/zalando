@@ -31,7 +31,7 @@ const HOME_PRODUCT = ({ products, selectedProductHandler, favoriteHandler }: IPr
                 <Link onClick={() => selectedProductHandler(item.id)} to={`/${item.name}`}>
                   <img
                     src="Skeleton-img.png"
-                    className=" w-[288px] h-[415px] object-cover"
+                    className="w-[288px] h-[415px] object-cover"
                     lazy-src={`https://${item?.imageUrl}`}
                     alt="product"
                   />
