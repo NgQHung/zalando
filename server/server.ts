@@ -3,7 +3,7 @@ import env from 'dotenv';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import router from './src/routes';
-import mongoose, { Path } from 'mongoose';
+import mongoose, { ConnectOptions, Path } from 'mongoose';
 import cookieParser from 'cookie-parser';
 import serveStatic from 'serve-static';
 import path from 'path';
@@ -48,8 +48,10 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
 // routes
 app.use(router);
 
+const options = { useNewUrlParser: true, useUnifiedTopology: true };
+
 mongoose
-  .connect(process.env.MONGO_URI!)
+  .connect(process.env.MONGO_URI!, options as ConnectOptions)
   .then(() => {
     app.listen(PORT, () => console.log('listening on port ', PORT));
   })
