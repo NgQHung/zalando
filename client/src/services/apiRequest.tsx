@@ -29,27 +29,27 @@ export const getProducts = async (dispatch: Dispatch) => {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
       response = await axios.get(`${uriBase.server}/products`);
-      const allProducts = await response.data;
-      const newAllProduct = allProducts.map((item: Products) => {
+      const all = await response.data;
+      const newAllProduct = all.map((item: Products) => {
         return { ...item, isFavorite: false };
       });
       let getCart;
       let addedFavorite;
       let map: any;
       let newAllProducts;
-      if (!JSON.parse(localStorage.getItem("persist:root")!)) {
+      if (JSON.parse(localStorage.getItem("persist:root")!)) {
         getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
-        // console.log(getCart);
         addedFavorite = JSON.parse(getCart.cartSlice).addedFavorite;
         map = new Map(addedFavorite.map((o: Products) => [o?.id, o]));
         // update data from server with data from local storage
         newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
       }
-      const products_1 = newAllProducts ? newAllProducts.slice(0, 14) : newAllProduct.slice(0, 14);
-      const products_2 = newAllProducts ? newAllProducts.slice(15, 30) : newAllProduct.slice(15, 30);
+      const allProducts = newAllProducts ? newAllProducts : newAllProduct;
+      const products_1 = newAllProducts ? newAllProducts.slice(0, 14) : allProducts.slice(0, 14);
+      const products_2 = newAllProducts ? newAllProducts.slice(15, 30) : allProducts.slice(15, 30);
       dispatch(
         productActions.productsHandler({
-          allProducts: newAllProducts ? newAllProducts : newAllProduct,
+          allProducts: allProducts,
           products_1: products_1,
           products_2: products_2,
         })

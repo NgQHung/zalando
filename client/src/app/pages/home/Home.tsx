@@ -1,4 +1,4 @@
-import React, { Fragment, lazy, Suspense } from "react";
+import React, { Fragment, Suspense } from "react";
 import "./Home.css";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { productActions } from "../../../stores/product-slice";
@@ -9,9 +9,8 @@ import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "../../components/ErrorBoundary";
 import HOME_TOPIC from "../../containers/home/Home_topic";
 import { getDetailProduct } from "../../../services/apiRequest";
-// import Loading from "../../components/UI/loader/Loading";
-// import { refreshPage } from "../../../utils/refreshPage";
 import HOME_PRODUCT from "../../containers/home/Home_product";
+import Loading from "../../components/UI/loader/Loading";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -29,7 +28,7 @@ export const Home = () => {
     const target = e.currentTarget;
     const productIndex = products_1.findIndex((item) => item.name === target.getAttribute("datatype"));
     const product = products_1[productIndex];
-    console.log("hello");
+    // console.log("hello");
 
     let update;
     if (product) {
@@ -50,15 +49,7 @@ export const Home = () => {
       dispatch(cartActions.removeFavorite(selectedProduct));
     }
   }, [selectedProduct]);
-
-  // React.useEffect(() => {
-  //   if (products_1 === undefined) {
-  //     refreshPage();
-  //   }
-  // }, []);
-  // console.log(products_1);
   // console.log(loadingPage);
-  // console.log(products_1);
 
   return (
     <Fragment>
@@ -80,22 +71,22 @@ export const Home = () => {
             }
           ></Suspense>
         </ErrorBoundary>
-        {/* {loadingPage && products_1.length === 0 ? (
+        {loadingPage && products_1.length === 0 ? (
           <>
             <Loading /> <div className="h-screen" />
           </>
-        ) : ( */}
-        <Wrapper className="bg-[#229967]">
-          <div className="flex flex-col w-full h-full">
-            <HOME_TOPIC />
-            <HOME_PRODUCT
-              products={products_1}
-              selectedProductHandler={selectedProductHandler}
-              favoriteHandler={favoriteHandler}
-            />
-          </div>
-        </Wrapper>
-        {/* )} */}
+        ) : (
+          <Wrapper className="bg-[#229967]">
+            <div className="flex flex-col w-full h-full">
+              <HOME_TOPIC />
+              <HOME_PRODUCT
+                products={products_1}
+                selectedProductHandler={selectedProductHandler}
+                favoriteHandler={favoriteHandler}
+              />
+            </div>
+          </Wrapper>
+        )}
 
         {/* <Wrapper className="bg-[#229967] ">
           <div className="flex flex-col w-full h-full">

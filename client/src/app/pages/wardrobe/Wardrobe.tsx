@@ -1,17 +1,15 @@
 import React from "react";
 import Wrapper from "../../components/UI/wrapper/wrapper";
-// import { useAppSelector } from "../../hooks";
 import WARDROBE_LIKED from "../../containers/wardrobe/Wardrobe_Liked";
 import WARDROBE_OWN from "../../containers/wardrobe/Wardrobe_Own";
 import WARDROBE_SAVED_SELL from "../../containers/wardrobe/Wardrobe_saved_sell";
 
 const Wardrobe = () => {
-  // const likedProducts = useAppSelector((state) => state.cartSlice.addedFavorite);
   return (
     <Wrapper className="bg-[#efeff0]  ">
       <>
         <div className="wardrobe_title bg-[#ffff] row-full ">
-          <div className="ml-6 p-4">
+          <div className="ml-6 p-4 lg:max-w-[1216px] relative mx-6 xl:mx-auto lg:my-0 md:my-0  ">
             <h1 className="text-[40px] font-[600] leading-[48px] tracking-[-0.4px]">Vaše předměty</h1>
             <h1>Všechny na jednom místě</h1>
           </div>

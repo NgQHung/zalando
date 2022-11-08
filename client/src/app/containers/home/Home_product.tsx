@@ -16,7 +16,7 @@ const HOME_PRODUCT = ({ products, selectedProductHandler, favoriteHandler }: IPr
     <WrapperRowFull className="h-[584px] bg-[#34d27b] ">
       <>
         <div className=" flex pt-[36px] pb-[24px] text-[14px] ">
-          {products.map((item: Products) => (
+          {products?.map((item: Products) => (
             <div key={item.id} className="first:ml-[36px] md:first:ml-[48px] lg:first:ml-[152px]">
               <div className="relative h-[415px] w-[296px] px-[8px] cursor-pointer">
                 <div datatype={item.name} onClick={favoriteHandler} className="absolute bg-[#ffff] top-2 right-2">

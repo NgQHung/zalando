@@ -28,18 +28,29 @@ const WardrobeList = () => {
   const [selectedSize, setSelectedSize] = useState<string>();
   const [restore, setRestore] = useState<boolean>(false);
   const [removedProduct, setRemovedProduct] = useState<Products[]>([]);
+  const allProducts = useAppSelector((state) => state.productSlice.allProducts);
+  const products_1 = useAppSelector((state) => state.productSlice.products_1);
+  const [updateProducts, setUpdateProducts] = useState<Array<Products>>([]);
+  const [selectedProduct, setSelectedProduct] = React.useState<any>();
 
-  // let removedItems: Products[] = [];
+  useEffect(() => {
+    setUpdateProducts([...products_1]);
+  }, [products_1]);
 
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
-  // const removedFavorite = useAppSelector((state) => state.productSlice.removedProduct);
   const dispatch = useAppDispatch();
-  // const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
-  // console.log(addedShoppingCart);
-
-  // const dispatch = useAppDispatch();
-  const removeFavoriteHandler = (id: number) => {
+  const removeFavoriteHandler = async (id: number) => {
     const removedFavorite = addedFavorite.find((item: Products) => item?.id === id);
+    const index = updateProducts.findIndex((item: Products) => item.id === id);
+    const existing = updateProducts[index];
+
+    let update;
+    if (existing) {
+      const updateProduct = { ...existing, isFavorite: false };
+      update = [...updateProducts];
+      update[index] = updateProduct;
+      dispatch(productActions.productsHandler({ products_1: update }));
+    }
 
     if (removedFavorite) {
       setRemovedProduct([removedFavorite!]);
@@ -49,7 +60,6 @@ const WardrobeList = () => {
     setOptionPopup(false);
   };
 
-  console.log(restore);
   const addShoppingCartHandler = (selectedProduct?: Products) => {
     setSelectedId(selectedProduct?.id);
 
@@ -94,11 +104,17 @@ const WardrobeList = () => {
       const idRemovedProduct = removedProduct[0]?.id;
       const checkExistingIndex = addedFavorite.findIndex((item) => item?.id === idRemovedProduct);
       const existingProduct = addedFavorite[checkExistingIndex];
-      if (!existingProduct) {
-        dispatch(cartActions.addFavoriteHandler(removedProduct[0]));
+      const index = updateProducts.findIndex((item: Products) => item.id === idRemovedProduct);
+      const existing = updateProducts[index];
+      let update;
+      if (!existingProduct && existing) {
+        const updateProduct = { ...removedProduct[0], isFavorite: true };
+        dispatch(cartActions.addFavoriteHandler(updateProduct));
+        update = [...updateProducts];
+        update[index] = updateProduct;
+        dispatch(productActions.productsHandler({ products_1: update }));
       }
       setRemovedProduct((prev) => prev.filter((item) => item.id !== idRemovedProduct));
-      // setNotification(false);
       setRestore(false);
     }
   }, [notification]);
