@@ -61,6 +61,7 @@
 .effect_bg:hover::after {
   opacity: 1;
   width: 100%;
+  color: #ffff;
 }
 .shopping__cart-shadow {
   /* position: relative; */
