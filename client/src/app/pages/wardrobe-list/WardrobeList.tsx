@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fade } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Products } from "../../../interfaces/Products";
 // import { TransitionGroup } from "react-transition-group";
 // import { Products } from "../../../interfaces/ProductShoppingCart";
@@ -38,24 +39,19 @@ const WardrobeList = () => {
 
   // const dispatch = useAppDispatch();
   const removeFavoriteHandler = (id: number) => {
-    // let idFavorite: number = id;
-
     const removedFavorite = addedFavorite.find((item: Products) => item?.id === id);
-    setRemovedProduct([removedFavorite!]);
-    dispatch(cartActions.removeFavorite(removedFavorite));
-    // setTimeout(() => {
-    // }, 5000);
 
     if (removedFavorite) {
+      setRemovedProduct([removedFavorite!]);
+      dispatch(cartActions.removeFavorite(removedFavorite));
       setNotification(true);
     }
     setOptionPopup(false);
   };
-  // console.log(removedItems);
 
+  console.log(restore);
   const addShoppingCartHandler = (selectedProduct?: Products) => {
     setSelectedId(selectedProduct?.id);
-    // console.log(selectedProduct);
 
     if (!selectedSize) {
       setSelectedFavorite(selectedProduct);
@@ -78,15 +74,12 @@ const WardrobeList = () => {
           totalProduct: selectedProduct?.totalProduct,
         })
       );
-      // console.log(selectedProduct);
       setSelectedSize("");
       setOptionPopup(false);
     }
   };
 
   useEffect(() => {
-    // console.log(selectedSize);
-
     addShoppingCartHandler(selectedFavorite);
     setOptionPopup(false);
   }, [selectedSize]);
@@ -105,7 +98,7 @@ const WardrobeList = () => {
         dispatch(cartActions.addFavoriteHandler(removedProduct[0]));
       }
       setRemovedProduct((prev) => prev.filter((item) => item.id !== idRemovedProduct));
-      setNotification(false);
+      // setNotification(false);
       setRestore(false);
     }
   }, [notification]);
@@ -120,22 +113,21 @@ const WardrobeList = () => {
     setSelectSize(false);
 
     setOptionPopup(true);
-    // console.log(optionPopup);
-
-    // console.log(selectedProduct);
   };
 
   React.useEffect(() => {
     let subscribe = true;
-    if (subscribe) {
-      setTimeout(() => {
+    // let timer;
+    if (subscribe && !restore) {
+      const timer = setTimeout(() => {
         setNotification(false);
       }, 5000);
+      return () => {
+        subscribe = false;
+        clearTimeout(timer);
+      };
     }
-    return () => {
-      subscribe = false;
-    };
-  }, [notification]);
+  }, [notification, restore]);
 
   return (
     <>
