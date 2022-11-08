@@ -2,11 +2,14 @@ import axios from "axios";
 import { NavigateFunction } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Dispatch } from "redux";
-import { uriBase } from "../config/uriBase";
+// import { uriBase } from "../config/uriBase";
 import { User_signup } from "../interfaces/authentication";
 import { authAxios } from "../utils/authentication/axiosAuth";
 import { UIActions } from "../stores/UI-slice";
 import { userActions } from "../stores/user-slice";
+const uriBase = {
+  server: "http://localhost:8080",
+};
 
 // request login
 export const requestLogin = (dispatch: Dispatch, user: any, navigate: NavigateFunction, accessToken: string) => {
