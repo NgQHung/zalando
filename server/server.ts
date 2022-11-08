@@ -49,7 +49,7 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
 app.use(router);
 
 mongoose
-  .connect(process.env.MONGO_URI as string)
+  .connect(process.env.MONGO_URI!)
   .then(() => {
     app.listen(PORT, () => console.log('listening on port ', PORT));
   })
