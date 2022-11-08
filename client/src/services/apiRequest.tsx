@@ -1,7 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Dispatch } from "redux";
-import { uriBase } from "../config/uriBase";
 import { Products } from "../interfaces/Products";
 import { ShoppingProducts } from "../interfaces/ShoppingProducts";
 import { cartActions } from "../stores/cart-slice";
@@ -16,6 +15,10 @@ export interface User {
   firstName: string;
   _id: string;
 }
+
+const uriBase = {
+  server: "http://localhost:8080",
+};
 
 // get all products
 export const getProducts = async (dispatch: Dispatch) => {

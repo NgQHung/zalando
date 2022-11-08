@@ -2,7 +2,6 @@ import axios from "axios";
 import { NavigateFunction } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Dispatch } from "redux";
-// import { uriBase } from "../config/uriBase";
 import { User_signup } from "../interfaces/authentication";
 import { authAxios } from "../utils/authentication/axiosAuth";
 import { UIActions } from "../stores/UI-slice";
