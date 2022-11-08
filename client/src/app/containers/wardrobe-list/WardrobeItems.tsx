@@ -1,8 +1,6 @@
 import { faBagShopping, faEllipsis, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo } from "react";
-// import { motion } from "framer-motion";
-import { ProductDetail } from "../../../interfaces/ProductDetail";
 import { Products } from "../../../interfaces/Products";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 

@@ -3,14 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fade } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { Products } from "../../../interfaces/Products";
-// import { TransitionGroup } from "react-transition-group";
-// import { Products } from "../../../interfaces/ProductShoppingCart";
 import { cartActions } from "../../../stores/cart-slice";
 import { productActions } from "../../../stores/product-slice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
-// import { useAppDispatch, useAppSelector } from "../../hooks";
 import WardrobeItems from "../../containers/wardrobe-list/WardrobeItems";
 import WardrobeNotification from "../../containers/wardrobe-list/WardrobeNotification";
 import WardrobePopup from "../../containers/wardrobe-list/WardrobePopup";
@@ -23,15 +19,12 @@ const WardrobeList = () => {
   const [optionPopup, setOptionPopup] = useState(false);
   const [shareProduct, setShareProduct] = useState(false);
   const [selectedFavorite, setSelectedFavorite] = useState<Products>();
-  const [selectedId, setSelectedId] = useState<number>();
   const [selectSize, setSelectSize] = React.useState(false);
   const [selectedSize, setSelectedSize] = useState<string>();
   const [restore, setRestore] = useState<boolean>(false);
   const [removedProduct, setRemovedProduct] = useState<Products[]>([]);
-  const allProducts = useAppSelector((state) => state.productSlice.allProducts);
   const products_1 = useAppSelector((state) => state.productSlice.products_1);
   const [updateProducts, setUpdateProducts] = useState<Array<Products>>([]);
-  const [selectedProduct, setSelectedProduct] = React.useState<any>();
 
   useEffect(() => {
     setUpdateProducts([...products_1]);
@@ -61,11 +54,8 @@ const WardrobeList = () => {
   };
 
   const addShoppingCartHandler = (selectedProduct?: Products) => {
-    setSelectedId(selectedProduct?.id);
-
     if (!selectedSize) {
       setSelectedFavorite(selectedProduct);
-      setSelectedId(selectedProduct?.id);
       setOptionPopup(true);
       setSelectSize(true);
       return;
@@ -125,7 +115,6 @@ const WardrobeList = () => {
 
   const optionsHandler = (selectedProduct: Products) => {
     setSelectedFavorite(selectedProduct);
-    setSelectedId(selectedProduct.id);
     setSelectSize(false);
 
     setOptionPopup(true);

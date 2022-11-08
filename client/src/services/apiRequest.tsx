@@ -5,13 +5,9 @@ import { uriBase } from "../config/uriBase";
 import { Products } from "../interfaces/Products";
 import { ShoppingProducts } from "../interfaces/ShoppingProducts";
 import { cartActions } from "../stores/cart-slice";
-// import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { productActions } from "../stores/product-slice";
 import { UIActions } from "../stores/UI-slice";
 import { AfterRefresh } from "../utils/pageIsRefreshed";
-// import { UIActions } from "./UI-slice";
-// import UISlice, { UIActions } from "./UI-slice";
-// const axiosJWT = AxiosJWT();
 
 export interface User {
   accessToken: string;
@@ -87,9 +83,6 @@ export const getDetailProduct = async (dispatch: Dispatch, id: number | null) =>
 };
 
 export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: Products[] | ShoppingProducts[]) => {
-  // console.log(data);
-  // console.log("post shopping cart");
-
   const authAxios = axios.create({
     baseURL: uriBase.server,
     headers: {
@@ -102,13 +95,9 @@ export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: 
     response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/shopping-cart`, { data: data });
   } catch (error: any) {
     toast.error(error.response?.data.message);
-
-    // console.log(error);
   }
 };
 export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
-  // console.log("get shopping cart");
-
   const authAxios = axios.create({
     baseURL: uriBase.server,
     headers: {
@@ -131,9 +120,6 @@ export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
 };
 
 export const postLikedProductById = async (dispatch: Dispatch, user: any, data: Products[]) => {
-  // console.log(data);
-  // console.log("post liked cart");
-
   const authAxios = axios.create({
     baseURL: uriBase.server,
     headers: {
@@ -150,9 +136,6 @@ export const postLikedProductById = async (dispatch: Dispatch, user: any, data: 
   }
 };
 export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
-  // console.log(data);
-  // console.log("get liked cart");
-
   const authAxios = axios.create({
     baseURL: uriBase.server,
     headers: {

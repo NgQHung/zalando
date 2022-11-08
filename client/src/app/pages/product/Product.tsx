@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import "./Product.css";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
@@ -7,7 +7,6 @@ import { ErrorBoundary } from "react-error-boundary";
 
 // containers
 import ErrorFallback from "../../components/ErrorBoundary";
-import { AfterRefresh } from "../../../utils/pageIsRefreshed";
 import Loading from "../../components/UI/loader/Loading";
 import { productActions } from "../../../stores/product-slice";
 import { Products } from "../../../interfaces/Products";
@@ -30,7 +29,6 @@ const Product = () => {
   const scrollRef = React.useRef<any>(null);
   const [chevronUp, setChevronUp] = React.useState(false);
   const [chevronDown, setChevronDown] = React.useState(false);
-  // const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
 
   const typeImageHandler = (image: string, index: number) => {
     setImageShow(ImgToHttp(image));
@@ -65,7 +63,6 @@ const Product = () => {
       setImageShow(ImgToHttp(firstImage));
     } else return;
   }, [firstImage]);
-  // console.log(selectedProduct);
 
   return (
     <div className=" md:mx-6 w-auto lg:mx-auto lg:my-0 lg:max-w-[1216px] ">

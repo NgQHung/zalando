@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useAppSelector } from "../../../hooks";
 
 interface IProps {
@@ -12,7 +12,6 @@ const ButtonPrimary = ({ children, className, onClick, ...props }: IProps) => {
   return (
     <button
       disabled={disabled}
-      // ref={buttonRef}
       onClick={onClick}
       className={`text-[16px] relative w-full leading-[24px] tracking-[-0.16px] whitespace-nowrap font-[700] text-ellipsis hover:opacity-80 p-3 transition-all text-[#ffff] text-center cursor-pointer ${className}`}
       {...props}

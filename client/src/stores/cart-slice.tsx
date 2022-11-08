@@ -1,10 +1,7 @@
-import { createSlice, Dispatch } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { User } from "../app/containers/product/product_info/types/user";
-import { ProductDetail } from "../interfaces/ProductDetail";
 import { Products } from "../interfaces/Products";
 import { ShoppingProducts } from "../interfaces/ShoppingProducts";
-import { AfterRefresh } from "../utils/pageIsRefreshed";
 
 export interface UserShoppingCart {
   data: {
@@ -130,7 +127,6 @@ const cartSlice = createSlice({
       toast.success("Your product is added successfully");
     },
     removeFavorite(state, action) {
-      // console.log(act  ion.payload);
       const idProduct = action?.payload?.id;
       let updateAddedFavorite;
       const existingProductIndex = state.addedFavorite.findIndex((item) => item?.id === idProduct);

@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { NavigateFunction } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Dispatch } from "redux";
@@ -6,13 +6,10 @@ import { uriBase } from "../config/uriBase";
 import { User_signup } from "../interfaces/authentication";
 import { authAxios } from "../utils/authentication/axiosAuth";
 import { UIActions } from "../stores/UI-slice";
-// import { AxiosJWT } from "../utils/authentication/axiosJWT";
 import { userActions } from "../stores/user-slice";
-// const axiosJWT = AxiosJWT();
 
 // request login
 export const requestLogin = (dispatch: Dispatch, user: any, navigate: NavigateFunction, accessToken: string) => {
-  let response;
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
@@ -23,11 +20,7 @@ export const requestLogin = (dispatch: Dispatch, user: any, navigate: NavigateFu
       }
       dispatch(UIActions.loadingPage(false));
     }, 1000);
-    // console.log(response);
   } catch (error: any) {
-    // console.log("error?2");
-    // console.log(response);
-
     toast.error(error.response?.data.message);
   }
 };

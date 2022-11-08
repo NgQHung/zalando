@@ -1,6 +1,6 @@
 import ProductModel from '../models/products';
-import express, { Request, Response, NextFunction } from 'express';
-import axios, { AxiosError } from 'axios';
+import { Request, Response, NextFunction } from 'express';
+import { AxiosError } from 'axios';
 import ProductDetailModel from '../models/productDetail';
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {

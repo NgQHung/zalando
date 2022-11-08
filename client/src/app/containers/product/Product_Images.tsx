@@ -6,9 +6,7 @@ import { ProductDetail } from "../../../interfaces/ProductDetail";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import ready from "../../../utils/intersectionObserver";
 import ErrorFallback from "../../components/ErrorBoundary";
-import Loader from "../../components/UI/loader/Loader";
 import Loading from "../../components/UI/loader/Loading";
-import { useAppSelector } from "../../hooks";
 
 interface IProps {
   chevronUp: boolean;

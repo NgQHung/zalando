@@ -12,10 +12,10 @@ export const HeaderCategory_DATA: string[] = [
   "Pre_owned",
 ];
 
-interface Items {
-  title: string;
-  types: string[];
-}
+// interface Items {
+//   title: string;
+//   types: string[];
+// }
 
 export const SubHeaderCategory_DATA = [
   {

@@ -1,4 +1,4 @@
-import { createSlice, Dispatch } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { ProductDetail } from "../interfaces/ProductDetail";
 import { Products } from "../interfaces/Products";
 

@@ -8,11 +8,8 @@ import { TransitionGroup } from "react-transition-group";
 import Collapse from "@mui/material/Collapse";
 import "./navtools.css";
 import { Box, ListItem, ListItemText } from "@mui/material";
-// import { motion } from "framer-motion";
-import { amountRemovedHandler, UIActions } from "../../../../../../stores/UI-slice";
-import { Products } from "../../../../../../interfaces/Products";
+import { amountRemovedHandler } from "../../../../../../stores/UI-slice";
 import { ShoppingProducts } from "../../../../../../interfaces/ShoppingProducts";
-// import { toast } from "react-toastify";
 
 const ShoppingBasket = () => {
   const dispatch = useAppDispatch();
