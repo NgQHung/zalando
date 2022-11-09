@@ -57,7 +57,7 @@ const LOGIN_FORM = ({
             <div className="outline_onHover flex items-center ">
               <FontAwesomeIcon icon={faEnvelope} className="h-6 py-2 pl-3" />
               <input
-                className="py-3 px-[10px] w-full h-full outline-none "
+                className=" px-[10px] w-full h-full outline-none "
                 type="text"
                 placeholder="E-mailová adresa"
                 name="email"
@@ -67,19 +67,6 @@ const LOGIN_FORM = ({
             </div>
           </div>
           <div className="password_input pb-6 flex flex-col">
-            <Input
-              type={input.showPassword ? "text" : "password"}
-              onChange={onChangeHandler}
-              value={input.password}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
-                    {input.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-
             <p
               ref={refInput}
               className={
@@ -91,15 +78,31 @@ const LOGIN_FORM = ({
             </p>
             <div className="outline_onHover flex items-center   ">
               <FontAwesomeIcon icon={faLock} className="h-6 py-2 pl-3" />
-              <input
-                className="py-3 px-[10px] w-full h-full outline-none"
-                type="text"
-                placeholder="Heslo"
+              <Input
+                disableUnderline={true}
+                className=" px-[10px] w-full h-full outline-none"
                 name="password"
+                placeholder="Heslo"
                 onClick={onClickHandler}
                 onChange={onChangeHandler}
+                type={input.showPassword ? "text" : "password"}
+                value={input.password}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      size="small"
+                      // className="h-6 w-6 py-0 pr-3"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {input.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                // endAdornment={
+                // }
               />
-              <FontAwesomeIcon icon={faEye} className="h- py-2 pr-3" />
+              {/* <FontAwesomeIcon icon={faEye} className="h- py-2 pr-3" /> */}
             </div>
           </div>
           <ButtonPrimary className=" bg-[#1a1a1a] text-[#ffff] w-full">
