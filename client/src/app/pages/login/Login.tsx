@@ -17,9 +17,21 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 export const Login = () => {
   const [typeInput, setTypeInput] = React.useState("");
   const [isClick, setIsClick] = React.useState(false);
-  const [input, setInput] = React.useState<User_login>({ email: "", password: "" });
+  const [input, setInput] = React.useState<User_login>({ email: "", password: "", showPassword: false });
   const refInput = React.useRef<any>(null);
   const user = useAppSelector((state) => state.userSlice.user);
+
+  // const [values, setValues] = React.useState({
+  //   password: "",
+  // });
+
+  const handleClickShowPassword = () => {
+    setInput({ ...input, showPassword: !input.showPassword });
+  };
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+  };
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -96,6 +108,9 @@ export const Login = () => {
         typeInput={typeInput}
         onClickHandler={onClickHandler}
         onChangeHandler={onChangeHandler}
+        input={input}
+        handleClickShowPassword={handleClickShowPassword}
+        handleMouseDownPassword={handleMouseDownPassword}
       />
       <LOGIN_REGISTER />
     </Fragment>

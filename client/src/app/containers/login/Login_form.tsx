@@ -1,19 +1,39 @@
 import { faEnvelope, faEye, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import IconButton from "@material-ui/core/IconButton";
+// import InputLabel from "@material-ui/core/InputLabel";
+import Visibility from "@material-ui/icons/Visibility";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Input from "@material-ui/core/Input";
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import ButtonPrimary from "../../components/UI/button/Button";
+import { User_login } from "../../../interfaces/authentication";
 
 interface IProps {
   onSubmitHandler: (e: React.FormEvent<HTMLFormElement>) => void;
   refInput: React.MutableRefObject<any>;
   isClick: boolean;
   typeInput: string;
+  input: User_login;
   onClickHandler: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
   onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleClickShowPassword: () => void;
+  handleMouseDownPassword: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const LOGIN_FORM = ({ onSubmitHandler, refInput, isClick, typeInput, onClickHandler, onChangeHandler }: IProps) => {
+const LOGIN_FORM = ({
+  onSubmitHandler,
+  refInput,
+  isClick,
+  typeInput,
+  onClickHandler,
+  onChangeHandler,
+  input,
+  handleClickShowPassword,
+  handleMouseDownPassword,
+}: IProps) => {
   return (
     <section className="login_section tex-center mx-auto my-0 border border-b-[#a0a0a0] pb-12 ">
       <div className="login_header_logo max-w-[1216px] mx-auto my-0 text-left px-6 pt-4 pb-6">
@@ -47,6 +67,19 @@ const LOGIN_FORM = ({ onSubmitHandler, refInput, isClick, typeInput, onClickHand
             </div>
           </div>
           <div className="password_input pb-6 flex flex-col">
+            <Input
+              type={input.showPassword ? "text" : "password"}
+              onChange={onChangeHandler}
+              value={input.password}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                    {input.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+
             <p
               ref={refInput}
               className={

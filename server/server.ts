@@ -12,7 +12,7 @@ var cors = require('cors');
 // PORT
 const PORT = process.env.PORT || 8080;
 
-env.config({ path: 'ENV_FILENAME' });
+env.config({ path: path.resolve(__dirname, './.env') });
 
 const app = express();
 // serve static
@@ -48,10 +48,8 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
 // routes
 app.use(router);
 
-const options = { useUnifiedTopology: true, useNewUrlParser: true };
-
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI!)
   .then(() => {
     app.listen(PORT, () => console.log('listening on port ', PORT));
   })
