@@ -1,3 +1,3 @@
 export const herokuUrl = {
-  server: "https://zalando-be.herokuapp.com/",
+  server: "https://zalando-be.herokuapp.com",
 };
