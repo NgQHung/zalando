@@ -20,6 +20,10 @@ const uriBase = {
   server: "http://localhost:8080",
 };
 
+const uriHeroku = {
+  server: "https://zalando-be.herokuapp.com",
+};
+
 // get all products
 export const getProducts = async (dispatch: Dispatch) => {
   let response;
@@ -27,7 +31,7 @@ export const getProducts = async (dispatch: Dispatch) => {
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
-      response = await axios.get(`${uriBase.server}/products`);
+      response = await axios.get(`${uriHeroku.server}/products`);
       const all = await response.data;
       const newAllProduct = all.map((item: Products) => {
         return { ...item, isFavorite: false };
@@ -75,7 +79,7 @@ export const getDetailProduct = async (dispatch: Dispatch, id: number | null) =>
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
-      response = await axios.get(`${uriBase.server}/product/${id ? id : getSelectedId}`);
+      response = await axios.get(`${uriHeroku.server}/product/${id ? id : getSelectedId}`);
       const detailProduct = response.data;
       dispatch(productActions.selectedProductHandler(detailProduct));
       dispatch(UIActions.loadingPage(false));
@@ -87,7 +91,7 @@ export const getDetailProduct = async (dispatch: Dispatch, id: number | null) =>
 
 export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: Products[] | ShoppingProducts[]) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -95,14 +99,14 @@ export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: 
   });
   let response;
   try {
-    response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/shopping-cart`, { data: data });
+    response = await authAxios.post(`${uriHeroku.server}/v1/user/${user?._id}/shopping-cart`, { data: data });
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }
 };
 export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -113,7 +117,7 @@ export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
-      response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/shopping-cart/products`);
+      response = await authAxios.get(`${uriHeroku.server}/v1/user/${user?._id}/shopping-cart/products`);
       dispatch(cartActions.getShoppingCart(response.data[0].data));
       dispatch(UIActions.loadingPage(false));
     }, 1000);
@@ -124,7 +128,7 @@ export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
 
 export const postLikedProductById = async (dispatch: Dispatch, user: any, data: Products[]) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -133,14 +137,14 @@ export const postLikedProductById = async (dispatch: Dispatch, user: any, data: 
 
   let response;
   try {
-    response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/liked`, { data: data });
+    response = await authAxios.post(`${uriHeroku.server}/v1/user/${user?._id}/liked`, { data: data });
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }
 };
 export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -148,7 +152,7 @@ export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
   });
   let response;
   try {
-    response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/liked/products`);
+    response = await authAxios.get(`${uriHeroku.server}/v1/user/${user?._id}/liked/products`);
     dispatch(cartActions.getLikedProduct(response.data[0].data));
   } catch (error: any) {
     toast.error(error.response?.data.message);

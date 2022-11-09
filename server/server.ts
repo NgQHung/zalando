@@ -17,7 +17,7 @@ env.config({ path: 'ENV_FILENAME' });
 const app = express();
 // serve static
 app.use(serveStatic('public/ftp', { index: ['default.html', 'default.htm'] }));
-app.use('/dist', express.static(path.resolve(__dirname, '../client/dist')));
+// app.use('/dist', express.static(path.resolve(__dirname, '../client/dist')));
 // router.get('/', (req, res: Response) => {
 //   res.download(path.resolve(__dirname, '../client/public/index.html'));
 // });
