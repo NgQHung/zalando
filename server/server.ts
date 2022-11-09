@@ -12,16 +12,16 @@ var cors = require('cors');
 // PORT
 const PORT = process.env.PORT || 8080;
 
-env.config();
+env.config({ path: 'ENV_FILENAME' });
 
 const app = express();
 // serve static
 app.use(serveStatic('public/ftp', { index: ['default.html', 'default.htm'] }));
 app.use('/dist', express.static(path.resolve(__dirname, '../client/dist')));
-router.get('/', (req, res: Response) => {
-  res.download(path.resolve(__dirname, '../client/public/index.html'));
-});
-app.use('/', express.static(path.join(__dirname, '../client/public/index.html')));
+// router.get('/', (req, res: Response) => {
+//   res.download(path.resolve(__dirname, '../client/public/index.html'));
+// });
+// app.use('/', express.static(path.join(__dirname, '../client/public/index.html')));
 app.use(cors({ credentials: true, origin: process.env.CLIENT_URI }));
 app.use(cookieParser());
 app.use(helmet());
@@ -48,10 +48,10 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
 // routes
 app.use(router);
 
-const options = { useNewUrlParser: true, useUnifiedTopology: true };
+const options = { useUnifiedTopology: true, useNewUrlParser: true };
 
 mongoose
-  .connect(process.env.MONGO_URI!, options as ConnectOptions)
+  .connect(process.env.MONGO_URI)
   .then(() => {
     app.listen(PORT, () => console.log('listening on port ', PORT));
   })
