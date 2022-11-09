@@ -17,11 +17,11 @@ env.config({ path: path.resolve(__dirname, './.env') });
 const app = express();
 // serve static
 app.use(serveStatic('public/ftp', { index: ['default.html', 'default.htm'] }));
-// app.use('/dist', express.static(path.resolve(__dirname, '../client/dist')));
+app.use('/dist', express.static(path.resolve(__dirname, '../client/dist')));
 // router.get('/', (req, res: Response) => {
 //   res.download(path.resolve(__dirname, '../client/public/index.html'));
 // });
-// app.use('/', express.static(path.join(__dirname, '../client/public/index.html')));
+app.use('/', express.static(path.join(__dirname, '../client/public/index.html')));
 app.use(cors({ credentials: true, origin: process.env.CLIENT_URI }));
 app.use(cookieParser());
 app.use(helmet());
