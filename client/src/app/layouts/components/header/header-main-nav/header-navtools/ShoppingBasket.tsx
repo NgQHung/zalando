@@ -10,6 +10,7 @@ import "./navtools.css";
 import { Box, ListItem, ListItemText } from "@mui/material";
 import { amountRemovedHandler } from "../../../../../../stores/UI-slice";
 import { ShoppingProducts } from "../../../../../../interfaces/ShoppingProducts";
+import { Link } from "react-router-dom";
 
 const ShoppingBasket = () => {
   const dispatch = useAppDispatch();
@@ -211,10 +212,12 @@ const ShoppingBasket = () => {
                   <p className="self-end text-[16px] font-bold leading-[23px]">{formatPrice(total)}</p>
                 )}
               </div>
-              <div className="  pb-[18px] text-[14px] px-[18px] leading-[18px]  hover:opacity-70 text-center text-[#ffff] ">
-                <button className="px-4  py-[10px] rounded-sm bg-[#1a1a1a] w-full font-[700]">
-                  <span className="">Přejít do nákupního košíku</span>
-                </button>
+              <div className="pb-[18px] text-[14px] px-[18px] leading-[18px]  hover:opacity-70 text-center text-[#ffff] ">
+                <Link to="/cart">
+                  <button className="px-4  py-[10px] rounded-sm bg-[#1a1a1a] w-full font-[700]">
+                    <span className="">Přejít do nákupního košíku</span>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

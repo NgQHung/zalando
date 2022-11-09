@@ -19,6 +19,7 @@ export const routeConfig = {
   wardrobe_lists_owned: "/wardrobe/lists/owned",
   wardrobe_lists_liked_outfits: "/wardrobe/lists/liked-outfits",
   wardrobe_lists_sell: "/wardrobe/lists/sell",
+  cart: "/cart",
 
   // following: "/following",
   // profile: "/@:username",

@@ -13,6 +13,7 @@ import Wardrobe from "../pages/wardrobe/Wardrobe";
 import WardrobeList from "../pages/wardrobe-list/WardrobeList";
 import MyAccount from "../pages/myAccount/MyAccount";
 import { ListProducts } from "../pages/product-list/ListProducts";
+import Cart from "../pages/cart/Cart";
 
 const publicRoutes: PublicRoutes[] = [
   {
@@ -74,6 +75,10 @@ const publicRoutes: PublicRoutes[] = [
   {
     path: routeConfig.myAccount,
     component: MyAccount,
+  },
+  {
+    path: routeConfig.cart,
+    component: Cart,
   },
 ];
 
