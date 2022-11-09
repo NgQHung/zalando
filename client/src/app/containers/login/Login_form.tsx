@@ -1,10 +1,10 @@
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Input from "@material-ui/core/Input";
+// import IconButton from "@material-ui/core/IconButton";
+// import Visibility from "@material-ui/icons/Visibility";
+// import InputAdornment from "@material-ui/core/InputAdornment";
+// import VisibilityOff from "@material-ui/icons/VisibilityOff";
+// import Input from "@material-ui/core/Input";
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import ButtonPrimary from "../../components/UI/button/Button";
@@ -77,7 +77,7 @@ const LOGIN_FORM = ({
             </p>
             <div className="outline_onHover flex items-center   ">
               <FontAwesomeIcon icon={faLock} className="h-6 py-2 pl-3" />
-              <Input
+              {/* <Input
                 disableUnderline={true}
                 className=" px-[10px] w-full h-full outline-none"
                 name="password"
@@ -98,8 +98,14 @@ const LOGIN_FORM = ({
                     </IconButton>
                   </InputAdornment>
                 }
-                // endAdornment={
-                // }
+              /> */}
+              <input
+                className=" px-[10px] w-full h-full outline-none "
+                type="text"
+                placeholder="Heslo"
+                name="password"
+                onClick={onClickHandler}
+                onChange={onChangeHandler}
               />
               {/* <FontAwesomeIcon icon={faEye} className="h- py-2 pr-3" /> */}
             </div>
