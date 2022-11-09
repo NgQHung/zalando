@@ -1,15 +1,17 @@
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleDown, faChevronDown, faChevronUp, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../../../utils/formatPrice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
 import CART_ITEM from "../../containers/cart/Cart_Item";
 import { useAppSelector } from "../../hooks";
+import "./Cart.css";
 
 const Cart = () => {
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const total = useAppSelector((state) => state.cartSlice.total);
+  const [dropdown, setDropdown] = useState(false);
 
   return (
     <Wrapper className=" ">
@@ -63,12 +65,30 @@ const Cart = () => {
                     <div className="total-subtitle">Celkem (Vč. DPH)</div>
                     <div className="total-value">{formatPrice(total)}</div>
                   </div>
+                  <div className="checkout-cart mt-[24px] grow">
+                    <Link to="/checkout/address">
+                      <button className="py-[10px] w-full px-[16px] bg-[#FF4E00] text-[#ffff] font-[700] text-[12px]">
+                        <span className=" leading-[18px]">PŘEJÍT K POKLADNĚ</span>
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
-              <div className="sale-code-cart bg-[#ffff] p-6">
-                <div className="sale-title text-[14px] leading-[16px]">
-                  <span>Vložit slevový kód</span>
-                  <span>(Volitelné)</span>
+              <div className="sale-code-cart bg-[#ffff] p-6 flex flex-col ">
+                <div onClick={() => setDropdown((prev) => !prev)} className="flex justify-between cursor-pointer">
+                  <div className="sale-title text-[14px] tracking-[0.5px] leading-[16px]">
+                    <span>Vložit slevový kód</span>
+                    <span> (Volitelné)</span>
+                  </div>
+                  <div className="sale-icon">
+                    {dropdown ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />}
+                  </div>
+                </div>
+                <div className={"sale-code_dropdown-hidden " + (dropdown ? "sale-code_dropdown-show" : "")}>
+                  <div className="sale-dropdown_title mb-[6px] text-[12px] leading-[18px]">Vložte slevový kód zde</div>
+                  <div className="sale-dropdown_input">
+                    <input className="px-[18px] w-full h-[42px] border border-[#1a1a1a]" type="text" />
+                  </div>
                 </div>
               </div>
             </div>

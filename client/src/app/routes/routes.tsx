@@ -14,6 +14,7 @@ import WardrobeList from "../pages/wardrobe-list/WardrobeList";
 import MyAccount from "../pages/myAccount/MyAccount";
 import { ListProducts } from "../pages/product-list/ListProducts";
 import Cart from "../pages/cart/Cart";
+import Checkout from "../pages/checkout/Checkout";
 
 const publicRoutes: PublicRoutes[] = [
   {
@@ -79,6 +80,10 @@ const publicRoutes: PublicRoutes[] = [
   {
     path: routeConfig.cart,
     component: Cart,
+  },
+  {
+    path: routeConfig.checkout,
+    component: Checkout,
   },
 ];
 
