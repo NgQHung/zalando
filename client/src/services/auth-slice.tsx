@@ -10,6 +10,10 @@ const uriBase = {
   server: "http://localhost:8080",
 };
 
+const uriHeroku = {
+  server: "https://zalando-be.herokuapp.com",
+};
+
 // request login
 export const requestLogin = (dispatch: Dispatch, user: any, navigate: NavigateFunction, accessToken: string) => {
   try {
@@ -57,7 +61,7 @@ export const requestSignup = (dispatch: Dispatch, user: User_signup, navigate: N
 // request log out
 export const requestLogout = (dispatch: Dispatch, navigate: NavigateFunction, accessToken: string) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
