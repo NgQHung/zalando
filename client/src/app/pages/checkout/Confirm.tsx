@@ -21,11 +21,15 @@ const Confirm = () => {
             <div className="flex flex-col basis-1/2 max-w-1/2">
               <div className="mt-[36px]">
                 <h2 className="uppercase pb-[6px] font-[700] border-b border-gray-300">Možnost dopravy</h2>
-                <div className="flex mt-[24px]">
-                  <input type="checkbox" />
-                  <div className="text-[16px] leading-[18px]">
+                <div className="flex mt-[24px] px-[15px]">
+                  <div className=" pr-[15px] py-[6px] relative top-1/2 translate-y-1/3 ">
+                    <div className=" border border-[#ff4e00] w-[26px] h-[26px] rounded-[15px] absolute top-0 left-[-7px] "></div>
+                    <input type="radio" name="radio" />
+                  </div>
+
+                  <div className="text-[16px] leading-[24px]">
                     <p className="font-[700]">Po, 14.11. - St, 16.11.</p>
-                    <p className="text-[12px]">Standardní doručení</p>
+                    <p className="text-[14px]">Standardní doručení</p>
                     <p className="text-[14px] font-[700]">Zdarma</p>
                   </div>
                 </div>
@@ -114,6 +118,13 @@ const Confirm = () => {
                     OBJEDNÁVEJTE A PLAŤTE NA DOBÍRKU
                   </button>
                 </div>
+              </div>
+              <div className="mt-[36px] text-[12px] leading-[18px] tracking-[0.5px]">
+                <p>
+                  Zadáním objednávky sohlasíte s našimi zásadami ochrany soukromí, všeobecnými obchodními podmínkami a
+                  podmínkami zrušení objednávek. Občas vám můžeme posílat doporučení některých produktů. Nebojte se, z
+                  jejich odběru se můžete odhlásit kdykoli kliknutím na odkaz v našem e-mailu.
+                </p>
               </div>
             </div>
           </div>

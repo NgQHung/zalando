@@ -7,7 +7,8 @@ import Wrapper from "../../components/UI/wrapper/wrapper";
 const Checkout = () => {
   const [addressIsClicked, setAdressIsClicked] = useState(false);
   return (
-    <Wrapper className="">
+    // <div className="grow h-full">
+    <Wrapper className="grow">
       <>
         {addressIsClicked ? (
           <div className="flex tracking-[0.5px] gap-[24px]">
@@ -43,7 +44,7 @@ const Checkout = () => {
               </h2>
               <p className="my-[24px]">Stejná jako doručovací adresa</p>
               <button className="w-full h-[40px] text-[12px] leading-[18px] text-[#ffff] font-[700] uppercase tracking-[0.5px] bg-[#ff4e00]">
-                <Link to="">
+                <Link to="/checkout/payment">
                   <span>Další</span>
                 </Link>
               </button>
@@ -75,6 +76,7 @@ const Checkout = () => {
         )}
       </>
     </Wrapper>
+    // </div>
   );
 };
 

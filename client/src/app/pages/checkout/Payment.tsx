@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { formatPrice } from "../../../utils/formatPrice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
 import { useAppSelector } from "../../hooks";
@@ -34,7 +35,9 @@ const Payment = () => {
             </div>
           </div>
           <div className="mt-[36px] basis-1/2 max-w-1/2">
-            <h2 className="uppercase pb-[6px] font-[700] border-b border-gray-300">POUKAZ (Volitelné)návka</h2>
+            <Link to="/checkout/confirm">
+              <h2 className="uppercase pb-[6px] font-[700] border-b border-gray-300">POUKAZ (Volitelné)</h2>
+            </Link>
             <div className="mt-[24px] text-[14px] leading-[20px] tracking-[0.5px]">
               <p className="mb-6">
                 Slevový poukaz: vyberte požadovaný způsob platby a zadejte číslo slevového poukazu v následujícím kroku
