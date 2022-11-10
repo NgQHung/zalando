@@ -15,6 +15,10 @@ import MyAccount from "../pages/myAccount/MyAccount";
 import { ListProducts } from "../pages/product-list/ListProducts";
 import Cart from "../pages/cart/Cart";
 import Checkout from "../pages/checkout/Checkout";
+import Payment from "../pages/checkout/Payment";
+import Confirm from "../pages/checkout/Confirm";
+import Done from "../pages/checkout/Done";
+import CheckoutLayout from "../layouts/CheckoutLayout";
 
 const publicRoutes: PublicRoutes[] = [
   {
@@ -84,6 +88,22 @@ const publicRoutes: PublicRoutes[] = [
   {
     path: routeConfig.checkout,
     component: Checkout,
+    layout: CheckoutLayout,
+  },
+  {
+    path: routeConfig.payment,
+    component: Payment,
+    layout: CheckoutLayout,
+  },
+  {
+    path: routeConfig.confirm,
+    component: Confirm,
+    layout: CheckoutLayout,
+  },
+  {
+    path: routeConfig.done,
+    component: Done,
+    layout: CheckoutLayout,
   },
 ];
 

@@ -6,8 +6,6 @@ export const routeConfig = {
   login: "/login",
   signup: "/signup",
   myAccount: "/myaccount",
-  // myAccount_orders: '/myaccount/orders',
-  // return: '/returns/articles',
 
   product: "/:slug",
   searchMobile: "/search",
@@ -20,13 +18,11 @@ export const routeConfig = {
   wardrobe_lists_liked_outfits: "/wardrobe/lists/liked-outfits",
   wardrobe_lists_sell: "/wardrobe/lists/sell",
   cart: "/cart",
+  //checkout
   checkout: "/checkout/address",
+  payment: "/checkout/payment",
+  confirm: "/checkout/confirm",
+  done: "/checkout/done",
 
-  // following: "/following",
-  // profile: "/@:username",
-  // upload: "/upload",
-  // search: "/search",
-  // live: "/live",
-  // media_detail: "/@:username/video/:mediaId",
   not_found: "*",
 };
