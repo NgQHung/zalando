@@ -8,9 +8,9 @@ import { TransitionGroup } from "react-transition-group";
 import Collapse from "@mui/material/Collapse";
 import "./navtools.css";
 import { Box, ListItem, ListItemText } from "@mui/material";
-import { amountRemovedHandler } from "../../../../../../stores/UI-slice";
+import { amountRemovedHandler, UIActions } from "../../../../../../stores/UI-slice";
 import { ShoppingProducts } from "../../../../../../interfaces/ShoppingProducts";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ShoppingBasket = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +19,7 @@ const ShoppingBasket = () => {
   const total = useAppSelector((state) => state.cartSlice.total);
   const dropdownOnHover = useAppSelector((state) => state.UISlice.dropdown_onHover_shoppingCart);
   const amountRemoved = useAppSelector((state) => state.UISlice.amountRemoved);
+  const navigate = useNavigate();
 
   const lengthAddedShoppingCart = useMemo(() => addedShoppingCart.length, [addedShoppingCart.length]);
   const emptyShoppingCart = useMemo(() => lengthAddedShoppingCart === 0, [lengthAddedShoppingCart === 0]);
@@ -54,6 +55,11 @@ const ShoppingBasket = () => {
   const onMouseLeaveHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setOnHoverShoppingCart(false);
     dispatch(cartActions.notificationRemovedProduct(false));
+  };
+
+  const navigateCartPageHandler = () => {
+    // dispatch(UIActions.dropdown_shoppingCart(false));
+    navigate("/cart");
   };
 
   const ref = React.useRef<any>(null);
@@ -213,11 +219,12 @@ const ShoppingBasket = () => {
                 )}
               </div>
               <div className="pb-[18px] text-[14px] px-[18px] leading-[18px]  hover:opacity-70 text-center text-[#ffff] ">
-                <Link to="/cart">
-                  <button className="px-4  py-[10px] rounded-sm bg-[#1a1a1a] w-full font-[700]">
-                    <span className="">Přejít do nákupního košíku</span>
-                  </button>
-                </Link>
+                <button
+                  onClick={navigateCartPageHandler}
+                  className="px-4  py-[10px] rounded-sm bg-[#1a1a1a] w-full font-[700]"
+                >
+                  <span className="">Přejít do nákupního košíku</span>
+                </button>
               </div>
             </div>
           </div>

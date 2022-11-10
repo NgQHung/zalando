@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProgressBar from "../../components/UI/progressBar/ProgressBar-stepper";
 import Wrapper from "../../components/UI/wrapper/wrapper";
 // import progressBar from "../../components/UI/progressBar/progressBar";
 
 const Checkout = () => {
   const [addressIsClicked, setAdressIsClicked] = useState(false);
+  const navigate = useNavigate();
   return (
     // <div className="grow h-full">
     <Wrapper className="grow">
@@ -43,10 +44,11 @@ const Checkout = () => {
                 Fakturační adresa
               </h2>
               <p className="my-[24px]">Stejná jako doručovací adresa</p>
-              <button className="w-full h-[40px] text-[12px] leading-[18px] text-[#ffff] font-[700] uppercase tracking-[0.5px] bg-[#ff4e00]">
-                <Link to="/checkout/payment">
-                  <span>Další</span>
-                </Link>
+              <button
+                onClick={() => navigate("/checkout/payment")}
+                className="w-full h-[40px] text-[12px] leading-[18px] text-[#ffff] font-[700] uppercase tracking-[0.5px] bg-[#ff4e00]"
+              >
+                <span>Další</span>
               </button>
             </div>
           </div>

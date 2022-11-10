@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { formatPrice } from "../../../utils/formatPrice";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import Wrapper from "../../components/UI/wrapper/wrapper";
@@ -7,13 +8,17 @@ import { useAppSelector } from "../../hooks";
 const Confirm = () => {
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const total = useAppSelector((state) => state.cartSlice.total);
+  const navigate = useNavigate();
   return (
     <Wrapper className="">
       <>
         <div className="payment-sumary mt-[36px]">
           <div className="flex justify-between items-center pb-[12px] border-b border-gray-300">
             <h2 className="uppercase self-end font-[700]">Shrnutí objednávky</h2>
-            <button className="bg-[#ff4e00] text-[#ffff] font-[700] flex-wrap tracking-[0.5px] py-[10px] px-[16px] min-h-[40px] leading-[18px] text-[12px] w-[250px] ">
+            <button
+              onClick={() => navigate("/checkout/done")}
+              className="bg-[#ff4e00] text-[#ffff] font-[700] flex-wrap tracking-[0.5px] py-[10px] px-[16px] min-h-[40px] leading-[18px] text-[12px] w-[250px] "
+            >
               OBJEDNÁVEJTE A PLAŤTE NA DOBÍRKU
             </button>
           </div>
@@ -39,8 +44,8 @@ const Confirm = () => {
                 <div className="flex flex-col mt-[24px]">
                   <p>Balíček doručí Zalando</p>
                   <p className="font-[700]">Po, 14.11. - St, 16.11.</p>
-                  {addedShoppingCart.map((product) => (
-                    <div className="flex py-[4px] text-[14px] leading-[20px]">
+                  {addedShoppingCart.map((product, idx) => (
+                    <div key={idx} className="flex py-[4px] text-[14px] leading-[20px]">
                       <div className="py-3 self-start shrink-0">
                         <img
                           src={ImgToHttp(product?.imageUrl)}
@@ -114,7 +119,10 @@ const Confirm = () => {
                   <p>{formatPrice(total)}</p>
                 </div>
                 <div className="text-center mx-6 mb-[24px]">
-                  <button className="bg-[#ff4e00] text-[#ffff] w-full px-6 font-[700] flex-wrap tracking-[0.5px] py-[10px] min-h-[40px] leading-[18px] text-[12px]  ">
+                  <button
+                    onClick={() => navigate("/checkout/done")}
+                    className="bg-[#ff4e00] text-[#ffff] w-full px-6 font-[700] flex-wrap tracking-[0.5px] py-[10px] min-h-[40px] leading-[18px] text-[12px]  "
+                  >
                     OBJEDNÁVEJTE A PLAŤTE NA DOBÍRKU
                   </button>
                 </div>

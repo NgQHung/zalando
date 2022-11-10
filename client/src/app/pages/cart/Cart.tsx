@@ -24,8 +24,8 @@ const Cart = () => {
                   <span>Váš nákupní košík (Položky: {addedShoppingCart.length})</span>
                 </div>
                 <p className="text-[12px] leading-[18px] font-[700] pb-[24px]">Balíček doručí ZALANDO</p>
-                {addedShoppingCart.map((item) => (
-                  <CART_ITEM data={item} />
+                {addedShoppingCart.map((item, idx) => (
+                  <CART_ITEM data={item} key={idx} />
                 ))}
                 <div className="product-info text-[#2F5FB4] text-[12px] leading-[18px]">
                   <p>

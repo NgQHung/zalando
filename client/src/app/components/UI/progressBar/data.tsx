@@ -28,6 +28,6 @@ export const stepperData: Stepper[] = [
     title: "Hotovo!",
     path: "/checkout/done",
     isStepped: false,
-    step: 4,
+    step: 5,
   },
 ];
