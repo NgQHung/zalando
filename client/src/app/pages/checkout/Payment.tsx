@@ -18,7 +18,10 @@ const Payment = () => {
               <ul className="text-[16px] leading-[24px]">
                 {paymentMethods.map((method, idx) => (
                   <li key={idx} className="flex items-center py-[16px]">
-                    <input type="checkbox" />
+                    <div className=" pr-[15px] py-[6px] relative top-1/2 ">
+                      <div className=" border border-[#ff4e00] w-[26px] h-[26px] rounded-[15px] absolute top-[5px] left-[-6.8px] "></div>
+                      <input type="radio" name="radio" />
+                    </div>
                     <span className="pl-9">{method.title}</span>
                     <div className="ml-auto flex space-x-1">
                       {method.imgUrl.map((url) => (
