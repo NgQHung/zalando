@@ -1,3 +1,5 @@
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ProgressBar from "../../components/UI/progressBar/ProgressBar-stepper";
@@ -6,9 +8,9 @@ import Wrapper from "../../components/UI/wrapper/wrapper";
 
 const Checkout = () => {
   const [addressIsClicked, setAdressIsClicked] = useState(false);
+  const [selectTypeDelivery, setSelectTypeDelivery] = useState(false);
   const navigate = useNavigate();
   return (
-    // <div className="grow h-full">
     <Wrapper className="grow">
       <>
         {addressIsClicked ? (
@@ -53,8 +55,8 @@ const Checkout = () => {
             </div>
           </div>
         ) : (
-          <div className="delivery flex flex-col text-center max-w-[630px] basis-[630px] mx-auto my-0">
-            <div className="delivery-title text-left text-[16px] leading-[24px] tracking-[0.5px] font-[700]">
+          <div className="delivery max-w-[630px] basis-[630px] mx-auto my-0">
+            <div className="delivery-title pb-2 border-b border-gray-300 text-left text-[16px] leading-[24px] tracking-[0.5px] font-[700]">
               DORUČOVACÍ ADRESA
             </div>
             <div className="delivery-content w-full flex gap-[24px] py-[24px]">
@@ -62,7 +64,7 @@ const Checkout = () => {
                 <span>Výdejní místo</span>
               </div>
               <div
-                onClick={() => setAdressIsClicked((prev) => !prev)}
+                onClick={() => setSelectTypeDelivery((prev) => !prev)}
                 className="my-address cursor-pointer h-[100px] grow flex justify-center items-center border border-gray-300 "
               >
                 <span>Moje adresa</span>
@@ -74,6 +76,39 @@ const Checkout = () => {
                 kdy se vám to bude hodit.
               </span>
             </p>
+            <div className={"deliveryDropdown-hidden " + (selectTypeDelivery ? "deliveryDropdown-show" : "")}>
+              <div className="flex mt-6 px-[6px] pb-6 border-b border-gray-300 text-[14px] leading-[20px]">
+                <div className=" pr-[15px] py-[6px] relative top-1/2 ">
+                  <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[0.3px] left-[-6.2px] hover:outline-2px outline_onHover absolute"></div>
+                  <input defaultChecked={true} className="h-0 w-0" type="radio" />
+                </div>
+                <div className="pl-9">
+                  <p>Hung Nguyen Quang</p>
+                  <p>Your address and number of your address...</p>
+                  <p>Your city...</p>
+                  <p>Your country...</p>
+                </div>
+                <FontAwesomeIcon className="ml-auto " icon={faPen} />
+              </div>
+              <div className="flex mt-6 px-[6px] pb-6 text-[14px] leading-[20px]">
+                <div className=" pr-[15px] py-[6px] relative top-1/2 ">
+                  <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[0.3px] left-[-6.2px] hover:outline-2px outline_onHover absolute"></div>
+                  <input className="h-0 w-0" type="radio" />
+                </div>
+                <div className="pl-9">
+                  <p>Přidat novou adresu</p>
+                </div>
+                <FontAwesomeIcon className="ml-auto " icon={faPen} />
+              </div>
+              <div className="text-center mb-[24px]">
+                <button
+                  onClick={() => setAdressIsClicked((prev) => !prev)}
+                  className="bg-[#ff4e00] uppercase text-[#ffff] w-full px-6 font-[700] flex-wrap tracking-[0.5px] py-[10px] min-h-[40px] leading-[18px] text-[12px]  "
+                >
+                  Další
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </>

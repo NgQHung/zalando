@@ -114,7 +114,9 @@ const LOGIN_FORM = ({
             <span className="text-4">Přihlásit se</span>
           </ButtonPrimary>
         </form>
-        <p className="affect_text mt-6 text-4 text-[#6328e0] font-[700]">Zapomněli jste své heslo?</p>
+        <p className=" mt-6 text-4 text-[#6328e0] font-[700]">
+          <span className="affect_text">Zapomněli jste své heslo?</span>
+        </p>
       </div>
     </section>
   );

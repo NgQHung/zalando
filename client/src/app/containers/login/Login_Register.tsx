@@ -13,9 +13,9 @@ const LOGIN_REGISTER = () => {
         </Link>
       </div>
       <div className=" p-6 text-center">
-        <span className="affect_text text-[14px] p-4  ">Zásady ochrany soukromí</span>
-        <span className="affect_text text-[14px] p-4 ">Podmínky použití</span>
-        <span className="affect_text text-[14px] p-4 ">Právní informace</span>
+        <span className="affect_text text-[14px] m-4  ">Zásady ochrany soukromí</span>
+        <span className="affect_text text-[14px] m-4 ">Podmínky použití</span>
+        <span className="affect_text text-[14px] mZapomněli jste své heslo?-4 ">Právní informace</span>
         <div className="sign_logo pt-4 pb-12 ">
           <img
             className="h-8 object-cover relative left-1/2 translate-x-[-50%] "

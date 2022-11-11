@@ -193,3 +193,18 @@ input[type="radio"]:checked:after {
   width: 100%;
   transition: height, 0.3s linear;
 }
+
+.deliveryDropdown-hidden {
+  position: relative;
+  max-height: 0;
+  width: 100%;
+  transition: height, 0.3s linear;
+  overflow: hidden;
+  /* padding: 0 120; */
+}
+.deliveryDropdown-hidden.deliveryDropdown-show {
+  position: relative;
+  max-height: 700px;
+  width: 100%;
+  transition: height, 0.3s linear;
+}
