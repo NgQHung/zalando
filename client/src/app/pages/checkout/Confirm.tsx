@@ -1,19 +1,30 @@
-import React from "react";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatPrice } from "../../../utils/formatPrice";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import Wrapper from "../../components/UI/wrapper/wrapper";
 import { useAppSelector } from "../../hooks";
-
+import { paymentMethods } from "./data";
 const Confirm = () => {
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const total = useAppSelector((state) => state.cartSlice.total);
+  const [methodTitle, setMethodTitle] = useState<string>("");
+  const methodPayment = useAppSelector((state) => state.checkoutSlice.methodPayment);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const method = paymentMethods.find((item) => item.type === methodPayment);
+    if (method) {
+      setMethodTitle(method?.title);
+    }
+  }, [methodPayment]);
   return (
     <Wrapper className="">
-      <>
+      <div className="lg:max-w-[979px]">
         <div className="payment-sumary mt-[36px]">
-          <div className="flex justify-between items-center pb-[12px] border-b border-gray-300">
+          <div className="flex ml-[8.3333%] justify-between items-center pb-[12px] border-b border-gray-300">
             <h2 className="uppercase self-end font-[700]">Shrnutí objednávky</h2>
             <button
               onClick={() => navigate("/checkout/done")}
@@ -23,16 +34,16 @@ const Confirm = () => {
             </button>
           </div>
           <div className="flex gap-[24px]">
-            <div className="flex flex-col basis-1/2 max-w-1/2">
+            <div className="flex flex-col ml-[8.3333%] basis-1/2 max-w-1/2">
               <div className="mt-[36px]">
                 <h2 className="uppercase pb-[6px] font-[700] border-b border-gray-300">Možnost dopravy</h2>
                 <div className="flex mt-[24px] px-[15px]">
-                  <div className=" pr-[15px] py-[6px] relative top-1/2 translate-y-1/3 ">
-                    <div className=" border border-[#ff4e00] w-[26px] h-[26px] rounded-[15px] absolute top-0 left-[-7px] "></div>
-                    <input type="radio" name="radio" />
+                  <div className=" pr-[15px] py-[6px] relative top-1/2 translate-y-1/4">
+                    <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-0 left-[-5.9px] hover:outline-2px outline_onHover absolute"></div>
+                    <input defaultChecked={true} className="h-0 w-0" type="radio" />
                   </div>
 
-                  <div className="text-[16px] leading-[24px]">
+                  <div className="text-[16px] leading-[24px] pl-4">
                     <p className="font-[700]">Po, 14.11. - St, 16.11.</p>
                     <p className="text-[14px]">Standardní doručení</p>
                     <p className="text-[14px] font-[700]">Zdarma</p>
@@ -75,9 +86,12 @@ const Confirm = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col basis-1/2 max-w-1/2 ">
+            <div className="flex flex-col basis-1/3 max-w-1/3 grow ">
               <div className="mt-[36px]">
-                <h2 className="uppercase pb-[6px] font-[700] border-b border-gray-300">DORUČOVACÍ ADRESA</h2>
+                <div className=" flex justify-between border-b border-gray-300">
+                  <h2 className="uppercase pb-[6px] font-[700]">DORUČOVACÍ ADRESA</h2>
+                  <FontAwesomeIcon className="h-4 w-4 object-cover cursor-pointer" icon={faPen} />
+                </div>
                 <div className=" mt-[24px] text-[14px] leading-[20px]">
                   <div className="address-name mt-[24px] mb-[4px]">Hung Nguyen Quang</div>
                   <div className="address mb-[4px]">Your address and number of your address...</div>
@@ -86,15 +100,23 @@ const Confirm = () => {
                 </div>
               </div>
               <div className="mt-[36px]">
-                <h2 className="uppercase pb-[6px] font-[700] border-b border-gray-300">FAKTURAČNÍ ADRESA</h2>
+                <div className="flex justify-between border-b border-gray-300 ">
+                  <h2 className="uppercase pb-[6px] font-[700] ">FAKTURAČNÍ ADRESA</h2>
+                  <FontAwesomeIcon className="h-4 w-4 object-cover cursor-pointer" icon={faPen} />
+                </div>
+
                 <div className=" mt-[24px] text-[14px] leading-[20px]">
                   <p>Stejná jako doručovací adresa</p>
                 </div>
               </div>
               <div className="mt-[36px]">
-                <h2 className="uppercase pb-[6px] font-[700] border-b border-gray-300">ZPŮSOB PLATBY</h2>
+                <div className="flex justify-between  border-b border-gray-300">
+                  <h2 className="uppercase pb-[6px] font-[700]">ZPŮSOB PLATBY</h2>
+                  <FontAwesomeIcon className="h-4 w-4 object-cover cursor-pointer" icon={faPen} />
+                </div>
+
                 <div className=" mt-[24px] text-[14px] leading-[20px]">
-                  <p>Platba na dobírku</p>
+                  <p>{methodTitle ? methodTitle : ""}</p>
                 </div>
               </div>
               <div className="mt-[36px]">
@@ -137,7 +159,7 @@ const Confirm = () => {
             </div>
           </div>
         </div>
-      </>
+      </div>
     </Wrapper>
   );
 };

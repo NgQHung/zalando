@@ -1,25 +1,44 @@
-import React, { useState } from "react";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { checkoutActions } from "../../../stores/checkout-slice";
 import { formatPrice } from "../../../utils/formatPrice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { paymentMethods } from "./data";
 
 const Payment = () => {
   const total = useAppSelector((state) => state.cartSlice.total);
   const navigate = useNavigate();
-  const [methodContent, setMethodContent] = useState<string>("");
-  const InstantTransfer = methodContent === "InstantTransfer";
-  const CreditCard = methodContent === "CreditCard";
-  const PayPal = methodContent === "PayPal";
-  const BankTransfer = methodContent === "BankTransfer";
-  const OnDelivery = methodContent === "OnDelivery";
+  const dispatch = useAppDispatch();
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const methodPayment = useAppSelector((state) => state.checkoutSlice.methodPayment);
+  const [inputValue, setInputValue] = useState(methodPayment);
+  const InstantTransfer = methodPayment === "InstantTransfer";
+  const CreditCard = methodPayment === "CreditCard";
+  const PayPal = methodPayment === "PayPal";
+  const BankTransfer = methodPayment === "BankTransfer";
+  const OnDelivery = methodPayment === "OnDelivery";
+
+  const methodOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const type = e.currentTarget.value;
+    setInputValue(type);
+  };
+
+  const methodPaymentHandler = (typeMethod: string) => {
+    dispatch(checkoutActions.methodPaymentHandler(typeMethod));
+  };
+
+  useEffect(() => {
+    setIsChecked(inputValue === methodPayment);
+  }, [methodPayment, inputValue]);
 
   return (
     <Wrapper className="">
       <>
         <div className="flex gap-[24px]">
-          <div className="mt-[36px] basis-1/2 max-w-1/2">
+          <div className="mt-[36px] basis-1/2 max-w-1/2 ml-[8.33333%] px-3">
             <h2 className="uppercase pb-[6px] font-[700] border-b border-gray-300">ZPŮSOB PLATBY</h2>
             <div className="mt-[24px] text-[16px] leading-[24px] relative">
               <ul>
@@ -29,13 +48,15 @@ const Payment = () => {
                       <div className=" pr-[15px] py-[6px] relative top-1/2 ">
                         <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[5px] left-[-6.8px] hover:outline-2px outline_onHover absolute"></div>
                         <input
-                          onClick={() => setMethodContent(method.type)}
+                          onChange={methodOnChange}
+                          checked={isChecked && methodPayment === method.type}
+                          onClick={() => methodPaymentHandler(method.type)}
                           className="h-0 w-0"
                           type="radio"
-                          name="radio"
+                          name={method.type}
+                          value={method.type}
                         />
                       </div>
-                      {/* { <div>hello</div>} */}
                       <span className="pl-9">{method.title}</span>
                       <div className="ml-auto flex space-x-1">
                         {method.imgUrl.map((url, index) => (
@@ -50,11 +71,11 @@ const Payment = () => {
                     </div>
                     <div
                       className={
-                        "methodDropdown-hidden " + (methodContent === method.type ? "methodDropdown-show" : "")
+                        "methodDropdown-hidden " + (method.type === methodPayment ? "methodDropdown-show" : "")
                       }
                     >
                       <div className="">
-                        {InstantTransfer && method.type === methodContent ? (
+                        {InstantTransfer && method.type === methodPayment ? (
                           <p className="mb-2 mt-6 ml-9">
                             Po potvrzení objednávky budete přesměrováni na stránku GoPay (via Przelewy24), kde budete
                             moci provést přímou platbu převodem ze své banky. V současnosti je služba k dispozici pro
@@ -62,20 +83,91 @@ const Payment = () => {
                             úspěšném provedení platby bude objednávka dokončena.
                           </p>
                         ) : null}
+                        {CreditCard && method.type === methodPayment ? (
+                          <div className="mb-2 mt-6 ml-9 space-y-[32px]">
+                            <div className=" flex p-4 bg-[#efeff0] text-[14px] leading-[20px] tracking-0 ">
+                              <FontAwesomeIcon className="mr-2 h-5 w-5 object-cover" icon={faCircleInfo} />
+                              <div>
+                                <p className="font-[700] flex-wrap">
+                                  Podmínky platby kartou v Evropské unii se změnily.
+                                </p>
+                                <p className="flex-wrap">
+                                  Nyní budete muset při každé platbě online ověřit svoji totožnost. Spojte se se svojí
+                                  bankou, abyste si mohli identifikační proces nastavit.
+                                </p>
+                                <p className="mt-4 cursor-pointer font-[700]">
+                                  <span className="pb-1 border-b-[2px] border-[#1a1a1a]">Více informací</span>
+                                </p>
+                              </div>
+                            </div>
+                            <div className="">
+                              <div className=" pr-[15px] py-[6px] relative top-1/2 ">
+                                <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[5px] left-[-6.8px] hover:outline-2px outline_onHover absolute"></div>
+                                <input className="h-0 w-0" defaultChecked={true} type="radio" name="radio" />
+                                <span className="pl-9">Nová kreditní nebo debetní karta</span>
+                              </div>
+                              <div className="mb-2 mt-6 ml-9 space-y-4 text-[14px] leading-[20px] tracking-[0.5px] font-[700]">
+                                <div className="space-y-1">
+                                  <h4>Držitel karty</h4>
+                                  <input
+                                    className="p-3 border border-[#1a1a1a] rounded-[3px] w-[300px] h-[40px]"
+                                    type="text"
+                                    name=""
+                                    id=""
+                                  />
+                                </div>
+                                <div className="space-y-1">
+                                  <h4>Číslo karty</h4>
+                                  <input
+                                    className="p-3 border border-[#1a1a1a] rounded-[3px] w-[300px] h-[40px]"
+                                    type="text"
+                                    name=""
+                                    id=""
+                                  />
+                                </div>
+                                <div className="space-y-1">
+                                  <h4>Datum platnosti</h4>
+                                  <input
+                                    className="p-3 border border-[#1a1a1a] rounded-[3px] w-[100px] h-[40px]"
+                                    type="text"
+                                    name=""
+                                    id=""
+                                  />
+                                </div>
+                                <div className="space-y-1">
+                                  <h4>Bezpečnostní kód</h4>
+                                  <input
+                                    className="p-3 border border-[#1a1a1a] rounded-[3px] w-[100px] h-[40px]"
+                                    type="text"
+                                    name=""
+                                    id=""
+                                  />
+                                </div>
+                                <div className=" pr-[15px] py-[6px] relative top-1/2 flex items-center">
+                                  <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-0 left-[-0.8px] hover:outline-2px outline_onHover absolute"></div>
+                                  <input className="h-0 w-0 " type="radio" name="radio" />
+                                  <span className="pl-9 font-normal">
+                                    Ukládejte bezpečně své platební údaje pro budoucí nákupy
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
 
-                        {PayPal && method.type === methodContent ? (
+                        {PayPal && method.type === methodPayment ? (
                           <p className="mb-2 mt-6 ml-9">
                             Budete přesměrováni přímo na službu PayPal, kde budete moci platbu dokončit.
                           </p>
                         ) : null}
-                        {BankTransfer && method.type === methodContent ? (
+                        {BankTransfer && method.type === methodPayment ? (
                           <p className="mb-2 mt-6 ml-9">
                             Po vytvoření objednávky vám zašleme instrukce, jak peníze převést bankovním převodem na náš
                             účet. Objednané produkty vám můžeme rezervovat jen po dobu 7 dnů, tak prosím neváhejte. Čím
                             dříve obdržíme vaši platbu, tím dříve budeme moci vaši zásilku odeslat.
                           </p>
                         ) : null}
-                        {OnDelivery && method.type === methodContent ? (
+                        {OnDelivery && method.type === methodPayment ? (
                           <p className="mb-2 mt-6 ml-9">
                             V současné době se všichni snažíme omezit přímý osobní kontakt, proto vás prosíme, abyste
                             pokud možno zvolili jednu z bezkontaktních platebních metod. Pokud se přeci jen rozhodnete
@@ -89,7 +181,7 @@ const Payment = () => {
               </ul>
             </div>
           </div>
-          <div className="mt-[36px] basis-1/2 max-w-1/2">
+          <div className="mt-[36px] basis-1/3 max-w-1/3 px-3">
             <Link to="/checkout/confirm">
               <h2 className="uppercase pb-[6px] font-[700] border-b border-gray-300">POUKAZ (Volitelné)</h2>
             </Link>

@@ -29,7 +29,9 @@ const CheckoutLayout = ({ children }: IProps) => {
           <ProgressBar />
         </div>
 
-        <div className="min-h-[calc(100vh-calc((100px+40px)*2))] max-w-[936px] relative mx-auto">{children}</div>
+        <div className="min-h-[calc(100vh-calc((100px+40px)*2))] lg:max-w-[1176px] md:max-w-[936px] sm:max-w-[576px] relative mx-auto">
+          {children}
+        </div>
         <div className=" h-[98px] mt-[32px] border-t border-[#1a1a1a] bg-gray-100 text-[14px] leading-[20px] ">
           <div className="relative top-1/2 translate-y-[-50%] mx-auto my-0 flex items-center justify-between lg:max-w-[1216px] px-[24px]">
             <span>Zpět do e-shopu</span>

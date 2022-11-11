@@ -189,7 +189,7 @@ input[type="radio"]:checked:after {
 
 .methodDropdown-hidden.methodDropdown-show {
   position: relative;
-  max-height: 300px;
+  max-height: 700px;
   width: 100%;
   transition: height, 0.3s linear;
 }

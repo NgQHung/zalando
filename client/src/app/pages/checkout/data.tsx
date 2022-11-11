@@ -1,4 +1,4 @@
-interface PaymentMethods {
+export interface PaymentMethods {
   title: string;
   type: string;
   imgUrl: string[];

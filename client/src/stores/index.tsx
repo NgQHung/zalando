@@ -7,6 +7,7 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from "redux-persist/lib/storage";
 import mobileSlice from "./mobile-slice";
 import cartSlice from "./cart-slice";
+import checkoutSlice from "./checkout-slice";
 // import { loadState, saveState } from "../utils/localStorage";
 // import throttle from "lodash/throttle";
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   cartSlice: cartSlice,
   userSlice: userSlice,
   mobileSlice: mobileSlice,
+  checkoutSlice: checkoutSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
