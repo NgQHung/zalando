@@ -5,7 +5,8 @@ const Use_Input = (validateInput: (input: string) => boolean) => {
   const [isTouched, setIsTouched] = useState(false);
 
   const inputIsValid = validateInput(input);
-  const hasError = !inputIsValid && isTouched;
+  const hasError = !inputIsValid;
+  // && isTouched;
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.currentTarget.value);

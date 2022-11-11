@@ -14,6 +14,9 @@ userRouter.delete('/:id', middleware.verifyTokenAndAdmin, userController.deleteU
 userRouter.post('/:id/shopping-cart', middleware.verifyToken, userController.addProductToShoppingCart);
 userRouter.post('/:id/liked', middleware.verifyToken, userController.addProductToLiked);
 
+// post data address delivery user
+userRouter.post('/:id/address-delivery', middleware.verifyToken, userController.addAddressDeliveryUser);
+
 // get data of user
 userRouter.get('/:id/shopping-cart/products', middleware.verifyToken, userController.getProductsFromShoppingCartById);
 userRouter.get('/:id/liked/products', middleware.verifyToken, userController.getProductsFromLiked);

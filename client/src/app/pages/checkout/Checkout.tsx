@@ -80,46 +80,46 @@ const Checkout = () => {
           </div>
           {/* <div className="hidden"> */}
           {/* <p className="delivery-info text-left text-[14px] leading-[20px] tracking-[0.5px]">
-                <span>
-                  Nechte si dodat své zboží domů nebo je zaslat na nedaleké výdejní místo, kde si jej můžete vyzvednout,
-                  kdy se vám to bude hodit.
-                </span>
-              </p> */}
-          {/* <div className={"deliveryDropdown-hidden " + (selectTypeDelivery ? "deliveryDropdown-show" : "")}>
-              <div className="flex mt-6 px-[6px] pb-6 border-b border-gray-300 text-[14px] leading-[20px]">
-                <div className=" pr-[15px] py-[6px] relative top-1/2 ">
-                  <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[0.3px] left-[-6.2px] hover:outline-2px outline_onHover absolute"></div>
-                  <input defaultChecked={true} className="h-0 w-0" type="radio" />
-                </div>
-                <div className="pl-9">
-                  <p>Hung Nguyen Quang</p>
-                  <p>Your address and number of your address...</p>
-                  <p>Your city...</p>
-                  <p>Your country...</p>
-                </div>
-                <FontAwesomeIcon className="ml-auto " icon={faPen} />
+            <span>
+              Nechte si dodat své zboží domů nebo je zaslat na nedaleké výdejní místo, kde si jej můžete vyzvednout, kdy
+              se vám to bude hodit.
+            </span>
+          </p> */}
+          <div className={"deliveryDropdown-hidden " + (selectTypeDelivery ? "deliveryDropdown-show" : "")}>
+            {/* <div className="flex mt-6 px-[6px] pb-6 border-b border-gray-300 text-[14px] leading-[20px]">
+              <div className=" pr-[15px] py-[6px] relative top-1/2 ">
+                <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[0.3px] left-[-6.2px] hover:outline-2px outline_onHover absolute"></div>
+                <input defaultChecked={true} className="h-0 w-0" type="radio" />
               </div>
-              <div className="flex mt-6 px-[6px] pb-6 text-[14px] leading-[20px]">
-                <div className=" pr-[15px] py-[6px] relative top-1/2 ">
-                  <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[0.3px] left-[-6.2px] hover:outline-2px outline_onHover absolute"></div>
-                  <input className="h-0 w-0" type="radio" />
-                </div>
-                <div className="pl-9">
-                  <p>Přidat novou adresu</p>
-                </div>
-                <FontAwesomeIcon className="ml-auto " icon={faPen} />
+              <div className="pl-9">
+                <p>Hung Nguyen Quang</p>
+                <p>Your address and number of your address...</p>
+                <p>Your city...</p>
+                <p>Your country...</p>
               </div>
-              <div className="text-center mb-[24px]">
-                <button
-                  onClick={() => setAdressIsClicked((prev) => !prev)}
-                  className="bg-[#ff4e00] uppercase text-[#ffff] w-full px-6 font-[700] flex-wrap tracking-[0.5px] py-[10px] min-h-[40px] leading-[18px] text-[12px]  "
-                >
-                  Další
-                </button>
+              <FontAwesomeIcon className="ml-auto " icon={faPen} />
+            </div>
+            <div className="flex mt-6 px-[6px] pb-6 text-[14px] leading-[20px]">
+              <div className=" pr-[15px] py-[6px] relative top-1/2 ">
+                <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[0.3px] left-[-6.2px] hover:outline-2px outline_onHover absolute"></div>
+                <input className="h-0 w-0" type="radio" />
               </div>
+              <div className="pl-9">
+                <p>Přidat novou adresu</p>
+              </div>
+              <FontAwesomeIcon className="ml-auto " icon={faPen} />
+            </div>
+            <div className="text-center mb-[24px]">
+              <button
+                onClick={() => setAdressIsClicked((prev) => !prev)}
+                className="bg-[#ff4e00] uppercase text-[#ffff] w-full px-6 font-[700] flex-wrap tracking-[0.5px] py-[10px] min-h-[40px] leading-[18px] text-[12px]  "
+              >
+                Další
+              </button>
             </div> */}
+            <CheckoutAddressForm setAdressIsClicked={setAdressIsClicked} />
+          </div>
           {/* </div> */}
-          <CheckoutAddressForm setAdressIsClicked={setAdressIsClicked} />
         </div>
         // </div>
       )}

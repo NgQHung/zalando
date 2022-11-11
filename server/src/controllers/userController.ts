@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import ShoppingCart from '../models/userShoppingCart';
+import AddressDelivery from '../models/userAddressDelivery';
 import LikedProductModel from '../models/userLiked';
 import User from '../models/user';
 import { AxiosError } from 'axios';
@@ -35,6 +36,43 @@ const userController = {
       });
     }
   },
+
+  addAddressDeliveryUser: async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const data = req.body;
+
+    try {
+      const existingId = await AddressDelivery.findOne({ _id: id });
+      let product;
+      if (existingId) {
+        product = await AddressDelivery.findOneAndUpdate(
+          {
+            _id: id,
+          },
+          { data: data }
+        );
+      } else {
+        product = await AddressDelivery.create({
+          _id: id,
+          data: data,
+        });
+      }
+
+      // return res.status(200).json(req.body);
+      return res.status(200).json({
+        data: product,
+        message: `Info address delivery of user is updated successfully`,
+      });
+    } catch (error) {
+      const err = error as AxiosError;
+      return res.status(500).json({
+        data: null,
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
+      });
+    }
+  },
+
   addProductToShoppingCart: async (req: Request, res: Response) => {
     const { id } = req.params;
     const { data } = req.body;

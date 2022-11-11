@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from "react-toastify";
+import { postAddressDelivery } from "../../../services/apiRequest";
 import { checkoutActions } from "../../../stores/checkout-slice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import Use_Input from "../../hooks/use-input";
@@ -31,19 +33,22 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (firstNameHasError || lastNameHasError || addressHasError || infoHasError || pscHasError || cityHasError) {
+    const data = {
+      firstName: firstNameInput,
+      lastName: lastNameInput,
+      address: addressInput,
+      info: infoInput,
+      psc: pscInput,
+      city: cityInput,
+    };
+    if (firstNameHasError || lastNameHasError || addressHasError || pscHasError || cityHasError) {
+      toast.error("You must complete all required fields");
       return;
     }
-    dispatch(
-      checkoutActions.addressDeliveryHandler({
-        firstName: firstNameInput,
-        lastName: lastNameInput,
-        address: addressInput,
-        info: infoInput,
-        psc: pscInput,
-        city: cityInput,
-      })
-    );
+    if (!user) {
+      return;
+    }
+    postAddressDelivery(dispatch, user, data);
     setAdressIsClicked(true);
   };
 
@@ -51,7 +56,7 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
     <div>
       <form onSubmit={submitHandler} className="text-[12px] leading-[18px] space-y-[18px]">
         <div>
-          <p className="mb-[6px]">Křestní jméno</p>
+          <p className="mb-[6px]">Křestní jméno*</p>
           <input
             onChange={firstNameOnChange}
             defaultValue={user?.firstName}
@@ -61,7 +66,7 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
           />
         </div>
         <div>
-          <p className="mb-[6px]">Příjmení</p>
+          <p className="mb-[6px]">Příjmení*</p>
           <input
             onChange={lastNameOnChange}
             type="text"
@@ -69,7 +74,7 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
           />
         </div>
         <div>
-          <p className="mb-[6px]">Adresa</p>
+          <p className="mb-[6px]">Adresa*</p>
           <input
             onChange={addressOnChange}
             type="text"
@@ -85,7 +90,7 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
           />
         </div>
         <div>
-          <p className="mb-[6px]">PSČ</p>
+          <p className="mb-[6px]">PSČ*</p>
           <input
             onChange={pscOnChange}
             type="text"
@@ -93,7 +98,7 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
           />
         </div>
         <div>
-          <p className="mb-[6px]">Město</p>
+          <p className="mb-[6px]">Město*</p>
           <input
             onChange={cityOnChange}
             type="text"
