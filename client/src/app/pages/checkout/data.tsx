@@ -3,6 +3,7 @@ export interface PaymentMethods {
   type: string;
   imgUrl: string[];
 }
+
 export const paymentMethods: PaymentMethods[] = [
   {
     title: "Okamžitý online převod",

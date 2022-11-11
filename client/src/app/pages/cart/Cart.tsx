@@ -12,6 +12,8 @@ const Cart = () => {
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const total = useAppSelector((state) => state.cartSlice.total);
   const [dropdown, setDropdown] = useState(false);
+  const user = useAppSelector((state) => state.userSlice.user);
+  const freeShipping = total > 100;
 
   return (
     <Wrapper className=" ">
@@ -27,6 +29,7 @@ const Cart = () => {
                 {addedShoppingCart.map((item, idx) => (
                   <CART_ITEM data={item} key={idx} />
                 ))}
+
                 <div className="product-info text-[#2F5FB4] text-[12px] leading-[18px]">
                   <p>
                     <FontAwesomeIcon icon={faCircleInfo} className="mr-[6.4px]" />
@@ -51,6 +54,15 @@ const Cart = () => {
             </div>
             <div className="flex flex-col basis-[32%] gap-3">
               <div className="total-cart bg-[#ffff] p-6">
+                {!freeShipping ? (
+                  <div className="flex py-[18px] px-[12px] bg-[#ebf0f4] text-[#2f5fb4] mb-5">
+                    <FontAwesomeIcon className="h-5 w-5 object-cover" icon={faCircleInfo} />
+                    <p className="text-[12px] ml-2 leading-[18px]">
+                      Pokud je hodnota vašeho nákupního košíku $100 a více, máte nárok na dopravu zdarma.
+                    </p>
+                  </div>
+                ) : null}
+
                 <div className="total-title text-[24px] leading-[28px] font-[700] pb-[32px]">Celkem</div>
                 <div className="total-content text-[14px] leading-[20px]">
                   <div className="flex justify-between py-[12px]">
@@ -59,14 +71,14 @@ const Cart = () => {
                   </div>
                   <div className="flex justify-between py-[12px]">
                     <div className="total-subtitle">Doprava</div>
-                    <div className="total-value">0,00 Kč</div>
+                    <div className="total-value">{freeShipping ? "$0,00" : "$4,99"}</div>
                   </div>
                   <div className="flex justify-between py-[12px] text-[14px] leading-[20px] font-[700]">
                     <div className="total-subtitle">Celkem (Vč. DPH)</div>
                     <div className="total-value">{formatPrice(total)}</div>
                   </div>
                   <div className="checkout-cart mt-[24px] grow">
-                    <Link to="/checkout/address">
+                    <Link to={user ? "/checkout/address" : "/login"}>
                       <button className="py-[10px] w-full px-[16px] bg-[#FF4E00] text-[#ffff] font-[700] text-[12px]">
                         <span className=" leading-[18px]">PŘEJÍT K POKLADNĚ</span>
                       </button>

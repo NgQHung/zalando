@@ -12,6 +12,8 @@ const Confirm = () => {
   const total = useAppSelector((state) => state.cartSlice.total);
   const [methodTitle, setMethodTitle] = useState<string>("");
   const methodPayment = useAppSelector((state) => state.checkoutSlice.methodPayment);
+  const addressDelivery = useAppSelector((state) => state.checkoutSlice.addressDelivery);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -93,10 +95,10 @@ const Confirm = () => {
                   <FontAwesomeIcon className="h-4 w-4 object-cover cursor-pointer" icon={faPen} />
                 </div>
                 <div className=" mt-[24px] text-[14px] leading-[20px]">
-                  <div className="address-name mt-[24px] mb-[4px]">Hung Nguyen Quang</div>
-                  <div className="address mb-[4px]">Your address and number of your address...</div>
-                  <div className="address mb-[4px]">Your city...</div>
-                  <div className="address mb-[4px]">Your country...</div>
+                  <div className="address-name mt-[24px] mb-[4px]">{addressDelivery.firstName}</div>
+                  <div className="address mb-[4px]">{addressDelivery.address}</div>
+                  <div className="address mb-[4px]">{addressDelivery.city}</div>
+                  <div className="address mb-[4px]">Ceska Republika</div>
                 </div>
               </div>
               <div className="mt-[36px]">
