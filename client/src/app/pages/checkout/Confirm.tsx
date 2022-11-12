@@ -2,10 +2,11 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { postPurchasedProducts } from "../../../services/apiRequest";
 import { formatPrice } from "../../../utils/formatPrice";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import Wrapper from "../../components/UI/wrapper/wrapper";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { paymentMethods } from "./data";
 const Confirm = () => {
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
@@ -13,8 +14,26 @@ const Confirm = () => {
   const [methodTitle, setMethodTitle] = useState<string>("");
   const methodPayment = useAppSelector((state) => state.checkoutSlice.methodPayment);
   const addressDelivery = useAppSelector((state) => state.checkoutSlice.addressDelivery);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.userSlice.user);
+  const purchasedProducts = useAppSelector((state) => state.checkoutSlice.purchasedProducts);
+
+  // const {id, }
 
   const navigate = useNavigate();
+
+  const confirmSubmitHandler = () => {
+    if (!user) {
+      return;
+    }
+    if (purchasedProducts) {
+      postPurchasedProducts(dispatch, user, {
+        data: purchasedProducts,
+        methodPayment: methodPayment,
+      });
+    }
+    navigate("/checkout/done");
+  };
 
   useEffect(() => {
     const method = paymentMethods.find((item) => item.type === methodPayment);
@@ -29,7 +48,7 @@ const Confirm = () => {
           <div className="flex ml-[8.3333%] justify-between items-center pb-[12px] border-b border-gray-300">
             <h2 className="uppercase self-end font-[700]">Shrnutí objednávky</h2>
             <button
-              onClick={() => navigate("/checkout/done")}
+              onClick={confirmSubmitHandler}
               className="bg-[#ff4e00] text-[#ffff] font-[700] flex-wrap tracking-[0.5px] py-[10px] px-[16px] min-h-[40px] leading-[18px] text-[12px] w-[250px] "
             >
               OBJEDNÁVEJTE A PLAŤTE NA DOBÍRKU
@@ -144,7 +163,7 @@ const Confirm = () => {
                 </div>
                 <div className="text-center mx-6 mb-[24px]">
                   <button
-                    onClick={() => navigate("/checkout/done")}
+                    onClick={confirmSubmitHandler}
                     className="bg-[#ff4e00] text-[#ffff] w-full px-6 font-[700] flex-wrap tracking-[0.5px] py-[10px] min-h-[40px] leading-[18px] text-[12px]  "
                   >
                     OBJEDNÁVEJTE A PLAŤTE NA DOBÍRKU

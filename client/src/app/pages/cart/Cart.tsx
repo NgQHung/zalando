@@ -1,7 +1,9 @@
 import { faChevronCircleDown, faChevronDown, faChevronUp, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { checkoutActions } from "../../../stores/checkout-slice";
 import { formatPrice } from "../../../utils/formatPrice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
 import CART_ITEM from "../../containers/cart/Cart_Item";
@@ -13,7 +15,30 @@ const Cart = () => {
   const total = useAppSelector((state) => state.cartSlice.total);
   const [dropdown, setDropdown] = useState(false);
   const user = useAppSelector((state) => state.userSlice.user);
+  const methodPayment = useAppSelector((state) => state.checkoutSlice.methodPayment);
+
   const freeShipping = total > 100;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const checkoutHandler = () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    } else {
+      navigate("/checkout/address");
+    }
+  };
+
+  useEffect(() => {
+    const data = addedShoppingCart.map((item) => {
+      return {
+        id: item.id,
+        size: item.size,
+      };
+    });
+    dispatch(checkoutActions.purchasedProductsHandler(data));
+  }, [addedShoppingCart]);
 
   return (
     <Wrapper className=" ">
@@ -78,11 +103,12 @@ const Cart = () => {
                     <div className="total-value">{formatPrice(total)}</div>
                   </div>
                   <div className="checkout-cart mt-[24px] grow">
-                    <Link to={user ? "/checkout/address" : "/login"}>
-                      <button className="py-[10px] w-full px-[16px] bg-[#FF4E00] text-[#ffff] font-[700] text-[12px]">
-                        <span className=" leading-[18px]">PŘEJÍT K POKLADNĚ</span>
-                      </button>
-                    </Link>
+                    <button
+                      onClick={checkoutHandler}
+                      className="py-[10px] w-full px-[16px] bg-[#FF4E00] text-[#ffff] font-[700] text-[12px]"
+                    >
+                      <span className=" leading-[18px]">PŘEJÍT K POKLADNĚ</span>
+                    </button>
                   </div>
                 </div>
               </div>

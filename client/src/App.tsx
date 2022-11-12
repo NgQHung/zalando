@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import DefaultLayout from "./app/layouts/DefaultLayout";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { publicRoutes } from "./app/routes";
+import { privateRoutes, publicRoutes } from "./app/routes";
 import { cartActions } from "./stores/cart-slice";
 import { getProducts } from "./services/apiRequest";
 import { UIActions } from "./stores/UI-slice";
@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 function App() {
   const dispatch = useAppDispatch();
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
+  const user = useAppSelector((state) => state.userSlice.user);
 
   useEffect(() => {
     try {
@@ -43,14 +44,41 @@ function App() {
 
           const PageComponent = route.component;
 
-          const pathHome = "/home-page";
-
+          const homePath = "/home-page";
           return (
             <Route
               key={idx}
               element={
                 route.redirect ? (
-                  <Navigate to={pathHome} />
+                  <Navigate to={homePath} />
+                ) : (
+                  <Layout>
+                    <PageComponent />
+                  </Layout>
+                )
+              }
+              path={route.path}
+            />
+          );
+        })}
+        {privateRoutes.map((route, idx) => {
+          let Layout: any = DefaultLayout;
+          if (route.layout) {
+            Layout = route.layout;
+          } else if (route.layout === null) {
+            Layout = Fragment;
+          }
+
+          const PageComponent = route.component;
+
+          const loginPath = "/login";
+
+          return (
+            <Route
+              key={idx}
+              element={
+                !user ? (
+                  <Navigate to={loginPath} />
                 ) : (
                   <Layout>
                     <PageComponent />

@@ -20,6 +20,12 @@ userRouter.post('/:id/address-delivery', middleware.verifyToken, userController.
 // get data address delivery user
 userRouter.get('/:id/address-delivery/info', middleware.verifyToken, userController.getAddressDeliveryById);
 
+// post data purchased products && method payment user
+userRouter.post('/:id/purchased-products/post', middleware.verifyToken, userController.postPurchasedProductsById);
+
+// get data purchased products && method payment user
+userRouter.get('/:id/purchased-products', middleware.verifyToken, userController.getPurchasedProductsById);
+
 // get data of user
 userRouter.get('/:id/shopping-cart/products', middleware.verifyToken, userController.getProductsFromShoppingCartById);
 userRouter.get('/:id/liked/products', middleware.verifyToken, userController.getProductsFromLiked);

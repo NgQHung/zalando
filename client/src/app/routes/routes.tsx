@@ -1,7 +1,7 @@
 import React from "react";
 import { Home } from "../pages/home/Home";
 import { routeConfig } from "./routeConfig";
-import { PublicRoutes } from "./types";
+import { PrivateRoutes, PublicRoutes } from "./types";
 import { Login } from "../pages/login/Login";
 import { Signup } from "../pages/signup/Signup";
 import { NoFooterHeaderLayout } from "../layouts/NoFooter&HeaderLayout";
@@ -85,25 +85,32 @@ const publicRoutes: PublicRoutes[] = [
     path: routeConfig.cart,
     component: Cart,
   },
+];
+
+export const privateRoutes: PrivateRoutes[] = [
   {
     path: routeConfig.checkout,
     component: Checkout,
     layout: CheckoutLayout,
+    redirect: routeConfig.login,
   },
   {
     path: routeConfig.payment,
     component: Payment,
     layout: CheckoutLayout,
+    redirect: routeConfig.login,
   },
   {
     path: routeConfig.confirm,
     component: Confirm,
     layout: CheckoutLayout,
+    redirect: routeConfig.login,
   },
   {
     path: routeConfig.done,
     component: Done,
     layout: CheckoutLayout,
+    redirect: routeConfig.login,
   },
 ];
 

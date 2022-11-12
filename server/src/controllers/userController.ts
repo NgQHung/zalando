@@ -3,6 +3,7 @@ import ShoppingCart from '../models/userShoppingCart';
 import AddressDelivery from '../models/userAddressDelivery';
 import LikedProductModel from '../models/userLiked';
 import User from '../models/user';
+import PurchasedProducts from '../models/userPurchasedProducts';
 import { AxiosError } from 'axios';
 
 const userController = {
@@ -98,7 +99,6 @@ const userController = {
         });
       }
 
-      // return res.status(200).json({ id: id, data: data, result: all });
       return res.status(200).json({
         data: product,
         message: `Product ${data?.name} is added successfully`,
@@ -125,10 +125,6 @@ const userController = {
           {
             _id: id,
           },
-          // for push object data to an array
-          // {
-          //   $push: { data: data },
-          // }
           { data: data }
         );
       } else {
@@ -186,6 +182,61 @@ const userController = {
     const { id } = req.params;
     try {
       const all = await LikedProductModel.find({ _id: id });
+      return res.status(200).json(all);
+    } catch (error) {
+      const err = error as AxiosError;
+      return res.status(500).json({
+        data: null,
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
+      });
+    }
+  },
+
+  postPurchasedProductsById: async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const data = req.body;
+    try {
+      const existingId = await PurchasedProducts.findOne({ _id: id });
+      let product;
+      if (existingId) {
+        product = await PurchasedProducts.findOneAndUpdate(
+          {
+            _id: id,
+          },
+          // for push object data to an array
+          {
+            $push: { listProducts: data },
+          }
+          // { data: data }
+        );
+      } else {
+        product = await PurchasedProducts.create({
+          _id: id,
+          listProducts: [data],
+        });
+      }
+
+      // return res.status(200).json(req.body);
+      return res.status(200).json({
+        data: product,
+        message: `Info address delivery of user is updated successfully`,
+      });
+    } catch (error) {
+      const err = error as AxiosError;
+      return res.status(500).json({
+        data: null,
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
+      });
+    }
+    // return res.status(200).json(data);
+  },
+
+  getPurchasedProductsById: async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+      const all = await PurchasedProducts.find({ _id: id });
       return res.status(200).json(all);
     } catch (error) {
       const err = error as AxiosError;

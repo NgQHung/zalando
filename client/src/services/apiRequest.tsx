@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { Dispatch } from "redux";
 import { AddressDelivery } from "../interfaces/addressDelivery";
 import { Products } from "../interfaces/Products";
+import IPurchasedProducts from "../interfaces/purchasedProducts";
 import { ShoppingProducts } from "../interfaces/ShoppingProducts";
 import { cartActions } from "../stores/cart-slice";
 import { checkoutActions } from "../stores/checkout-slice";
@@ -192,6 +193,30 @@ export const getAddressDeliveryById = async (dispatch: Dispatch, user: any) => {
   try {
     response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/address-delivery/info`);
     dispatch(checkoutActions.addressDeliveryHandler(response.data[0].data));
+  } catch (error: any) {
+    toast.error(error.response?.data.message);
+  }
+};
+
+export const postPurchasedProducts = async (
+  dispatch: Dispatch,
+  user: any,
+  data: {
+    data: IPurchasedProducts;
+    methodPayment: string;
+  }
+) => {
+  const authAxios = axios.create({
+    baseURL: uriHeroku.server,
+    headers: {
+      Authorization: `Bearer ${user?.accessToken}`,
+    },
+    withCredentials: true,
+  });
+
+  let response;
+  try {
+    response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/purchased-products/post`, data);
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }
