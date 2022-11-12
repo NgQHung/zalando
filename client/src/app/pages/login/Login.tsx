@@ -9,7 +9,7 @@ import jwt_decode from "jwt-decode";
 
 import "./Login.css";
 import { userActions } from "../../../stores/user-slice";
-import { getLikedProductById, getShoppingCartById } from "../../../services/apiRequest";
+import { getAddressDeliveryById, getLikedProductById, getShoppingCartById } from "../../../services/apiRequest";
 import LOGIN_FORM from "../../containers/login/Login_form";
 import LOGIN_REGISTER from "../../containers/login/Login_Register";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
@@ -20,10 +20,6 @@ export const Login = () => {
   const [input, setInput] = React.useState<User_login>({ email: "", password: "", showPassword: false });
   const refInput = React.useRef<any>(null);
   const user = useAppSelector((state) => state.userSlice.user);
-
-  // const [values, setValues] = React.useState({
-  //   password: "",
-  // });
 
   const handleClickShowPassword = () => {
     setInput({ ...input, showPassword: !input.showPassword });
@@ -93,6 +89,7 @@ export const Login = () => {
     if (user && subscribe) {
       getShoppingCartById(dispatch, user);
       getLikedProductById(dispatch, user);
+      getAddressDeliveryById(dispatch, user);
     }
     return () => {
       subscribe = false;

@@ -173,7 +173,25 @@ export const postAddressDelivery = async (dispatch: Dispatch, user: any, data: A
   let response;
   try {
     response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/address-delivery`, data);
-    dispatch(checkoutActions.addressDeliveryHandler(data));
+  } catch (error: any) {
+    toast.error(error.response?.data.message);
+  }
+};
+
+export const getAddressDeliveryById = async (dispatch: Dispatch, user: any) => {
+  console.log("get address delivery");
+  const authAxios = axios.create({
+    baseURL: uriHeroku.server,
+    headers: {
+      Authorization: `Bearer ${user?.accessToken}`,
+    },
+    withCredentials: true,
+  });
+
+  let response;
+  try {
+    response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/address-delivery/info`);
+    dispatch(checkoutActions.addressDeliveryHandler(response.data[0].data));
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }

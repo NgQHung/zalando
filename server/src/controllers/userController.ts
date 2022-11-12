@@ -153,6 +153,21 @@ const userController = {
     }
   },
 
+  getAddressDeliveryById: async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+      const all = await AddressDelivery.find({ _id: id });
+      return res.status(200).json(all);
+    } catch (error) {
+      const err = error as AxiosError;
+      return res.status(500).json({
+        data: null,
+        message: 'Oops!!! Something went wrong.',
+        error: err.message,
+      });
+    }
+  },
+
   getProductsFromShoppingCartById: async (req: Request, res: Response) => {
     const { id } = req.params;
     try {

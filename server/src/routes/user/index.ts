@@ -17,6 +17,9 @@ userRouter.post('/:id/liked', middleware.verifyToken, userController.addProductT
 // post data address delivery user
 userRouter.post('/:id/address-delivery', middleware.verifyToken, userController.addAddressDeliveryUser);
 
+// get data address delivery user
+userRouter.get('/:id/address-delivery/info', middleware.verifyToken, userController.getAddressDeliveryById);
+
 // get data of user
 userRouter.get('/:id/shopping-cart/products', middleware.verifyToken, userController.getProductsFromShoppingCartById);
 userRouter.get('/:id/liked/products', middleware.verifyToken, userController.getProductsFromLiked);

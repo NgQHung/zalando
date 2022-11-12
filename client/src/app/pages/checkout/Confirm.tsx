@@ -95,9 +95,9 @@ const Confirm = () => {
                   <FontAwesomeIcon className="h-4 w-4 object-cover cursor-pointer" icon={faPen} />
                 </div>
                 <div className=" mt-[24px] text-[14px] leading-[20px]">
-                  <div className="address-name mt-[24px] mb-[4px]">{addressDelivery.firstName}</div>
-                  <div className="address mb-[4px]">{addressDelivery.address}</div>
-                  <div className="address mb-[4px]">{addressDelivery.city}</div>
+                  <div className="address-name mt-[24px] mb-[4px]">{addressDelivery?.firstName}</div>
+                  <div className="address mb-[4px]">{addressDelivery?.address}</div>
+                  <div className="address mb-[4px]">{addressDelivery?.city}</div>
                   <div className="address mb-[4px]">Ceska Republika</div>
                 </div>
               </div>

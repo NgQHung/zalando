@@ -1,27 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { AddressDelivery } from "../interfaces/addressDelivery";
 
 interface InitialState {
   methodPayment: string;
-  addressDelivery: {
-    firstName: string;
-    lastName: string;
-    address: string;
-    infoDelivery: string;
-    psc: number | "" | null;
-    city: string;
-  };
+  addressDelivery: AddressDelivery | null;
+  updateAddressDelivery: boolean;
 }
 
 const initialState: InitialState = {
   methodPayment: "",
-  addressDelivery: {
-    firstName: "",
-    lastName: "",
-    address: "",
-    infoDelivery: "",
-    psc: null,
-    city: "",
-  },
+  addressDelivery: null,
+  updateAddressDelivery: false,
 };
 
 const checkoutSlice = createSlice({
@@ -33,6 +22,9 @@ const checkoutSlice = createSlice({
     },
     addressDeliveryHandler(state, action) {
       state.addressDelivery = action.payload;
+    },
+    updateAddressDeliveryHandler(state, action) {
+      state.updateAddressDelivery = action.payload;
     },
   },
 });

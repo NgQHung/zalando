@@ -1,16 +1,28 @@
 import { faHouse, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAddressDeliveryById } from "../../../services/apiRequest";
 import Wrapper from "../../components/UI/wrapper/wrapper";
 import CheckoutAddressForm from "../../containers/checkout/checkout-address-form";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { AddressDelivery } from "../../../interfaces/addressDelivery";
+import { checkoutActions } from "../../../stores/checkout-slice";
 
 const Checkout = () => {
   const [addressIsClicked, setAdressIsClicked] = useState(false);
   const [selectTypeDelivery, setSelectTypeDelivery] = useState(false);
   const addressDelivery = useAppSelector((state) => state.checkoutSlice.addressDelivery);
+  const isUpdateAddressDelivery = useAppSelector((state) => state.checkoutSlice.updateAddressDelivery);
+  const user = useAppSelector((state) => state.userSlice.user);
   const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    console.log("user: ", user);
+    console.log("addressDelivery: ", addressDelivery);
+    console.log("isUpdateAddressDelivery", isUpdateAddressDelivery);
+  }, [user, addressDelivery]);
 
   return (
     <>
@@ -22,9 +34,9 @@ const Checkout = () => {
                 <h2 className="pb-[12px] font-[700] text-[16px] leading-[24px] border-b border-gray-300">
                   DORUČOVACÍ ADRESA
                 </h2>
-                <div className="address-name mt-[24px] mb-[4px]">{addressDelivery.firstName}</div>
-                <div className="address mb-[4px]">{addressDelivery.address}</div>
-                <div className="address mb-[4px]">{addressDelivery.city}</div>
+                <div className="address-name mt-[24px] mb-[4px]">{addressDelivery?.firstName}</div>
+                <div className="address mb-[4px]">{addressDelivery?.address}</div>
+                <div className="address mb-[4px]">{addressDelivery?.city}</div>
                 <div className="address mb-[4px]">Ceska Republika</div>
               </div>
               <div className="delivery-contact text-[14px]">
@@ -86,38 +98,51 @@ const Checkout = () => {
             </span>
           </p> */}
           <div className={"deliveryDropdown-hidden " + (selectTypeDelivery ? "deliveryDropdown-show" : "")}>
-            {/* <div className="flex mt-6 px-[6px] pb-6 border-b border-gray-300 text-[14px] leading-[20px]">
-              <div className=" pr-[15px] py-[6px] relative top-1/2 ">
-                <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[0.3px] left-[-6.2px] hover:outline-2px outline_onHover absolute"></div>
-                <input defaultChecked={true} className="h-0 w-0" type="radio" />
-              </div>
-              <div className="pl-9">
-                <p>Hung Nguyen Quang</p>
-                <p>Your address and number of your address...</p>
-                <p>Your city...</p>
-                <p>Your country...</p>
-              </div>
-              <FontAwesomeIcon className="ml-auto " icon={faPen} />
-            </div>
-            <div className="flex mt-6 px-[6px] pb-6 text-[14px] leading-[20px]">
-              <div className=" pr-[15px] py-[6px] relative top-1/2 ">
-                <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[0.3px] left-[-6.2px] hover:outline-2px outline_onHover absolute"></div>
-                <input className="h-0 w-0" type="radio" />
-              </div>
-              <div className="pl-9">
-                <p>Přidat novou adresu</p>
-              </div>
-              <FontAwesomeIcon className="ml-auto " icon={faPen} />
-            </div>
-            <div className="text-center mb-[24px]">
-              <button
-                onClick={() => setAdressIsClicked((prev) => !prev)}
-                className="bg-[#ff4e00] uppercase text-[#ffff] w-full px-6 font-[700] flex-wrap tracking-[0.5px] py-[10px] min-h-[40px] leading-[18px] text-[12px]  "
-              >
-                Další
-              </button>
-            </div> */}
-            <CheckoutAddressForm setAdressIsClicked={setAdressIsClicked} />
+            {addressDelivery && !isUpdateAddressDelivery ? (
+              <>
+                <div className="flex mt-6 px-[6px] pb-6 border-b border-gray-300 text-[14px] leading-[20px]">
+                  <div className=" pr-[15px] py-[6px] relative top-1/2 ">
+                    <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[0.3px] left-[-5.9px] hover:outline-2px outline_onHover absolute"></div>
+                    <input defaultChecked={true} className="h-0 w-0" type="radio" />
+                  </div>
+                  <div className="pl-9">
+                    <p>
+                      {addressDelivery.firstName} {addressDelivery.lastName}
+                    </p>
+                    <p>{addressDelivery.address}</p>
+                    <p>{addressDelivery.city}</p>
+                    <p>Ceska Republika</p>
+                  </div>
+                  <FontAwesomeIcon
+                    onClick={() => dispatch(checkoutActions.updateAddressDeliveryHandler(true))}
+                    className="ml-auto cursor-pointer "
+                    icon={faPen}
+                  />
+                </div>
+                <div className="flex mt-6 px-[6px] pb-6 text-[14px] leading-[20px]">
+                  <div className=" pr-[15px] py-[6px] relative top-1/2 ">
+                    <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[0.3px] left-[-5.9px] hover:outline-2px outline_onHover absolute"></div>
+                    <input className="h-0 w-0" type="radio" />
+                  </div>
+                  <div className="pl-9">
+                    <p>Přidat novou adresu</p>
+                  </div>
+                  <FontAwesomeIcon className="ml-auto " icon={faPen} />
+                </div>
+
+                <div className="text-center mb-[24px]">
+                  <button
+                    onClick={() => setAdressIsClicked((prev) => !prev)}
+                    className="bg-[#ff4e00] uppercase text-[#ffff] w-full px-6 font-[700] flex-wrap tracking-[0.5px] py-[10px] min-h-[40px] leading-[18px] text-[12px]  "
+                  >
+                    Další
+                  </button>
+                </div>
+              </>
+            ) : null}
+            {isUpdateAddressDelivery || !addressDelivery ? (
+              <CheckoutAddressForm setAdressIsClicked={setAdressIsClicked} />
+            ) : null}
           </div>
           {/* </div> */}
         </div>

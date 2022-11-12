@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { toast } from "react-toastify";
-import { postAddressDelivery } from "../../../services/apiRequest";
+import { AddressDelivery } from "../../../interfaces/addressDelivery";
+import { User } from "../../../interfaces/user";
+import { getAddressDeliveryById, postAddressDelivery } from "../../../services/apiRequest";
 import { checkoutActions } from "../../../stores/checkout-slice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import Use_Input from "../../hooks/use-input";
@@ -9,6 +11,8 @@ const inputIsValid = (value: string) => value.trim() !== "";
 
 interface IProps {
   setAdressIsClicked: (state: boolean) => void;
+  // user: User | null;
+  // addressDelivery: AddressDelivery | null
 }
 
 const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
@@ -26,29 +30,27 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
   const { onChangeHandler: infoOnChange, input: infoInput, hasError: infoHasError } = Use_Input(inputIsValid);
   const { onChangeHandler: pscOnChange, input: pscInput, hasError: pscHasError } = Use_Input(inputIsValid);
   const { onChangeHandler: cityOnChange, input: cityInput, hasError: cityHasError } = Use_Input(inputIsValid);
+  const addressDelivery = useAppSelector((state) => state.checkoutSlice.addressDelivery);
+  const user = useAppSelector((state) => state.userSlice.user);
 
   const dispatch = useAppDispatch();
-
-  const user = useAppSelector((state) => state.userSlice.user);
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = {
-      firstName: firstNameInput,
-      lastName: lastNameInput,
-      address: addressInput,
-      info: infoInput,
-      psc: pscInput,
-      city: cityInput,
+      firstName: firstNameInput ? firstNameInput : addressDelivery?.firstName,
+      lastName: lastNameInput ? lastNameInput : addressDelivery?.lastName,
+      address: addressInput ? addressInput : addressDelivery?.address,
+      info: infoInput ? infoInput : addressDelivery?.info,
+      psc: pscInput ? pscInput : addressDelivery?.psc,
+      city: cityInput ? cityInput : addressDelivery?.city,
     };
-    if (firstNameHasError || lastNameHasError || addressHasError || pscHasError || cityHasError) {
-      toast.error("You must complete all required fields");
-      return;
-    }
     if (!user) {
       return;
     }
     postAddressDelivery(dispatch, user, data);
+    dispatch(checkoutActions.addressDeliveryHandler(data));
+
     setAdressIsClicked(true);
   };
 
@@ -59,8 +61,8 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
           <p className="mb-[6px]">Křestní jméno*</p>
           <input
             onChange={firstNameOnChange}
-            defaultValue={user?.firstName}
-            // value={user?.firstName}
+            defaultValue={addressDelivery?.firstName ? addressDelivery?.firstName : user?.firstName}
+            // value={firstNameInput}
             type="text"
             className={"outline_onHover  w-full h-[42px] px-[18px] "}
           />
@@ -69,6 +71,8 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
           <p className="mb-[6px]">Příjmení*</p>
           <input
             onChange={lastNameOnChange}
+            defaultValue={addressDelivery?.lastName}
+            // value={lastNameInput}
             type="text"
             className={"outline_onHover  w-full h-[42px] px-[18px] " + (lastNameInput ? "" : "opacity-30")}
           />
@@ -77,6 +81,8 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
           <p className="mb-[6px]">Adresa*</p>
           <input
             onChange={addressOnChange}
+            defaultValue={addressDelivery?.address}
+            // value={addressInput}
             type="text"
             className={"outline_onHover  w-full h-[42px] px-[18px] " + (addressInput ? "" : "opacity-30")}
           />
@@ -85,6 +91,8 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
           <p className="mb-[6px]">Dodatečné informace pro doručení, max. 30 znaků (Volitelné)</p>
           <input
             onChange={infoOnChange}
+            defaultValue={addressDelivery?.info}
+            // value={infoInput}
             type="text"
             className={"outline_onHover  w-full h-[42px] px-[18px] " + (infoInput ? "" : "opacity-30")}
           />
@@ -93,6 +101,8 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
           <p className="mb-[6px]">PSČ*</p>
           <input
             onChange={pscOnChange}
+            defaultValue={addressDelivery?.psc}
+            // value={pscInput}
             type="text"
             className={"outline_onHover  w-full h-[42px] px-[18px] " + (pscInput ? "" : "opacity-30")}
           />
@@ -101,6 +111,8 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
           <p className="mb-[6px]">Město*</p>
           <input
             onChange={cityOnChange}
+            defaultValue={addressDelivery?.city}
+            // value={cityInput}
             type="text"
             className={"outline_onHover  w-full h-[42px] px-[18px] " + (cityInput ? "" : "opacity-30")}
           />
@@ -112,6 +124,7 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
         {/* <button>Uložit</button> */}
         <button
           // onClick={() => navigate("/checkout/done")}
+
           className=" border-2 effect_bg-orange border-[#ff4e00] text-[#ff4e00] text-[#ffff] font-[700] flex-wrap tracking-[0.5px] py-[10px] px-[16px] min-h-[40px] leading-[18px] text-[12px] uppercase w-full "
         >
           Uložit
