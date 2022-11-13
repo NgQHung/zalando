@@ -15,11 +15,9 @@ const authController = {
       // hash the password
       if (!validator.isStrongPassword(password)) {
         errors = 'Password is not strong enough';
-      }
-      if (!validator.isEmail(email)) {
+      } else if (!validator.isEmail(email)) {
         errors = 'Email is not valid';
-      }
-      if (!email || !password) {
+      } else if (!email || !password) {
         errors = 'All field must not be empty';
       }
       const exist = await User.findOne({ email });

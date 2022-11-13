@@ -6,6 +6,7 @@ import { User_signup } from "../interfaces/authentication";
 import { authAxios } from "../utils/authentication/axiosAuth";
 import { UIActions } from "../stores/UI-slice";
 import { userActions } from "../stores/user-slice";
+import { refreshPage } from "../utils/refreshPage";
 const uriBase = {
   server: "http://localhost:8080",
 };
@@ -22,6 +23,7 @@ export const requestLogin = (dispatch: Dispatch, user: any, navigate: NavigateFu
       const response = await authAxios.post(`/v1/auth/login`, user);
       dispatch(userActions.loginHandler(response.data));
       if (response) {
+        // refreshPage();
         navigate("/");
       }
       dispatch(UIActions.loadingPage(false));

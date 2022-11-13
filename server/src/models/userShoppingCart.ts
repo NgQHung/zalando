@@ -13,7 +13,7 @@ const Schema = mongoose.Schema;
 
 const userShoppingCart = new Schema({
   // id: { type: String },
-  data: {
+  listProducts: {
     type: [
       {
         id: { type: Number },
@@ -25,7 +25,6 @@ const userShoppingCart = new Schema({
         isFavorite: { type: Boolean },
         amount: { type: Number },
         size: { type: String },
-        totalProduct: { type: Number },
       },
     ],
   },

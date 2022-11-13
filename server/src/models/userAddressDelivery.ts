@@ -9,17 +9,10 @@ export interface IAddressDeliveryModel extends IAddressDelivery, mongoose.Docume
   _doc?: any;
 }
 
-// class Employee {
-//   constructor(public name: string, public salary: number) {
-//     this.name = name;
-//     this.salary = salary;
-//   }
-// }
-
 const Schema = mongoose.Schema;
 
 const userAddressDelivery = new Schema({
-  // id: { type: String },
+  _id: { type: Schema.Types.ObjectId },
   data: {
     type: {
       firstName: { type: Schema.Types.Mixed, required: true },

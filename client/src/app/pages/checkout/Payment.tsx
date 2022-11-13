@@ -15,11 +15,28 @@ const Payment = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const methodPayment = useAppSelector((state) => state.checkoutSlice.methodPayment);
   const [inputValue, setInputValue] = useState(methodPayment);
+  const [theLastPurchasedMethodPayment, setTheLastPurchasedMethodPayment] = useState<string>("");
   const InstantTransfer = methodPayment === "InstantTransfer";
   const CreditCard = methodPayment === "CreditCard";
   const PayPal = methodPayment === "PayPal";
   const BankTransfer = methodPayment === "BankTransfer";
   const OnDelivery = methodPayment === "OnDelivery";
+
+  const theLastInstantTransfer = theLastPurchasedMethodPayment === "InstantTransfer";
+  const theLastCreditCard = theLastPurchasedMethodPayment === "CreditCard";
+  const theLastPayPal = theLastPurchasedMethodPayment === "PayPal";
+  const theLastBankTransfer = theLastPurchasedMethodPayment === "BankTransfer";
+  const theLastOnDelivery = theLastPurchasedMethodPayment === "OnDelivery";
+  const allPurchasedProducts = useAppSelector((state) => state.checkoutSlice.allPurchasedProducts);
+
+  useEffect(() => {
+    if (allPurchasedProducts) {
+      const theLastIndexPurchase = allPurchasedProducts.length - 1;
+      if (theLastIndexPurchase >= 0) {
+        setTheLastPurchasedMethodPayment(allPurchasedProducts[theLastIndexPurchase].methodPayment);
+      }
+    }
+  }, []);
 
   const methodOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const type = e.currentTarget.value;
@@ -28,6 +45,7 @@ const Payment = () => {
 
   const methodPaymentHandler = (typeMethod: string) => {
     dispatch(checkoutActions.methodPaymentHandler(typeMethod));
+    setTheLastPurchasedMethodPayment("");
   };
 
   useEffect(() => {
@@ -49,7 +67,10 @@ const Payment = () => {
                         <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px]  top-[5px] left-[-6.8px] hover:outline-2px outline_onHover absolute"></div>
                         <input
                           onChange={methodOnChange}
-                          checked={isChecked && methodPayment === method.type}
+                          checked={
+                            (isChecked && methodPayment === method.type) ||
+                            theLastPurchasedMethodPayment === method.type
+                          }
                           onClick={() => methodPaymentHandler(method.type)}
                           className="h-0 w-0"
                           type="radio"
@@ -59,23 +80,32 @@ const Payment = () => {
                       </div>
                       <span className="pl-9">{method.title}</span>
                       <div className="ml-auto flex space-x-1">
-                        {method.imgUrl.map((url, index) => (
-                          <img
-                            key={index}
-                            className="w-[48px] border border-gray-300 rounded-md h-[32px] object-cover"
-                            src={url}
-                            alt={method.title}
-                          />
-                        ))}
+                        {method.imgUrl ? (
+                          <>
+                            {method?.imgUrl.map((url, index) => (
+                              <img
+                                key={index}
+                                className="w-[48px] border border-gray-300 rounded-md h-[32px] object-cover"
+                                src={url}
+                                alt={method.title}
+                              />
+                            ))}
+                          </>
+                        ) : null}
                       </div>
                     </div>
                     <div
                       className={
-                        "methodDropdown-hidden " + (method.type === methodPayment ? "methodDropdown-show" : "")
+                        "methodDropdown-hidden " +
+                        (method.type === methodPayment ||
+                        (theLastPurchasedMethodPayment === method.type && theLastInstantTransfer)
+                          ? "methodDropdown-show"
+                          : "")
                       }
                     >
                       <div className="">
-                        {InstantTransfer && method.type === methodPayment ? (
+                        {(InstantTransfer && method.type === methodPayment) ||
+                        theLastPurchasedMethodPayment === method.type ? (
                           <p className="mb-2 mt-6 ml-9">
                             Po potvrzení objednávky budete přesměrováni na stránku GoPay (via Przelewy24), kde budete
                             moci provést přímou platbu převodem ze své banky. V současnosti je služba k dispozici pro
@@ -83,7 +113,8 @@ const Payment = () => {
                             úspěšném provedení platby bude objednávka dokončena.
                           </p>
                         ) : null}
-                        {CreditCard && method.type === methodPayment ? (
+                        {(CreditCard && method.type === methodPayment) ||
+                        (theLastPurchasedMethodPayment === method.type && theLastCreditCard) ? (
                           <div className="mb-2 mt-6 ml-9 space-y-[32px]">
                             <div className=" flex p-4 bg-[#efeff0] text-[14px] leading-[20px] tracking-0 ">
                               <FontAwesomeIcon className="mr-2 h-5 w-5 object-cover" icon={faCircleInfo} />
@@ -155,19 +186,22 @@ const Payment = () => {
                           </div>
                         ) : null}
 
-                        {PayPal && method.type === methodPayment ? (
+                        {(PayPal && method.type === methodPayment) ||
+                        (theLastPurchasedMethodPayment === method.type && theLastPayPal) ? (
                           <p className="mb-2 mt-6 ml-9">
                             Budete přesměrováni přímo na službu PayPal, kde budete moci platbu dokončit.
                           </p>
                         ) : null}
-                        {BankTransfer && method.type === methodPayment ? (
+                        {(BankTransfer && method.type === methodPayment) ||
+                        (theLastPurchasedMethodPayment === method.type && theLastBankTransfer) ? (
                           <p className="mb-2 mt-6 ml-9">
                             Po vytvoření objednávky vám zašleme instrukce, jak peníze převést bankovním převodem na náš
                             účet. Objednané produkty vám můžeme rezervovat jen po dobu 7 dnů, tak prosím neváhejte. Čím
                             dříve obdržíme vaši platbu, tím dříve budeme moci vaši zásilku odeslat.
                           </p>
                         ) : null}
-                        {OnDelivery && method.type === methodPayment ? (
+                        {(OnDelivery && method.type === methodPayment) ||
+                        (theLastPurchasedMethodPayment === method.type && theLastOnDelivery) ? (
                           <p className="mb-2 mt-6 ml-9">
                             V současné době se všichni snažíme omezit přímý osobní kontakt, proto vás prosíme, abyste
                             pokud možno zvolili jednu z bezkontaktních platebních metod. Pokud se přeci jen rozhodnete

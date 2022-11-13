@@ -13,11 +13,12 @@ import { ToastContainer } from "react-toastify";
 function App() {
   const dispatch = useAppDispatch();
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
+  const addedFavoriteProducts = useAppSelector((state) => state.cartSlice.addedFavorite);
   const user = useAppSelector((state) => state.userSlice.user);
 
   useEffect(() => {
     try {
-      getProducts(dispatch);
+      getProducts(dispatch, user!, addedFavoriteProducts);
     } catch (error) {
       console.log(error);
     }
@@ -77,13 +78,13 @@ function App() {
             <Route
               key={idx}
               element={
-                !user ? (
-                  <Navigate to={loginPath} />
-                ) : (
-                  <Layout>
-                    <PageComponent />
-                  </Layout>
-                )
+                // !user ? (
+                //   <Navigate to={loginPath} />
+                // ) : (
+                <Layout>
+                  <PageComponent />
+                </Layout>
+                // )
               }
               path={route.path}
             />

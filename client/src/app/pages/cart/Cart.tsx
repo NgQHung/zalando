@@ -1,4 +1,4 @@
-import { faChevronCircleDown, faChevronDown, faChevronUp, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faChevronUp, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -42,7 +42,7 @@ const Cart = () => {
 
   return (
     <Wrapper className=" ">
-      {addedShoppingCart?.length > 0 ? (
+      {addedShoppingCart.length > 0 ? (
         <div className="bg-[#f3f3f3]">
           <div className="flex p-6 gap-6">
             <div className="flex flex-col basis-[68%] gap-3 ">

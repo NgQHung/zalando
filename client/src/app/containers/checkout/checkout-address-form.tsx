@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { toast } from "react-toastify";
-import { AddressDelivery } from "../../../interfaces/addressDelivery";
-import { User } from "../../../interfaces/user";
-import { getAddressDeliveryById, postAddressDelivery } from "../../../services/apiRequest";
+// import { toast } from "react-toastify";
+// import { AddressDelivery } from "../../../interfaces/addressDelivery";
+// import { User } from "../../../interfaces/user";
+import { postAddressDelivery } from "../../../services/apiRequest";
 import { checkoutActions } from "../../../stores/checkout-slice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import Use_Input from "../../hooks/use-input";
@@ -38,7 +38,7 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = {
-      firstName: firstNameInput ? firstNameInput : addressDelivery?.firstName,
+      firstName: firstNameInput ? firstNameInput : user?.firstName ? user?.firstName : addressDelivery?.firstName,
       lastName: lastNameInput ? lastNameInput : addressDelivery?.lastName,
       address: addressInput ? addressInput : addressDelivery?.address,
       info: infoInput ? infoInput : addressDelivery?.info,

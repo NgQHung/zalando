@@ -1,12 +1,19 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import { IUserLikedProducts } from '../interfaces/user-liked-products';
 // import { Products } from '../interfaces/products';
+
+export interface ILikedProductsModel extends IUserLikedProducts, mongoose.Document {
+  _id: any;
+  id: any;
+  _doc?: any;
+}
 
 const Schema = mongoose.Schema;
 
 const userLikedProductSchema = new Schema({
-  accessToken: { type: String },
-  data: {
+  _id: { type: Schema.Types.ObjectId },
+  listProducts: {
     type: [
       {
         id: { type: Number },
@@ -17,13 +24,12 @@ const userLikedProductSchema = new Schema({
         previousPrice: { type: Number },
         isFavorite: { type: Boolean },
         amount: { type: Number },
-        size: { type: Number },
-        totalProduct: { type: Boolean },
+        size: { type: String },
       },
     ],
   },
 });
 
-const LikedProductModel = mongoose.model<any>('userLikedProduct', userLikedProductSchema);
+const LikedProductModel = mongoose.model<ILikedProductsModel>('userLikedProduct', userLikedProductSchema);
 
 export default LikedProductModel;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { User_login } from "../../../interfaces/authentication";
 import { requestLogin } from "../../../services/auth-slice";
@@ -9,7 +9,12 @@ import jwt_decode from "jwt-decode";
 
 import "./Login.css";
 import { userActions } from "../../../stores/user-slice";
-import { getAddressDeliveryById, getLikedProductById, getShoppingCartById } from "../../../services/apiRequest";
+import {
+  getAddressDeliveryById,
+  getLikedProductById,
+  getPurchasedProducts,
+  getShoppingCartById,
+} from "../../../services/apiRequest";
 import LOGIN_FORM from "../../containers/login/Login_form";
 import LOGIN_REGISTER from "../../containers/login/Login_Register";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
@@ -84,17 +89,27 @@ export const Login = () => {
 
   useOnClickOutside(refInput, () => setIsClick(false));
 
-  React.useEffect(() => {
+  // const addressDelivery = useAppSelector((state) => state.checkoutSlice.addressDelivery);
+  // const isUpdateAddressDelivery = useAppSelector((state) => state.checkoutSlice.updateAddressDelivery);
+  useEffect(() => {
     let subscribe = true;
     if (user && subscribe) {
       getShoppingCartById(dispatch, user);
       getLikedProductById(dispatch, user);
+
       getAddressDeliveryById(dispatch, user);
+      getPurchasedProducts(dispatch, user);
     }
+    // console.log("isUpdateAddressDelivery", isUpdateAddressDelivery);
     return () => {
       subscribe = false;
     };
   }, [user]);
+  const addedLiked = useAppSelector((state) => state.cartSlice.addedFavorite);
+  useEffect(() => {
+    console.log("addedLiked: ", addedLiked);
+    console.log("user: ", user);
+  }, [user, addedLiked]);
 
   return (
     <Fragment>

@@ -1,21 +1,16 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { Products } from "../../../interfaces/Products";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import { useAppSelector } from "../../hooks";
 
 const WARDROBE_LIKED = () => {
-  const [addedFavorite, setAddedFavorite] = useState<Products[]>([]);
-  const addedFavoriteStore = useAppSelector((state) => state.cartSlice.addedFavorite);
-  const addedFavoriteLength = addedFavorite?.length;
-  const addedFavoriteToShow = addedFavorite.slice(0, 4);
+  const addedFavoriteProducts = useAppSelector((state) => state.cartSlice.addedFavorite);
+  const addedFavoriteLength = addedFavoriteProducts?.length;
+  const addedFavoriteToShow = addedFavoriteProducts.slice(0, 4);
 
-  useEffect(() => {
-    const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
-    setAddedFavorite(JSON.parse(getCart.cartSlice).addedFavorite);
-  }, []);
   return (
     <Link to="lists/liked" className="wardrobe_list-favorite px-2 mt-2 cursor-pointer">
       <div className="p-4 bg-[#ffff] ">
@@ -24,7 +19,7 @@ const WARDROBE_LIKED = () => {
             Oblíbené předměty
           </h2>
           <h3 className="wardrobe_list-quantity leading-[24px] font-[400] tracking-[-0.16px] whitespace-nowrap mr-3 text-[#a2a3a8]">
-            Počet produktů: {addedFavoriteStore.length !== 0 ? addedFavoriteStore.length : addedFavoriteLength}
+            Počet produktů: {addedFavoriteProducts.length !== 0 ? addedFavoriteProducts.length : addedFavoriteLength}
           </h3>
           <span className="h-6 w-6 text-center">
             <FontAwesomeIcon icon={faChevronRight} className=" h-full object-cover" />

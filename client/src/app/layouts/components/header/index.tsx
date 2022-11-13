@@ -19,7 +19,7 @@ const Header = () => {
   const [dataType, setDataType] = useState<string | null>("");
   const dropdown_shoppingCart = useAppSelector((state) => state.UISlice.dropdown_shoppingCart);
   const lengthAddedShoppingCart = addedShoppingCart.length;
-  const lengthAddedFavorite = addedFavorite.length;
+  const lengthAddedFavorite = addedFavorite ? addedFavorite.length : 0;
 
   const dispatch = useAppDispatch();
 

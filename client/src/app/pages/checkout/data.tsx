@@ -1,7 +1,7 @@
 export interface PaymentMethods {
   title: string;
   type: string;
-  imgUrl: string[];
+  imgUrl?: string[];
 }
 
 export const paymentMethods: PaymentMethods[] = [
@@ -29,7 +29,7 @@ export const paymentMethods: PaymentMethods[] = [
   {
     title: "Klasický bankovní převod",
     type: "BankTransfer",
-    imgUrl: ["https://htmlcolorcodes.com/assets/images/colors/white-color-solid-background-1920x1080.png"],
+    // imgUrl: ["https://htmlcolorcodes.com/assets/images/colors/white-color-solid-background-1920x1080.png"],
   },
   {
     title: "Platba na dobírku",

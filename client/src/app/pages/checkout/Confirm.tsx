@@ -17,10 +17,16 @@ const Confirm = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userSlice.user);
   const purchasedProducts = useAppSelector((state) => state.checkoutSlice.purchasedProducts);
-
-  // const {id, }
+  const [nameEdit, setNameEdit] = useState<string>("");
 
   const navigate = useNavigate();
+
+  const updateHandler = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    // const {name} = e.currentTarget
+    const target = e.currentTarget;
+
+    setNameEdit(target.getAttribute("name")!);
+  };
 
   const confirmSubmitHandler = () => {
     if (!user) {
@@ -41,6 +47,20 @@ const Confirm = () => {
       setMethodTitle(method?.title);
     }
   }, [methodPayment]);
+
+  useEffect(() => {
+    switch (nameEdit) {
+      case "deliveryAddress":
+        navigate("/checkout/address");
+        break;
+      case "billAddress":
+        navigate("/checkout/address");
+        break;
+      case "methodPayment":
+        navigate("/checkout/payment");
+        break;
+    }
+  }, [nameEdit]);
   return (
     <Wrapper className="">
       <div className="lg:max-w-[979px]">
@@ -111,10 +131,17 @@ const Confirm = () => {
               <div className="mt-[36px]">
                 <div className=" flex justify-between border-b border-gray-300">
                   <h2 className="uppercase pb-[6px] font-[700]">DORUČOVACÍ ADRESA</h2>
-                  <FontAwesomeIcon className="h-4 w-4 object-cover cursor-pointer" icon={faPen} />
+                  <FontAwesomeIcon
+                    name="deliveryAddress"
+                    onClick={updateHandler}
+                    className="h-4 w-4 object-cover cursor-pointer"
+                    icon={faPen}
+                  />
                 </div>
                 <div className=" mt-[24px] text-[14px] leading-[20px]">
-                  <div className="address-name mt-[24px] mb-[4px]">{addressDelivery?.firstName}</div>
+                  <div className="address-name mt-[24px] mb-[4px]">
+                    {user?.firstName ? user?.firstName : addressDelivery?.firstName}
+                  </div>
                   <div className="address mb-[4px]">{addressDelivery?.address}</div>
                   <div className="address mb-[4px]">{addressDelivery?.city}</div>
                   <div className="address mb-[4px]">Ceska Republika</div>
@@ -123,7 +150,12 @@ const Confirm = () => {
               <div className="mt-[36px]">
                 <div className="flex justify-between border-b border-gray-300 ">
                   <h2 className="uppercase pb-[6px] font-[700] ">FAKTURAČNÍ ADRESA</h2>
-                  <FontAwesomeIcon className="h-4 w-4 object-cover cursor-pointer" icon={faPen} />
+                  <FontAwesomeIcon
+                    name="billAddress"
+                    onClick={updateHandler}
+                    className="h-4 w-4 object-cover cursor-pointer"
+                    icon={faPen}
+                  />
                 </div>
 
                 <div className=" mt-[24px] text-[14px] leading-[20px]">
@@ -133,7 +165,12 @@ const Confirm = () => {
               <div className="mt-[36px]">
                 <div className="flex justify-between  border-b border-gray-300">
                   <h2 className="uppercase pb-[6px] font-[700]">ZPŮSOB PLATBY</h2>
-                  <FontAwesomeIcon className="h-4 w-4 object-cover cursor-pointer" icon={faPen} />
+                  <FontAwesomeIcon
+                    name="methodPayment"
+                    onClick={updateHandler}
+                    className="h-4 w-4 object-cover cursor-pointer"
+                    icon={faPen}
+                  />
                 </div>
 
                 <div className=" mt-[24px] text-[14px] leading-[20px]">

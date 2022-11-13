@@ -8,8 +8,6 @@ import storage from "redux-persist/lib/storage";
 import mobileSlice from "./mobile-slice";
 import cartSlice from "./cart-slice";
 import checkoutSlice from "./checkout-slice";
-// import { loadState, saveState } from "../utils/localStorage";
-// import throttle from "lodash/throttle";
 
 const persistConfig = {
   key: "root",

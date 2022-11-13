@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AddressDelivery } from "../interfaces/addressDelivery";
-import IPurchasedProducts from "../interfaces/purchasedProducts";
+import { IPurchasedProducts, IAllPurchasedProducts } from "../interfaces/purchasedProducts";
 
 interface InitialState {
   methodPayment: string;
   addressDelivery: AddressDelivery | null;
   updateAddressDelivery: boolean;
   purchasedProducts: IPurchasedProducts | null;
+  allPurchasedProducts: IAllPurchasedProducts[] | null;
 }
 
 const initialState: InitialState = {
@@ -14,6 +15,7 @@ const initialState: InitialState = {
   addressDelivery: null,
   updateAddressDelivery: false,
   purchasedProducts: null,
+  allPurchasedProducts: null,
 };
 
 const checkoutSlice = createSlice({
@@ -31,6 +33,9 @@ const checkoutSlice = createSlice({
     },
     purchasedProductsHandler(state, action) {
       state.purchasedProducts = action.payload;
+    },
+    getAllPurchasedProductsById(state, action) {
+      state.allPurchasedProducts = action.payload;
     },
   },
 });
