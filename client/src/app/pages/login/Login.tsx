@@ -89,18 +89,14 @@ export const Login = () => {
 
   useOnClickOutside(refInput, () => setIsClick(false));
 
-  // const addressDelivery = useAppSelector((state) => state.checkoutSlice.addressDelivery);
-  // const isUpdateAddressDelivery = useAppSelector((state) => state.checkoutSlice.updateAddressDelivery);
   useEffect(() => {
     let subscribe = true;
     if (user && subscribe) {
       getShoppingCartById(dispatch, user);
       getLikedProductById(dispatch, user);
-
       getAddressDeliveryById(dispatch, user);
       getPurchasedProducts(dispatch, user);
     }
-    // console.log("isUpdateAddressDelivery", isUpdateAddressDelivery);
     return () => {
       subscribe = false;
     };

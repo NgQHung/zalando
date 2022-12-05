@@ -36,30 +36,29 @@ export const getProducts = async (dispatch: Dispatch, user: User, addedProductsF
     setTimeout(async () => {
       response = await axios.get(`${uriBase.server}/products`);
       const all = await response.data;
-      const newAllProduct = all.map((item: Products) => {
+      const newAllProduct = await all.map((item: Products) => {
         return { ...item, isFavorite: false };
       });
       // let getCart;
       // let addedFavoriteProducts;
       let map: any;
       let newAllProducts;
-      if (!user) {
-        if (JSON.parse(localStorage.getItem("persist:root")!)) {
-          const getCart = JSON.parse(localStorage.getItem("persist:root")!) || [];
-          const addedFavoriteProducts = JSON.parse(getCart.cartSlice).addedFavorite;
+      // if (!user) {
+      if (JSON.parse(localStorage.getItem("persist:root")!)) {
+        const getCart = (await JSON.parse(localStorage.getItem("persist:root")!)) || [];
+        const addedFavoriteProducts = await JSON.parse(getCart.cartSlice).addedFavorite;
 
-          // map = new Map(
-          //   addedFavorite ? addedFavorite.map((o: Products) => [o?.id, o]) : [].map((o: Products) => [o?.id, o])
-          // );
-          map = new Map(addedFavoriteProducts.map((o: Products) => [o?.id, o]));
+        map = new Map(await addedFavoriteProducts.map((o: Products) => [o?.id, o]));
 
-          // update data from server with data from local storage
-          newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
-        }
-      } else {
-        map = new Map(addedProductsFromBe.map((o: Products) => [o?.id, o]));
+        // update data from server with data from local storage
         newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
       }
+      if (user) {
+      }
+      // } else {
+      //   map = new Map(addedProductsFromBe.map((o: Products) => [o?.id, o]));
+      //   newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
+      // }
 
       const allProducts = newAllProducts ? newAllProducts : newAllProduct;
       const products_1 = allProducts.slice(0, 14);
