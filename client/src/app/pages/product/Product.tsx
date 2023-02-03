@@ -54,8 +54,8 @@ const Product = () => {
   };
   React.useEffect(() => {
     getDetailProduct(dispatch, selectedId);
-    const productIndex = allProducts.findIndex((item: Products) => item.id === selectedId);
-    const product = allProducts[productIndex];
+    // const productIndex = allProducts?.findIndex((item: Products) => item.id === selectedId);
+    // const product = allProducts[productIndex];
   }, [selectedId]);
 
   React.useEffect(() => {

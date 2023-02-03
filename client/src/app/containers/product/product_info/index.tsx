@@ -36,7 +36,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   const user = useAppSelector((state) => state.userSlice.user);
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
-  const allProducts: Products[] = useAppSelector((state) => state.productSlice.allProducts);
+  const allProducts: Products[] = useAppSelector((state) => state.productSlice.allProducts) || [];
   const getSelectedId = JSON.parse(localStorage.getItem("selectedId")!) || [];
 
   const dispatch = useAppDispatch();
@@ -57,8 +57,10 @@ const Product_info = ({ selectedProduct }: Iprops) => {
 
   const addShoppingCartHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
+    // console.log(selectedProduct);
     const productIndex1: number = allProducts.findIndex((item: Products) => item.id === selectedProduct?.id);
     const product: Products = allProducts[productIndex1];
+    console.log(allProducts);
 
     const updateProduct: ShoppingProducts = {
       id: product.id,

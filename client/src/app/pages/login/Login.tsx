@@ -96,6 +96,9 @@ export const Login = () => {
       getLikedProductById(dispatch, user);
       getAddressDeliveryById(dispatch, user);
       getPurchasedProducts(dispatch, user);
+      console.log("render");
+      localStorage.clear();
+      localStorage.setItem("persist:root", "");
     }
     return () => {
       subscribe = false;
@@ -103,8 +106,9 @@ export const Login = () => {
   }, [user]);
   const addedLiked = useAppSelector((state) => state.cartSlice.addedFavorite);
   useEffect(() => {
-    console.log("addedLiked: ", addedLiked);
-    console.log("user: ", user);
+    // console.log("addedLiked: ", addedLiked);
+    // console.log("user: ", user);
+    // console.log("localStorage: ", JSON.parse(localStorage.getItem("persist:root")!));
   }, [user, addedLiked]);
 
   return (

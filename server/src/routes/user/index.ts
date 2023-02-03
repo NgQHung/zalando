@@ -1,5 +1,6 @@
 import express from 'express';
 import userController from '../../controllers/userController';
+// import userProductController from "../../controllers/";
 import middleware from '../../middlewares/requireAuth';
 
 const userRouter = express.Router();
@@ -22,6 +23,9 @@ userRouter.get('/:id/address-delivery/info', middleware.verifyToken, userControl
 
 // post data purchased products && method payment user
 userRouter.post('/:id/purchased-products/post', middleware.verifyToken, userController.postPurchasedProductsById);
+
+// post data added products user
+// userRouter.post('/:id/added-products/post', middleware.verifyToken, userProductController.addedProduct);
 
 // get data purchased products && method payment user
 userRouter.get('/:id/purchased-products', middleware.verifyToken, userController.getPurchasedProductsById);

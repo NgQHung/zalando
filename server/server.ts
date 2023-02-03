@@ -22,9 +22,23 @@ app.use('/dist', express.static(path.resolve(__dirname, '../client/dist')));
 //   res.download(path.resolve(__dirname, '../client/public/index.html'));
 // });
 app.use('/', express.static(path.join(__dirname, '../client/public/index.html')));
+// const corsConfig = {
+//   credentials: true,
+//   origin: true,
+// };
 app.use(cors({ credentials: true, origin: process.env.CLIENT_URI }));
 app.use(cookieParser());
 app.use(helmet());
+
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+  next();
+});
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -41,19 +41,23 @@ export const getProducts = async (dispatch: Dispatch, user: User, addedProductsF
       });
       // let getCart;
       // let addedFavoriteProducts;
-      let map: any;
       let newAllProducts;
       // if (!user) {
-      if (JSON.parse(localStorage.getItem("persist:root")!)) {
-        const getCart = (await JSON.parse(localStorage.getItem("persist:root")!)) || [];
-        const addedFavoriteProducts = await JSON.parse(getCart.cartSlice).addedFavorite;
+      const persist = (await JSON.parse(localStorage.getItem("persist:root")!)) || {};
+      // if (persist) {
+      // }
+      if (user) {
+        // console.log(persist.cartSlice);
+      } else {
+        // console.log(persist.cartSlice);
 
+        const getCart = persist.cartSlice || [];
+        const addedFavoriteProducts = await JSON.parse(getCart).addedFavorite;
+        let map: any;
         map = new Map(await addedFavoriteProducts.map((o: Products) => [o?.id, o]));
 
         // update data from server with data from local storage
         newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
-      }
-      if (user) {
       }
       // } else {
       //   map = new Map(addedProductsFromBe.map((o: Products) => [o?.id, o]));

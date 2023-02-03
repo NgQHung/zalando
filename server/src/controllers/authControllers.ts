@@ -59,7 +59,6 @@ const authController = {
     try {
       if (!user) {
         return res.status(404).json({ data: null, message: 'Incorrect email!' });
-        // return res.status(404).json({msg: ''})
       }
       const isPasswordMatch = user && user.password ? await bcrypt.compare(req.body.password, user.password) : false;
       if (!isPasswordMatch) {

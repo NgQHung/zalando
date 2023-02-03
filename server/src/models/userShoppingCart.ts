@@ -13,21 +13,13 @@ const Schema = mongoose.Schema;
 
 const userShoppingCart = new Schema({
   // id: { type: String },
-  listProducts: {
-    type: [
-      {
-        id: { type: Number },
-        brand: { type: String },
-        name: { type: String },
-        imageUrl: { type: String },
-        currentPrice: { type: Number },
-        previousPrice: { type: Number },
-        isFavorite: { type: Boolean },
-        amount: { type: Number },
-        size: { type: String },
+  listProducts: [
+    {
+      type: {
+        id: Number,
       },
-    ],
-  },
+    },
+  ],
 });
 
 const ProductShoppingCartModel = mongoose.model<IShoppingCartModel>('userShoppingCart', userShoppingCart);

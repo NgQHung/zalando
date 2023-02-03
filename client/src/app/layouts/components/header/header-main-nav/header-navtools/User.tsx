@@ -1,6 +1,7 @@
 import React, { Fragment, memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { requestLogout } from "../../../../../../services/auth-slice";
+import { refreshPage } from "../../../../../../utils/refreshPage";
 import ButtonPrimary from "../../../../../components/UI/button/Button";
 import { useAppDispatch, useAppSelector } from "../../../../../hooks";
 import "./navtools.css";
@@ -14,7 +15,10 @@ const User = () => {
   const logoutHandler = () => {
     if (!user) return;
     requestLogout(dispatch, navigate, accessToken);
-    navigate("");
+    // navigate("");
+    localStorage.clear();
+    localStorage.setItem("persist:root", "");
+    refreshPage();
   };
 
   return (
