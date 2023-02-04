@@ -7,7 +7,9 @@ import { useAppDispatch, useAppSelector } from "../../../../../hooks";
 import "./navtools.css";
 
 const User = () => {
-  const user = useAppSelector((state) => state.userSlice.user);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
+  // console.log(user);
+
   const accessToken = user?.accessToken!;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

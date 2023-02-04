@@ -47,12 +47,13 @@ export const getProducts = async (dispatch: Dispatch, user: User, addedProductsF
       // if (persist) {
       // }
       if (user) {
+        // take data from BE
         // console.log(persist.cartSlice);
       } else {
         // console.log(persist.cartSlice);
 
         const getCart = persist.cartSlice || [];
-        const addedFavoriteProducts = await JSON.parse(getCart).addedFavorite;
+        const addedFavoriteProducts = (await JSON.parse(getCart).addedFavorite) || [];
         let map: any;
         map = new Map(await addedFavoriteProducts.map((o: Products) => [o?.id, o]));
 
@@ -108,6 +109,7 @@ export const getDetailProduct = async (dispatch: Dispatch, id: number | null) =>
 };
 
 export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: Products[] | ShoppingProducts[]) => {
+  console.count("post data to id of user");
   const authAxios = axios.create({
     baseURL: uriBase.server,
     headers: {
@@ -122,7 +124,7 @@ export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: 
     toast.error(error.response?.data.message);
   }
 };
-export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
+export const getShoppingCartById = async (dispatch: Dispatch, user: any, allProducts: Products[]) => {
   const authAxios = axios.create({
     baseURL: uriBase.server,
     headers: {
@@ -136,7 +138,7 @@ export const getShoppingCartById = async (dispatch: Dispatch, user: any) => {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
       response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/shopping-cart/products`);
-      dispatch(cartActions.getShoppingCart(response.data.listProducts));
+      dispatch(cartActions.getShoppingCart(response.data.data));
       dispatch(UIActions.loadingPage(false));
     }, 1000);
   } catch (error: any) {
@@ -170,7 +172,7 @@ export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
   let response;
   try {
     response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/liked/products`);
-    dispatch(cartActions.getLikedProduct(response.data.listProducts));
+    dispatch(cartActions.getLikedProduct(response.data.data));
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }
@@ -250,7 +252,7 @@ export const getPurchasedProducts = async (dispatch: Dispatch, user: any) => {
   try {
     dispatch(UIActions.loadingPage(true));
     response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/purchased-products`);
-    dispatch(checkoutActions.getAllPurchasedProductsById(response.data.listProducts));
+    dispatch(checkoutActions.getAllPurchasedProductsById(response.data.data));
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }

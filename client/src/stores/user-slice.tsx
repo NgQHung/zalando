@@ -24,9 +24,6 @@ const userSLice = createSlice({
     logoutHandler(state) {
       state.user = null;
     },
-    // getShoppingCart(state, action) {
-    //   state.shoppingCart = action.payload;
-    // },
   },
 });
 

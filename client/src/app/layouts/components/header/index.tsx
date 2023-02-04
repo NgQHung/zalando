@@ -14,7 +14,7 @@ import HEADER_MAIN_NAV from "./header-main-nav/Header_nav_main";
 const Header = () => {
   const [gender, setGender] = useState("zeny");
   const [onHover, setOnHover] = useState(false);
-  const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
+  const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart) || [];
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
   const [dataType, setDataType] = useState<string | null>("");
   const dropdown_shoppingCart = useAppSelector((state) => state.UISlice.dropdown_shoppingCart);

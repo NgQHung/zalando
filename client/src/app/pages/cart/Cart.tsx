@@ -12,6 +12,8 @@ import "./Cart.css";
 
 const Cart = () => {
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
+  // console.log(addedShoppingCart);
+  // console.log("hello");
   const total = useAppSelector((state) => state.cartSlice.total);
   const [dropdown, setDropdown] = useState(false);
   const user = useAppSelector((state) => state.userSlice.user);

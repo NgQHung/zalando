@@ -22,8 +22,8 @@ export const requestLogin = (dispatch: Dispatch, user: any, navigate: NavigateFu
     setTimeout(async () => {
       const response = await authAxios.post(`/v1/auth/login`, user);
       dispatch(userActions.loginHandler(response.data));
+      localStorage.setItem("User", JSON.stringify(response.data));
       if (response) {
-        // refreshPage();
         navigate("/");
       }
       dispatch(UIActions.loadingPage(false));

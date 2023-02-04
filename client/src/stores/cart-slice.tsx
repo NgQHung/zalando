@@ -44,7 +44,6 @@ const cartSlice = createSlice({
   initialState: initialState,
   reducers: {
     getShoppingCart(state, action) {
-      // if(state.)
       state.addedShoppingCart = action.payload;
     },
     getLikedProduct(state, action) {
@@ -53,6 +52,7 @@ const cartSlice = createSlice({
     addShoppingCartHandler(state, action) {
       const idProduct = action.payload.id;
       const sizeProduct = action.payload.size;
+      console.log(state.addedShoppingCart);
       const existingProductWithSizeIndex = state.addedShoppingCart.findIndex((product) => {
         return product.id === idProduct && product.size === sizeProduct;
       });

@@ -15,11 +15,13 @@ import { toast } from "react-toastify";
 import { productActions } from "../../../../stores/product-slice";
 import { Products } from "../../../../interfaces/Products";
 import { ShoppingProducts } from "../../../../interfaces/ShoppingProducts";
+import { useFirstRender } from "../../../../utils/useFirstRender";
 
 interface Iprops {
   selectedProduct: ProductDetail;
 }
 
+let isFirst = true;
 const Product_info = ({ selectedProduct }: Iprops) => {
   const [nameDropdown, setNameDropdown] = useState<Record<string, any>>({
     selectSize: "",
@@ -60,7 +62,6 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     // console.log(selectedProduct);
     const productIndex1: number = allProducts.findIndex((item: Products) => item.id === selectedProduct?.id);
     const product: Products = allProducts[productIndex1];
-    console.log(allProducts);
 
     const updateProduct: ShoppingProducts = {
       id: product.id,
@@ -132,7 +133,12 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   React.useEffect(() => {
     let subscribe = true;
 
-    if (subscribe && user) {
+    if (isFirst) {
+      isFirst = false;
+      return;
+    }
+
+    if (subscribe && user && !(localStorage.getItem("persist:root") === "")) {
       postShoppingCartById(dispatch, user, addedShoppingCart);
       postLikedProductById(dispatch, user, addedLikedProduct);
     }
@@ -140,11 +146,10 @@ const Product_info = ({ selectedProduct }: Iprops) => {
     return () => {
       subscribe = false;
     };
-  }, [addedShoppingCart, user]);
+  }, [addedShoppingCart]);
 
   React.useEffect(() => {
     if (selectedFavoriteProduct) {
-      console.log(selectedFavoriteProduct);
       dispatch(cartActions.addFavoriteHandler(selectedFavoriteProduct));
     }
 

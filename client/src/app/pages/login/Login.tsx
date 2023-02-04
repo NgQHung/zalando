@@ -25,6 +25,7 @@ export const Login = () => {
   const [input, setInput] = React.useState<User_login>({ email: "", password: "", showPassword: false });
   const refInput = React.useRef<any>(null);
   const user = useAppSelector((state) => state.userSlice.user);
+  const allProducts = useAppSelector((state) => state.productSlice.allProducts);
 
   const handleClickShowPassword = () => {
     setInput({ ...input, showPassword: !input.showPassword });
@@ -92,24 +93,24 @@ export const Login = () => {
   useEffect(() => {
     let subscribe = true;
     if (user && subscribe) {
-      getShoppingCartById(dispatch, user);
+      getShoppingCartById(dispatch, user, allProducts);
       getLikedProductById(dispatch, user);
       getAddressDeliveryById(dispatch, user);
       getPurchasedProducts(dispatch, user);
       console.log("render");
-      localStorage.clear();
+      // localStorage.clear();
       localStorage.setItem("persist:root", "");
     }
     return () => {
       subscribe = false;
     };
   }, [user]);
-  const addedLiked = useAppSelector((state) => state.cartSlice.addedFavorite);
-  useEffect(() => {
-    // console.log("addedLiked: ", addedLiked);
-    // console.log("user: ", user);
-    // console.log("localStorage: ", JSON.parse(localStorage.getItem("persist:root")!));
-  }, [user, addedLiked]);
+  // const addedLiked = useAppSelector((state) => state.cartSlice.addedFavorite);
+  // useEffect(() => {
+  //   // console.log("addedLiked: ", addedLiked);
+  //   // console.log("user: ", user);
+  //   // console.log("localStorage: ", JSON.parse(localStorage.getItem("persist:root")!));
+  // }, [user, addedLiked]);
 
   return (
     <Fragment>

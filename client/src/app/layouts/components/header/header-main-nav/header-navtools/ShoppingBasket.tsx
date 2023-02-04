@@ -11,19 +11,24 @@ import { Box, ListItem, ListItemText } from "@mui/material";
 import { amountRemovedHandler, UIActions } from "../../../../../../stores/UI-slice";
 import { ShoppingProducts } from "../../../../../../interfaces/ShoppingProducts";
 import { Link, useNavigate } from "react-router-dom";
+import { postLikedProductById, postShoppingCartById } from "../../../../../../services/apiRequest";
+import { useFirstRender } from "../../../../../../utils/useFirstRender";
+
+let isFirst = true;
 
 const ShoppingBasket = () => {
   const dispatch = useAppDispatch();
-  const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
+  const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart) || [];
+  // console.log(addedShoppingCart);
   const loading__total = useAppSelector((state) => state.UISlice.loading__total);
   const total = useAppSelector((state) => state.cartSlice.total);
   const dropdownOnHover = useAppSelector((state) => state.UISlice.dropdown_onHover_shoppingCart);
   const amountRemoved = useAppSelector((state) => state.UISlice.amountRemoved);
+  const user = useAppSelector((state) => state.userSlice.user);
+  const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
   const navigate = useNavigate();
 
-  const lengthAddedShoppingCart = useMemo(() => addedShoppingCart.length, [addedShoppingCart.length]);
-  const emptyShoppingCart = useMemo(() => lengthAddedShoppingCart === 0, [lengthAddedShoppingCart === 0]);
-  const elementsGreaterThan3 = useMemo(() => lengthAddedShoppingCart >= 3, [lengthAddedShoppingCart >= 3]);
+  const lengthAddedShoppingCart = useMemo(() => addedShoppingCart.length, [addedShoppingCart.length]) || 0;
   const [shadow, setShadow] = React.useState(true);
   const [posProduct, setPosProduct] = useState<number | null>(null);
 
@@ -39,12 +44,12 @@ const ShoppingBasket = () => {
 
   const onScrollHandler = useCallback(() => {
     const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
-    if (elementsGreaterThan3 && scrollTop > 0 && scrollHeight > 635) {
+    if (lengthAddedShoppingCart >= 3 && scrollTop > 0 && scrollHeight > 635) {
       setShadow(true);
     } else if (Math.ceil(scrollTop) + clientHeight === scrollHeight) {
       setShadow(false);
     } else setShadow(false);
-  }, [elementsGreaterThan3]);
+  }, [lengthAddedShoppingCart]);
 
   const [onHoverShoppingCart, setOnHoverShoppingCart] = React.useState(false);
 
@@ -65,10 +70,28 @@ const ShoppingBasket = () => {
   const ref = React.useRef<any>(null);
 
   React.useEffect(() => {
-    if (!elementsGreaterThan3) {
+    if (lengthAddedShoppingCart < 3) {
       setShadow(false);
     }
-  }, [elementsGreaterThan3]);
+  }, [lengthAddedShoppingCart]);
+
+  React.useEffect(() => {
+    let subscribe = true;
+    // console.log(addedShoppingCart);
+    // console.log(!useFirstRender);
+    if (isFirst) {
+      isFirst = false;
+      return;
+    }
+    if (subscribe && user && !(localStorage.getItem("persist:root") === "")) {
+      postShoppingCartById(dispatch, user, addedShoppingCart);
+      postLikedProductById(dispatch, user, addedLikedProduct);
+    }
+
+    return () => {
+      subscribe = false;
+    };
+  }, [addedShoppingCart.length]);
 
   return (
     <Fragment>
@@ -113,10 +136,14 @@ const ShoppingBasket = () => {
                 ref={scrollRef}
                 className={
                   " relative min-h-[300px] max-h-[558px] overflow-y-auto scrollbar_hidden pb-[115px] " +
-                  (emptyShoppingCart ? "min-h-[200px]" : "")
+                  (lengthAddedShoppingCart === 0 ? "min-h-[200px]" : "")
                 }
               >
-                <div className={"shoppingCart_border " + (emptyShoppingCart ? "shoppingCart_border-active" : "")} />
+                <div
+                  className={
+                    "shoppingCart_border " + (lengthAddedShoppingCart === 0 ? "shoppingCart_border-active" : "")
+                  }
+                />
                 <TransitionGroup component="div">
                   {addedShoppingCart?.map((product: ShoppingProducts, idx: number) => (
                     <Collapse key={idx}>
