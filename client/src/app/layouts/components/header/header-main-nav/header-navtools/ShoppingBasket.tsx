@@ -13,19 +13,21 @@ import { ShoppingProducts } from "../../../../../../interfaces/ShoppingProducts"
 import { Link, useNavigate } from "react-router-dom";
 import { postLikedProductById, postShoppingCartById } from "../../../../../../services/apiRequest";
 import { useFirstRender } from "../../../../../../utils/useFirstRender";
+import { refreshPage } from "../../../../../../utils/refreshPage";
 
 let isFirst = true;
 
 const ShoppingBasket = () => {
   const dispatch = useAppDispatch();
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart) || [];
-  // console.log(addedShoppingCart);
   const loading__total = useAppSelector((state) => state.UISlice.loading__total);
   const total = useAppSelector((state) => state.cartSlice.total);
   const dropdownOnHover = useAppSelector((state) => state.UISlice.dropdown_onHover_shoppingCart);
   const amountRemoved = useAppSelector((state) => state.UISlice.amountRemoved);
   const user = useAppSelector((state) => state.userSlice.user);
   const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
+  const amountOfProducts = addedShoppingCart.reduce((acc, curr) => curr.amount + acc, 0);
+  // console.log(amountOfProducts);
   const navigate = useNavigate();
 
   const lengthAddedShoppingCart = useMemo(() => addedShoppingCart.length, [addedShoppingCart.length]) || 0;
@@ -75,10 +77,9 @@ const ShoppingBasket = () => {
     }
   }, [lengthAddedShoppingCart]);
 
+  // console.log(addedShoppingCart.length);
   React.useEffect(() => {
     let subscribe = true;
-    // console.log(addedShoppingCart);
-    // console.log(!useFirstRender);
     if (isFirst) {
       isFirst = false;
       return;
@@ -91,7 +92,7 @@ const ShoppingBasket = () => {
     return () => {
       subscribe = false;
     };
-  }, [addedShoppingCart.length]);
+  }, [amountOfProducts]);
 
   return (
     <Fragment>

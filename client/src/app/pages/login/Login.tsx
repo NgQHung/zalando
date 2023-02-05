@@ -56,7 +56,6 @@ export const Login = () => {
       const response = await authAxios.post("/v1/auth/refresh");
       return response.data;
     } catch (error) {
-      // console.log('error?')
       console.log(error);
     }
   };
@@ -97,20 +96,12 @@ export const Login = () => {
       getLikedProductById(dispatch, user);
       getAddressDeliveryById(dispatch, user);
       getPurchasedProducts(dispatch, user);
-      console.log("render");
-      // localStorage.clear();
       localStorage.setItem("persist:root", "");
     }
     return () => {
       subscribe = false;
     };
   }, [user]);
-  // const addedLiked = useAppSelector((state) => state.cartSlice.addedFavorite);
-  // useEffect(() => {
-  //   // console.log("addedLiked: ", addedLiked);
-  //   // console.log("user: ", user);
-  //   // console.log("localStorage: ", JSON.parse(localStorage.getItem("persist:root")!));
-  // }, [user, addedLiked]);
 
   return (
     <Fragment>

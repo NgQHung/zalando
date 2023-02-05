@@ -16,7 +16,13 @@ const uriHeroku = {
 };
 
 // request login
-export const requestLogin = (dispatch: Dispatch, user: any, navigate: NavigateFunction, accessToken: string) => {
+export const requestLogin = (
+  dispatch: Dispatch,
+  user: any,
+  navigate: NavigateFunction,
+  accessToken: string
+  // nameProduct: string
+) => {
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {

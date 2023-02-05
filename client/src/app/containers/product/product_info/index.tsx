@@ -3,7 +3,6 @@ import { ProductDetail } from "../../../../interfaces/ProductDetail";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { cartActions } from "../../../../stores/cart-slice";
 import { disabledHandlerHandler, UIActions } from "../../../../stores/UI-slice";
-import { postLikedProductById, postShoppingCartById } from "../../../../services/apiRequest";
 import Product_info_intro from "./Product_info_intro";
 import PRODUCT_INFO_SELECTSIZE from "./Product_info_selectSize";
 import PRODUCT_INFO_BASICINFO from "./Product_info_basicInfo";
@@ -15,7 +14,8 @@ import { toast } from "react-toastify";
 import { productActions } from "../../../../stores/product-slice";
 import { Products } from "../../../../interfaces/Products";
 import { ShoppingProducts } from "../../../../interfaces/ShoppingProducts";
-import { useFirstRender } from "../../../../utils/useFirstRender";
+// import { useFirstRender } from "../../../../utils/useFirstRender";
+// import { refreshPage } from "../../../../utils/refreshPage";
 
 interface Iprops {
   selectedProduct: ProductDetail;
@@ -129,24 +129,6 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   const ref = React.useRef<HTMLDivElement>(null);
 
   useOnClickOutside(ref, () => setNameDropdown((prev) => ({ ...prev, selectSize: "" })));
-
-  React.useEffect(() => {
-    let subscribe = true;
-
-    if (isFirst) {
-      isFirst = false;
-      return;
-    }
-
-    if (subscribe && user && !(localStorage.getItem("persist:root") === "")) {
-      postShoppingCartById(dispatch, user, addedShoppingCart);
-      postLikedProductById(dispatch, user, addedLikedProduct);
-    }
-
-    return () => {
-      subscribe = false;
-    };
-  }, [addedShoppingCart]);
 
   React.useEffect(() => {
     if (selectedFavoriteProduct) {

@@ -11,6 +11,7 @@ import HOME_TOPIC from "../../containers/home/Home_topic";
 import { getDetailProduct } from "../../../services/apiRequest";
 import HOME_PRODUCT from "../../containers/home/Home_product";
 import Loading from "../../components/UI/loader/Loading";
+import { Products } from "../../../interfaces/Products";
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -18,9 +19,10 @@ export const Home = () => {
   const [selectedProduct, setSelectedProduct] = React.useState<any>();
   const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
 
-  const selectedProductHandler = (id: number) => {
-    dispatch(productActions.selectedIdHandler(id));
-    getDetailProduct(dispatch, id);
+  const selectedProductHandler = (product: Products) => {
+    dispatch(productActions.selectedIdHandler(product.id));
+    dispatch(productActions.nameProductHandler(product.name));
+    getDetailProduct(dispatch, product.id);
   };
 
   const favoriteHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

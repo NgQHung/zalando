@@ -9,6 +9,7 @@ interface InitialState {
   selectedProduct: ProductDetail; // detail selected product
   selectedId: number | null;
   removedProduct: Products[];
+  nameProduct: string;
 }
 
 const initialState: InitialState = {
@@ -18,6 +19,7 @@ const initialState: InitialState = {
   selectedProduct: {},
   selectedId: null,
   removedProduct: [],
+  nameProduct: "",
 };
 
 const productSlice = createSlice({
@@ -48,6 +50,9 @@ const productSlice = createSlice({
       //   state.removedProduct.pop();
       // }, 3000);
       // console.log(state.removedProduct);
+    },
+    nameProductHandler(state, action) {
+      state.nameProduct = action.payload;
     },
   },
 });

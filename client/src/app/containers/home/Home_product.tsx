@@ -7,7 +7,7 @@ import WrapperRowFull from "../../components/UI/wrapper/WrapperRowFull";
 
 interface IProps {
   products: Products[];
-  selectedProductHandler: (id: number) => void;
+  selectedProductHandler: (product: Products) => void;
   favoriteHandler: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
@@ -28,7 +28,7 @@ const HOME_PRODUCT = ({ products, selectedProductHandler, favoriteHandler }: IPr
                     }
                   />
                 </div>
-                <Link onClick={() => selectedProductHandler(item.id)} to={`/${item.name}`}>
+                <Link onClick={() => selectedProductHandler(item)} to={`/${item.name}`}>
                   <img
                     src="Skeleton-img.png"
                     className="w-[288px] h-[415px] object-cover"
