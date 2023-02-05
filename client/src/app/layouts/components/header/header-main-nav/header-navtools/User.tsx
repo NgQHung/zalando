@@ -8,8 +8,6 @@ import "./navtools.css";
 
 const User = () => {
   const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
-  // console.log(user);
-
   const accessToken = user?.accessToken!;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -17,9 +15,8 @@ const User = () => {
   const logoutHandler = () => {
     if (!user) return;
     requestLogout(dispatch, navigate, accessToken);
-    // navigate("");
-    localStorage.clear();
-    localStorage.setItem("persist:root", "");
+    localStorage.setItem("persist:root", "null");
+    localStorage.setItem("User", "null");
     refreshPage();
   };
 
