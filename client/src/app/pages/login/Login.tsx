@@ -26,6 +26,8 @@ export const Login = () => {
   const refInput = React.useRef<any>(null);
   const user = useAppSelector((state) => state.userSlice.user);
   const allProducts = useAppSelector((state) => state.productSlice.allProducts);
+  const inputTabKey = useAppSelector((state) => state.UISlice.nextInput);
+  // console.log(inputTabKey);
 
   const handleClickShowPassword = () => {
     setInput({ ...input, showPassword: !input.showPassword });

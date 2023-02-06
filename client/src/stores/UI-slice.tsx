@@ -10,6 +10,7 @@ interface InitialState {
   amountRemoved: boolean;
   disabled: boolean;
   loading_page: boolean;
+  nextInput: string;
 }
 
 const initialState: InitialState = {
@@ -22,6 +23,7 @@ const initialState: InitialState = {
   amountRemoved: false,
   disabled: false,
   loading_page: false,
+  nextInput: "",
 };
 
 const UISLice = createSlice({
@@ -56,6 +58,10 @@ const UISLice = createSlice({
     },
     loadingPage(state, action) {
       state.loading_page = action.payload;
+    },
+    inputTabKey(state, action) {
+      state.nextInput = action.payload;
+      console.log(state.nextInput);
     },
   },
 });

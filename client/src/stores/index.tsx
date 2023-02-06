@@ -8,13 +8,14 @@ import storage from "redux-persist/lib/storage";
 import mobileSlice from "./mobile-slice";
 import cartSlice from "./cart-slice";
 import checkoutSlice from "./checkout-slice";
+import authenticationSlice from "./authentication-slice";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
   // preventing slices from persisting
-  blacklist: ["productSlice", "UISlice", "userSlice", "mobileSlice", "checkoutSlice"],
+  blacklist: ["productSlice", "UISlice", "userSlice", "mobileSlice", "checkoutSlice", "authenticationSlice"],
 };
 
 const rootReducer = combineReducers({
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   userSlice: userSlice,
   mobileSlice: mobileSlice,
   checkoutSlice: checkoutSlice,
+  authenticationSlice: authenticationSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

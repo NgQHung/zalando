@@ -7,6 +7,7 @@ import { authAxios } from "../utils/authentication/axiosAuth";
 import { UIActions } from "../stores/UI-slice";
 import { userActions } from "../stores/user-slice";
 import { refreshPage } from "../utils/refreshPage";
+import { authenticationActions } from "../stores/authentication-slice";
 const uriBase = {
   server: "http://localhost:8080",
 };
@@ -24,14 +25,22 @@ export const requestLogin = (
   // nameProduct: string
 ) => {
   try {
+    // console.log("hi");
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
-      const response = await authAxios.post(`/v1/auth/login`, user);
-      dispatch(userActions.loginHandler(response.data));
-      localStorage.setItem("User", JSON.stringify(response.data));
-      if (response) {
-        navigate("/");
-      }
+      // console.log("login");
+      const response = await authAxios
+        .post(`/v1/auth/login`, user)
+        .then((data) => {
+          dispatch(userActions.loginHandler(data));
+          localStorage.setItem("User", JSON.stringify(data));
+        })
+        .then(() => {
+          navigate("/");
+        })
+        .catch((error) => {
+          dispatch(authenticationActions.loginFail(error.response.data.message));
+        });
       dispatch(UIActions.loadingPage(false));
     }, 1000);
   } catch (error: any) {
