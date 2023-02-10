@@ -10,6 +10,7 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 import SIGNUP_HEADER_MOBILE from "../../containers/signup/mobile/Signup_header_mobile";
 import { motion } from "framer-motion";
 import LOGIN_FORM from "../../containers/login/Login_form";
+import LOGIN_REGISTER from "../../containers/login/Login_Register";
 
 export const Signup = () => {
   const dispatch = useAppDispatch();
@@ -66,65 +67,91 @@ export const Signup = () => {
     <Fragment>
       <SIGNUP_HEADER_MOBILE />
 
-      {/* <motion.div
-        initial={{ y: "28px", opacity: 1 }}
+      <div className="login_content sm:max-w-[75%] sm:basis-3/4 md:max-w-[50%] md:basis-1/2 lg:max-w-[41.6%] lg:basis-[41.6%] xl:max-w-[33.33333%] px-6 xl:basis-1/3 mx-auto my-0">
+        <SIGNUP_LOGIN />
+      </div>
+      <motion.div
+        initial={{ y: "-140px", opacity: 1 }}
         animate={{
-          y: 350,
+          y: 0,
           opacity: 0,
           transition: {
             duration: 1,
           },
         }}
-      > */}
-      <div className={"login_form " + (location.pathname === "/signup" ? "login_form_hidden" : "")}>
+        className="bg-[#ffff]"
+      >
         <LOGIN_FORM />
-      </div>
-      {/* </motion.div> */}
-
-      <div className="login_content sm:max-w-[75%] sm:basis-3/4 md:max-w-[50%] md:basis-1/2 lg:max-w-[41.6%] lg:basis-[41.6%] xl:max-w-[33.33333%] px-6 xl:basis-1/3 mx-auto my-0">
-        <SIGNUP_LOGIN />
-      </div>
-      <motion.div
-        initial={{ y: "200px" }}
-        animate={{
-          y: 0,
-          transition: {
-            duration: 1,
-          },
-        }}
-        className="absolute top-[260px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3]"
-      />
-      <motion.div
-        initial={{ y: "200px" }}
-        animate={{
-          y: 0,
-          transition: {
-            duration: 1,
-          },
-        }}
-        className="login_content sm:max-w-[75%] sm:basis-3/4 md:max-w-[50%] md:basis-1/2 lg:max-w-[41.6%] lg:basis-[41.6%] xl:max-w-[33.33333%] px-6 xl:basis-1/3 mx-auto my-0"
-      >
-        <p className="font-[700] text-[20px] leading-[28px] mb-6">Jsem tu poprvé</p>
       </motion.div>
-      <motion.div
-        initial={{ y: "200px" }}
-        animate={{
-          y: 0,
-          transition: {
-            duration: 1,
-          },
-        }}
-      >
-        <SIGNUP_FORM
-          onSubmitHandler={onSubmitHandler}
-          refInput={refInput}
-          isClick={isClick}
-          typeInput={typeInput}
-          onClickHandler={onClickHandler}
-          onChangeHandler={onChangeHandler}
-          onChangeCheckboxHandler={onChangeCheckboxHandler}
+      <div className="bg-[#ffff]">
+        <motion.div
+          initial={{ y: "240px" }}
+          animate={{
+            y: 0,
+            transition: {
+              duration: 1,
+            },
+          }}
+          className="absolute top-[260px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3]"
         />
-      </motion.div>
+        <motion.div
+          initial={{ y: "-100px" }}
+          animate={{
+            y: "-340px",
+            transition: {
+              duration: 1,
+            },
+          }}
+          className="login_content bg-[#fff] sm:max-w-[75%] sm:basis-3/4 md:max-w-[50%] md:basis-1/2 lg:max-w-[41.6%] lg:basis-[41.6%] xl:max-w-[33.33333%] px-6 xl:basis-1/3 mx-auto my-0 bg-[#ffff]"
+        >
+          <p className="font-[700] text-[20px] leading-[28px] mb-6">Jsem tu poprvé</p>
+          <LOGIN_REGISTER />
+        </motion.div>
+
+        <motion.div
+          initial={{ y: "-100px" }}
+          animate={{
+            y: "-426px",
+            transition: {
+              duration: 1,
+            },
+          }}
+          className="bg-[#ffff] "
+        >
+          <SIGNUP_FORM
+            onSubmitHandler={onSubmitHandler}
+            refInput={refInput}
+            isClick={isClick}
+            typeInput={typeInput}
+            onClickHandler={onClickHandler}
+            onChangeHandler={onChangeHandler}
+            onChangeCheckboxHandler={onChangeCheckboxHandler}
+          />
+        </motion.div>
+        <motion.div
+          initial={{ y: "-1000px", opacity: 0 }}
+          animate={{
+            y: "-400px",
+            opacity: 1,
+            transition: {
+              duration: 1,
+            },
+          }}
+        >
+          <div className=" p-6 text-center">
+            <span className="affect_text text-[14px] m-4  ">Zásady ochrany soukromí</span>
+            <span className="affect_text text-[14px] m-4 ">Podmínky použití</span>
+            <span className="affect_text text-[14px] m-4 ">Právní informace</span>
+            <div className="sign_logo pt-4 pb-12 ">
+              <img
+                className="h-8 object-cover relative left-1/2 translate-x-[-50%] "
+                src="https://cdn-images-1.medium.com/max/1200/1*fYAdvwatzBRQ4S6l7rGnTQ.png"
+                alt="logo"
+              />
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </Fragment>
   );
 };

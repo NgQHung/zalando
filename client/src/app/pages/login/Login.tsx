@@ -129,9 +129,10 @@ export const Login = () => {
       </div>
 
       <motion.div
-        initial={{ y: 0 }}
+        initial={{ y: 0, opacity: 0 }}
         animate={{
           y: "-142px",
+          opacity: 1,
           transition: {
             duration: 1,
           },
@@ -154,55 +155,66 @@ export const Login = () => {
         />
       </motion.div>
       <motion.div
-        initial={{ y: "-200px" }}
+        initial={{ y: "-240px" }}
         animate={{
           y: 0,
           transition: {
             duration: 1,
-            delay: 0.3,
           },
         }}
         className="absolute top-[500px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3]"
       />
-      <motion.div
-        initial={{ y: "-200px" }}
-        animate={{
-          y: 0,
-          transition: {
-            duration: 1,
-            delay: 0.3,
-          },
-        }}
-        className="relative top-[-100px] sm:max-w-[75%] sm:basis-3/4 md:max-w-[50%] md:basis-1/2 lg:max-w-[41.6%] lg:basis-[41.6%] xl:max-w-[33.33333%] px-6 xl:basis-1/3 mx-auto my-0  "
-      >
-        <p className="font-[700] text-[20px] leading-[28px] mb-6">Jsem tu poprvé</p>
-      </motion.div>
-      <motion.div
-        initial={{ y: "-200px", opacity: 1 }}
-        animate={{
-          y: "10px",
-          opacity: 0,
-          transition: {
-            duration: 1,
-          },
-        }}
-        className="relative top-[-120px]"
-      >
-        <SIGNUP_FORM />
-      </motion.div>
 
-      <motion.div
-        initial={{ y: "-1000px", opacity: 0 }}
-        animate={{
-          y: "-1050px",
-          opacity: 1,
-          transition: {
-            duration: 1,
-          },
-        }}
-      >
-        <LOGIN_REGISTER />
-      </motion.div>
+      <div className="bg-[#ffff]  ">
+        <motion.div
+          initial={{ y: "-340px" }}
+          animate={{
+            y: "-100px",
+            transition: {
+              duration: 1,
+            },
+          }}
+          className="sm:max-w-[75%] sm:basis-3/4 md:max-w-[50%] md:basis-1/2 lg:max-w-[41.6%] lg:basis-[41.6%] xl:max-w-[33.33333%] px-6 xl:basis-1/3 mx-auto my-0 bg-[#ffff] "
+        >
+          <p className="font-[700] text-[20px] leading-[28px] mb-6">Jsem tu poprvé</p>
+          <LOGIN_REGISTER />
+        </motion.div>
+        <motion.div
+          initial={{ y: "-426px", opacity: 1 }}
+          animate={{
+            y: "-100px",
+            opacity: 0,
+            transition: {
+              duration: 1,
+            },
+          }}
+        >
+          <SIGNUP_FORM />
+        </motion.div>
+        <motion.div
+          initial={{ y: "-900px", opacity: 0 }}
+          animate={{
+            y: "-1000px",
+            opacity: 1,
+            transition: {
+              duration: 1,
+            },
+          }}
+        >
+          <div className=" p-6 text-center">
+            <span className="affect_text text-[14px] m-4  ">Zásady ochrany soukromí</span>
+            <span className="affect_text text-[14px] m-4 ">Podmínky použití</span>
+            <span className="affect_text text-[14px] m-4 ">Právní informace</span>
+            <div className="sign_logo pt-4 pb-12 ">
+              <img
+                className="h-8 object-cover relative left-1/2 translate-x-[-50%] "
+                src="https://cdn-images-1.medium.com/max/1200/1*fYAdvwatzBRQ4S6l7rGnTQ.png"
+                alt="logo"
+              />
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </Fragment>
   );
 };
