@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { Fragment, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { User_signup } from "../../../interfaces/authentication";
 import { requestSignup } from "../../../services/auth-slice";
 import { useAppDispatch } from "../../hooks";
@@ -7,6 +7,9 @@ import "./Signup.css";
 import SIGNUP_FORM from "../../containers/signup/Signup_Form";
 import SIGNUP_LOGIN from "../../containers/signup/Signup_Login";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
+import SIGNUP_HEADER_MOBILE from "../../containers/signup/mobile/Signup_header_mobile";
+import { motion } from "framer-motion";
+import LOGIN_FORM from "../../containers/login/Login_form";
 
 export const Signup = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +19,7 @@ export const Signup = () => {
   const [checkbox, setCheckbox] = React.useState<any>({
     interest: [],
   });
+  const location = useLocation();
   const [input, setInput] = React.useState<User_signup>({
     firstName: "",
     lastName: "",
@@ -60,9 +64,57 @@ export const Signup = () => {
 
   return (
     <Fragment>
-      <div className="px-6 mt-12 mx-auto my-0 max-w-[33.3333%] min-w-[458px] ">
+      <SIGNUP_HEADER_MOBILE />
+
+      {/* <motion.div
+        initial={{ y: "28px", opacity: 1 }}
+        animate={{
+          y: 350,
+          opacity: 0,
+          transition: {
+            duration: 1,
+          },
+        }}
+      > */}
+      <div className={"login_form " + (location.pathname === "/signup" ? "login_form_hidden" : "")}>
+        <LOGIN_FORM />
+      </div>
+      {/* </motion.div> */}
+
+      <div className="login_content sm:max-w-[75%] sm:basis-3/4 md:max-w-[50%] md:basis-1/2 lg:max-w-[41.6%] lg:basis-[41.6%] xl:max-w-[33.33333%] px-6 xl:basis-1/3 mx-auto my-0">
         <SIGNUP_LOGIN />
-        <div className="absolute top-[250px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3]" />
+      </div>
+      <motion.div
+        initial={{ y: "200px" }}
+        animate={{
+          y: 0,
+          transition: {
+            duration: 1,
+          },
+        }}
+        className="absolute top-[260px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3]"
+      />
+      <motion.div
+        initial={{ y: "200px" }}
+        animate={{
+          y: 0,
+          transition: {
+            duration: 1,
+          },
+        }}
+        className="login_content sm:max-w-[75%] sm:basis-3/4 md:max-w-[50%] md:basis-1/2 lg:max-w-[41.6%] lg:basis-[41.6%] xl:max-w-[33.33333%] px-6 xl:basis-1/3 mx-auto my-0"
+      >
+        <p className="font-[700] text-[20px] leading-[28px] mb-6">Jsem tu poprvé</p>
+      </motion.div>
+      <motion.div
+        initial={{ y: "200px" }}
+        animate={{
+          y: 0,
+          transition: {
+            duration: 1,
+          },
+        }}
+      >
         <SIGNUP_FORM
           onSubmitHandler={onSubmitHandler}
           refInput={refInput}
@@ -72,7 +124,7 @@ export const Signup = () => {
           onChangeHandler={onChangeHandler}
           onChangeCheckboxHandler={onChangeCheckboxHandler}
         />
-      </div>
+      </motion.div>
     </Fragment>
   );
 };

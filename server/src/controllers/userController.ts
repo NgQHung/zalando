@@ -87,12 +87,12 @@ const userController = {
           // {
           //   $push: { data: data },
           // }
-          { listProducts: data }
+          { data: data }
         );
       } else {
         product = await ShoppingCart.create({
           _id: id,
-          listProducts: data,
+          data: data,
         });
       }
 
@@ -119,12 +119,12 @@ const userController = {
           {
             _id: id,
           },
-          { listProducts: data }
+          { data: data }
         );
       } else {
         product = await LikedProductModel.create({
           _id: id,
-          listProducts: data,
+          data: data,
         });
       }
 
@@ -169,13 +169,13 @@ const userController = {
       if (all) {
         return res.status(200).json(all);
       } else {
-        return res.status(200).json({ _id: id, listProducts: [] });
+        return res.status(200).json({ _id: id, data: [] });
       }
     } catch (error) {
       const err = error as AxiosError;
       return res.status(500).json({
         _id: id,
-        listProducts: null,
+        data: null,
         message: 'Oops!!! Something went wrong.',
         error: err.message,
       });
@@ -188,7 +188,7 @@ const userController = {
       if (all) {
         return res.status(200).json(all);
       } else {
-        return res.status(200).json({ _id: id, listProducts: [] });
+        return res.status(200).json({ _id: id, data: [] });
       }
     } catch (error) {
       const err = error as AxiosError;
@@ -213,14 +213,14 @@ const userController = {
           },
           // for push object data to an array
           {
-            $push: { listProducts: data },
+            $push: { data: data },
           }
           // { data: data }
         );
       } else {
         product = await PurchasedProducts.create({
           _id: id,
-          listProducts: data,
+          data: data,
         });
       }
 
@@ -248,7 +248,7 @@ const userController = {
       if (!all) {
         return res.status(200).json({
           _id: id,
-          listProducts: [],
+          data: [],
         });
       } else return res.status(200).json(all);
     } catch (error) {

@@ -6,6 +6,8 @@ import { requestLogin } from "../../../services/auth-slice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { authAxios } from "../../../utils/authentication/axiosAuth";
 import jwt_decode from "jwt-decode";
+import { motion } from "framer-motion";
+import SIGNUP_LOGIN from "../../containers/signup/Signup_Login";
 
 import "./Login.css";
 import { userActions } from "../../../stores/user-slice";
@@ -18,16 +20,25 @@ import {
 import LOGIN_FORM from "../../containers/login/Login_form";
 import LOGIN_REGISTER from "../../containers/login/Login_Register";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
+import LOGIN_HEADER_MOBILE from "../../containers/login/mobile/Login_header_mobile";
+import SIGNUP_FORM from "../../containers/signup/Signup_Form";
+
+const emailInputIsValid = (value: string) => value.includes("@") && value.includes(".");
+const passwordIsValid = (value: any) => value.length > 5;
 
 export const Login = () => {
   const [typeInput, setTypeInput] = React.useState("");
   const [isClick, setIsClick] = React.useState(false);
   const [input, setInput] = React.useState<User_login>({ email: "", password: "", showPassword: false });
+  const [isSubmitted, setIsSubmitted] = React.useState<boolean>(false);
+  // const [isTouched, setIsTouched] = React.useState<boolean>(false);
+
   const refInput = React.useRef<any>(null);
   const user = useAppSelector((state) => state.userSlice.user);
   const allProducts = useAppSelector((state) => state.productSlice.allProducts);
   const inputTabKey = useAppSelector((state) => state.UISlice.nextInput);
-  // console.log(inputTabKey);
+  const passwordHasError = !passwordIsValid(input.password);
+  const emailInputHasError = !emailInputIsValid(input.email);
 
   const handleClickShowPassword = () => {
     setInput({ ...input, showPassword: !input.showPassword });
@@ -86,6 +97,11 @@ export const Login = () => {
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (passwordHasError || emailInputHasError) {
+      setIsSubmitted(true);
+      return;
+    }
+
     requestLogin(dispatch, input, navigate, accessToken!);
   };
 
@@ -107,18 +123,86 @@ export const Login = () => {
 
   return (
     <Fragment>
-      <LOGIN_FORM
-        onSubmitHandler={onSubmitHandler}
-        refInput={refInput}
-        isClick={isClick}
-        typeInput={typeInput}
-        onClickHandler={onClickHandler}
-        onChangeHandler={onChangeHandler}
-        input={input}
-        handleClickShowPassword={handleClickShowPassword}
-        handleMouseDownPassword={handleMouseDownPassword}
+      <LOGIN_HEADER_MOBILE />
+      <div className="login_content sm:max-w-[75%] sm:basis-3/4 md:max-w-[50%] md:basis-1/2 lg:max-w-[41.6%] lg:basis-[41.6%] xl:max-w-[33.33333%] px-6 xl:basis-1/3 mx-auto my-0">
+        <SIGNUP_LOGIN />
+      </div>
+
+      <motion.div
+        initial={{ y: 0 }}
+        animate={{
+          y: "-142px",
+          transition: {
+            duration: 1,
+          },
+        }}
+        className="bg-[#ffff] "
+      >
+        <LOGIN_FORM
+          onSubmitHandler={onSubmitHandler}
+          refInput={refInput}
+          isClick={isClick}
+          typeInput={typeInput}
+          onClickHandler={onClickHandler}
+          onChangeHandler={onChangeHandler}
+          input={input}
+          handleClickShowPassword={handleClickShowPassword}
+          handleMouseDownPassword={handleMouseDownPassword}
+          passwordHasError={passwordHasError}
+          emailInputHasError={emailInputHasError}
+          isSubmitted={isSubmitted}
+        />
+      </motion.div>
+      <motion.div
+        initial={{ y: "-200px" }}
+        animate={{
+          y: 0,
+          transition: {
+            duration: 1,
+            delay: 0.3,
+          },
+        }}
+        className="absolute top-[500px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3]"
       />
-      <LOGIN_REGISTER />
+      <motion.div
+        initial={{ y: "-200px" }}
+        animate={{
+          y: 0,
+          transition: {
+            duration: 1,
+            delay: 0.3,
+          },
+        }}
+        className="relative top-[-100px] sm:max-w-[75%] sm:basis-3/4 md:max-w-[50%] md:basis-1/2 lg:max-w-[41.6%] lg:basis-[41.6%] xl:max-w-[33.33333%] px-6 xl:basis-1/3 mx-auto my-0  "
+      >
+        <p className="font-[700] text-[20px] leading-[28px] mb-6">Jsem tu poprvé</p>
+      </motion.div>
+      <motion.div
+        initial={{ y: "-200px", opacity: 1 }}
+        animate={{
+          y: "10px",
+          opacity: 0,
+          transition: {
+            duration: 1,
+          },
+        }}
+        className="relative top-[-120px]"
+      >
+        <SIGNUP_FORM />
+      </motion.div>
+
+      <motion.div
+        initial={{ y: "-1000px", opacity: 0 }}
+        animate={{
+          y: "-1050px",
+          opacity: 1,
+          transition: {
+            duration: 1,
+          },
+        }}
+      >
+        <LOGIN_REGISTER />
+      </motion.div>
     </Fragment>
   );
 };

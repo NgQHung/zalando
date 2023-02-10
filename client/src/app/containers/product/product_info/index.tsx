@@ -70,7 +70,6 @@ const Product_info = ({ selectedProduct }: Iprops) => {
       imageUrl: product.imageUrl,
       currentPrice: product.price.current.value,
       previousPrice: product?.price?.previous?.value!,
-      // isFavorite: product.isFavorite,
       amount: 1,
       size: sizeProduct,
       totalProduct: product?.price?.current?.value,

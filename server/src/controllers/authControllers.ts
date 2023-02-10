@@ -15,9 +15,11 @@ const authController = {
       // hash the password
       if (!validator.isStrongPassword(password)) {
         errors = 'Password is not strong enough';
-      } else if (!validator.isEmail(email)) {
+      }
+      if (!validator.isEmail(email)) {
         errors = 'Email is not valid';
-      } else if (!email || !password) {
+      }
+      if (!email || !password) {
         errors = 'All field must not be empty';
       }
       const exist = await User.findOne({ email });
@@ -58,7 +60,9 @@ const authController = {
     const user = await User.findOne({ email: req.body.email });
     try {
       if (!user) {
-        return res.status(404).json({ data: null, message: 'Incorrect email!' });
+        return res
+          .status(404)
+          .json({ data: null, message: 'Zkontrolujte, zda jste zadali správnou e-mailovou adresu nebo heslo' });
       }
       const isPasswordMatch = user && user.password ? await bcrypt.compare(req.body.password, user.password) : false;
       if (!isPasswordMatch) {

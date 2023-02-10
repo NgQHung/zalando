@@ -38,7 +38,7 @@ const publicRoutes: PublicRoutes[] = [
   {
     path: routeConfig.signup,
     component: Signup,
-    layout: FormLayout,
+    layout: NoFooterHeaderLayout,
   },
   {
     path: routeConfig.product,

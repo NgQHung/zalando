@@ -5,7 +5,7 @@ const LOGIN_REGISTER = () => {
   return (
     <section className="signup_section  ">
       <div className="px-6 mt-12 mx-auto my-0 max-w-[33.3333%]  ">
-        <p className="text-[28px] font-[700] mb-6">Jsem tu poprvé</p>
+        {/* <p className="text-[28px] font-[700] mb-6">Jsem tu poprvé</p> */}
         <Link to="/signup">
           <div className="text-center p-3 border border-[#1a1a1a] text-4 hover:bg-[#1a1a1a] hover:text-[#ffff] ">
             <button className="">Zaregistrovat se</button>
