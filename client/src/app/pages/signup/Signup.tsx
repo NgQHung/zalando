@@ -83,7 +83,7 @@ export const Signup = () => {
       >
         <LOGIN_FORM />
       </motion.div>
-      <div className="bg-[#ffff]">
+      <div className="bg-[#ffff] ">
         <motion.div
           initial={{ y: "240px" }}
           animate={{
@@ -92,7 +92,7 @@ export const Signup = () => {
               duration: 1,
             },
           }}
-          className="absolute top-[260px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3]"
+          className="absolute top-[260px] lg:top-[212px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3] "
         />
         <motion.div
           initial={{ y: "-100px" }}

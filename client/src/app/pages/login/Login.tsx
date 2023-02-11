@@ -162,10 +162,10 @@ export const Login = () => {
             duration: 1,
           },
         }}
-        className="absolute top-[500px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3]"
+        className="absolute top-[500px] lg:top-[452px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3]"
       />
 
-      <div className="bg-[#ffff]  ">
+      <div className="bg-[#ffff] ">
         <motion.div
           initial={{ y: "-340px" }}
           animate={{
