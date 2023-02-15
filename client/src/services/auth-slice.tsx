@@ -32,8 +32,8 @@ export const requestLogin = (
       const response = await authAxios
         .post(`/v1/auth/login`, user)
         .then((data) => {
-          dispatch(userActions.loginHandler(data));
-          localStorage.setItem("User", JSON.stringify(data));
+          dispatch(userActions.loginHandler(data.data));
+          localStorage.setItem("User", JSON.stringify(data.data));
         })
         .then(() => {
           navigate("/");

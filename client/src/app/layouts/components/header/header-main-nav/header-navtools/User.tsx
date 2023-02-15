@@ -1,6 +1,7 @@
 import React, { Fragment, memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { requestLogout } from "../../../../../../services/auth-slice";
+import { UIActions } from "../../../../../../stores/UI-slice";
 import { refreshPage } from "../../../../../../utils/refreshPage";
 import ButtonPrimary from "../../../../../components/UI/button/Button";
 import { useAppDispatch, useAppSelector } from "../../../../../hooks";
@@ -11,6 +12,12 @@ const User = () => {
   const accessToken = user?.accessToken!;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const animationLoginSignupHandler = (typeAnimation: string) => {
+    // console.log('render')
+    dispatch(UIActions.animationLoginSignup(typeAnimation));
+    dispatch(UIActions.animationLoginSignupFirstTime(true));
+    navigate(`/${typeAnimation}`);
+  };
 
   const logoutHandler = () => {
     if (!user) return;
@@ -26,17 +33,23 @@ const User = () => {
         <div className=" pt-[2px] relative ">
           {!user && (
             <div className=" text-[#ffff] text-center pt-4 pb-[13px] px-[10px] border_bottom">
-              <Link to="/login">
-                <ButtonPrimary className=" bg-[#1a1a1a] mb-[14px]">
-                  <span>Přihlásit se</span>
-                </ButtonPrimary>
-              </Link>
-              <Link to="/signup" className="text-[14px] text-[#1a1a1a] ml-[16px] whitespace-normal text-left">
-                <button className="text-[#6328e0] affect_text mb-1 ">
+              {/* <Link to="/login"> */}
+              <button
+                onClick={() => animationLoginSignupHandler("login")}
+                className=" bg-[#1a1a1a] mb-[14px] text-[16px] relative w-full leading-[24px] tracking-[-0.16px] whitespace-nowrap font-[700] text-ellipsis hover:opacity-80 p-3 transition-all text-[#ffff] text-center cursor-pointer"
+              >
+                <span>Přihlásit se</span>
+              </button>
+              {/* </Link> */}
+              <div className="relative w-full leading-[24px] tracking-[-0.16px] font-[700] text-ellipsis hover:opacity-80 transition-all text-[#ffff] cursor-pointer text-[14px] text-[#1a1a1a] ml-[16px] whitespace-normal text-left">
+                <button
+                  onClick={() => animationLoginSignupHandler("signup")}
+                  className="text-[#6328e0] affect_text mb-1 "
+                >
                   <span>Zaregistrujte se hned teď</span>
                 </button>{" "}
                 - trvá to jen minutu.
-              </Link>
+              </div>
             </div>
           )}
 

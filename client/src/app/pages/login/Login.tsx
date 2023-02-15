@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User_login } from "../../../interfaces/authentication";
 import { requestLogin } from "../../../services/auth-slice";
@@ -39,6 +39,12 @@ export const Login = () => {
   const inputTabKey = useAppSelector((state) => state.UISlice.nextInput);
   const passwordHasError = !passwordIsValid(input.password);
   const emailInputHasError = !emailInputIsValid(input.email);
+  const typeAnimation: string = useAppSelector((state) => state.UISlice.animationLoginSignup);
+  const animationLoginSignupFirstTime = useAppSelector((state) => state.UISlice.animationLoginSignupFirstTime);
+  const emptyEmailInputError = input?.email === "" && isSubmitted;
+  const emptyPasswordInputError = input?.password === "" && isSubmitted;
+
+  // console.log(typeAnimation);
 
   const handleClickShowPassword = () => {
     setInput({ ...input, showPassword: !input.showPassword });
@@ -97,10 +103,10 @@ export const Login = () => {
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (passwordHasError || emailInputHasError) {
-      setIsSubmitted(true);
-      return;
-    }
+    // if (passwordHasError || emailInputHasError) {
+    //   setIsSubmitted(true);
+    //   return;
+    // }
 
     requestLogin(dispatch, input, navigate, accessToken!);
   };
@@ -121,15 +127,18 @@ export const Login = () => {
     };
   }, [user]);
 
+  // console.log(typeAnimationLogin);
+
   return (
     <Fragment>
       <LOGIN_HEADER_MOBILE />
+
       <div className="login_content sm:max-w-[75%] sm:basis-3/4 md:max-w-[50%] md:basis-1/2 lg:max-w-[41.6%] lg:basis-[41.6%] xl:max-w-[33.33333%] px-6 xl:basis-1/3 mx-auto my-0">
         <SIGNUP_LOGIN />
       </div>
 
       <motion.div
-        initial={{ y: 0, opacity: 0 }}
+        initial={{ y: !animationLoginSignupFirstTime ? 0 : "-142px", opacity: !animationLoginSignupFirstTime ? 0 : 1 }}
         animate={{
           y: "-142px",
           opacity: 1,
@@ -155,9 +164,9 @@ export const Login = () => {
         />
       </motion.div>
       <motion.div
-        initial={{ y: "-240px" }}
+        initial={{ y: !animationLoginSignupFirstTime ? "-240px" : 0 }}
         animate={{
-          y: 0,
+          y: emptyEmailInputError ? "64px" : 0,
           transition: {
             duration: 1,
           },
@@ -167,7 +176,7 @@ export const Login = () => {
 
       <div className="bg-[#ffff] ">
         <motion.div
-          initial={{ y: "-340px" }}
+          initial={{ y: !animationLoginSignupFirstTime ? "-340px" : "-100px" }}
           animate={{
             y: "-100px",
             transition: {
@@ -179,18 +188,20 @@ export const Login = () => {
           <p className="font-[700] text-[20px] leading-[28px] mb-6">Jsem tu poprvé</p>
           <LOGIN_REGISTER />
         </motion.div>
-        <motion.div
-          initial={{ y: "-426px", opacity: 1 }}
-          animate={{
-            y: "-100px",
-            opacity: 0,
-            transition: {
-              duration: 1,
-            },
-          }}
-        >
-          <SIGNUP_FORM />
-        </motion.div>
+        {!animationLoginSignupFirstTime ? (
+          <motion.div
+            initial={{ y: "-426px", opacity: 1 }}
+            animate={{
+              y: "-100px",
+              opacity: 0,
+              transition: {
+                duration: 1,
+              },
+            }}
+          >
+            <SIGNUP_FORM />
+          </motion.div>
+        ) : null}
         <motion.div
           initial={{ y: "-900px", opacity: 0 }}
           animate={{

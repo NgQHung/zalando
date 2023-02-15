@@ -11,6 +11,8 @@ interface InitialState {
   disabled: boolean;
   loading_page: boolean;
   nextInput: string;
+  animationLoginSignup: string;
+  animationLoginSignupFirstTime: boolean;
 }
 
 const initialState: InitialState = {
@@ -24,6 +26,8 @@ const initialState: InitialState = {
   disabled: false,
   loading_page: false,
   nextInput: "",
+  animationLoginSignup: "",
+  animationLoginSignupFirstTime: false,
 };
 
 const UISLice = createSlice({
@@ -62,6 +66,12 @@ const UISLice = createSlice({
     inputTabKey(state, action) {
       state.nextInput = action.payload;
       console.log(state.nextInput);
+    },
+    animationLoginSignup(state, action) {
+      state.animationLoginSignup = action.payload;
+    },
+    animationLoginSignupFirstTime(state, action) {
+      state.animationLoginSignupFirstTime = action.payload;
     },
   },
 });

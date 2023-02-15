@@ -3,9 +3,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { UIActions } from "../../../../stores/UI-slice";
+import { useAppDispatch } from "../../../hooks";
 
 const LOGIN_HEADER_MOBILE = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const animationLoginSignupOnChange = () => {
+    navigate("/signup");
+    dispatch(UIActions.animationLoginSignupFirstTime(false));
+  };
 
   return (
     // <div className="relative">
@@ -19,9 +26,9 @@ const LOGIN_HEADER_MOBILE = () => {
           <p>
             <span>Přihlásit se</span>
           </p>
-          <Link to="/signup">
+          <div onClick={animationLoginSignupOnChange}>
             <span className="text-[#6328e0] affect_text">Zaregistrovat se</span>
-          </Link>
+          </div>
         </div>
         {/* </div> */}
       </div>

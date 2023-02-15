@@ -125,7 +125,7 @@ IProps) => {
                 <p className="  ml-1">Toto pole je povinné</p>
               </div>
             ) : emailInputError ? (
-              <div className="text-[12px] h-8 mt-1 font-[400] flex text-[#eb0037] ">
+              <div className="text-[12px] h-8 mt-1 font-[400] flex text-[#eb0037] text-left ">
                 <p className="border border-[#eb0037] bg-[#eb0037] rounded-xl h-3 w-3 flex items-center justify-center shrink-0 ">
                   <FontAwesomeIcon icon={faXmark} className="text-[#ffff]  " />
                 </p>
