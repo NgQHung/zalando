@@ -219,7 +219,7 @@ export const postPurchasedProducts = async (
   dispatch: Dispatch,
   user: any,
   data: {
-    data: IPurchasedProducts;
+    listProducts: IPurchasedProducts;
     methodPayment: string;
   }
 ) => {
@@ -233,7 +233,7 @@ export const postPurchasedProducts = async (
 
   let response;
   try {
-    response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/purchased-products/post`, { data: data });
+    response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/purchased-products/post`, data);
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }

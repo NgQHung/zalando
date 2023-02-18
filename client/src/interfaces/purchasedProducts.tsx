@@ -1,10 +1,8 @@
 export interface IPurchasedProducts {
   //   _id: any;
 
-  data: {
-    id: number;
-    size: string;
-  }[];
+  id: number;
+  size: string;
 }
 
 export interface IAllPurchasedProducts {

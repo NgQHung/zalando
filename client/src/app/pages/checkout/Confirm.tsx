@@ -17,6 +17,7 @@ const Confirm = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userSlice.user);
   const purchasedProducts = useAppSelector((state) => state.checkoutSlice.purchasedProducts);
+  console.log("purchased products: ", { purchasedProducts, methodPayment: methodPayment });
   const [nameEdit, setNameEdit] = useState<string>("");
 
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Confirm = () => {
     }
     if (purchasedProducts) {
       postPurchasedProducts(dispatch, user, {
-        data: purchasedProducts,
+        listProducts: purchasedProducts,
         methodPayment: methodPayment,
       });
     }

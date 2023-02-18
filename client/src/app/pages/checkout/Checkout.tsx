@@ -14,13 +14,6 @@ const Checkout = () => {
   const user = useAppSelector((state) => state.userSlice.user);
   // const navigate = useNavigate();
 
-  // const dispatch = useAppDispatch();
-  useEffect(() => {
-    // console.log("user: ", user);
-    // console.log("addressDelivery: ", addressDelivery);
-    // console.log("isUpdateAddressDelivery", isUpdateAddressDelivery);
-  }, [user, addressDelivery]);
-
   return (
     <>
       {addressIsClicked ? (
