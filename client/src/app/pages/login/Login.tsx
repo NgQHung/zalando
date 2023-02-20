@@ -127,6 +127,10 @@ export const Login = () => {
     };
   }, [user]);
 
+  // useEffect(() => {
+  //   getPurchasedProducts(dispatch, user);
+  // }, []);
+
   // console.log(typeAnimationLogin);
 
   return (

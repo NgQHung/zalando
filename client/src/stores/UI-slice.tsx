@@ -13,6 +13,9 @@ interface InitialState {
   nextInput: string;
   animationLoginSignup: string;
   animationLoginSignupFirstTime: boolean;
+  goToCheckout: boolean;
+  selectedTypeDelivery: string;
+  openAddressForm: boolean;
 }
 
 const initialState: InitialState = {
@@ -28,6 +31,9 @@ const initialState: InitialState = {
   nextInput: "",
   animationLoginSignup: "",
   animationLoginSignupFirstTime: false,
+  goToCheckout: false,
+  selectedTypeDelivery: "",
+  openAddressForm: false,
 };
 
 const UISLice = createSlice({
@@ -72,6 +78,15 @@ const UISLice = createSlice({
     },
     animationLoginSignupFirstTime(state, action) {
       state.animationLoginSignupFirstTime = action.payload;
+    },
+    goToCheckout(state, action) {
+      state.goToCheckout = action.payload;
+    },
+    selectedTypeDelivery(state, action) {
+      state.selectedTypeDelivery = action.payload;
+    },
+    openAddressForm(state, action) {
+      state.openAddressForm = action.payload;
     },
   },
 });

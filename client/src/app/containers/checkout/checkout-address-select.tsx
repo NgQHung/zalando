@@ -1,13 +1,16 @@
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { UIActions } from "../../../stores/UI-slice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
-interface IProps {
-  setSelectTypeDelivery: (state: boolean) => void;
-  selectTypeDelivery: boolean;
-}
+const CheckoutAddressSelect = () => {
+  const selectedTypeDelivery = useAppSelector((state) => state.UISlice.selectedTypeDelivery);
+  const dispatch = useAppDispatch();
+  const typeDeliveryHandler = () => {
+    dispatch(UIActions.selectedTypeDelivery("myAddress"));
+  };
 
-const CheckoutAddressSelect = ({ setSelectTypeDelivery, selectTypeDelivery }: IProps) => {
   return (
     <>
       <div className="delivery-title grow pb-2 border-b border-gray-300 text-left text-[16px] leading-[24px] tracking-[0.5px] font-[700]">
@@ -18,10 +21,10 @@ const CheckoutAddressSelect = ({ setSelectTypeDelivery, selectTypeDelivery }: IP
           <span>Výdejní místo</span>
         </div>
         <div
-          onClick={() => setSelectTypeDelivery(true)}
+          onClick={typeDeliveryHandler}
           className={
             "my-address cursor-pointer md:min-w-[300px]  h-[100px] grow flex flex-col justify-center items-center border border-gray-300 text-[12px] leading-[14px] " +
-            (selectTypeDelivery ? "text-[#ff4e00] border-b-2 border-b-[#ff4e00]" : "")
+            (selectedTypeDelivery === "myAddress" ? "text-[#ff4e00] border-b-2 border-b-[#ff4e00]" : "")
           }
         >
           <FontAwesomeIcon className={"h-10 w-10 object-cover "} icon={faHouse} />

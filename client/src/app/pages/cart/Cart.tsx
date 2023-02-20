@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { checkoutActions } from "../../../stores/checkout-slice";
+import { UIActions } from "../../../stores/UI-slice";
 import { formatPrice } from "../../../utils/formatPrice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
 import CART_ITEM from "../../containers/cart/Cart_Item";
@@ -15,8 +16,10 @@ const Cart = () => {
   // console.log(addedShoppingCart);
   // console.log("hello");
   const total = useAppSelector((state) => state.cartSlice.total);
+  // const [goToCheckout, setGoToCheckout] = useState<boolean>(false)
   const [dropdown, setDropdown] = useState(false);
-  const user = useAppSelector((state) => state.userSlice.user);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
+  // console.log(user);
   const methodPayment = useAppSelector((state) => state.checkoutSlice.methodPayment);
 
   const freeShipping = total > 100;
@@ -24,6 +27,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const checkoutHandler = () => {
+    dispatch(UIActions.goToCheckout(true));
     if (!user) {
       navigate("/login");
       return;

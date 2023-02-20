@@ -252,6 +252,7 @@ export const getPurchasedProducts = async (dispatch: Dispatch, user: any) => {
   try {
     dispatch(UIActions.loadingPage(true));
     response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/purchased-products`);
+    // console.log(response.data.data[1]);
     dispatch(checkoutActions.getAllPurchasedProductsById(response.data.data));
   } catch (error: any) {
     toast.error(error.response?.data.message);

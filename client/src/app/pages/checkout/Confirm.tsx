@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postPurchasedProducts } from "../../../services/apiRequest";
+import { UIActions } from "../../../stores/UI-slice";
 import { formatPrice } from "../../../utils/formatPrice";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
 import Wrapper from "../../components/UI/wrapper/wrapper";
@@ -17,7 +18,7 @@ const Confirm = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userSlice.user);
   const purchasedProducts = useAppSelector((state) => state.checkoutSlice.purchasedProducts);
-  console.log("purchased products: ", { purchasedProducts, methodPayment: methodPayment });
+  // console.log("purchased products: ", { purchasedProducts, methodPayment: methodPayment });
   const [nameEdit, setNameEdit] = useState<string>("");
 
   const navigate = useNavigate();
@@ -25,7 +26,8 @@ const Confirm = () => {
   const updateHandler = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     // const {name} = e.currentTarget
     const target = e.currentTarget;
-
+    dispatch(UIActions.goToCheckout(false));
+    dispatch(UIActions.openAddressForm(true));
     setNameEdit(target.getAttribute("name")!);
   };
 
