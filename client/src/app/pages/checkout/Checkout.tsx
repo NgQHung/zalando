@@ -26,8 +26,9 @@ const Checkout = () => {
       navigate("/checkout/confirm");
     }
   }, [refreshPage]);
-  console.log(goToCheckoutState);
-  // console.log(addressDelivery);
+  console.log("goToCheckoutState", goToCheckoutState);
+  console.log("addressDelivery", addressDelivery);
+  console.log("openAddressForm", openAddressForm);
   // const navigate = useNavigate();
 
   return (

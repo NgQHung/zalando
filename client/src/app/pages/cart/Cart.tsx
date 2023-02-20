@@ -3,9 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { getAddressDeliveryById } from "../../../services/apiRequest";
 import { checkoutActions } from "../../../stores/checkout-slice";
 import { UIActions } from "../../../stores/UI-slice";
 import { formatPrice } from "../../../utils/formatPrice";
+import { refreshPage } from "../../../utils/refreshPage";
 import Wrapper from "../../components/UI/wrapper/wrapper";
 import CART_ITEM from "../../containers/cart/Cart_Item";
 import { useAppSelector } from "../../hooks";
@@ -35,6 +37,10 @@ const Cart = () => {
       navigate("/checkout/address");
     }
   };
+
+  useEffect(() => {
+    getAddressDeliveryById(dispatch, user);
+  }, [refreshPage]);
 
   useEffect(() => {
     const data = addedShoppingCart.map((item) => {

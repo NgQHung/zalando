@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
 // import { AddressDelivery } from "../../../interfaces/addressDelivery";
 // import { User } from "../../../interfaces/user";
@@ -32,6 +33,8 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
   const { onChangeHandler: cityOnChange, input: cityInput, hasError: cityHasError } = Use_Input(inputIsValid);
   const addressDelivery = useAppSelector((state) => state.checkoutSlice.addressDelivery);
   const user = useAppSelector((state) => state.userSlice.user);
+  const inputChange = () => {};
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -56,7 +59,20 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
 
   return (
     <div>
-      <form onSubmit={submitHandler} className="text-[12px] leading-[18px] space-y-[18px]">
+      <div className="flex text-[14px] leading-[20px] ">
+        <div className=" pr-[15px] py-[6px] relative top-1/2 ml-[7px]">
+          <div className="border border-[#1a1a1a] w-[26px] h-[26px] rounded-[15px] top-0 left-[-6.7px] hover:outline-2px outline_onHover absolute"></div>
+          <input checked={true} onChange={inputChange} className="h-0 w-0" type="radio" />
+        </div>
+        <p className="ml-[50px]">Upravit adresu</p>
+      </div>
+
+      <input className="switch " type="checkbox" id="switch" />
+      <label htmlFor="switch" className="switch-text ml-[80px] mb-[30px]">
+        Toggle
+      </label>
+
+      <form onSubmit={submitHandler} className="text-[12px] leading-[18px] space-y-[18px] ml-[80px]">
         <div>
           <p className="mb-[6px]">Křestní jméno*</p>
           <input
@@ -121,10 +137,8 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
         {/* ))} */}
 
         <p className="text-[16px] leading-[17.6px] font-[700]">Česká republika</p>
-        {/* <button>Uložit</button> */}
         <button
-          // onClick={() => navigate("/checkout/done")}
-
+          onClick={() => navigate("/checkout/done")}
           className=" border-2 effect_bg-orange border-[#ff4e00] text-[#ff4e00] text-[#ffff] font-[700] flex-wrap tracking-[0.5px] py-[10px] px-[16px] min-h-[40px] leading-[18px] text-[12px] uppercase w-full "
         >
           Uložit

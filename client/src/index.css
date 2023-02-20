@@ -232,3 +232,52 @@ input[type="radio"]:checked:after {
   overflow: hidden;
   transition: height, 1s linear;
 }
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 40px;
+}
+
+input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.switch-text {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 100px;
+  height: 40px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+.switch-text:after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 50px;
+  height: 30px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+.switch:checked + label {
+  background: #bada55;
+}
+
+.switch:checked + label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+.switch:active:after {
+  width: 130px;
+}
