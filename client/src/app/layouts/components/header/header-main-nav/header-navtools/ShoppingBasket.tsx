@@ -24,7 +24,7 @@ const ShoppingBasket = () => {
   const total = useAppSelector((state) => state.cartSlice.total);
   const dropdownOnHover = useAppSelector((state) => state.UISlice.dropdown_onHover_shoppingCart);
   const amountRemoved = useAppSelector((state) => state.UISlice.amountRemoved);
-  const user = useAppSelector((state) => state.userSlice.user);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
   const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
   const amountOfProducts = addedShoppingCart.reduce((acc, curr) => curr.amount + acc, 0);
   // console.log(amountOfProducts);

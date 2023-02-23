@@ -14,7 +14,7 @@ function App() {
   const dispatch = useAppDispatch();
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const addedFavoriteProducts = useAppSelector((state) => state.cartSlice.addedFavorite);
-  const user = useAppSelector((state) => state.userSlice.user);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
 
   useEffect(() => {
     try {

@@ -8,6 +8,7 @@ interface InitialState {
   updateAddressDelivery: boolean;
   purchasedProducts: IPurchasedProducts | null;
   allPurchasedProducts: IAllPurchasedProducts[] | null;
+  lastPaymentMethod: string;
 }
 
 const initialState: InitialState = {
@@ -16,6 +17,7 @@ const initialState: InitialState = {
   updateAddressDelivery: false,
   purchasedProducts: null,
   allPurchasedProducts: null,
+  lastPaymentMethod: "",
 };
 
 const checkoutSlice = createSlice({
@@ -36,7 +38,17 @@ const checkoutSlice = createSlice({
     },
     getAllPurchasedProductsById(state, action) {
       state.allPurchasedProducts = action.payload;
+      // console.log("all purchased products: ", state.allPurchasedProducts);
+      if (state.allPurchasedProducts) {
+        const theLastIndexPurchase = state.allPurchasedProducts.length - 1;
+        if (theLastIndexPurchase >= 0) {
+          state.lastPaymentMethod = state.allPurchasedProducts[theLastIndexPurchase].methodPayment;
+        }
+      }
     },
+    // lastPaymentMethod(state, action) {
+    //   // console.log(state.allPurchasedProducts);
+    // },
   },
 });
 

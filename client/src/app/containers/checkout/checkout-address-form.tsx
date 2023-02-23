@@ -32,7 +32,7 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
   const { onChangeHandler: pscOnChange, input: pscInput, hasError: pscHasError } = Use_Input(inputIsValid);
   const { onChangeHandler: cityOnChange, input: cityInput, hasError: cityHasError } = Use_Input(inputIsValid);
   const addressDelivery = useAppSelector((state) => state.checkoutSlice.addressDelivery);
-  const user = useAppSelector((state) => state.userSlice.user);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
   const inputChange = () => {};
   const navigate = useNavigate();
 
@@ -49,6 +49,7 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
       city: cityInput ? cityInput : addressDelivery?.city,
     };
     if (!user) {
+      navigate("/login");
       return;
     }
     postAddressDelivery(dispatch, user, data);
@@ -138,7 +139,7 @@ const CheckoutAddressForm = ({ setAdressIsClicked }: IProps) => {
 
         <p className="text-[16px] leading-[17.6px] font-[700]">Česká republika</p>
         <button
-          onClick={() => navigate("/checkout/done")}
+          // onClick={() => navigate("/checkout/done")}
           className=" border-2 effect_bg-orange border-[#ff4e00] text-[#ff4e00] text-[#ffff] font-[700] flex-wrap tracking-[0.5px] py-[10px] px-[16px] min-h-[40px] leading-[18px] text-[12px] uppercase w-full "
         >
           Uložit

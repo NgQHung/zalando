@@ -27,8 +27,8 @@ const Checkout = () => {
     }
   }, [refreshPage]);
   console.log("goToCheckoutState", goToCheckoutState);
-  console.log("addressDelivery", addressDelivery);
-  console.log("openAddressForm", openAddressForm);
+  // console.log("addressDelivery", addressDelivery);
+  // console.log("openAddressForm", openAddressForm);
   // const navigate = useNavigate();
 
   return (
@@ -40,10 +40,11 @@ const Checkout = () => {
           <CheckoutAddressSelect />
           <div
             className={
-              "deliveryDropdown-hidden " + (selectedTypeDelivery === "myAddress" ? "deliveryDropdown-show" : "")
+              "deliveryDropdown-hidden " +
+              (selectedTypeDelivery === "myAddress" || openAddressForm ? "deliveryDropdown-show" : "")
             }
           >
-            {addressDelivery && !openAddressForm ? (
+            {addressDelivery && !openAddressForm && selectedTypeDelivery === "myAddress" ? (
               <CheckoutAddressExisting addressDelivery={addressDelivery} setAdressIsClicked={setAdressIsClicked} />
             ) : (
               <CheckoutAddressForm setAdressIsClicked={setAdressIsClicked} />

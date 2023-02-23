@@ -2,6 +2,7 @@ import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getPurchasedProducts } from "../../../services/apiRequest";
 import { checkoutActions } from "../../../stores/checkout-slice";
 import { formatPrice } from "../../../utils/formatPrice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
@@ -16,6 +17,8 @@ const Payment = () => {
   const methodPayment = useAppSelector((state) => state.checkoutSlice.methodPayment);
   const [inputValue, setInputValue] = useState(methodPayment);
   const [theLastPurchasedMethodPayment, setTheLastPurchasedMethodPayment] = useState<string>("");
+  const user = useAppSelector((state) => state.userSlice.user);
+
   const InstantTransfer = methodPayment === "InstantTransfer";
   const CreditCard = methodPayment === "CreditCard";
   const PayPal = methodPayment === "PayPal";
@@ -28,8 +31,9 @@ const Payment = () => {
   const theLastBankTransfer = theLastPurchasedMethodPayment === "BankTransfer";
   const theLastOnDelivery = theLastPurchasedMethodPayment === "OnDelivery";
   const allPurchasedProducts = useAppSelector((state) => state.checkoutSlice.allPurchasedProducts);
+  // const lastPaymentMethod = useAppSelector((state) => state.checkoutSlice.lastPaymentMethod);
 
-  console.log(allPurchasedProducts);
+  // console.log("lastPaymentMethod", lastPaymentMethod);
 
   useEffect(() => {
     if (allPurchasedProducts) {
@@ -53,6 +57,13 @@ const Payment = () => {
   useEffect(() => {
     setIsChecked(inputValue === methodPayment);
   }, [methodPayment, inputValue]);
+
+  // get purchased products
+  useEffect(() => {
+    getPurchasedProducts(dispatch, user);
+  }, []);
+
+  // console.log("method.type: ", method.type)
 
   return (
     <Wrapper className="">
@@ -99,8 +110,7 @@ const Payment = () => {
                     <div
                       className={
                         "methodDropdown-hidden " +
-                        (method.type === methodPayment ||
-                        (theLastPurchasedMethodPayment === method.type && theLastInstantTransfer)
+                        (method.type === methodPayment || theLastPurchasedMethodPayment === method.type
                           ? "methodDropdown-show"
                           : "")
                       }

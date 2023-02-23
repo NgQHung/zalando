@@ -35,7 +35,7 @@ const Product_info = ({ selectedProduct }: Iprops) => {
   // const
   const loading__add = useAppSelector((state) => state.UISlice.loading__add);
   const bg_color_shopping_cart = useAppSelector((state) => state.UISlice.bg_color_shopping_cart);
-  const user = useAppSelector((state) => state.userSlice.user);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
   const allProducts: Products[] = useAppSelector((state) => state.productSlice.allProducts) || [];

@@ -11,7 +11,7 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  user: null,
+  user: null || JSON.parse(localStorage.getItem("User")!),
 };
 
 const userSLice = createSlice({
