@@ -38,7 +38,7 @@ const checkoutSlice = createSlice({
     },
     getAllPurchasedProductsById(state, action) {
       state.allPurchasedProducts = action.payload;
-      // console.log("all purchased products: ", state.allPurchasedProducts);
+      console.log("all purchased products: ", state.allPurchasedProducts);
       if (state.allPurchasedProducts) {
         const theLastIndexPurchase = state.allPurchasedProducts.length - 1;
         if (theLastIndexPurchase >= 0) {

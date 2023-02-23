@@ -14,10 +14,12 @@ const Payment = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isChecked, setIsChecked] = useState<boolean>(false);
-  const methodPayment = useAppSelector((state) => state.checkoutSlice.methodPayment);
+  const lastPaymentMethod = useAppSelector((state) => state.checkoutSlice.lastPaymentMethod);
+  const methodPayment =
+    useAppSelector((state) => state.checkoutSlice.methodPayment) || lastPaymentMethod || "InstantTransfer";
   const [inputValue, setInputValue] = useState(methodPayment);
   const [theLastPurchasedMethodPayment, setTheLastPurchasedMethodPayment] = useState<string>("");
-  const user = useAppSelector((state) => state.userSlice.user);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
 
   const InstantTransfer = methodPayment === "InstantTransfer";
   const CreditCard = methodPayment === "CreditCard";
@@ -31,9 +33,8 @@ const Payment = () => {
   const theLastBankTransfer = theLastPurchasedMethodPayment === "BankTransfer";
   const theLastOnDelivery = theLastPurchasedMethodPayment === "OnDelivery";
   const allPurchasedProducts = useAppSelector((state) => state.checkoutSlice.allPurchasedProducts);
-  // const lastPaymentMethod = useAppSelector((state) => state.checkoutSlice.lastPaymentMethod);
 
-  // console.log("lastPaymentMethod", lastPaymentMethod);
+  console.log("methodPayment: ", methodPayment);
 
   useEffect(() => {
     if (allPurchasedProducts) {
@@ -52,6 +53,13 @@ const Payment = () => {
   const methodPaymentHandler = (typeMethod: string) => {
     dispatch(checkoutActions.methodPaymentHandler(typeMethod));
     setTheLastPurchasedMethodPayment("");
+  };
+
+  const confirmHandler = () => {
+    // if(!lastPaymentMethod || !inputValue) {
+    //    return
+    // }
+    navigate("/checkout/confirm");
   };
 
   useEffect(() => {
@@ -117,7 +125,7 @@ const Payment = () => {
                     >
                       <div className="">
                         {(InstantTransfer && method.type === methodPayment) ||
-                        theLastPurchasedMethodPayment === method.type ? (
+                        (theLastPurchasedMethodPayment === method.type && theLastInstantTransfer) ? (
                           <p className="mb-2 mt-6 ml-9">
                             Po potvrzení objednávky budete přesměrováni na stránku GoPay (via Przelewy24), kde budete
                             moci provést přímou platbu převodem ze své banky. V současnosti je služba k dispozici pro
@@ -252,10 +260,10 @@ const Payment = () => {
                 </div>
                 <div className="text-center mx-6 mb-[24px]">
                   <button
-                    onClick={() => navigate("/checkout/confirm")}
+                    onClick={confirmHandler}
                     className="bg-[#ff4e00] text-[#ffff] w-full px-6 font-[700] flex-wrap tracking-[0.5px] py-[10px] min-h-[40px] leading-[18px] text-[12px]  "
                   >
-                    OBJEDNÁVEJTE A PLAŤTE NA DOBÍRKU
+                    Další
                   </button>
                 </div>
               </div>

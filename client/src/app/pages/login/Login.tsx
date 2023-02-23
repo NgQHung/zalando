@@ -34,7 +34,7 @@ export const Login = () => {
   // const [isTouched, setIsTouched] = React.useState<boolean>(false);
 
   const refInput = React.useRef<any>(null);
-  const user = useAppSelector((state) => state.userSlice.user);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
   const allProducts = useAppSelector((state) => state.productSlice.allProducts);
   const inputTabKey = useAppSelector((state) => state.UISlice.nextInput);
   const passwordHasError = !passwordIsValid(input.password);

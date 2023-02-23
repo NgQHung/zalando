@@ -15,7 +15,7 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 const Navbar = () => {
   const dispatch = useAppDispatch();
   const navbarActive = useAppSelector((state) => state.mobileSlice.navbarActive);
-  const user = useAppSelector((state) => state.userSlice.user);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
   // const [navbarPopup, setNavbarPopup] = React.useState(false);
 
   const [category, setCategory] = React.useState("women");

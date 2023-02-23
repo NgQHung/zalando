@@ -1,8 +1,10 @@
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ShoppingProducts } from "../../../interfaces/ShoppingProducts";
 import { postPurchasedProducts } from "../../../services/apiRequest";
+import { cartActions } from "../../../stores/cart-slice";
 import { UIActions } from "../../../stores/UI-slice";
 import { formatPrice } from "../../../utils/formatPrice";
 import { ImgToHttp } from "../../../utils/imageToHTTP";
@@ -13,10 +15,11 @@ const Confirm = () => {
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const total = useAppSelector((state) => state.cartSlice.total);
   const [methodTitle, setMethodTitle] = useState<string>("");
+  const [methodImage, setMethodImage] = useState<string>("");
   const methodPayment = useAppSelector((state) => state.checkoutSlice.methodPayment);
   const addressDelivery = useAppSelector((state) => state.checkoutSlice.addressDelivery);
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.userSlice.user);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
   const purchasedProducts = useAppSelector((state) => state.checkoutSlice.purchasedProducts);
   // console.log("purchased products: ", { purchasedProducts, methodPayment: methodPayment });
   const [nameEdit, setNameEdit] = useState<string>("");
@@ -44,10 +47,17 @@ const Confirm = () => {
     navigate("/checkout/done");
   };
 
+  const removeProductHandler = (product: ShoppingProducts) => {
+    dispatch(cartActions.removeShoppingCartHandler({ id: product.id, size: product.size }));
+  };
+
   useEffect(() => {
     const method = paymentMethods.find((item) => item.type === methodPayment);
     if (method) {
       setMethodTitle(method?.title);
+      if (method.imgUrl) {
+        setMethodImage(method?.imgUrl[0]);
+      }
     }
   }, [methodPayment]);
 
@@ -100,7 +110,7 @@ const Confirm = () => {
                   <p>Balíček doručí Zalando</p>
                   <p className="font-[700]">Po, 14.11. - St, 16.11.</p>
                   {addedShoppingCart.map((product, idx) => (
-                    <div key={idx} className="flex py-[4px] text-[14px] leading-[20px]">
+                    <div key={idx} className="flex flex-row py-[4px] text-[14px] leading-[20px]">
                       <div className="py-3 self-start shrink-0">
                         <img
                           src={ImgToHttp(product?.imageUrl)}
@@ -108,7 +118,7 @@ const Confirm = () => {
                           className="w-[120px] h-auto object-cover "
                         />
                       </div>
-                      <div className="flex flex-col grow py-3 px-2">
+                      <div className="flex flex-col py-3 px-2 grow">
                         <div className=" ml-[15px] leading-[18px] ">
                           <div className="max-w-[400px] text-left ">
                             <p className="font-[700]">{product.brandName}</p>
@@ -124,6 +134,9 @@ const Confirm = () => {
                             {product.previousPrice && <span>{formatPrice(product.previousPrice)}</span>}
                           </div>
                         </div>
+                      </div>
+                      <div onClick={() => removeProductHandler(product)} className="h-[20px] w-[20px] shrink-0">
+                        <FontAwesomeIcon className="w-full h-full object-cover cursor-pointer" icon={faXmark} />
                       </div>
                     </div>
                   ))}
@@ -177,7 +190,13 @@ const Confirm = () => {
                 </div>
 
                 <div className=" mt-[24px] text-[14px] leading-[20px]">
-                  <p>{methodTitle ? methodTitle : ""}</p>
+                  {methodImage ? (
+                    <p className="shrink-0 mr-2 mb-3 w-[48px] h-[32px] rounded-md border border-black">
+                      <img className="w-full h-full object-cover " src={methodImage} alt={methodTitle} />
+                    </p>
+                  ) : (
+                    <p>{methodTitle ? methodTitle : ""}</p>
+                  )}
                 </div>
               </div>
               <div className="mt-[36px]">
