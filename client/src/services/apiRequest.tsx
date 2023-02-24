@@ -5,7 +5,7 @@ import { AddressDelivery } from "../interfaces/addressDelivery";
 import { Products } from "../interfaces/Products";
 import { IPurchasedProducts } from "../interfaces/purchasedProducts";
 import { ShoppingProducts } from "../interfaces/ShoppingProducts";
-import { cartActions } from "../stores/cart-slice";
+import { cartActions, ILikedProductsId } from "../stores/cart-slice";
 import { checkoutActions } from "../stores/checkout-slice";
 import { productActions } from "../stores/product-slice";
 import { UIActions } from "../stores/UI-slice";
@@ -46,20 +46,22 @@ export const getProducts = async (dispatch: Dispatch, user: User, addedProductsF
       const persist = (await JSON.parse(localStorage.getItem("persist:root")!)) || {};
       // if (persist) {
       // }
-      if (user) {
-        // take data from BE
-        // console.log(persist.cartSlice);
-      } else {
-        // console.log(persist.cartSlice);
+      // if (user) {
+      //   // take data from BE
+      //   getLikedProductById(dispatch, user);
+      //   // console.log(persist.cartSlice);
+      // } else {
+      // console.log(persist.cartSlice);
 
-        const getCart = persist.cartSlice || [];
-        const addedFavoriteProducts = (await JSON.parse(getCart).addedFavorite) || [];
-        let map: any;
-        map = new Map(await addedFavoriteProducts.map((o: Products) => [o?.id, o]));
+      const getCart = persist.cartSlice || [];
+      const addedFavoriteProducts = (await JSON.parse(getCart).addedFavorite) || [];
+      let map: any;
+      map = new Map(await addedFavoriteProducts.map((o: Products) => [o?.id, o]));
 
-        // update data from server with data from local storage
-        newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
-      }
+      // update data from server with data from local storage
+      newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
+      // console.log(newAllProducts);
+      // }
       // } else {
       //   map = new Map(addedProductsFromBe.map((o: Products) => [o?.id, o]));
       //   newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
@@ -146,7 +148,7 @@ export const getShoppingCartById = async (dispatch: Dispatch, user: any, allProd
   }
 };
 
-export const postLikedProductById = async (dispatch: Dispatch, user: any, data: Products[]) => {
+export const postLikedProductById = async (dispatch: Dispatch, user: any, data: ILikedProductsId[]) => {
   const authAxios = axios.create({
     baseURL: uriBase.server,
     headers: {
@@ -161,6 +163,7 @@ export const postLikedProductById = async (dispatch: Dispatch, user: any, data: 
     toast.error(error.response?.data.message);
   }
 };
+
 export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
   const authAxios = axios.create({
     baseURL: uriBase.server,
@@ -173,6 +176,7 @@ export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
   try {
     response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/liked/products`);
     dispatch(cartActions.getLikedProduct(response.data.data));
+    // console.log(response.data.data);
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }

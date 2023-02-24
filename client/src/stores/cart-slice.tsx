@@ -16,10 +16,14 @@ export interface UserShoppingCart {
     totalProduct: number;
   }[];
 }
+export interface ILikedProductsId {
+  id: number;
+}
 
 interface InitialState {
   addedShoppingCart: ShoppingProducts[];
   userAddedShoppingCart: UserShoppingCart[];
+  likedProductsId: ILikedProductsId[];
   addedFavorite: Products[];
   initialAmount: number;
   totalProduct: number;
@@ -30,6 +34,7 @@ interface InitialState {
 const initialState: InitialState = {
   addedShoppingCart: [],
   userAddedShoppingCart: [],
+  likedProductsId: [],
   addedFavorite: [],
   initialAmount: 0,
   totalProduct: 0,
@@ -123,18 +128,27 @@ const cartSlice = createSlice({
         return;
       } else {
         state.addedFavorite = [...state.addedFavorite, action.payload];
+        state.likedProductsId = [...state.likedProductsId, { id: idProduct }];
+        // state.likedProductsId = [];
       }
       toast.success("Your product is added successfully");
     },
     removeFavorite(state, action) {
       const idProduct = action?.payload?.id;
       let updateAddedFavorite;
+      let updateLikedProductsId;
       const existingProductIndex = state.addedFavorite.findIndex((item) => item?.id === idProduct);
       const existingProduct = state.addedFavorite[existingProductIndex];
       if (existingProduct) {
+        // detail of liked products
         const newUpdateAddedFavorite = [...state.addedFavorite];
         updateAddedFavorite = newUpdateAddedFavorite.filter((item) => item?.id !== idProduct);
         state.addedFavorite = updateAddedFavorite;
+
+        // ids of liked products
+        const newUpdateLikedProductsId = [...state.likedProductsId];
+        updateLikedProductsId = newUpdateLikedProductsId.filter((item) => item.id !== idProduct);
+        state.likedProductsId = updateLikedProductsId;
       } else return;
     },
   },

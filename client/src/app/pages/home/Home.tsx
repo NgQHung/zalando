@@ -8,7 +8,7 @@ import ready from "../../../utils/intersectionObserver";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "../../components/ErrorBoundary";
 import HOME_TOPIC from "../../containers/home/Home_topic";
-import { getDetailProduct } from "../../../services/apiRequest";
+import { getDetailProduct, postLikedProductById } from "../../../services/apiRequest";
 import HOME_PRODUCT from "../../containers/home/Home_product";
 import Loading from "../../components/UI/loader/Loading";
 import { Products } from "../../../interfaces/Products";
@@ -17,6 +17,9 @@ export const Home = () => {
   const dispatch = useAppDispatch();
   const products_1 = useAppSelector((state) => state.productSlice.products_1);
   const [selectedProduct, setSelectedProduct] = React.useState<any>();
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
+  const likedProductsId = useAppSelector((state) => state.cartSlice.likedProductsId);
+
   const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
 
   const selectedProductHandler = (product: Products) => {
@@ -30,12 +33,15 @@ export const Home = () => {
     const target = e.currentTarget;
     const productIndex = products_1.findIndex((item) => item.name === target.getAttribute("datatype"));
     const product = products_1[productIndex];
+    // console.log(product.id);
     // console.log("hello");
 
     let update;
     if (product) {
       const updateProduct = { ...product, isFavorite: !product.isFavorite };
       setSelectedProduct(updateProduct);
+      // if (updateProduct) {
+      // }
       update = [...products_1];
       update[productIndex] = updateProduct;
       dispatch(productActions.productsHandler({ products_1: update }));
@@ -51,7 +57,15 @@ export const Home = () => {
       dispatch(cartActions.removeFavorite(selectedProduct));
     }
   }, [selectedProduct]);
-  // console.log(loadingPage);
+  let isFirst = true;
+  React.useEffect(() => {
+    if (isFirst) {
+      isFirst = false;
+    }
+    postLikedProductById(dispatch, user, likedProductsId);
+
+    console.log("from home: ", likedProductsId);
+  }, [likedProductsId]);
 
   return (
     <Fragment>

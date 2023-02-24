@@ -34,7 +34,7 @@ const Payment = () => {
   const theLastOnDelivery = theLastPurchasedMethodPayment === "OnDelivery";
   const allPurchasedProducts = useAppSelector((state) => state.checkoutSlice.allPurchasedProducts);
 
-  console.log("methodPayment: ", methodPayment);
+  // console.log("methodPayment: ", methodPayment);
 
   useEffect(() => {
     if (allPurchasedProducts) {

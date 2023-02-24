@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Products } from "../../../interfaces/Products";
 import WrapperRowFull from "../../components/UI/wrapper/WrapperRowFull";
+import { useAppSelector } from "../../hooks";
 
 interface IProps {
   products: Products[];
@@ -12,6 +13,8 @@ interface IProps {
 }
 
 const HOME_PRODUCT = ({ products, selectedProductHandler, favoriteHandler }: IProps) => {
+  const likedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
+  // console.log(likedProduct);
   return (
     <WrapperRowFull className="h-[584px] bg-[#34d27b] ">
       <>

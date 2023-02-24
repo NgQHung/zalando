@@ -15,7 +15,15 @@ const persistConfig = {
   version: 1,
   storage,
   // preventing slices from persisting
-  blacklist: ["productSlice", "UISlice", "userSlice", "mobileSlice", "checkoutSlice", "authenticationSlice"],
+  blacklist: [
+    "productSlice",
+    "UISlice",
+    "userSlice",
+    "mobileSlice",
+    "checkoutSlice",
+    "authenticationSlice",
+    // "cartSlice",
+  ],
 };
 
 const rootReducer = combineReducers({

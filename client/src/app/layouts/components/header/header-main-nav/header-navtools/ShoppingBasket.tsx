@@ -26,6 +26,7 @@ const ShoppingBasket = () => {
   const amountRemoved = useAppSelector((state) => state.UISlice.amountRemoved);
   const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
   const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
+  // console.log("addedLikedProduct: ", addedLikedProduct);
   const amountOfProducts = addedShoppingCart.reduce((acc, curr) => curr.amount + acc, 0);
   // console.log(amountOfProducts);
   const navigate = useNavigate();
