@@ -5,30 +5,18 @@ import "./subHeader_category.css";
 import { SubHeaderCategory_DATA } from "../../../../../../utils/data";
 import Container from "../../../../container";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 // import { Link } from "react-router-dom";
 
 interface IProps {
   category: string;
 }
-// interface ICategoryObj {
-//   GET_THE_LOOK: {
-//     title: string;
-//     type: string[];
-//   };
-//   NOVINKY: {
-//     title: string;
-//     type: string[];
-//   };
-//   OBLEČNÍ: {
-//     title: string;
-//     type: string[];
-//   };
-// }
 
 const SubHeaderCategory: React.FC<IProps> = ({ category }) => {
   const categoryToUpperCase = category.toUpperCase().toString().split(" ").join("_");
   const dataCategory = SubHeaderCategory_DATA.filter((item) => item.title === categoryToUpperCase);
+  const navigate = useNavigate();
   return (
     <Fragment>
       <Container bg_color="">
@@ -52,7 +40,7 @@ const SubHeaderCategory: React.FC<IProps> = ({ category }) => {
                   </h5>
                   {type.types.map((typ, inx) => (
                     <div key={inx} className="h-[21px] flex flex-col mb-[12px] text-[14px] ">
-                      <div>
+                      <div onClick={() => navigate("/clothes")}>
                         <span className="affect_text">{typ}</span>
                       </div>
                     </div>

@@ -99,9 +99,13 @@ export const Signup = () => {
         className="absolute top-[260px] lg:top-[212px] left-0 right-0 h-[1px] w-full bg-[#d0d1d3] "
       />
       <motion.div
-        initial={{ y: !animationLoginSignupFirstTime ? "-100px" : "-340px" }}
+        initial={{
+          y: !animationLoginSignupFirstTime ? "-100px" : "-340px",
+          // opacity: animationLoginSignupFirstTime ? 0 : 1,
+        }}
         animate={{
           y: "-340px",
+
           transition: {
             duration: 1,
           },

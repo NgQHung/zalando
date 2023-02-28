@@ -19,6 +19,7 @@ export const Home = () => {
   const [selectedProduct, setSelectedProduct] = React.useState<any>();
   const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
   const likedProductsId = useAppSelector((state) => state.cartSlice.likedProductsId);
+  const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
 
   const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
 
@@ -51,21 +52,22 @@ export const Home = () => {
   React.useEffect(() => {
     if (selectedProduct) {
       dispatch(cartActions.addFavoriteHandler(selectedProduct));
+      // console.log("addedFavorite", addedFavorite);
     }
 
     if (selectedProduct?.isFavorite === false) {
       dispatch(cartActions.removeFavorite(selectedProduct));
     }
   }, [selectedProduct]);
-  let isFirst = true;
-  React.useEffect(() => {
-    if (isFirst) {
-      isFirst = false;
-    }
-    postLikedProductById(dispatch, user, likedProductsId);
+  // let isFirst = true;
+  // React.useEffect(() => {
+  //   if (isFirst) {
+  //     isFirst = false;
+  //   }
+  //   postLikedProductById(dispatch, user, likedProductsId);
 
-    console.log("from home: ", likedProductsId);
-  }, [likedProductsId]);
+  //   console.log("from home: ", likedProductsId);
+  // }, [likedProductsId]);
 
   return (
     <Fragment>

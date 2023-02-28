@@ -18,6 +18,7 @@ export interface UserShoppingCart {
 }
 export interface ILikedProductsId {
   id: number;
+  // _id: any;
 }
 
 interface InitialState {
@@ -52,7 +53,10 @@ const cartSlice = createSlice({
       state.addedShoppingCart = action.payload;
     },
     getLikedProduct(state, action) {
-      state.addedFavorite = action.payload;
+      state.likedProductsId = action.payload;
+      console.log("get liked product from db: ", action.payload);
+      // state.addedFavorite = action.payload;
+      // state.likedProductsId = action.payload;
     },
     addShoppingCartHandler(state, action) {
       const idProduct = action.payload.id;
@@ -128,7 +132,8 @@ const cartSlice = createSlice({
         return;
       } else {
         state.addedFavorite = [...state.addedFavorite, action.payload];
-        state.likedProductsId = [...state.likedProductsId, { id: idProduct }];
+        console.log(state.addedFavorite);
+        // state.likedProductsId = [...state.likedProductsId, { id: idProduct }];
         // state.likedProductsId = [];
       }
       toast.success("Your product is added successfully");
@@ -136,7 +141,7 @@ const cartSlice = createSlice({
     removeFavorite(state, action) {
       const idProduct = action?.payload?.id;
       let updateAddedFavorite;
-      let updateLikedProductsId;
+      // let updateLikedProductsId;
       const existingProductIndex = state.addedFavorite.findIndex((item) => item?.id === idProduct);
       const existingProduct = state.addedFavorite[existingProductIndex];
       if (existingProduct) {
@@ -146,9 +151,9 @@ const cartSlice = createSlice({
         state.addedFavorite = updateAddedFavorite;
 
         // ids of liked products
-        const newUpdateLikedProductsId = [...state.likedProductsId];
-        updateLikedProductsId = newUpdateLikedProductsId.filter((item) => item.id !== idProduct);
-        state.likedProductsId = updateLikedProductsId;
+        // const newUpdateLikedProductsId = [...state.likedProductsId];
+        // updateLikedProductsId = newUpdateLikedProductsId.filter((item) => item.id !== idProduct);
+        // state.likedProductsId = updateLikedProductsId;
       } else return;
     },
   },

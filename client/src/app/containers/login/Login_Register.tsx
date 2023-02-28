@@ -12,13 +12,11 @@ const LOGIN_REGISTER = () => {
   };
   return (
     <section className="signup_section  ">
-      <div className="">
-        <div
-          onClick={animationLoginSignupOnChange}
-          className="text-center p-3 border border-[#1a1a1a] text-4 hover:bg-[#1a1a1a] hover:text-[#ffff] "
-        >
-          <button className="">Zaregistrovat se</button>
-        </div>
+      <div
+        onClick={animationLoginSignupOnChange}
+        className="text-center p-3 border border-[#1a1a1a] text-4 hover:bg-[#1a1a1a] hover:text-[#ffff] "
+      >
+        <button className="">Zaregistrovat se</button>
       </div>
       {/* <div className=" p-6 text-center">
         <span className="affect_text text-[14px] m-4  ">Zásady ochrany soukromí</span>

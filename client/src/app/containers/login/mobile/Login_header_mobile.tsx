@@ -18,7 +18,7 @@ const LOGIN_HEADER_MOBILE = () => {
     // <div className="relative">
     <div>
       <div className="flex items-stretch border h-12 lg:hidden">
-        <div className="cursor-pointer " onClick={() => navigate(-1)}>
+        <div className="cursor-pointer " onClick={() => navigate("/")}>
           <FontAwesomeIcon icon={faXmark} className="h-6 w-6 p-3 shrink-0 " />
         </div>
 

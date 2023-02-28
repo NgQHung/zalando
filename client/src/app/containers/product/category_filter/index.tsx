@@ -9,10 +9,15 @@ const Category_filter = () => {
   const [typeFilter, setTypeFilter] = React.useState<string>("");
   const [allFilter, setAllFilter] = React.useState(false);
   const typeIndex = FILTER_DATA.findIndex((item) => item.title === typeFilter);
-  const getData = FILTER_DATA[typeIndex]?.data;
+  const getData = FILTER_DATA[typeIndex]?.data || [];
 
   const dropdownHandler = (type: string) => {
     setTypeFilter(type);
+    // if (getData) {
+    if (getData.length === 0) {
+      return;
+    }
+    // }
     setDropdown((prev) => !prev);
   };
 
@@ -31,7 +36,7 @@ const Category_filter = () => {
             <span className="text-[16px] py-3 pl-3 pr-2">{item.title}</span>
             <FontAwesomeIcon icon={faChevronDown} className="h-5 object-cover mr-3 hidden xs:inline" />
             <div className="hidden xs:block">
-              {dropdown && typeFilter === item.title ? (
+              {dropdown && typeFilter === item.title && getData.length !== 0 ? (
                 <div className="absolute top-full left-[-1px] bg-[#ffff] border border-[#1a1a1a] z-[10000] w-[312px] ">
                   {getData.map((item, index) => (
                     <div key={index} className="hover:bg-[#dddd]">

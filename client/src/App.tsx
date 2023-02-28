@@ -15,11 +15,15 @@ function App() {
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart);
   const addedFavoriteProducts = useAppSelector((state) => state.cartSlice.addedFavorite);
   const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
+  const likedProductsFromDB = useAppSelector((state) => state.cartSlice.likedProductsId);
+  // console.log("addedFavoriteProducts", addedFavoriteProducts);
 
   useEffect(() => {
     try {
-      getProducts(dispatch, user, addedFavoriteProducts);
-      getLikedProductById(dispatch, user);
+      if (user) {
+        getLikedProductById(dispatch, user);
+      }
+      getProducts(dispatch, user, addedFavoriteProducts, likedProductsFromDB);
     } catch (error) {
       console.log(error);
     }
