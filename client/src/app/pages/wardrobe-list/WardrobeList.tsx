@@ -1,9 +1,11 @@
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fade } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { ProductDetail } from "../../../interfaces/ProductDetail";
 import { Products } from "../../../interfaces/Products";
+import { getDetailProduct } from "../../../services/apiRequest";
 import { cartActions } from "../../../stores/cart-slice";
 import { productActions } from "../../../stores/product-slice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
@@ -25,15 +27,33 @@ const WardrobeList = () => {
   const [removedProduct, setRemovedProduct] = useState<Products[]>([]);
   const products_1 = useAppSelector((state) => state.productSlice.products_1);
   const [updateProducts, setUpdateProducts] = useState<Array<Products>>([]);
+  const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
+  const addedFavoriteProductsFromDB = useAppSelector((state) => state.productSlice.favoriteProductFromDB);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
+
+  // console.log(cachedAddedFavoriteProductsFromDB);
+  // console.log("hello");
 
   useEffect(() => {
     setUpdateProducts([...products_1]);
   }, [products_1]);
 
-  const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
   const dispatch = useAppDispatch();
+  // let isFirst = true;
+  // useEffect(() => {
+  //   if (isFirst) {
+  //     isFirst = false;
+  //     return;
+  //   }
+  //   const detailAddedFavoriteProductsFromDB = addedFavoriteProductsFromDB.map(
+  //     (item) => getDetailProduct(dispatch, item.id!)
+  //     // console.log(item.id)
+  //   );
+  // }, []);
+
   const removeFavoriteHandler = async (id: number) => {
     const removedFavorite = addedFavorite.find((item: Products) => item?.id === id);
+    const removedFavoriteFromDB = addedFavoriteProductsFromDB.find((item: ProductDetail) => item?.id === id);
     const index = updateProducts.findIndex((item: Products) => item.id === id);
     const existing = updateProducts[index];
 
@@ -45,7 +65,15 @@ const WardrobeList = () => {
       dispatch(productActions.productsHandler({ products_1: update }));
     }
 
+    // for non user
+
     if (removedFavorite) {
+      setRemovedProduct([removedFavorite!]);
+      dispatch(cartActions.removeFavorite(removedFavorite));
+      setNotification(true);
+    }
+    // from database
+    if (removedFavoriteFromDB) {
       setRemovedProduct([removedFavorite!]);
       dispatch(cartActions.removeFavorite(removedFavorite));
       setNotification(true);
@@ -94,10 +122,24 @@ const WardrobeList = () => {
       const idRemovedProduct = removedProduct[0]?.id;
       const checkExistingIndex = addedFavorite.findIndex((item) => item?.id === idRemovedProduct);
       const existingProduct = addedFavorite[checkExistingIndex];
+
+      const checkExistingIndexFromDB = addedFavoriteProductsFromDB.findIndex((item) => item?.id === idRemovedProduct);
+      const existingProductFromDB = addedFavoriteProductsFromDB[checkExistingIndexFromDB];
       const index = updateProducts.findIndex((item: Products) => item.id === idRemovedProduct);
+      const indexFromDB = updateProducts.findIndex((item: Products) => item.id === idRemovedProduct);
       const existing = updateProducts[index];
+      const existingFromDB = updateProducts[indexFromDB];
       let update;
+      // for non user
       if (!existingProduct && existing) {
+        const updateProduct = { ...removedProduct[0], isFavorite: true };
+        dispatch(cartActions.addFavoriteHandler(updateProduct));
+        update = [...updateProducts];
+        update[index] = updateProduct;
+        dispatch(productActions.productsHandler({ products_1: update }));
+      }
+      // from database
+      if (!existingProductFromDB && existingFromDB) {
         const updateProduct = { ...removedProduct[0], isFavorite: true };
         dispatch(cartActions.addFavoriteHandler(updateProduct));
         update = [...updateProducts];
@@ -173,16 +215,27 @@ const WardrobeList = () => {
             </button>
           </div>
           <ul className="wardrobeList_images flex flex-wrap ">
-            {addedFavorite.map((product: any, idx) => (
-              <Fade key={idx}>
-                <WardrobeItems
-                  removeFavoriteHandler={removeFavoriteHandler}
-                  optionsHandler={optionsHandler}
-                  addShoppingCartHandler={addShoppingCartHandler}
-                  product={product}
-                />
-              </Fade>
-            ))}
+            {addedFavorite
+              ? addedFavorite.map((product: Products, idx) => (
+                  <Fade key={idx}>
+                    <WardrobeItems
+                      removeFavoriteHandler={removeFavoriteHandler}
+                      optionsHandler={optionsHandler}
+                      addShoppingCartHandler={addShoppingCartHandler}
+                      product={product}
+                    />
+                  </Fade>
+                ))
+              : addedFavoriteProductsFromDB.map((product: ProductDetail, idx) => (
+                  <Fade key={idx}>
+                    <WardrobeItems
+                      removeFavoriteHandler={removeFavoriteHandler}
+                      optionsHandler={optionsHandler}
+                      addShoppingCartHandler={addShoppingCartHandler}
+                      product={product}
+                    />
+                  </Fade>
+                ))}
           </ul>
         </>
       </Wrapper>

@@ -19,9 +19,11 @@ const Product = () => {
   const selectedId = useAppSelector((state) => state.productSlice.selectedId);
   const selectedProduct = useAppSelector((state) => state.productSlice.selectedProduct);
   const allProducts: Products[] = useAppSelector((state) => state.productSlice.allProducts);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
 
   const isImage = selectedProduct?.media?.images!;
   const firstImage = isImage && selectedProduct?.media?.images[0].url!;
+  console.log(selectedProduct);
 
   const dispatch = useAppDispatch();
   const [imageShow, setImageShow] = React.useState<string>("");
@@ -36,7 +38,7 @@ const Product = () => {
 
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));
-    getDetailProduct(dispatch, id);
+    getDetailProduct(dispatch, id, user);
   };
 
   const onScrollHandler = () => {
@@ -53,9 +55,7 @@ const Product = () => {
     }
   };
   React.useEffect(() => {
-    getDetailProduct(dispatch, selectedId);
-    // const productIndex = allProducts?.findIndex((item: Products) => item.id === selectedId);
-    // const product = allProducts[productIndex];
+    getDetailProduct(dispatch, selectedId, user);
   }, []);
 
   React.useEffect(() => {

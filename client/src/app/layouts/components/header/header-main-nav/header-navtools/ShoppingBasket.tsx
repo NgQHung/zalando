@@ -26,9 +26,10 @@ const ShoppingBasket = () => {
   const amountRemoved = useAppSelector((state) => state.UISlice.amountRemoved);
   const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
   const addedLikedProduct = useAppSelector((state) => state.cartSlice.addedFavorite);
-  // console.log("addedLikedProduct: ", addedLikedProduct);
+  const addedFavoriteProductsFromDB = useAppSelector((state) => state.cartSlice.likedProductsId);
+
   const amountOfProducts = addedShoppingCart.reduce((acc, curr) => curr.amount + acc, 0);
-  // console.log(amountOfProducts);
+
   const navigate = useNavigate();
 
   const lengthAddedShoppingCart = useMemo(() => addedShoppingCart.length, [addedShoppingCart.length]) || 0;
@@ -87,7 +88,12 @@ const ShoppingBasket = () => {
     }
     if (subscribe && user && !(localStorage.getItem("persist:root") === "")) {
       postShoppingCartById(dispatch, user, addedShoppingCart);
+      // console.log("from ShoppingBasket");
+    }
+    if (addedLikedProduct.length !== 0) {
       postLikedProductById(dispatch, user, addedLikedProduct);
+    } else {
+      postLikedProductById(dispatch, user, addedFavoriteProductsFromDB);
     }
 
     return () => {

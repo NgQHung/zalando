@@ -19,7 +19,7 @@ const WardrobeItems = ({ removeFavoriteHandler, optionsHandler, addShoppingCartH
           <img
             className="w-full h-full object-cover"
             // src="Skeleton-img.png"
-            src={ImgToHttp(product?.imageUrl)}
+            src={product?.imageUrl ? ImgToHttp(product.imageUrl) : ImgToHttp(product.media.images[0].url)}
             alt=""
           />
           <button

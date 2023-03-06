@@ -18,15 +18,17 @@ export const Home = () => {
   const products_1 = useAppSelector((state) => state.productSlice.products_1);
   const [selectedProduct, setSelectedProduct] = React.useState<any>();
   const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
+  // liked products from db
   const likedProductsId = useAppSelector((state) => state.cartSlice.likedProductsId);
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
+  // console.log("likedProductsId", likedProductsId);
 
   const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
 
   const selectedProductHandler = (product: Products) => {
     dispatch(productActions.selectedIdHandler(product.id));
     dispatch(productActions.nameProductHandler(product.name));
-    getDetailProduct(dispatch, product.id);
+    getDetailProduct(dispatch, product.id, user);
   };
 
   const favoriteHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -59,15 +61,19 @@ export const Home = () => {
       dispatch(cartActions.removeFavorite(selectedProduct));
     }
   }, [selectedProduct]);
-  // let isFirst = true;
-  // React.useEffect(() => {
-  //   if (isFirst) {
-  //     isFirst = false;
-  //   }
-  //   postLikedProductById(dispatch, user, likedProductsId);
+  let isFirst = true;
 
-  //   console.log("from home: ", likedProductsId);
-  // }, [likedProductsId]);
+  React.useEffect(() => {
+    if (isFirst) {
+      isFirst = false;
+    }
+    if (addedFavorite.length === 0) {
+      return;
+    }
+    postLikedProductById(dispatch, user, addedFavorite);
+
+    console.log("from home: ", addedFavorite);
+  }, [addedFavorite]);
 
   return (
     <Fragment>

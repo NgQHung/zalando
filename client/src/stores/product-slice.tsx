@@ -10,6 +10,7 @@ interface InitialState {
   selectedId: number | null;
   removedProduct: Products[];
   nameProduct: string;
+  favoriteProductFromDB: ProductDetail[];
 }
 
 const initialState: InitialState = {
@@ -20,6 +21,7 @@ const initialState: InitialState = {
   selectedId: null,
   removedProduct: [],
   nameProduct: "",
+  favoriteProductFromDB: [],
 };
 
 const productSlice = createSlice({
@@ -50,6 +52,9 @@ const productSlice = createSlice({
       //   state.removedProduct.pop();
       // }, 3000);
       // console.log(state.removedProduct);
+    },
+    favoriteProductFromDB(state, action) {
+      state.favoriteProductFromDB.push(action.payload);
     },
     nameProductHandler(state, action) {
       state.nameProduct = action.payload;

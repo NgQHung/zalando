@@ -44,45 +44,32 @@ export const getProducts = async (
       const newAllProduct = await all.map((item: Products) => {
         return { ...item, isFavorite: false };
       });
-      // let getCart;
-      // let addedFavoriteProducts;
       let newAllProducts;
-      // if (!user) {
       const persist = (await JSON.parse(localStorage.getItem("persist:root")!)) || {};
-      // if (persist) {
-      // }
       if (user) {
         //   // take data from BE
-        // getLikedProductById(dispatch, user);
-        console.log("likedProductsFromDB", likedProductsFromDB);
         let map: any;
-        map = new Map(await likedProductsFromDB.map((o: ILikedProductsId) => [o?.id, o]));
-        //   let map: any;
-        // map = new Map(await likedProductsFromDB.map((o: Products) => [o?.id, o]));
-        // // console.log(map);
+        console.log("likedProductsFromDB: ", likedProductsFromDB);
 
-        // // update data from server with data from local storage
+        const newLikedProductsFromDB = likedProductsFromDB.map((item) => item.id);
+
+        const updateProducts = newAllProduct.filter((item: Products) => newLikedProductsFromDB.includes(item.id));
+
+        const updateProduct = updateProducts.map((ele: Products) => {
+          dispatch(cartActions.addFavoriteHandler({ ...ele, isFavorite: true }));
+          return { ...ele, isFavorite: true };
+        });
+        map = new Map(await updateProduct.map((o: ILikedProductsId) => [o?.id, o]));
         newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
-        // console.log(persist.cartSlice);
       } else {
-        // console.log(persist.cartSlice);
-
         const getCart = persist.cartSlice || [];
         const addedFavoriteProducts = (await JSON.parse(getCart).addedFavorite) || [];
         let map: any;
         map = new Map(await addedFavoriteProducts.map((o: Products) => [o?.id, o]));
-        // console.log("map", map);
-        // console.log(map);
 
         // update data from server with data from local storage
         newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
-        // console.log(newAllProducts);
       }
-      // } else {
-      //   map = new Map(addedProductsFromBe.map((o: Products) => [o?.id, o]));
-      //   newAllProducts = [...newAllProduct].map((o) => Object.assign({}, o, map.get(o.id)));
-      // }
-      // console.log(newAllProducts);
 
       const allProducts = newAllProducts ? newAllProducts : newAllProduct;
       const products_1 = allProducts.slice(0, 14);
@@ -103,7 +90,7 @@ export const getProducts = async (
 };
 
 // get detail selected product
-export const getDetailProduct = async (dispatch: Dispatch, id: number | null) => {
+export const getDetailProduct = async (dispatch: Dispatch, id: number | null, user: User) => {
   let response;
   console.log("getdetail");
   let getSelectedId: number;
@@ -113,13 +100,20 @@ export const getDetailProduct = async (dispatch: Dispatch, id: number | null) =>
       dispatch(productActions.selectedIdHandler(getSelectedId));
     }
   }
+  // console.log("apiRequest", id);
 
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
       response = await axios.get(`${uriBase.server}/product/${id ? id : getSelectedId}`);
       const detailProduct = response.data;
+      // console.log(detailProduct);
       dispatch(productActions.selectedProductHandler(detailProduct));
+      if (user) {
+        // const updateDetailProduct = product?.map((ele) => );
+        // console.log(updateDetailProduct);
+        // dispatch(productActions.favoriteProductFromDB(updateDetailProduct));
+      }
       dispatch(UIActions.loadingPage(false));
     }, 1000);
   } catch (error: any) {

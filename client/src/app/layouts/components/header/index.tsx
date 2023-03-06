@@ -16,11 +16,13 @@ const Header = () => {
   const [onHover, setOnHover] = useState(false);
   const addedShoppingCart = useAppSelector((state) => state.cartSlice.addedShoppingCart) || [];
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
+  const addedFavoriteProductsFromDB = useAppSelector((state) => state.cartSlice.likedProductsId);
+
   const [dataType, setDataType] = useState<string | null>("");
   const dropdown_shoppingCart = useAppSelector((state) => state.UISlice.dropdown_shoppingCart);
   const lengthAddedShoppingCart = addedShoppingCart.length;
-  const lengthAddedFavorite = addedFavorite ? addedFavorite.length : 0;
-
+  // const lengthAddedFavorite = addedFavorite ? addedFavorite.length : 0;
+  const lengthAddedFavorite = addedFavorite?.length !== 0 ? addedFavorite.length : addedFavoriteProductsFromDB.length;
   const dispatch = useAppDispatch();
 
   const activeHandler = (type: string) => {

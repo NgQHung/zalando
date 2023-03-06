@@ -54,14 +54,14 @@ const cartSlice = createSlice({
     },
     getLikedProduct(state, action) {
       state.likedProductsId = action.payload;
-      console.log("get liked product from db: ", action.payload);
+      // console.log("get liked product from db: ", action.payload);
       // state.addedFavorite = action.payload;
       // state.likedProductsId = action.payload;
     },
     addShoppingCartHandler(state, action) {
       const idProduct = action.payload.id;
       const sizeProduct = action.payload.size;
-      console.log(state.addedShoppingCart);
+      // console.log(state.addedShoppingCart);
       const existingProductWithSizeIndex = state.addedShoppingCart.findIndex((product) => {
         return product.id === idProduct && product.size === sizeProduct;
       });

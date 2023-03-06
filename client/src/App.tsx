@@ -4,11 +4,12 @@ import DefaultLayout from "./app/layouts/DefaultLayout";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { privateRoutes, publicRoutes } from "./app/routes";
 import { cartActions } from "./stores/cart-slice";
-import { getLikedProductById, getProducts } from "./services/apiRequest";
+import { getDetailProduct, getLikedProductById, getProducts } from "./services/apiRequest";
 import { UIActions } from "./stores/UI-slice";
 import "react-toastify/dist/ReactToastify.css";
 
 import { ToastContainer } from "react-toastify";
+let isFirst = true;
 
 function App() {
   const dispatch = useAppDispatch();
@@ -16,8 +17,19 @@ function App() {
   const addedFavoriteProducts = useAppSelector((state) => state.cartSlice.addedFavorite);
   const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
   const likedProductsFromDB = useAppSelector((state) => state.cartSlice.likedProductsId);
-  // console.log("addedFavoriteProducts", addedFavoriteProducts);
+  const addedFavoriteProductsFromDB = useAppSelector((state) => state.productSlice.favoriteProductFromDB);
 
+  useEffect(() => {
+    if (isFirst) {
+      isFirst = false;
+      return;
+    }
+    if (!user) {
+      return;
+    }
+    likedProductsFromDB.map((item) => getDetailProduct(dispatch, item.id!, user));
+    console.count("render");
+  }, [likedProductsFromDB.length]);
   useEffect(() => {
     try {
       if (user) {
@@ -27,7 +39,12 @@ function App() {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [addedFavoriteProductsFromDB.length]);
+
+  // useEffect(() => {
+  //   getProducts(dispatch, user, addedFavoriteProducts, likedProductsFromDB);
+
+  // }, [])
 
   useEffect(() => {
     dispatch(UIActions.loading__total({ loading__total: true }));
