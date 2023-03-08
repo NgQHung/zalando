@@ -65,7 +65,7 @@ app.use(router);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    app.listen(process.env.PORT || 8080, () => console.log('listening on port ', process.env.PORT || 8080));
+    app.listen(PORT, () => console.log('listening on port ', PORT));
   })
   .catch((error) => {
     console.log(error);
