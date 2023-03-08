@@ -13,12 +13,15 @@ import ErrorFallback from "../../components/ErrorBoundary";
 import ready from "../../../utils/intersectionObserver";
 import Loading from "../../components/UI/loader/Loading";
 import { cartActions } from "../../../stores/cart-slice";
+import { postLikedProductById } from "../../../services/apiRequest";
 
 export const ListProducts = () => {
   const allProducts = useAppSelector((state) => state.productSlice.allProducts);
   const dispatch = useAppDispatch();
   const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
   const [selectedProduct, setSelectedProduct] = React.useState<any>();
+  const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
+  const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
 
   const selectedProductHandler = (id: number) => {
     dispatch(productActions.selectedIdHandler(id));
@@ -38,6 +41,19 @@ export const ListProducts = () => {
       dispatch(productActions.productsHandler({ allProducts: update }));
     }
   };
+
+  let isFirst = true;
+  React.useEffect(() => {
+    if (isFirst) {
+      isFirst = false;
+    }
+    if (!user) {
+      return;
+    }
+    // console.log("hel;lo");
+    console.log("addedFavorite:", addedFavorite);
+    postLikedProductById(dispatch, user, addedFavorite);
+  }, [addedFavorite.length]);
 
   React.useEffect(() => {
     if (selectedProduct) {
@@ -118,7 +134,7 @@ export const ListProducts = () => {
               <div className="basis-full max-w-full lg:basis-3/4 lg:max-w-3/4 mt-[24px] ">
                 <Category_filter />
                 <p className="px-2 mb-3 pt-4 text-[14px] font-[400] text-[#66676e] flex items-center">
-                  <span>273 produktu</span>
+                  <span>{allProducts.length} produktů</span>
                   <span className="p-2">
                     <FontAwesomeIcon
                       icon={faCircleQuestion}

@@ -132,7 +132,6 @@ const cartSlice = createSlice({
         return;
       } else {
         state.addedFavorite = [...state.addedFavorite, action.payload];
-        console.log(state.addedFavorite);
         // state.likedProductsId = [...state.likedProductsId, { id: idProduct }];
         // state.likedProductsId = [];
       }

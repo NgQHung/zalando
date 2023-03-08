@@ -13,16 +13,12 @@ const Schema = mongoose.Schema;
 
 const userAddressDelivery = new Schema({
   _id: { type: Schema.Types.ObjectId },
-  data: {
-    type: {
-      firstName: { type: Schema.Types.Mixed, required: true },
-      lastName: { type: Schema.Types.Mixed, required: true },
-      address: { type: Schema.Types.Mixed, required: true },
-      info: { type: Schema.Types.Mixed },
-      psc: { type: Schema.Types.Mixed, required: true },
-      city: { type: Schema.Types.Mixed, required: true },
-    },
-  },
+  firstName: { type: Schema.Types.Mixed, required: true },
+  lastName: { type: Schema.Types.Mixed, required: true },
+  address: { type: Schema.Types.Mixed, required: true },
+  info: { type: Schema.Types.Mixed },
+  psc: { type: Schema.Types.Mixed, required: true },
+  city: { type: Schema.Types.Mixed, required: true },
 });
 
 const AddressDeliveryModel = mongoose.model<IAddressDeliveryModel>('userAddressDelivery', userAddressDelivery);

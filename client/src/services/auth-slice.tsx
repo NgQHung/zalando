@@ -37,6 +37,7 @@ export const requestLogin = (
         })
         .then(() => {
           navigate("/");
+          // refreshPage();
         })
         .catch((error) => {
           dispatch(authenticationActions.loginFail(error.response.data.message));

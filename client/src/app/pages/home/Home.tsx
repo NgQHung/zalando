@@ -21,7 +21,6 @@ export const Home = () => {
   // liked products from db
   const likedProductsId = useAppSelector((state) => state.cartSlice.likedProductsId);
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
-  // console.log("likedProductsId", likedProductsId);
 
   const loadingPage = useAppSelector((state) => state.UISlice.loading_page);
 
@@ -36,25 +35,21 @@ export const Home = () => {
     const target = e.currentTarget;
     const productIndex = products_1.findIndex((item) => item.name === target.getAttribute("datatype"));
     const product = products_1[productIndex];
-    // console.log(product.id);
-    // console.log("hello");
 
     let update;
     if (product) {
       const updateProduct = { ...product, isFavorite: !product.isFavorite };
       setSelectedProduct(updateProduct);
-      // if (updateProduct) {
-      // }
       update = [...products_1];
       update[productIndex] = updateProduct;
       dispatch(productActions.productsHandler({ products_1: update }));
+      // console.log("update", update);
     }
   };
 
   React.useEffect(() => {
     if (selectedProduct) {
       dispatch(cartActions.addFavoriteHandler(selectedProduct));
-      // console.log("addedFavorite", addedFavorite);
     }
 
     if (selectedProduct?.isFavorite === false) {
@@ -71,9 +66,7 @@ export const Home = () => {
       return;
     }
     postLikedProductById(dispatch, user, addedFavorite);
-
-    console.log("from home: ", addedFavorite);
-  }, [addedFavorite]);
+  }, [addedFavorite.length]);
 
   return (
     <Fragment>

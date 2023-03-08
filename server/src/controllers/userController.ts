@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import ShoppingCart from '../models/userShoppingCart';
 import AddressDelivery from '../models/userAddressDelivery';
-import LikedProductModel from '../models/userLiked';
+import LikedProductModel from '../models/userLikedProduct';
 import User from '../models/user';
 import PurchasedProducts from '../models/userPurchasedProducts';
 import { AxiosError } from 'axios';
@@ -213,20 +213,22 @@ const userController = {
           },
           // for push object data to an array
           {
-            $push: { data: data },
+            $push: {
+              data: data,
+            },
           }
           // { data: data }
         );
       } else {
         product = await PurchasedProducts.create({
           _id: id,
-          data: data,
+          data,
         });
       }
 
       // return res.status(200).json(req.body);
       return res.status(200).json({
-        id: id,
+        _id: id,
         data: product,
         message: `Info address delivery of user is updated successfully`,
       });

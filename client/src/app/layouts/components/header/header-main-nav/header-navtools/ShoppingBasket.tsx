@@ -90,9 +90,9 @@ const ShoppingBasket = () => {
       postShoppingCartById(dispatch, user, addedShoppingCart);
       // console.log("from ShoppingBasket");
     }
-    if (addedLikedProduct.length !== 0) {
+    if (addedLikedProduct.length > 0) {
       postLikedProductById(dispatch, user, addedLikedProduct);
-    } else {
+    } else if (addedFavoriteProductsFromDB.length > 0) {
       postLikedProductById(dispatch, user, addedFavoriteProductsFromDB);
     }
 

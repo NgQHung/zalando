@@ -49,7 +49,6 @@ export const getProducts = async (
       if (user) {
         //   // take data from BE
         let map: any;
-        console.log("likedProductsFromDB: ", likedProductsFromDB);
 
         const newLikedProductsFromDB = likedProductsFromDB.map((item) => item.id);
 
@@ -100,20 +99,13 @@ export const getDetailProduct = async (dispatch: Dispatch, id: number | null, us
       dispatch(productActions.selectedIdHandler(getSelectedId));
     }
   }
-  // console.log("apiRequest", id);
 
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
       response = await axios.get(`${uriBase.server}/product/${id ? id : getSelectedId}`);
       const detailProduct = response.data;
-      // console.log(detailProduct);
       dispatch(productActions.selectedProductHandler(detailProduct));
-      if (user) {
-        // const updateDetailProduct = product?.map((ele) => );
-        // console.log(updateDetailProduct);
-        // dispatch(productActions.favoriteProductFromDB(updateDetailProduct));
-      }
       dispatch(UIActions.loadingPage(false));
     }, 1000);
   } catch (error: any) {
@@ -187,9 +179,6 @@ export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
   try {
     response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/liked/products`);
     dispatch(cartActions.getLikedProduct(response.data.data));
-    // dispatch(cartActions.likedProductsId(response.data.data));
-
-    console.log("getLikedProductById: ", response.data.data);
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }
@@ -225,7 +214,6 @@ export const getAddressDeliveryById = async (dispatch: Dispatch, user: any) => {
   let response;
   try {
     response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/address-delivery/info`);
-    // console.log(response.data.data);
     dispatch(checkoutActions.addressDeliveryHandler(response.data.data));
   } catch (error: any) {
     toast.error(error.response?.data.message);
@@ -269,7 +257,6 @@ export const getPurchasedProducts = async (dispatch: Dispatch, user: any) => {
   try {
     dispatch(UIActions.loadingPage(true));
     response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/purchased-products`);
-    // console.log(response.data.data[1]);
     dispatch(checkoutActions.getAllPurchasedProductsById(response.data.data));
   } catch (error: any) {
     toast.error(error.response?.data.message);

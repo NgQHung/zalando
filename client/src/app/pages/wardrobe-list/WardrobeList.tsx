@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ProductDetail } from "../../../interfaces/ProductDetail";
 import { Products } from "../../../interfaces/Products";
-import { getDetailProduct } from "../../../services/apiRequest";
+import { getDetailProduct, postLikedProductById } from "../../../services/apiRequest";
 import { cartActions } from "../../../stores/cart-slice";
 import { productActions } from "../../../stores/product-slice";
 import Wrapper from "../../components/UI/wrapper/wrapper";
@@ -28,28 +28,15 @@ const WardrobeList = () => {
   const products_1 = useAppSelector((state) => state.productSlice.products_1);
   const [updateProducts, setUpdateProducts] = useState<Array<Products>>([]);
   const addedFavorite = useAppSelector((state) => state.cartSlice.addedFavorite);
+  // console.log("addedFavorite: ", addedFavorite);
   const addedFavoriteProductsFromDB = useAppSelector((state) => state.productSlice.favoriteProductFromDB);
   const user = useAppSelector((state) => state.userSlice.user) || JSON.parse(localStorage.getItem("User")!);
-
-  // console.log(cachedAddedFavoriteProductsFromDB);
-  // console.log("hello");
 
   useEffect(() => {
     setUpdateProducts([...products_1]);
   }, [products_1]);
 
   const dispatch = useAppDispatch();
-  // let isFirst = true;
-  // useEffect(() => {
-  //   if (isFirst) {
-  //     isFirst = false;
-  //     return;
-  //   }
-  //   const detailAddedFavoriteProductsFromDB = addedFavoriteProductsFromDB.map(
-  //     (item) => getDetailProduct(dispatch, item.id!)
-  //     // console.log(item.id)
-  //   );
-  // }, []);
 
   const removeFavoriteHandler = async (id: number) => {
     const removedFavorite = addedFavorite.find((item: Products) => item?.id === id);
@@ -161,6 +148,28 @@ const WardrobeList = () => {
 
     setOptionPopup(true);
   };
+
+  let isFirst = true;
+
+  // useEffect(() => {
+  //   if (isFirst) {
+  //     isFirst = false;
+  //   }
+  //   console.count("running...");
+  // }, [addedFavorite.length]);
+
+  // let isFirst = true;
+  React.useEffect(() => {
+    if (isFirst) {
+      isFirst = false;
+    }
+    if (!user) {
+      return;
+    }
+    // console.log("hel;lo");
+    console.log("addedFavorite:", addedFavorite);
+    postLikedProductById(dispatch, user, addedFavorite);
+  }, [addedFavorite.length]);
 
   React.useEffect(() => {
     let subscribe = true;

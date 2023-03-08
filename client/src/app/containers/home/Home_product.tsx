@@ -61,9 +61,9 @@ const HOME_PRODUCT = ({ products, selectedProductHandler, favoriteHandler }: IPr
             </div>
           ))}
         </div>
-        <div className="absolute bg-[#ffff] right-[152px] top-1/2 translate-y-[-50%]">
+        {/* <div className="absolute bg-[#ffff] right-[152px] top-1/2 translate-y-[-50%]">
           <FontAwesomeIcon icon={faArrowRight} className="p-2 text-[24px]" />
-        </div>
+        </div> */}
       </>
     </WrapperRowFull>
   );

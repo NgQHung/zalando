@@ -13,7 +13,7 @@ const Schema = mongoose.Schema;
 
 const userLikedProductSchema = new Schema({
   _id: { type: Schema.Types.ObjectId },
-  listProducts: [
+  data: [
     {
       type: {
         id: { type: Number },
