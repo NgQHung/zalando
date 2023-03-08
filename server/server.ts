@@ -35,7 +35,7 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
   next();
 });
@@ -63,9 +63,9 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
 app.use(router);
 
 mongoose
-  .connect(process.env.MONGO_URI!)
+  .connect(process.env.MONGO_URI)
   .then(() => {
-    app.listen(PORT, () => console.log('listening on port ', PORT));
+    app.listen(process.env.PORT || 8080, () => console.log('listening on port ', process.env.PORT || 8080));
   })
   .catch((error) => {
     console.log(error);

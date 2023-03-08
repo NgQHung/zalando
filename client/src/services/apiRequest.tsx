@@ -39,7 +39,7 @@ export const getProducts = async (
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
-      response = await axios.get(`${uriBase.server}/products`);
+      response = await axios.get(`${uriHeroku.server}/products`);
       const all = await response.data;
       const newAllProduct = await all.map((item: Products) => {
         return { ...item, isFavorite: false };
@@ -103,7 +103,7 @@ export const getDetailProduct = async (dispatch: Dispatch, id: number | null, us
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
-      response = await axios.get(`${uriBase.server}/product/${id ? id : getSelectedId}`);
+      response = await axios.get(`${uriHeroku.server}/product/${id ? id : getSelectedId}`);
       const detailProduct = response.data;
       dispatch(productActions.selectedProductHandler(detailProduct));
       dispatch(UIActions.loadingPage(false));
@@ -116,7 +116,7 @@ export const getDetailProduct = async (dispatch: Dispatch, id: number | null, us
 export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: Products[] | ShoppingProducts[]) => {
   console.count("post data to id of user");
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -124,14 +124,14 @@ export const postShoppingCartById = async (dispatch: Dispatch, user: any, data: 
   });
   let response;
   try {
-    response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/shopping-cart`, { data: data });
+    response = await authAxios.post(`${uriHeroku.server}/v1/user/${user?._id}/shopping-cart`, { data: data });
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }
 };
 export const getShoppingCartById = async (dispatch: Dispatch, user: any, allProducts: Products[]) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -142,7 +142,7 @@ export const getShoppingCartById = async (dispatch: Dispatch, user: any, allProd
   try {
     dispatch(UIActions.loadingPage(true));
     setTimeout(async () => {
-      response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/shopping-cart/products`);
+      response = await authAxios.get(`${uriHeroku.server}/v1/user/${user?._id}/shopping-cart/products`);
       dispatch(cartActions.getShoppingCart(response.data.data));
       dispatch(UIActions.loadingPage(false));
     }, 1000);
@@ -153,7 +153,7 @@ export const getShoppingCartById = async (dispatch: Dispatch, user: any, allProd
 
 export const postLikedProductById = async (dispatch: Dispatch, user: any, data: ILikedProductsId[]) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -161,7 +161,7 @@ export const postLikedProductById = async (dispatch: Dispatch, user: any, data: 
   });
 
   try {
-    await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/liked`, { data: data });
+    await authAxios.post(`${uriHeroku.server}/v1/user/${user?._id}/liked`, { data: data });
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }
@@ -169,7 +169,7 @@ export const postLikedProductById = async (dispatch: Dispatch, user: any, data: 
 
 export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -177,7 +177,7 @@ export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
   });
   let response;
   try {
-    response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/liked/products`);
+    response = await authAxios.get(`${uriHeroku.server}/v1/user/${user?._id}/liked/products`);
     dispatch(cartActions.getLikedProduct(response.data.data));
   } catch (error: any) {
     toast.error(error.response?.data.message);
@@ -186,7 +186,7 @@ export const getLikedProductById = async (dispatch: Dispatch, user: any) => {
 
 export const postAddressDelivery = async (dispatch: Dispatch, user: any, data: AddressDelivery) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -195,7 +195,7 @@ export const postAddressDelivery = async (dispatch: Dispatch, user: any, data: A
 
   let response;
   try {
-    response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/address-delivery`, { data: data });
+    response = await authAxios.post(`${uriHeroku.server}/v1/user/${user?._id}/address-delivery`, { data: data });
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }
@@ -204,7 +204,7 @@ export const postAddressDelivery = async (dispatch: Dispatch, user: any, data: A
 export const getAddressDeliveryById = async (dispatch: Dispatch, user: any) => {
   console.log("get address delivery");
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -213,7 +213,7 @@ export const getAddressDeliveryById = async (dispatch: Dispatch, user: any) => {
 
   let response;
   try {
-    response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/address-delivery/info`);
+    response = await authAxios.get(`${uriHeroku.server}/v1/user/${user?._id}/address-delivery/info`);
     dispatch(checkoutActions.addressDeliveryHandler(response.data.data));
   } catch (error: any) {
     toast.error(error.response?.data.message);
@@ -229,7 +229,7 @@ export const postPurchasedProducts = async (
   }
 ) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -238,7 +238,7 @@ export const postPurchasedProducts = async (
 
   let response;
   try {
-    response = await authAxios.post(`${uriBase.server}/v1/user/${user?._id}/purchased-products/post`, data);
+    response = await authAxios.post(`${uriHeroku.server}/v1/user/${user?._id}/purchased-products/post`, data);
   } catch (error: any) {
     toast.error(error.response?.data.message);
   }
@@ -246,7 +246,7 @@ export const postPurchasedProducts = async (
 
 export const getPurchasedProducts = async (dispatch: Dispatch, user: any) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${user?.accessToken}`,
     },
@@ -256,7 +256,7 @@ export const getPurchasedProducts = async (dispatch: Dispatch, user: any) => {
 
   try {
     dispatch(UIActions.loadingPage(true));
-    response = await authAxios.get(`${uriBase.server}/v1/user/${user?._id}/purchased-products`);
+    response = await authAxios.get(`${uriHeroku.server}/v1/user/${user?._id}/purchased-products`);
     dispatch(checkoutActions.getAllPurchasedProductsById(response.data.data));
   } catch (error: any) {
     toast.error(error.response?.data.message);

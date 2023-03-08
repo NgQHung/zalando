@@ -79,7 +79,7 @@ export const requestSignup = (dispatch: Dispatch, user: User_signup, navigate: N
 // request log out
 export const requestLogout = (dispatch: Dispatch, navigate: NavigateFunction, accessToken: string) => {
   const authAxios = axios.create({
-    baseURL: uriBase.server,
+    baseURL: uriHeroku.server,
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
