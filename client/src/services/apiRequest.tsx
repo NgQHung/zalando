@@ -24,7 +24,8 @@ const uriBase = {
 };
 
 const uriHeroku = {
-  server: "https://zalando-be.herokuapp.com",
+  // server: "https://zalando-be.herokuapp.com",
+  server: "http://localhost:8080",
 };
 
 // get all products
